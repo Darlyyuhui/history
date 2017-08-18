@@ -16,14 +16,14 @@ import com.xiangxun.ywpt.mobile.util.ResponseUtil;
 
 /**
  * 错误拦截器
- * 
+ *
  * @author HaoXiang 2017年3月1日
  */
 @Controller
 public class ErrorFilter implements HandlerInterceptor {
 
 	private static final Logger logger = LoggerFactory.getLogger(ErrorFilter.class);
-	
+
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object arg2, Exception arg3)
 			throws Exception {
