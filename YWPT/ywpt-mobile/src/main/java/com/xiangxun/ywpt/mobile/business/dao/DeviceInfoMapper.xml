@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.ywpt.mobile.business.dao.DeviceInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.ywpt.mobile.business.domain.DeviceInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="VARCHAR" />
+    <result column="FTP_ID" property="ftpId" jdbcType="VARCHAR" />
+    <result column="ROAD_ID" property="roadId" jdbcType="VARCHAR" />
+    <result column="ISSHOW" property="isshow" jdbcType="VARCHAR" />
+    <result column="BUILDTIME" property="buildtime" jdbcType="TIMESTAMP" />
+    <result column="BUILDISP_ID" property="buildispId" jdbcType="VARCHAR" />
+    <result column="BUILDNETWORK_ID" property="buildnetworkId" jdbcType="VARCHAR" />
+    <result column="POWERSOURCE" property="powersource" jdbcType="VARCHAR" />
+    <result column="TIMEOUT" property="timeout" jdbcType="DECIMAL" />
+    <result column="ISBLACKANALYSE" property="isblackanalyse" jdbcType="VARCHAR" />
+    <result column="PHOTO1" property="photo1" jdbcType="VARCHAR" />
+    <result column="PHOTO2" property="photo2" jdbcType="VARCHAR" />
+    <result column="PHOTO3" property="photo3" jdbcType="VARCHAR" />
+    <result column="IMPORTCODE" property="importcode" jdbcType="VARCHAR" />
+    <result column="LICENSE" property="license" jdbcType="VARCHAR" />
+    <result column="LASTDATATIME" property="lastdatatime" jdbcType="TIMESTAMP" />
+    <result column="PICMIX_ID" property="picmixId" jdbcType="VARCHAR" />
+    <result column="TOPORGCODE" property="toporgcode" jdbcType="VARCHAR" />
+    <result column="DEVICETYPECODE" property="devicetypecode" jdbcType="VARCHAR" />
+    <result column="TRADEMARK" property="trademark" jdbcType="VARCHAR" />
+    <result column="PATTERN" property="pattern" jdbcType="VARCHAR" />
+    <result column="EFFICACIOUS_STIME" property="efficaciousStime" jdbcType="TIMESTAMP" />
+    <result column="EFFICACIOUS_ETIME" property="efficaciousEtime" jdbcType="TIMESTAMP" />
+    <result column="INSPECTORG" property="inspectorg" jdbcType="VARCHAR" />
+    <result column="INSPECTTIME" property="inspecttime" jdbcType="TIMESTAMP" />
+    <result column="INSPECTNUMBER" property="inspectnumber" jdbcType="VARCHAR" />
+    <result column="MAPX" property="mapx" jdbcType="VARCHAR" />
+    <result column="MAPY" property="mapy" jdbcType="VARCHAR" />
+    <result column="VIDEO_CODE" property="videoCode" jdbcType="VARCHAR" />
+    <result column="ISSEND" property="issend" jdbcType="VARCHAR" />
+    <result column="INSERTTIME" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="FACTORY_ID" property="factoryId" jdbcType="VARCHAR" />
+  </resultMap>
+	<select id="deviceDetails" resultType="com.xiangxun.ywpt.mobile.business.domain.DeviceInfo" parameterType="com.xiangxun.ywpt.mobile.business.domain.DeviceInfo">
+		SELECT * FROM PROPERTY_DEVICE_INFO 
+		<where>
+		
+		<if test="code != null">
+	  		and CODE = #{code,jdbcType=VARCHAR}
+	  	</if>
+		
+		</where>
+	</select>
+	
+	<select id="deviceDetailByContions" resultType="com.xiangxun.ywpt.mobile.business.domain.DeviceInfo" parameterType="com.xiangxun.ywpt.mobile.business.domain.PerambulateInfo">
+		SELECT * FROM PROPERTY_DEVICE_INFO 
+		<where>
+		
+		<if test="deviceid != null">
+	  		and id = #{deviceid,jdbcType=VARCHAR}
+	  	</if>
+		
+		</where>
+	</select>
+ 
+</mapper>

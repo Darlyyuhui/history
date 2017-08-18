@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.ywpt.mobile.business.dao.WorkorderLogMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.ywpt.mobile.business.domain.WorkorderLog" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="WORKID" property="workid" jdbcType="VARCHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="OPERTIME" property="opertime" jdbcType="TIMESTAMP" />
+    <result column="OPERCONTENT" property="opercontent" jdbcType="VARCHAR" />
+    <result column="WORKSTATUS" property="workstatus" jdbcType="VARCHAR" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <insert id="save" parameterType="com.xiangxun.ywpt.mobile.business.domain.WorkorderLog" >
+    insert into ALARM_WORKORDER_LOG (ID, WORKID, ACCOUNT, 
+      OPERATOR, OPERTIME, OPERCONTENT, 
+      WORKSTATUS, NOTE)
+    values (#{id,jdbcType=VARCHAR}, #{workid,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, 
+      #{operator,jdbcType=VARCHAR}, #{opertime,jdbcType=TIMESTAMP}, #{opercontent,jdbcType=VARCHAR}, 
+      #{workstatus,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR})
+  </insert>
+ 
+  
+  
+ 
+  
+ 
+  
+</mapper>

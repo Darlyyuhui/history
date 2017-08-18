@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.ywpt.mobile.business.dao.CabInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.ywpt.mobile.business.domain.CabInfo" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="VARCHAR" />
+    <result column="ROAD_ID" property="roadId" jdbcType="VARCHAR" />
+    <result column="ISSHOW" property="isshow" jdbcType="VARCHAR" />
+    <result column="BUILDTIME" property="buildtime" jdbcType="DATE" />
+    <result column="BUILDNETWORK_ID" property="buildnetworkId" jdbcType="VARCHAR" />
+    <result column="PHOTO1" property="photo1" jdbcType="VARCHAR" />
+    <result column="PHOTO2" property="photo2" jdbcType="VARCHAR" />
+    <result column="PHOTO3" property="photo3" jdbcType="VARCHAR" />
+    <result column="SN" property="sn" jdbcType="VARCHAR" />
+    <result column="LASTDATATIME" property="lastdatatime" jdbcType="DATE" />
+    <result column="TOPORGCODE" property="toporgcode" jdbcType="VARCHAR" />
+    <result column="DEVICETYPECODE" property="devicetypecode" jdbcType="VARCHAR" />
+    <result column="TRADEMARK" property="trademark" jdbcType="VARCHAR" />
+    <result column="PATTERN" property="pattern" jdbcType="VARCHAR" />
+    <result column="EFFICACIOUS_STIME" property="efficaciousStime" jdbcType="DATE" />
+    <result column="FFICACIOUS_ETIME" property="fficaciousEtime" jdbcType="DATE" />
+    <result column="INSPECTORG" property="inspectorg" jdbcType="VARCHAR" />
+    <result column="INSPECTTIME" property="inspecttime" jdbcType="DATE" />
+    <result column="INSPECTNUMBER" property="inspectnumber" jdbcType="VARCHAR" />
+    <result column="MAPX" property="mapx" jdbcType="VARCHAR" />
+    <result column="MAPY" property="mapy" jdbcType="VARCHAR" />
+    <result column="ISSEND" property="issend" jdbcType="VARCHAR" />
+    <result column="INSERTTIME" property="inserttime" jdbcType="DATE" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="FACTORY_ID" property="factoryId" jdbcType="VARCHAR" />
+    <result column="PORT" property="port" jdbcType="VARCHAR" />
+    <result column="ALARMHOSTIP" property="alarmhostip" jdbcType="VARCHAR" />
+    <result column="ALARMHOSTPORT" property="alarmhostport" jdbcType="VARCHAR" />
+  </resultMap>
+
+	<select id="cabDetails" resultType="com.xiangxun.ywpt.mobile.business.domain.CabInfo" parameterType="com.xiangxun.ywpt.mobile.business.domain.CabInfo">
+		SELECT * FROM PROPERTY_ICABINET_INFO 
+		<where>
+		
+		<if test="code != null">
+	  		and CODE = #{code,jdbcType=VARCHAR}
+	  	</if>
+		
+		</where>
+	</select>
+	
+	<select id="cabDetailByContions" resultType="com.xiangxun.ywpt.mobile.business.domain.CabInfo" parameterType="com.xiangxun.ywpt.mobile.business.domain.PerambulateInfo">
+		SELECT * FROM PROPERTY_ICABINET_INFO 
+		<where>
+		
+		<if test="deviceid != null">
+	  		and id = #{deviceid,jdbcType=VARCHAR}
+	  	</if>
+		
+		</where>
+	</select>
+  
+</mapper>

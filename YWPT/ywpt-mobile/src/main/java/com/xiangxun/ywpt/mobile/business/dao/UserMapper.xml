@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.ywpt.mobile.business.dao.UserMapper">
+	<resultMap id="BaseMap" type="com.xiangxun.ywpt.mobile.business.domain.User">
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+	    <result column="PWD" property="pwd" jdbcType="VARCHAR" />
+	    <result column="NAME" property="name" jdbcType="VARCHAR" />
+	    <result column="DISABLED" property="disabled" jdbcType="VARCHAR" />
+	    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+	    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+	    <result column="IPRULE" property="ipRule" jdbcType="VARCHAR" />
+	    <result column="SET_VISIT_TIMES" property="setVisitTimes" jdbcType="VARCHAR" />
+	    <result column="LIMIT_VISIT_TIMES" property="limitVisitTimes" jdbcType="VARCHAR" />
+	    <result column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
+		<result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="getUserByAccount" parameterType="java.lang.String" resultMap="BaseMap">
+		SELECT T.ID, T.ACCOUNT, T.PWD, T.NAME, T.DISABLED,T.MOBILE,T.MEMO,T.IPRULE,T.SET_VISIT_TIMES,T.LIMIT_VISIT_TIMES,T.DEPTID ORG_ID, O.NAME ORG_NAME
+		FROM SYS_USER T 
+		LEFT JOIN SYS_ORG O ON O.ID = T.DEPTID
+		WHERE T.ACCOUNT = #{account,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getAllDic" resultType="map">
+		SELECT T.TYPE, T.CODE, T.NAME FROM SYS_DIC T ORDER BY T.CODE
+	</select>
+	
+	<update id="updatePwdByAccount">
+		UPDATE SYS_USER T
+		SET T.PWD = #{pwd,jdbcType=VARCHAR}
+		WHERE T.ACCOUNT = #{account,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

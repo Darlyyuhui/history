@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.ywpt.mobile.business.dao.PerambulateInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.ywpt.mobile.business.domain.PerambulateInfo" >
+	<id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DEVICEID" property="deviceid" jdbcType="VARCHAR" />
+    <result column="INSERTTIME" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="REASON" property="reason" jdbcType="VARCHAR" />
+    <result column="PICTURE1" property="picture1" jdbcType="BLOB" />
+    <result column="PICTURE2" property="picture2" jdbcType="BLOB" />
+    <result column="PICTURE3" property="picture3" jdbcType="BLOB" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="DEVICENAME" property="devicename" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+        <result column="POSITION" property="position" jdbcType="VARCHAR" />
+        <result column="DEVICEIP" property="deviceip" jdbcType="VARCHAR" />
+            <result column="DEVICECODE" property="devicecode" jdbcType="VARCHAR" />
+        
+    
+    <result column="ASSETTYPE" property="assettype" jdbcType="VARCHAR" />
+    <result column="DEVICEPLACE" property="deviceplace" jdbcType="VARCHAR" />
+        <result column="DEVICETYPE" property="devicetype" jdbcType="VARCHAR" />
+    
+    <result column="INSTALLTIME" property="installtime" jdbcType="VARCHAR" />
+    <result column="MAPX" property="mapx" jdbcType="VARCHAR" />
+    <result column="MAPY" property="mapy" jdbcType="VARCHAR" />
+
+    
+  
+ 
+  </resultMap>
+
+<insert id="perambulateUp"  parameterType="com.xiangxun.ywpt.mobile.business.domain.PerambulateInfo">
+	INSERT INTO ALARM_PERAMBULATE_INFO
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+	  <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceid)" >
+        DEVICEID,
+      </if>
+     <if test="@Ognl@isNotEmpty(inserttime)" >
+        INSERTTIME,
+      </if> -->
+      <if test="@Ognl@isNotEmpty(userid)" >
+        USERID,
+      </if>
+      <if test="@Ognl@isNotEmpty(reason)" >
+        REASON,
+      </if>
+      <if test="@Ognl@isNotEmpty(picture1)" >
+        PICTURE1,
+      </if>
+      <if test="@Ognl@isNotEmpty(picture2)" >
+        PICTURE2,
+      </if>
+      <if test="@Ognl@isNotEmpty(picture3)" >
+        PICTURE3,
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE,
+      </if>
+      <if test="@Ognl@isNotEmpty(assettype)" >
+        devicetype,
+      </if>
+      <if test="@Ognl@isNotEmpty(devicename)" >
+        devicename,
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceplace)" >
+        position,
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        deviceip,
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        devicecode
+      </if>
+      
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides="," >
+	  <if test="@Ognl@isNotEmpty(id)" >
+		#{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceid)" >
+		#{deviceid,jdbcType=VARCHAR},
+      </if>
+     <if test="@Ognl@isNotEmpty(inserttime)" >
+		#{inserttime,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(userid)" >
+		#{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(reason)" >
+		#{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(picture1)" >
+		#{picture1,jdbcType=BLOB},
+      </if>
+      <if test="@Ognl@isNotEmpty(picture2)" >
+		#{picture2,jdbcType=BLOB},
+      </if>
+      <if test="@Ognl@isNotEmpty(picture3)" >
+		#{picture3,jdbcType=BLOB},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+		#{note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assettype)" >
+        #{assettype,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicename)" >
+     	 #{devicename,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceplace)" >
+     	 #{deviceplace,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+    	  #{ip,jdbcType=VARCHAR},
+      </if>
+       <if test="@Ognl@isNotEmpty(code)" >
+    	  #{code,jdbcType=VARCHAR}
+      </if>
+	</trim>
+
+</insert>
+
+
+ <!-- 根据条件查询工单信息,根据时间倒叙排列 -->
+  <select id="queryList" resultMap="BaseResultMap" parameterType="com.xiangxun.ywpt.mobile.business.domain.PerambulateInfo">
+	SELECT t.id,t.deviceid,t.inserttime,t.userid,t.reason,t.note,t1.name,t1.mobile,t2.installtime,t2.installplace as deviceplace,t2.ip,t2.assetname as devicename,t2.assettype FROM ALARM_PERAMBULATE_INFO t
+	  	   left join SYS_USER t1 on t1.id = t.userid
+	       left join PROPERTY_ASSET_INFO t2 on t.deviceid = t2.deviceid
+	       
+	<where>
+		<if test="userid != null">
+	  		and t.userid = #{userid,jdbcType=VARCHAR} 
+	  	</if>
+	</where>
+	
+	order by t.inserttime desc
+  
+  </select>
+
+	<!-- 查询总条数 -->
+	<select id="countList" parameterType="com.xiangxun.ywpt.mobile.business.domain.PerambulateInfo" resultType="java.lang.Integer" >
+  		SELECT count(*) FROM ALARM_PERAMBULATE_INFO
+  		<where>
+	 	
+	  	<if test="userid != null">
+	  		and USERID = #{userid,jdbcType=VARCHAR} 
+	  	</if>
+  		</where>
+  	
+  	</select>
+
+</mapper>

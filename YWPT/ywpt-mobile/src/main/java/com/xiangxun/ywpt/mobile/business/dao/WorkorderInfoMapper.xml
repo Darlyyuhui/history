@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.ywpt.mobile.business.dao.WorkorderInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.ywpt.mobile.business.domain.WorkorderInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DEVICENAME" property="devicename" jdbcType="VARCHAR" />
+    <result column="DEVICECODE" property="devicecode" jdbcType="VARCHAR" />
+    <result column="DEVICEIP" property="deviceip" jdbcType="VARCHAR" />
+    <result column="DEVICETYPE" property="devicetype" jdbcType="VARCHAR" />
+    <result column="ISOUTER" property="isouter" jdbcType="VARCHAR" />
+    <result column="POSITION" property="position" jdbcType="VARCHAR" />
+    <result column="COMPANYID" property="companyid" jdbcType="VARCHAR" />
+    <result column="CONTACT" property="contact" jdbcType="VARCHAR" />
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+    <result column="MESSAGES" property="messages" jdbcType="VARCHAR" />
+    <result column="ASSIGNACCOUNT" property="assignaccount" jdbcType="VARCHAR" />
+    <result column="ASSIGNTIME" property="assigntime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="ISREASSIGN" property="isreassign" jdbcType="VARCHAR" />
+    <result column="EXCEPTIONID" property="exceptionid" jdbcType="VARCHAR" />
+    <result column="OFFACCOUNT" property="offaccount" jdbcType="VARCHAR" />
+    <result column="OFFTIME" property="offtime" jdbcType="TIMESTAMP" />
+    <result column="ORGID" property="orgid" jdbcType="VARCHAR" />
+    <result column="ISLEAVE" property="isleave" jdbcType="VARCHAR" />
+    <result column="REASON" property="reason" jdbcType="VARCHAR" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+    <result column="ASSETID" property="assetid" jdbcType="VARCHAR" />
+    
+    <result column="CONTACTNAME" property="contactname" jdbcType="VARCHAR" />
+    <result column="ORGNAME" property="orgname" jdbcType="VARCHAR" />
+    <result column="COMPANYNAME" property="companyname" jdbcType="VARCHAR" />
+    <result column="MAPX" property="mapx" jdbcType="VARCHAR" />
+    <result column="MAPY" property="mapy" jdbcType="VARCHAR" />
+    <result column="PHOTO1" property="photo1" jdbcType="VARCHAR" />
+    <result column="PHOTO2" property="photo2" jdbcType="VARCHAR" />
+    <result column="PHOTO3" property="photo3" jdbcType="VARCHAR" />
+
+  <result column="PICTURE1" property="picture1" jdbcType="BLOB" />
+    <result column="PICTURE2" property="picture2" jdbcType="BLOB" />
+    <result column="PICTURE3" property="picture3" jdbcType="BLOB" />
+                
+  </resultMap>
+  
+  
+  <!-- 公用的sql语句 -->
+  <sql id="Base_Column_List">
+  	ID, DEVICENAME, DEVICECODE, DEVICEIP, DEVICETYPE, ISOUTER, POSITION, COMPANYID, CONTACT, 
+    TELEPHONE, MESSAGES, ASSIGNACCOUNT, ASSIGNTIME, STATUS, ISREASSIGN, EXCEPTIONID, 
+    OFFACCOUNT, OFFTIME, ORGID, ISLEAVE, REASON, NOTE, ASSETID
+  </sql>
+  
+  <!-- select t.*,t1.name ,t2.name ,t3.name from ALARM_WORKORDER_INFO t left join SYS_USER t1 on t.contact=t1.id and t.offaccount=t1.id
+       left join SYS_ORG t2 on t.orgid = t2.id
+       left join SERGRADE_FACTORY_INFO t3 on t.companyid=t3.id -->
+  
+  
+  <!-- 根据条件查询工单信息,根据时间倒叙排列 -->
+  <select id="queryList" resultMap="BaseResultMap" parameterType="com.xiangxun.ywpt.mobile.business.domain.WorkorderInfo">
+    SELECT t.*, t1.name as CONTACTNAME ,t2.name as ORGNAME, t3.name as COMPANYNAME ,t4.mapx,t4.mapy,t4.photo1 ,t4.photo2,t4.photo3  FROM ALARM_WORKORDER_INFO 
+  	 t left join SYS_USER t1 on t.contact=t1.id and t.offaccount=t1.id
+       left join SYS_ORG t2 on t.orgid = t2.id
+       left join SERGRADE_FACTORY_INFO t3 on t.companyid=t3.id 
+       left join PROPERTY_DEVICE_INFO t4 on t.devicecode = t4.code
+  	
+	  <where>
+	  	<if test="status != null">
+	 		<if test = "status == -6">
+	 			and t.STATUS in ('1','3','4','5','7')
+	 		</if>
+	  		<if test = "status != -6">
+	  		
+		  		<if test = "status == 0">
+		 			and t.STATUS in ('0','3')
+		 		</if>
+		 		
+		 		<if test = "status != 0">
+		 			and t.STATUS = #{status,jdbcType=VARCHAR}
+		 		</if>
+		 		
+	 			
+	 		</if>
+	  	</if>
+	  
+	  	<if test="contact != null">
+	  		and t.CONTACT = #{contact,jdbcType=VARCHAR} 
+	  	</if>
+	  	
+	  	<if test="devicename != null">
+	  		and t.DEVICENAME like #{devicename,jdbcType=VARCHAR}
+	  	</if>
+	  	
+	  	<if test="deviceip != null">
+	  		and t.DEVICEIP like #{deviceip,jdbcType=VARCHAR}
+	  	</if>
+	  	
+	  	<if test="devicecode != null">
+	  		and t.DEVICECODE like #{devicecode,jdbcType=VARCHAR}
+	  	</if>
+
+	  </where>
+  order by ASSIGNTIME DESC
+  
+  </select>
+  
+  
+  
+ 	<!-- 查询总条数 -->
+	<select id="countList" parameterType="com.xiangxun.ywpt.mobile.business.domain.WorkorderInfo" resultType="java.lang.Integer" >
+  		SELECT count(*) FROM ALARM_WORKORDER_INFO
+  		<where>
+	 	<if test="status != null">
+	 		<if test = "status == -6">
+	 			and STATUS in ('1','3','4','5','7')
+	 		</if>
+	  		<if test = "status != -6">
+	  		
+	 			<if test = "status == 0">
+		 			and STATUS in ('0','3')
+		 		</if>
+		 		
+		 		<if test = "status != 0">
+		 			and STATUS = #{status,jdbcType=VARCHAR}
+		 		</if>
+	 		</if>
+	  	</if>
+	  
+	  	<if test="contact != null">
+	  		and CONTACT = #{contact,jdbcType=VARCHAR} 
+	  	</if>
+	  	
+	  	<if test="devicename != null">
+	  		and DEVICENAME like #{devicename,jdbcType=VARCHAR}
+	  	</if>
+	  	
+	  	<if test="deviceip != null">
+	  		and DEVICEIP like #{deviceip,jdbcType=VARCHAR}
+	  	</if>
+	  	
+	  	<if test="devicecode != null">
+	  		and DEVICECODE like #{devicecode,jdbcType=VARCHAR}
+	  	</if>
+  		</where>
+  	
+  	</select>
+  	
+  	<!-- 查询已派发所有工单 -->
+	<select id="totalWorkOrder" parameterType="com.xiangxun.ywpt.mobile.business.domain.WorkorderInfo"  resultMap="BaseResultMap">
+  		SELECT t.id,t.devicename, t.devicecode,t.deviceip,t.devicetype,t.isouter,t.position,t.companyid,t.contact,t.telephone,t.messages,t.assignaccount,t.assigntime,t.status,t.isreassign,t.exceptionid,t.offaccount,t.offtime,t.orgid,t.isleave,t.reason,t.note,t.assetid,t1.name as CONTACTNAME ,t2.name as ORGNAME, t3.name as COMPANYNAME ,t4.mapx,t4.mapy,t4.photo1 ,t4.photo2,t4.photo3  FROM ALARM_WORKORDER_INFO 
+	  	 t left join SYS_USER t1 on t.contact=t1.id and t.offaccount=t1.id
+	       left join SYS_ORG t2 on t.orgid = t2.id
+	       left join SERGRADE_FACTORY_INFO t3 on t.companyid=t3.id 
+	       left join PROPERTY_DEVICE_INFO t4 on t.devicecode = t4.code
+  		<where>
+  		
+		 	<if test="status != null">
+		 		and t.STATUS = #{status,jdbcType=VARCHAR} 
+		  	</if>
+		  
+		  	<if test="contact != null">
+		  		and t.CONTACT = #{contact,jdbcType=VARCHAR} 
+		  	</if>
+		  	
+<!-- 		  	<if test="id != null">
+		  		and ID = #{id,jdbcType=VARCHAR}
+		  	</if> -->
+		  	
+  		</where>
+  	
+  	</select>
+  	
+  	
+  	<!-- 查看图片 -->
+  	<select id="watchPicture"  parameterType="com.xiangxun.ywpt.mobile.business.domain.WorkorderInfo" resultType="com.xiangxun.ywpt.mobile.business.domain.WorkorderInfo">
+
+  		SELECT picture1,picture2,picture3 FROM ALARM_WORKORDER_INFO
+  		<where>
+		  	<if test="id != null">
+		  		and ID = #{id,jdbcType=VARCHAR}
+		  	</if>
+  		</where>
+  		union all
+  		
+  		SELECT picture1,picture2,picture3 FROM ALARM_PERAMBULATE_INFO
+  		<where>
+		  	<if test="id != null">
+		  		and ID = #{id,jdbcType=VARCHAR}
+		  	</if>
+  		</where>
+   	
+  	</select>
+  	
+  	<!-- 更新状态(正常上报和异常上报);至于上报时候的图片,在另一个方法中上传 -->
+  	<update id="changeWorkorderStatus" parameterType="com.xiangxun.ywpt.mobile.business.domain.WorkorderInfo">
+  		update ALARM_WORKORDER_INFO
+  		
+  		<set>
+  		
+  		 <if test="status != null">
+	        STATUS = #{status,jdbcType=VARCHAR},
+	      </if>
+	      
+	      <if test="reason != null">
+	        REASON = #{reason,jdbcType=VARCHAR},
+	      </if>
+	      
+	      <if test="note != null">
+	        NOTE = #{note,jdbcType=VARCHAR},
+	      </if>
+	       <if test="exceptionid != null">
+	        EXCEPTIONID = #{exceptionid,jdbcType=VARCHAR},
+	      </if>
+
+	      
+  		</set>
+  		where ID = #{id,jdbcType=VARCHAR}
+  	
+  	</update>
+  
+  
+  <!-- 上传图片 -->
+  	<update id="upLoadPicture" parameterType="com.xiangxun.ywpt.mobile.business.domain.WorkorderInfo">
+  		update ALARM_WORKORDER_INFO
+  		
+  		<set>
+  		
+  		 <if test="picture1 != null">
+		  		PICTURE1 = #{picture1,jdbcType=BLOB},
+		  	</if>
+		  	
+		  	<if test="picture2 != null">
+		  		PICTURE2 = #{picture2,jdbcType=BLOB},
+		  	</if>
+		  	
+		  	<if test="picture3 != null">
+		  		PICTURE3 = #{picture3,jdbcType=BLOB},
+		  	</if>
+		  	
+  		</set>
+  		where ID = #{id,jdbcType=VARCHAR}
+  	
+  	</update>
+
+</mapper>

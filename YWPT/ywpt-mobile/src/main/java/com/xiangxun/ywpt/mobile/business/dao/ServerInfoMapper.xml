@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.ywpt.mobile.business.dao.ServerInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.ywpt.mobile.business.domain.ServerInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="SERVERIP" property="serverip" jdbcType="VARCHAR" />
+    <result column="MODEL" property="model" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="CPU_MODEL" property="cpuModel" jdbcType="VARCHAR" />
+    <result column="CPU_TYPE" property="cpuType" jdbcType="VARCHAR" />
+    <result column="CPU_NUM" property="cpuNum" jdbcType="DECIMAL" />
+    <result column="CPU_CORE_NUM" property="cpuCoreNum" jdbcType="DECIMAL" />
+    <result column="THREE_CACHE" property="threeCache" jdbcType="DECIMAL" />
+    <result column="THREAD_NUM" property="threadNum" jdbcType="DECIMAL" />
+    <result column="RAM_TYPE" property="ramType" jdbcType="VARCHAR" />
+    <result column="RAM_VOLUME" property="ramVolume" jdbcType="VARCHAR" />
+    <result column="DISK_PORT_TYPE" property="diskPortType" jdbcType="VARCHAR" />
+    <result column="DISK_VOLUME" property="diskVolume" jdbcType="VARCHAR" />
+    <result column="ADD_TIME" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
+    <result column="FACTORY_ID" property="factoryId" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  
+	<select id="serverDetails" resultType="com.xiangxun.ywpt.mobile.business.domain.ServerInfo" parameterType="com.xiangxun.ywpt.mobile.business.domain.ServerInfo">
+		SELECT * FROM PROPERTY_SERVER_INFO 
+		<where>
+		
+		<if test="code != null">
+	  		and CODE = #{code,jdbcType=VARCHAR}
+	  	</if>
+		
+		</where>
+	</select>
+</mapper>

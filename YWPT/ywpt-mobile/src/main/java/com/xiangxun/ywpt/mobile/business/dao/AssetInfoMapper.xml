@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.ywpt.mobile.business.dao.AssetInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.ywpt.mobile.business.domain.AssetInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DEVICEID" property="deviceid" jdbcType="VARCHAR" />
+    <result column="ASSETCODE" property="assetcode" jdbcType="VARCHAR" />
+    <result column="ASSETNAME" property="assetname" jdbcType="VARCHAR" />
+    <result column="ASSETMODEL" property="assetmodel" jdbcType="VARCHAR" />
+    <result column="ASSETTYPE" property="assettype" jdbcType="VARCHAR" />
+    <result column="ASSETSTATUS" property="assetstatus" jdbcType="VARCHAR" />
+    <result column="GUARANTEETIME" property="guaranteetime" jdbcType="TIMESTAMP" />
+    <result column="PURCHASETIME" property="purchasetime" jdbcType="TIMESTAMP" />
+    <result column="MANUFACTURER" property="manufacturer" jdbcType="VARCHAR" />
+    <result column="ENGINEERING" property="engineering" jdbcType="VARCHAR" />
+    <result column="INSTALLTIME" property="installtime" jdbcType="TIMESTAMP" />
+    <result column="INSTALLPLACE" property="installplace" jdbcType="VARCHAR" />
+    <result column="SERVICEID" property="serviceid" jdbcType="VARCHAR" />
+    <result column="MACADDRESS" property="macaddress" jdbcType="VARCHAR" />
+    <result column="CPU_STATUS" property="cpuStatus" jdbcType="VARCHAR" />
+    <result column="MEMORY_STATUS" property="memoryStatus" jdbcType="VARCHAR" />
+    <result column="DISK_STATUS" property="diskStatus" jdbcType="VARCHAR" />
+    <result column="CABINET_STATUS" property="cabinetStatus" jdbcType="INTEGER" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="REFRESHTIME" property="refreshtime" jdbcType="TIMESTAMP" />
+    <result column="POWER_STATUS" property="powerStatus" jdbcType="VARCHAR" />
+    <result column="NET_STATUS" property="netStatus" jdbcType="VARCHAR" />
+    <result column="DATA_STATUS" property="dataStatus" jdbcType="VARCHAR" />
+    <result column="FACTORY_ID" property="factoryId" jdbcType="VARCHAR" />
+    <result column="PAYOUTSTATUS" property="payoutstatus" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="ORGNAME" property="orgname" jdbcType="VARCHAR" />
+    
+    
+     
+  </resultMap>
+    <!-- 根据条件查询工单信息,根据时间倒叙排列 -->
+  <select id="queryList" resultMap="BaseResultMap" parameterType="com.xiangxun.ywpt.mobile.business.domain.AssetInfo">
+  	SELECT t.* ,t1.code FROM PROPERTY_ASSET_INFO t
+  	       left join PROPERTY_DEVICE_INFO t1 on t.deviceid = t1.id
+  	
+  	<where>
+  	
+  	<if test="assettype != null">
+  		and t.ASSETTYPE = #{assettype,jdbcType=VARCHAR}
+  	</if>
+  	
+  	</where>
+  </select>
+  
+	<!-- 根据类型查总条数 -->
+  <select id="countList" resultType="java.lang.Integer"  parameterType="com.xiangxun.ywpt.mobile.business.domain.AssetInfo">
+	SELECT count(*) FROM PROPERTY_ASSET_INFO
+	
+	<where>
+	<if test="assettype != null">
+  		and ASSETTYPE = #{assettype,jdbcType=VARCHAR}
+  	</if>
+	
+	</where> 
+  </select>
+	<!-- app端巡检模块查询不同类型(卡口device)资产的信息 -->
+	<select id="deviceDetails" resultMap="BaseResultMap" parameterType="com.xiangxun.ywpt.mobile.business.domain.AssetInfo">
+	  		SELECT t1.*,t.ip,t.code,t2.name as orgname FROM PROPERTY_DEVICE_INFO t
+        right join PROPERTY_ASSET_INFO t1 on t1.deviceid=t.id
+         left join SYS_ORG t2 on t2.id=t.org_id
+	  	<where>
+	  	
+	  	<if test="assetname != null">
+	  		and t1.ASSETNAME like #{assetname,jdbcType=VARCHAR}
+	  	</if>
+	  	<if test="assettype != null">
+	  		and t1.ASSETTYPE = #{assettype,jdbcType=VARCHAR}
+	  	</if>
+	  	
+	  	</where>
+	  </select>
+	  
+	  
+	  <!-- app端巡检模块查询不同类型(服务器server)资产的信息 -->
+	<select id="serverDetails" resultMap="BaseResultMap" parameterType="com.xiangxun.ywpt.mobile.business.domain.AssetInfo">
+	  		SELECT t1.*,t.serverip as ip,t.code,t2.name as orgname FROM PROPERTY_SERVER_INFO t
+        right join PROPERTY_ASSET_INFO t1 on t1.deviceid=t.id
+         left join SYS_ORG t2 on t2.id=t.org_id
+	  	<where>
+	  	
+	  	<if test="assetname != null">
+	  		and t1.ASSETNAME like #{assetname,jdbcType=VARCHAR}
+	  	</if>
+	  	<if test="assettype != null">
+	  		and t1.ASSETTYPE = #{assettype,jdbcType=VARCHAR}
+	  	</if>
+	  	
+	  	</where>
+	  </select>
+	  	  
+	  <!-- app端巡检模块查询不同类型(智能机柜cabinef)资产的信息 -->
+	<select id="cabinefDetails" resultMap="BaseResultMap" parameterType="com.xiangxun.ywpt.mobile.business.domain.AssetInfo">
+	  		SELECT t1.*,t.ip,t.code,t2.name as orgname FROM PROPERTY_ICABINET_INFO t
+        right join PROPERTY_ASSET_INFO t1 on t1.deviceid=t.id
+         left join SYS_ORG t2 on t2.id=t.org_id
+	  	<where>
+	  	
+	  	<if test="assetname != null">
+	  		and t1.ASSETNAME like #{assetname,jdbcType=VARCHAR}
+	  	</if>
+	  	<if test="assettype != null">
+	  		and t1.ASSETTYPE = #{assettype,jdbcType=VARCHAR}
+	  	</if>
+	  	
+	  	</where>
+	  </select>
+	  
+	<!-- app端巡检模块查询不同类型(数据库database)资产的信息 -->
+	<select id="databaseDetails" resultMap="BaseResultMap" parameterType="com.xiangxun.ywpt.mobile.business.domain.AssetInfo">
+		SELECT t.*,t1.ip FROM PROPERTY_ASSET_INFO t
+			left join PROPERTY_DATABASE_INFO t1 on  t.deviceid=t1.id
+
+	  	<where>
+	  	
+	  	<if test="assetname != null">
+	  		and t.ASSETNAME like #{assetname,jdbcType=VARCHAR}
+	  	</if>
+	  	<if test="assettype != null">
+	  		and t.ASSETTYPE = #{assettype,jdbcType=VARCHAR}
+	  	</if>
+	  	
+	  	</where>
+	  </select>
+	  
+	  
+	  <!-- app端巡检模块查询不同类型(ftp)资产的信息 -->
+	<select id="ftpDetails" resultMap="BaseResultMap" parameterType="com.xiangxun.ywpt.mobile.business.domain.AssetInfo">
+		SELECT t.*,t1.ip FROM PROPERTY_ASSET_INFO t
+			left join PROPERTY_FTP_INFO t1 on  t.deviceid=t1.id
+
+	  	<where>
+	  	
+	  	<if test="assetname != null">
+	  		and t.ASSETNAME like #{assetname,jdbcType=VARCHAR}
+	  	</if>
+	  	<if test="assettype != null">
+	  		and t.ASSETTYPE = #{assettype,jdbcType=VARCHAR}
+	  	</if>
+	  	
+	  	</where>
+	  </select>
+	  
+	  
+	  <!-- app端巡检模块查询不同类型(平台 project)资产的信息 -->
+	<select id="projectDetails" resultMap="BaseResultMap" parameterType="com.xiangxun.ywpt.mobile.business.domain.AssetInfo">
+		SELECT t.*,t1.ip FROM PROPERTY_ASSET_INFO t
+			left join PROPERTY_FTP_INFO t1 on  t.deviceid=t1.id
+
+	  	<where>
+	  	
+	  	<if test="assetname != null">
+	  		and t.ASSETNAME like #{assetname,jdbcType=VARCHAR}
+	  	</if>
+	  	<if test="assettype != null">
+	  		and t.ASSETTYPE = #{assettype,jdbcType=VARCHAR}
+	  	</if>
+	  	
+	  	</where>
+	  </select>
+	  
+</mapper>

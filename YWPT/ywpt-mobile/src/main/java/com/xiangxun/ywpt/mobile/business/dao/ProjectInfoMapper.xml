@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.ywpt.mobile.business.dao.ProjectInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.ywpt.mobile.business.domain.ProjectInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="PORT" property="port" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="FACTORY_ID" property="factoryId" jdbcType="VARCHAR" />
+  </resultMap>
+	<select id="projectDetails" resultMap="BaseResultMap" parameterType="com.xiangxun.ywpt.mobile.business.domain.ProjectInfo">
+		SELECT t.* FROM PROPERTY_PROJECT_INFO t
+		<where>
+		
+		<if test="name != null">
+	  		and t.NAME like #{name,jdbcType=VARCHAR}
+	  	</if>
+		
+		</where>
+	</select>
+ 
+</mapper>

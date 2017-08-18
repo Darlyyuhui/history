@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.ywpt.mobile.business.dao.OperationsAppMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.ywpt.mobile.business.domain.OperationsApp" >
+    <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="SAVE_URL" property="saveUrl" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="getNewVersion" resultMap="BaseResultMap">
+  	SELECT T.VERSION,T.NAME,T.REMARK,T.SAVE_URL
+	,TO_CHAR(T.CREATE_TIME, 'YYYY-MM-DD HH24:MI:SS') CREATE_TIME
+	FROM T_OPERATIONS_APP T
+	WHERE ROWNUM = 1
+	ORDER BY T.CREATE_TIME
+  </select>
+  
+</mapper>
