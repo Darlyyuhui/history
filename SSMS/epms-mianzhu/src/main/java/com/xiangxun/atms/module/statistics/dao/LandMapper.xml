@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.statistics.dao.LandMapper" >
+
+  <resultMap id="PieMap" type="com.xiangxun.atms.module.statistics.vo.LandPie" >
+    <result column="C_LV" property="cLv" jdbcType="VARCHAR" />
+    <result column="NUM_" property="num" jdbcType="INTEGER" />
+    <result column="PERC" property="perc" jdbcType="DECIMAL" />
+    <result column="WR_AREA" property="wrArea" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="LineMap" type="com.xiangxun.atms.module.statistics.vo.LandLine" >
+    <result column="REGION_NAME" property="regionName" jdbcType="VARCHAR" />
+    <result column="PH" property="ph" jdbcType="DECIMAL" />
+    <result column="CD" property="cd" jdbcType="DECIMAL" />
+    <result column="ACD" property="acd" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <select id="getPieData" statementType="CALLABLE" resultMap="PieMap" >
+    {CALL getLandPercByRegionId(
+    	#{regionId,mode=IN,jdbcType=VARCHAR}
+    	, #{beginTime,mode=IN,jdbcType=VARCHAR}
+    	, #{endTime,mode=IN,jdbcType=VARCHAR}
+    )}
+  </select>
+  
+  <select id="getPieDataAll" statementType="CALLABLE" resultMap="PieMap" >
+    {CALL getLandPerc(
+    	#{beginTime,mode=IN,jdbcType=VARCHAR}
+    	, #{endTime,mode=IN,jdbcType=VARCHAR}
+    )}
+  </select>
+  
+  <select id="getLineData" resultMap="LineMap" >
+  	SELECT R.NAME AS REGION_NAME, LTRIM(TT.AVG_PH) AS PH, LTRIM(TT.AVG_CD) AS CD, LTRIM(TT.AVG_ACD) AS ACD
+	FROM (
+		SELECT T.REGION_ID
+		, CAST(ROUND(AVG(T.PH),2) AS NUMERIC(10,2)) AS AVG_PH
+		, CAST(ROUND(AVG(T.CADMIUM),2) AS NUMERIC(10,2)) AS AVG_CD
+		, CAST(ROUND(AVG(T.AVAILABLE_CADMIUM),2) AS NUMERIC(10,2)) AS AVG_ACD
+		FROM V_ANALYSIS_LAND T
+		<where>
+		  <if test="@Ognl@isNotEmpty(regionId)" >
+	         AND T.REGION_ID = #{regionId,jdbcType=VARCHAR}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(beginTime)" >
+	         AND T.SAMPLING_TIME <![CDATA[>=]]> #{beginTime,jdbcType=VARCHAR}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(endTime)" >
+	         AND T.SAMPLING_TIME <![CDATA[<=]]> #{endTime,jdbcType=VARCHAR}
+	      </if>
+		</where>
+		GROUP BY T.REGION_ID
+	) TT 
+	LEFT JOIN T_REGION R ON TT.REGION_ID = R.ID
+	ORDER BY TT.REGION_ID
+  </select>
+  
+  
+</mapper>

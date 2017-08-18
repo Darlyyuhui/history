@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.land.dao.LandMissionMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.land.vo.LandMission" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Jul 14 17:28:44 CST 2017.
+    -->
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="CODE" property="code" jdbcType="NVARCHAR" />
+    <result column="DEPT" property="dept" jdbcType="NVARCHAR" />
+    <result column="MISSION_STATUS" property="missionStatus" jdbcType="INTEGER" />
+    <result column="NAVIGATION" property="navigation" jdbcType="LONGNVARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="SCHEME_ID" property="schemeId" jdbcType="NVARCHAR" />
+    <result column="NAME" property="name" jdbcType="NVARCHAR" />
+    
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+    <result column="TEST_ITEMS" property="testItems" jdbcType="VARCHAR" />
+    <result column="S_CODE" property="sCode" jdbcType="VARCHAR" />
+    <result column="S_NAME" property="sName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Jul 14 17:28:44 CST 2017.
+    -->
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Jul 14 17:28:44 CST 2017.
+    -->
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, CODE, DEPT, MISSION_STATUS, NAVIGATION, CREATE_ID, CREATE_TIME, UPDATE_ID, UPDATE_TIME, 
+    STATUS, SCHEME_ID, NAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.land.vo.LandMissionSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Jul 14 17:28:44 CST 2017.
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_LAND_MISSION
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Jul 14 17:28:44 CST 2017.
+    -->
+    SELECT T.ID, T.CODE, T.DEPT, T.MISSION_STATUS, T.NAVIGATION,
+    	T.SCHEME_ID, T.NAME, S.CODE AS S_CODE, S.NAME AS S_NAME
+    FROM T_LAND_MISSION T
+    LEFT JOIN T_LAND_SAMPLING_SCHEME S ON S.ID = T.SCHEME_ID
+    WHERE T.ID = #{id,jdbcType=NVARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Jul 14 17:28:44 CST 2017.
+    -->
+    delete from T_LAND_MISSION
+    where ID = #{id,jdbcType=NVARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.land.vo.LandMissionSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Jul 14 17:28:44 CST 2017.
+    -->
+    delete from T_LAND_MISSION
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.land.vo.LandMission" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Jul 14 17:28:44 CST 2017.
+    -->
+    insert into T_LAND_MISSION (CODE, DEPT, MISSION_STATUS, 
+      NAVIGATION, CREATE_ID, CREATE_TIME, 
+      UPDATE_ID, UPDATE_TIME, STATUS, 
+      SCHEME_ID, NAME)
+    values (#{code,jdbcType=NVARCHAR}, #{dept,jdbcType=NVARCHAR}, #{missionStatus,jdbcType=INTEGER}, 
+      #{navigation,jdbcType=LONGNVARCHAR}, #{createId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{schemeId,jdbcType=NVARCHAR}, #{name,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.land.vo.LandMission" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Jul 14 17:28:44 CST 2017.
+    -->
+    insert into T_LAND_MISSION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(dept)" >
+        DEPT,
+      </if>
+      <if test="@Ognl@isNotEmpty(missionStatus)" >
+        MISSION_STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(navigation)" >
+        NAVIGATION,
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeId)" >
+        SCHEME_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(dept)" >
+        #{dept,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(missionStatus)" >
+        #{missionStatus,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(navigation)" >
+        #{navigation,jdbcType=LONGNVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeId)" >
+        #{schemeId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.land.vo.LandMissionSearch" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Jul 14 17:28:44 CST 2017.
+    -->
+    select count(*) from T_LAND_MISSION
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Jul 14 17:28:44 CST 2017.
+    -->
+    update T_LAND_MISSION
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.code)" >
+        CODE = #{record.code,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.dept)" >
+        DEPT = #{record.dept,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.missionStatus)" >
+        MISSION_STATUS = #{record.missionStatus,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.navigation)" >
+        NAVIGATION = #{record.navigation,jdbcType=LONGNVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createId)" >
+        CREATE_ID = #{record.createId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createTime)" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateId)" >
+        UPDATE_ID = #{record.updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateTime)" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.status)" >
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.schemeId)" >
+        SCHEME_ID = #{record.schemeId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Jul 14 17:28:44 CST 2017.
+    -->
+    update T_LAND_MISSION
+    set ID = #{record.id,jdbcType=NVARCHAR},
+      CODE = #{record.code,jdbcType=NVARCHAR},
+      DEPT = #{record.dept,jdbcType=NVARCHAR},
+      MISSION_STATUS = #{record.missionStatus,jdbcType=INTEGER},
+      NAVIGATION = #{record.navigation,jdbcType=LONGNVARCHAR},
+      CREATE_ID = #{record.createId,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{record.updateId,jdbcType=VARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      SCHEME_ID = #{record.schemeId,jdbcType=NVARCHAR},
+      NAME = #{record.name,jdbcType=NVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.land.vo.LandMission" >
+    update T_LAND_MISSION
+    <set >
+      <if test="code != null" >
+        CODE = #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="dept != null" >
+        DEPT = #{dept,jdbcType=NVARCHAR},
+      </if>
+      <if test="missionStatus != null" >
+        MISSION_STATUS = #{missionStatus,jdbcType=INTEGER},
+      </if>
+      <if test="navigation != null" >
+        NAVIGATION = #{navigation,jdbcType=LONGNVARCHAR},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="schemeId != null" >
+        SCHEME_ID = #{schemeId,jdbcType=NVARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.land.vo.LandMission" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Jul 14 17:28:44 CST 2017.
+    -->
+    update T_LAND_MISSION
+    set CODE = #{code,jdbcType=NVARCHAR},
+      DEPT = #{dept,jdbcType=NVARCHAR},
+      MISSION_STATUS = #{missionStatus,jdbcType=INTEGER},
+      NAVIGATION = #{navigation,jdbcType=LONGNVARCHAR},
+      CREATE_ID = #{createId,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=INTEGER},
+      SCHEME_ID = #{schemeId,jdbcType=NVARCHAR},
+      NAME = #{name,jdbcType=NVARCHAR}
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    SELECT T.ID, T.CODE, T.DEPT, T.MISSION_STATUS, T.NAVIGATION, T.STATUS
+    	, T.SCHEME_ID, T.NAME, S.CODE AS S_CODE, S.NAME AS S_NAME
+    FROM T_LAND_MISSION T
+    LEFT JOIN T_LAND_SAMPLING_SCHEME S ON S.ID = T.SCHEME_ID
+    <include refid="Base_Where"/>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <sql id="Base_Where">
+  	<where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and T.ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and T.CODE LIKE '%${code}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(dept)" >
+         and T.DEPT LIKE '%${dept}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(missionStatus)" >
+         and T.MISSION_STATUS = #{missionStatus,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(navigation)" >
+         and T.NAVIGATION = #{navigation,jdbcType=LONGNVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and T.STATUS = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeId)" >
+         and T.SCHEME_ID = #{schemeId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and T.NAME LIKE '%${name}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(sName)" >
+         and S.NAME LIKE '%${sName}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(sCode)" >
+         and S.CODE LIKE '%${sCode}%'
+      </if>
+    </where>
+  </sql>
+  <select id="countList" resultType="java.lang.Integer" >
+    SELECT COUNT(T.ID)
+    FROM T_LAND_MISSION T
+    LEFT JOIN T_LAND_SAMPLING_SCHEME S ON S.ID = T.SCHEME_ID
+    <include refid="Base_Where"/>
+  </select>
+  
+  <select id="queryRegSelect" resultMap="BaseResultMap">
+  	SELECT T.ID, T.CODE, T.NAME, T.DEPT, S.REGION_ID
+	FROM T_LAND_MISSION T
+	INNER JOIN T_LAND_SAMPLING_SCHEME S ON S.ID = T.SCHEME_ID
+	WHERE T.MISSION_STATUS = 1 AND T.STATUS = 0
+	AND S.SAMPLE_CODE = '${sampleCode}'
+  </select>
+  
+  <select id="getMissionById" resultMap="BaseResultMap">
+  	SELECT T.ID, T.CODE, T.NAME, T.DEPT, S.REGION_ID, S.TEST_ITEMS
+	FROM T_LAND_MISSION T
+	INNER JOIN T_LAND_SAMPLING_SCHEME S ON S.ID = T.SCHEME_ID
+	WHERE T.ID = '${id}'
+  </select>
+  
+  <select id="isDelete" resultType="java.lang.Integer">
+	SELECT [dbo].getRegCountByMissionId('${id}')
+  </select>
+  
+</mapper>

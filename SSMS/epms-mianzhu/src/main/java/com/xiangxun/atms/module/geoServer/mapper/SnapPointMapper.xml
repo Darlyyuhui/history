@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.geoServer.mapper.SnapPointMapper">
+	<resultMap id="SnapPoint" type="com.xiangxun.atms.module.geoServer.domain.SnapPoint">
+		<result column="result" property="geometryText" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="getRoadGeometrys" resultType="java.lang.String">
+		SELECT st_astext(geom) FROM public.road_line
+	</select>
+	
+	<!-- 捕捉某个范围的点 -->
+	<select id="searchSnapPoints" resultMap="SnapPoint">
+		select r as result
+		  from (SELECT st_astext(geom) as r, st_distance(geom, public.st_geometryfromtext('${geometryText}', 4326)) as dis from public.crosspoint t
+		         where public._st_dwithin(t.geom, public.st_geometryfromtext('${geometryText}',	4326), ${distance}) order by dis limit 1) b	
+	</select>
+	
+	<!-- 取出相交的geometry -->
+	<select id="searchIntersectGeometryList" resultMap="SnapPoint">
+		SELECT name, st_astext(geom) as result from public.road_line t where _st_dwithin(t.geom,public.st_geometryfromtext(#{geometryText},4326),0.001)
+	</select>
+	
+	
+		<!-- 取出点在线上的投影点 -->
+	<select id="queryClosedPoint" resultMap="SnapPoint">
+	    select st_astext(public.st_closestpoint(public.st_geometryfromtext(#{lineText},4326),public.st_geometryfromtext(#{pointText},4326))) as result;
+	</select>
+	
+	
+	<!-- 获取距离一点最近的道路 -->
+	<select id="getMinDistanceLine" resultMap="SnapPoint" parameterType="string">
+		select p.gid,  public.st_distance(p.geom ,public.st_geometryfromtext(#{geometryText},4326)) as distance,st_astext(p.geom) as result, p.name 
+				FROM public.road_line p order by distance asc limit  1
+	</select>
+	
+ </mapper>

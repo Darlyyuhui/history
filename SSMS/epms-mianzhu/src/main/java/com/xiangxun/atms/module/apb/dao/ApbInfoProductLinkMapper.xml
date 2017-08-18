@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.apb.dao.ApbInfoProductLinkMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.apb.vo.ApbInfoProductLink" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    <result column="INFO_ID" property="infoId" jdbcType="NVARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="NVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    INFO_ID, PRODUCT_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.apb.vo.ApbInfoProductLinkSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_APB_INFO_PRODUCT_LINK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectApbinfoNameByApbProductId"  parameterType="java.lang.String"  resultType="com.xiangxun.atms.module.apb.vo.ApbInfo">
+    select I.ID, I.NAME from T_APB_INFO I WHERE I.ID IN( SELECT P.INFO_ID FROM T_APB_INFO_PRODUCT_LINK P WHERE P.PRODUCT_ID =#{productId} )
+  </select>
+  <select id="selectProductTypeNameByApbInfoId"  parameterType="java.lang.String"  resultType="com.xiangxun.atms.module.apb.vo.ApbProductType">
+  SELECT T.NAME,T.CODE FROM T_APB_PRODUCT_TYPE T WHERE T.CODE IN( select I.CODE from T_APB_PRODUCT I WHERE I.ID IN( SELECT P.INFO_ID FROM T_APB_INFO_PRODUCT_LINK P WHERE P.INFO_ID =#{infoId} ))
+  </select>
+  <delete id="deleteByApbInfoProductLink" parameterType="com.xiangxun.atms.module.apb.vo.ApbInfoProductLink" >
+   
+    delete from T_APB_INFO_PRODUCT_LINK
+    <where>
+      <if test="@Ognl@isNotEmpty(infoId)" >
+         and INFO_ID = #{infoId,jdbcType=NVARCHAR}
+       </if>
+       <if test="@Ognl@isNotEmpty(productId)" >
+         and PRODUCT_ID = #{productId,jdbcType=NVARCHAR}
+       </if>
+      </where>
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.apb.vo.ApbInfoProductLinkSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    delete from T_APB_INFO_PRODUCT_LINK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause"  />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.apb.vo.ApbInfoProductLink" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    insert into T_APB_INFO_PRODUCT_LINK (INFO_ID, PRODUCT_ID)
+    values (#{infoId,jdbcType=NVARCHAR}, #{productId,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.apb.vo.ApbInfoProductLink" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    insert into T_APB_INFO_PRODUCT_LINK
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(infoId)" >
+        INFO_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(productId)" >
+        PRODUCT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(infoId)" >
+        #{infoId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(productId)" >
+        #{productId,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.apb.vo.ApbInfoProductLinkSearch" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    select count(*) from T_APB_INFO_PRODUCT_LINK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update  id="updateByProductId"  parameterType="com.xiangxun.atms.module.apb.vo.ApbInfoProductLink">
+    update T_APB_INFO_PRODUCT_LINK
+    <set>
+       <if test="@Ognl@isNotEmpty(infoId)" >
+        INFO_ID = #{infoId ,jdbcType=NVARCHAR}    
+      </if>
+      
+    </set>
+    <where>
+             
+        <if test="@Ognl@isNotEmpty(productId)">
+            PRODUCT_ID = #{productId,jdbcType=NVARCHAR}
+       </if>
+    </where>
+  </update>
+  <update id="updateByExampleSelective" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    update T_APB_INFO_PRODUCT_LINK
+    <set >
+      <if test="@Ognl@isNotEmpty(record.infoId)" >
+        INFO_ID = #{record.infoId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.productId)" >
+        PRODUCT_ID = #{record.productId,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    update T_APB_INFO_PRODUCT_LINK
+    set INFO_ID = #{record.infoId,jdbcType=NVARCHAR},
+      PRODUCT_ID = #{record.productId,jdbcType=NVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+     from T_APB_INFO_PRODUCT_LINK
+    <where >
+      <if test="@Ognl@isNotEmpty(infoId)" >
+         and INFO_ID = #{infoId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(productId)" >
+         and PRODUCT_ID = #{productId,jdbcType=NVARCHAR}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    select count(*) from T_APB_INFO_PRODUCT_LINK
+    <where >
+      <if test="@Ognl@isNotEmpty(infoId)" >
+         and INFO_ID = #{infoId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(productId)" >
+         and PRODUCT_ID = #{productId,jdbcType=NVARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

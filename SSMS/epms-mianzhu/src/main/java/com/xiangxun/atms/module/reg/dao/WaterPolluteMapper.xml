@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.reg.dao.WaterPolluteMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.reg.vo.WaterPollute" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jun 26 08:49:51 CST 2017.
+    -->
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="WATER_ID" property="waterId" jdbcType="NVARCHAR" />
+    <result column="TYPE_CODE" property="typeCode" jdbcType="NVARCHAR" />
+    <result column="NAME" property="name" jdbcType="NVARCHAR" />
+    <result column="FEATURES" property="features" jdbcType="NVARCHAR" />
+    <result column="SCALE" property="scale" jdbcType="NVARCHAR" />
+    <result column="REGION_ID" property="regionId" jdbcType="NVARCHAR" />
+    <result column="RIVER_DISTANCE" property="riverDistance" jdbcType="NVARCHAR" />
+    <result column="IS_OUTFALL" property="isOutfall" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="NVARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="NVARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jun 26 08:49:51 CST 2017.
+    -->
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jun 26 08:49:51 CST 2017.
+    -->
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jun 26 08:49:51 CST 2017.
+    -->
+    ID, WATER_ID, TYPE_CODE, NAME, FEATURES, SCALE, REGION_ID, RIVER_DISTANCE, IS_OUTFALL, 
+    STATUS, CREATE_ID, CREATE_TIME, UPDATE_ID, UPDATE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.reg.vo.WaterPolluteSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jun 26 08:49:51 CST 2017.
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_SAMPLING_WATER_POLLUTE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jun 26 08:49:51 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_SAMPLING_WATER_POLLUTE
+    where ID = #{id,jdbcType=NVARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jun 26 08:49:51 CST 2017.
+    -->
+    delete from T_SAMPLING_WATER_POLLUTE
+    where ID = #{id,jdbcType=NVARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.reg.vo.WaterPolluteSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jun 26 08:49:51 CST 2017.
+    -->
+    delete from T_SAMPLING_WATER_POLLUTE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.reg.vo.WaterPollute" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jun 26 08:49:51 CST 2017.
+    -->
+    insert into T_SAMPLING_WATER_POLLUTE (WATER_ID, TYPE_CODE, NAME, 
+      FEATURES, SCALE, REGION_ID, 
+      RIVER_DISTANCE, IS_OUTFALL, STATUS, 
+      CREATE_ID, CREATE_TIME, UPDATE_ID, 
+      UPDATE_TIME)
+    values (#{waterId,jdbcType=NVARCHAR}, #{typeCode,jdbcType=NVARCHAR}, #{name,jdbcType=NVARCHAR}, 
+      #{features,jdbcType=NVARCHAR}, #{scale,jdbcType=NVARCHAR}, #{regionId,jdbcType=NVARCHAR}, 
+      #{riverDistance,jdbcType=NVARCHAR}, #{isOutfall,jdbcType=INTEGER}, #{status,jdbcType=NVARCHAR}, 
+      #{createId,jdbcType=NVARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=NVARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.reg.vo.WaterPollute" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jun 26 08:49:51 CST 2017.
+    -->
+    insert into T_SAMPLING_WATER_POLLUTE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(waterId)" >
+        WATER_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(typeCode)" >
+        TYPE_CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(features)" >
+        FEATURES,
+      </if>
+      <if test="@Ognl@isNotEmpty(scale)" >
+        SCALE,
+      </if>
+      <if test="@Ognl@isNotEmpty(regionId)" >
+        REGION_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(riverDistance)" >
+        RIVER_DISTANCE,
+      </if>
+      <if test="@Ognl@isNotEmpty(isOutfall)" >
+        IS_OUTFALL,
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(waterId)" >
+        #{waterId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(typeCode)" >
+        #{typeCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(features)" >
+        #{features,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(scale)" >
+        #{scale,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(regionId)" >
+        #{regionId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(riverDistance)" >
+        #{riverDistance,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(isOutfall)" >
+        #{isOutfall,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        #{status,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.reg.vo.WaterPolluteSearch" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jun 26 08:49:51 CST 2017.
+    -->
+    select count(*) from T_SAMPLING_WATER_POLLUTE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jun 26 08:49:51 CST 2017.
+    -->
+    update T_SAMPLING_WATER_POLLUTE
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.waterId)" >
+        WATER_ID = #{record.waterId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.typeCode)" >
+        TYPE_CODE = #{record.typeCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.features)" >
+        FEATURES = #{record.features,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.scale)" >
+        SCALE = #{record.scale,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.regionId)" >
+        REGION_ID = #{record.regionId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.riverDistance)" >
+        RIVER_DISTANCE = #{record.riverDistance,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.isOutfall)" >
+        IS_OUTFALL = #{record.isOutfall,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.status)" >
+        STATUS = #{record.status,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createId)" >
+        CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createTime)" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateId)" >
+        UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateTime)" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jun 26 08:49:51 CST 2017.
+    -->
+    update T_SAMPLING_WATER_POLLUTE
+    set ID = #{record.id,jdbcType=NVARCHAR},
+      WATER_ID = #{record.waterId,jdbcType=NVARCHAR},
+      TYPE_CODE = #{record.typeCode,jdbcType=NVARCHAR},
+      NAME = #{record.name,jdbcType=NVARCHAR},
+      FEATURES = #{record.features,jdbcType=NVARCHAR},
+      SCALE = #{record.scale,jdbcType=NVARCHAR},
+      REGION_ID = #{record.regionId,jdbcType=NVARCHAR},
+      RIVER_DISTANCE = #{record.riverDistance,jdbcType=NVARCHAR},
+      IS_OUTFALL = #{record.isOutfall,jdbcType=INTEGER},
+      STATUS = #{record.status,jdbcType=NVARCHAR},
+      CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.reg.vo.WaterPollute" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jun 26 08:49:51 CST 2017.
+    -->
+    update T_SAMPLING_WATER_POLLUTE
+    <set >
+      <if test="waterId != null" >
+        WATER_ID = #{waterId,jdbcType=NVARCHAR},
+      </if>
+      <if test="typeCode != null" >
+        TYPE_CODE = #{typeCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="features != null" >
+        FEATURES = #{features,jdbcType=NVARCHAR},
+      </if>
+      <if test="scale != null" >
+        SCALE = #{scale,jdbcType=NVARCHAR},
+      </if>
+      <if test="regionId != null" >
+        REGION_ID = #{regionId,jdbcType=NVARCHAR},
+      </if>
+      <if test="riverDistance != null" >
+        RIVER_DISTANCE = #{riverDistance,jdbcType=NVARCHAR},
+      </if>
+      <if test="isOutfall != null" >
+        IS_OUTFALL = #{isOutfall,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=NVARCHAR},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.reg.vo.WaterPollute" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jun 26 08:49:51 CST 2017.
+    -->
+    update T_SAMPLING_WATER_POLLUTE
+    set WATER_ID = #{waterId,jdbcType=NVARCHAR},
+      TYPE_CODE = #{typeCode,jdbcType=NVARCHAR},
+      NAME = #{name,jdbcType=NVARCHAR},
+      FEATURES = #{features,jdbcType=NVARCHAR},
+      SCALE = #{scale,jdbcType=NVARCHAR},
+      REGION_ID = #{regionId,jdbcType=NVARCHAR},
+      RIVER_DISTANCE = #{riverDistance,jdbcType=NVARCHAR},
+      IS_OUTFALL = #{isOutfall,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=NVARCHAR},
+      CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jun 26 08:49:51 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+     from T_SAMPLING_WATER_POLLUTE
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(waterId)" >
+         and WATER_ID = #{waterId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(typeCode)" >
+         and TYPE_CODE = #{typeCode,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(features)" >
+         and FEATURES = #{features,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(scale)" >
+         and SCALE = #{scale,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(regionId)" >
+         and REGION_ID = #{regionId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(riverDistance)" >
+         and RIVER_DISTANCE = #{riverDistance,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(isOutfall)" >
+         and IS_OUTFALL = #{isOutfall,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+         and CREATE_ID = #{createId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+         and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+         and UPDATE_ID = #{updateId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+         and UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jun 26 08:49:51 CST 2017.
+    -->
+    select count(*) from T_SAMPLING_WATER_POLLUTE
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(waterId)" >
+         and WATER_ID = #{waterId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(typeCode)" >
+         and TYPE_CODE = #{typeCode,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(features)" >
+         and FEATURES = #{features,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(scale)" >
+         and SCALE = #{scale,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(regionId)" >
+         and REGION_ID = #{regionId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(riverDistance)" >
+         and RIVER_DISTANCE = #{riverDistance,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(isOutfall)" >
+         and IS_OUTFALL = #{isOutfall,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+         and CREATE_ID = #{createId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+         and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+         and UPDATE_ID = #{updateId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+         and UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+</mapper>

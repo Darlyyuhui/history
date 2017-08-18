@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.repair.dao.RepairProjectMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.repair.vo.RepairProject" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Sat Jun 10 10:03:24 CST 2017.
+    -->
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="CODE" property="code" jdbcType="NVARCHAR" />
+    <result column="NAME" property="name" jdbcType="NVARCHAR" />
+    <result column="BEGIN_TIME" property="beginTime" jdbcType="TIMESTAMP" />
+    <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="TECHNOLOGY" property="technology" jdbcType="NVARCHAR" />
+    <result column="REGION_ID" property="regionId" jdbcType="NVARCHAR" />
+    <result column="AREA" property="area" jdbcType="DECIMAL" />
+    <result column="MISSION_TARGET" property="missionTarget" jdbcType="NVARCHAR" />
+    <result column="EFFECT" property="effect" jdbcType="NVARCHAR" />
+    <result column="POLLUTE_TYPE" property="polluteType" jdbcType="NVARCHAR" />
+    <result column="EXPLAIN" property="explain" jdbcType="NVARCHAR" />
+    <result column="SCHEDULE" property="schedule" jdbcType="NVARCHAR" />
+    <result column="DEPT" property="dept" jdbcType="NVARCHAR" />
+    <result column="ACCEPTION_TIME" property="acceptionTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="NVARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    
+    <result column="BLOCK_IDS" property="blockIds" jdbcType="NVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Sat Jun 10 10:03:24 CST 2017.
+    -->
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Sat Jun 10 10:03:24 CST 2017.
+    -->
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Sat Jun 10 10:03:24 CST 2017.
+    -->
+    ID, CODE, NAME, BEGIN_TIME, END_TIME, TECHNOLOGY, REGION_ID, AREA, MISSION_TARGET, 
+    EFFECT, POLLUTE_TYPE, EXPLAIN, SCHEDULE, DEPT, ACCEPTION_TIME, CREATE_ID, CREATE_TIME, 
+    UPDATE_ID, UPDATE_TIME, [dbo].getBlockIdsByProId(ID) AS BLOCK_IDS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.repair.vo.RepairProjectSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Sat Jun 10 10:03:24 CST 2017.
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_LAND_REPAIR_PROJECT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Sat Jun 10 10:03:24 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_LAND_REPAIR_PROJECT
+    where ID = #{id,jdbcType=NVARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Sat Jun 10 10:03:24 CST 2017.
+    -->
+    delete from T_LAND_REPAIR_PROJECT
+    where ID = #{id,jdbcType=NVARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.repair.vo.RepairProjectSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Sat Jun 10 10:03:24 CST 2017.
+    -->
+    delete from T_LAND_REPAIR_PROJECT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.repair.vo.RepairProject" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Sat Jun 10 10:03:24 CST 2017.
+    -->
+    insert into T_LAND_REPAIR_PROJECT (CODE, NAME, BEGIN_TIME, 
+      END_TIME, TECHNOLOGY, REGION_ID, 
+      AREA, MISSION_TARGET, EFFECT, 
+      POLLUTE_TYPE, EXPLAIN, SCHEDULE, 
+      DEPT, ACCEPTION_TIME, CREATE_ID, 
+      CREATE_TIME, UPDATE_ID, UPDATE_TIME
+      )
+    values (#{code,jdbcType=NVARCHAR}, #{name,jdbcType=NVARCHAR}, #{beginTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{technology,jdbcType=NVARCHAR}, #{regionId,jdbcType=NVARCHAR}, 
+      #{area,jdbcType=NVARCHAR}, #{missionTarget,jdbcType=NVARCHAR}, #{effect,jdbcType=NVARCHAR}, 
+      #{polluteType,jdbcType=NVARCHAR}, #{explain,jdbcType=NVARCHAR}, #{schedule,jdbcType=NVARCHAR}, 
+      #{dept,jdbcType=NVARCHAR}, #{acceptionTime,jdbcType=TIMESTAMP}, #{createId,jdbcType=NVARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=NVARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.repair.vo.RepairProject" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Sat Jun 10 10:03:24 CST 2017.
+    -->
+    insert into T_LAND_REPAIR_PROJECT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(beginTime)" >
+        BEGIN_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(endTime)" >
+        END_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(technology)" >
+        TECHNOLOGY,
+      </if>
+      <if test="@Ognl@isNotEmpty(regionId)" >
+        REGION_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(area)" >
+        AREA,
+      </if>
+      <if test="@Ognl@isNotEmpty(missionTarget)" >
+        MISSION_TARGET,
+      </if>
+      <if test="@Ognl@isNotEmpty(effect)" >
+        EFFECT,
+      </if>
+      <if test="@Ognl@isNotEmpty(polluteType)" >
+        POLLUTE_TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(explain)" >
+        EXPLAIN,
+      </if>
+      <if test="@Ognl@isNotEmpty(schedule)" >
+        SCHEDULE,
+      </if>
+      <if test="@Ognl@isNotEmpty(dept)" >
+        DEPT,
+      </if>
+      <if test="@Ognl@isNotEmpty(acceptionTime)" >
+        ACCEPTION_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(beginTime)" >
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(endTime)" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(technology)" >
+        #{technology,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(regionId)" >
+        #{regionId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(area)" >
+        #{area,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(missionTarget)" >
+        #{missionTarget,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(effect)" >
+        #{effect,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(polluteType)" >
+        #{polluteType,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(explain)" >
+        #{explain,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(schedule)" >
+        #{schedule,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(dept)" >
+        #{dept,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(acceptionTime)" >
+        #{acceptionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.repair.vo.RepairProjectSearch" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Sat Jun 10 10:03:24 CST 2017.
+    -->
+    select count(*) from T_LAND_REPAIR_PROJECT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Sat Jun 10 10:03:24 CST 2017.
+    -->
+    update T_LAND_REPAIR_PROJECT
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.code)" >
+        CODE = #{record.code,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.beginTime)" >
+        BEGIN_TIME = #{record.beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.endTime)" >
+        END_TIME = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.technology)" >
+        TECHNOLOGY = #{record.technology,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.regionId)" >
+        REGION_ID = #{record.regionId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.area)" >
+        AREA = #{record.area,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.missionTarget)" >
+        MISSION_TARGET = #{record.missionTarget,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.effect)" >
+        EFFECT = #{record.effect,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.polluteType)" >
+        POLLUTE_TYPE = #{record.polluteType,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.explain)" >
+        EXPLAIN = #{record.explain,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.schedule)" >
+        SCHEDULE = #{record.schedule,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.dept)" >
+        DEPT = #{record.dept,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.acceptionTime)" >
+        ACCEPTION_TIME = #{record.acceptionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createId)" >
+        CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createTime)" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateId)" >
+        UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateTime)" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Sat Jun 10 10:03:24 CST 2017.
+    -->
+    update T_LAND_REPAIR_PROJECT
+    set ID = #{record.id,jdbcType=NVARCHAR},
+      CODE = #{record.code,jdbcType=NVARCHAR},
+      NAME = #{record.name,jdbcType=NVARCHAR},
+      BEGIN_TIME = #{record.beginTime,jdbcType=TIMESTAMP},
+      END_TIME = #{record.endTime,jdbcType=TIMESTAMP},
+      TECHNOLOGY = #{record.technology,jdbcType=NVARCHAR},
+      REGION_ID = #{record.regionId,jdbcType=NVARCHAR},
+      AREA = #{record.area,jdbcType=NVARCHAR},
+      MISSION_TARGET = #{record.missionTarget,jdbcType=NVARCHAR},
+      EFFECT = #{record.effect,jdbcType=NVARCHAR},
+      POLLUTE_TYPE = #{record.polluteType,jdbcType=NVARCHAR},
+      EXPLAIN = #{record.explain,jdbcType=NVARCHAR},
+      SCHEDULE = #{record.schedule,jdbcType=NVARCHAR},
+      DEPT = #{record.dept,jdbcType=NVARCHAR},
+      ACCEPTION_TIME = #{record.acceptionTime,jdbcType=TIMESTAMP},
+      CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.repair.vo.RepairProject" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Sat Jun 10 10:03:24 CST 2017.
+    -->
+    update T_LAND_REPAIR_PROJECT
+    <set >
+      <if test="code != null" >
+        CODE = #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="beginTime != null" >
+        BEGIN_TIME = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="technology != null" >
+        TECHNOLOGY = #{technology,jdbcType=NVARCHAR},
+      </if>
+      <if test="regionId != null" >
+        REGION_ID = #{regionId,jdbcType=NVARCHAR},
+      </if>
+      <if test="area != null" >
+        AREA = #{area,jdbcType=NVARCHAR},
+      </if>
+      <if test="missionTarget != null" >
+        MISSION_TARGET = #{missionTarget,jdbcType=NVARCHAR},
+      </if>
+      <if test="effect != null" >
+        EFFECT = #{effect,jdbcType=NVARCHAR},
+      </if>
+      <if test="polluteType != null" >
+        POLLUTE_TYPE = #{polluteType,jdbcType=NVARCHAR},
+      </if>
+      <if test="explain != null" >
+        EXPLAIN = #{explain,jdbcType=NVARCHAR},
+      </if>
+      <if test="schedule != null" >
+        SCHEDULE = #{schedule,jdbcType=NVARCHAR},
+      </if>
+      <if test="dept != null" >
+        DEPT = #{dept,jdbcType=NVARCHAR},
+      </if>
+      <if test="acceptionTime != null" >
+        ACCEPTION_TIME = #{acceptionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.repair.vo.RepairProject" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Sat Jun 10 10:03:24 CST 2017.
+    -->
+    update T_LAND_REPAIR_PROJECT
+    set CODE = #{code,jdbcType=NVARCHAR},
+      NAME = #{name,jdbcType=NVARCHAR},
+      BEGIN_TIME = #{beginTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      TECHNOLOGY = #{technology,jdbcType=NVARCHAR},
+      REGION_ID = #{regionId,jdbcType=NVARCHAR},
+      AREA = #{area,jdbcType=NVARCHAR},
+      MISSION_TARGET = #{missionTarget,jdbcType=NVARCHAR},
+      EFFECT = #{effect,jdbcType=NVARCHAR},
+      POLLUTE_TYPE = #{polluteType,jdbcType=NVARCHAR},
+      EXPLAIN = #{explain,jdbcType=NVARCHAR},
+      SCHEDULE = #{schedule,jdbcType=NVARCHAR},
+      DEPT = #{dept,jdbcType=NVARCHAR},
+      ACCEPTION_TIME = #{acceptionTime,jdbcType=TIMESTAMP},
+      CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from T_LAND_REPAIR_PROJECT
+    <include refid="Base_Where"/>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <sql id="Base_Where">
+  	<where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE LIKE '%${code}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME LIKE '%${name}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(beginTime)" >
+         and BEGIN_TIME = #{beginTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(endTime)" >
+         and END_TIME = #{endTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(technology)" >
+         and TECHNOLOGY = #{technology,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(regionId)" >
+         and REGION_ID = #{regionId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(area)" >
+         and AREA = #{area,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(missionTarget)" >
+         and MISSION_TARGET = #{missionTarget,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(effect)" >
+         and EFFECT = #{effect,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(polluteType)" >
+         and POLLUTE_TYPE = #{polluteType,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(explain)" >
+         and EXPLAIN = #{explain,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(schedule)" >
+         and SCHEDULE = #{schedule,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(dept)" >
+         and DEPT = #{dept,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(acceptionTime)" >
+         and ACCEPTION_TIME = #{acceptionTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </sql>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(ID) from T_LAND_REPAIR_PROJECT
+    <include refid="Base_Where"/>
+  </select>
+  
+  <insert id="saveProBlockLink" parameterType="map">
+  	INSERT INTO T_LAND_REPAIR_BLOCK_LINK(PRO_ID, BLOCK_ID) VALUES('${proId}', '${blockId}')
+  </insert>
+  
+  <delete id="deleteProBlockLink" parameterType="map">
+  	DELETE FROM T_LAND_REPAIR_BLOCK_LINK WHERE PRO_ID = '${proId}'
+  </delete>
+  
+  <select id="getLandBlocksById" parameterType="map" resultType="map">
+  	SELECT BLOCK_ID FROM T_LAND_REPAIR_BLOCK_LINK WHERE PRO_ID = '${proId}'
+  </select>
+</mapper>

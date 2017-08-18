@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<!-- 删除download目录下的文件 -->
+	<bean id="fileRemoveSchedule" 	class="com.xiangxun.atms.common.file.FileRemoveSchedule">
+		<!-- 已下载文件保留天数 -->
+		<property name="days" value="1"></property>
+	</bean>
+</beans>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.geoServer.mapper.MultipleQueryInfoMapper">
+	<resultMap id="multipleQueryInfo" type="com.xiangxun.atms.module.geoServer.domain.MultipleQueryInfo">
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="st_astext(geom)" property="geometryText" jdbcType="VARCHAR" />	
+	</resultMap>
+	<!-- 基于GIS的关键字查询 -->
+	<select id="searchMultipleQueryInfo" resultMap="multipleQueryInfo">
+				SELECT mc as name,st_astext(geom) as geometryText ,type as type
+				FROM public.xian_education WHERE mc like '%${name}%' and type like '%${type}%'
+				union
+				SELECT mc as name,st_astext(geom) as geometryText,type as type
+				FROM public.xian_county WHERE mc like '%${name}%' and type like '%${type}%'
+				union
+				SELECT mc as name,st_astext(geom) as geometryText,type as type
+				FROM public.xian_districtdanwei WHERE mc like '%${name}%' and type like '%${type}%'
+				union
+				SELECT mc as name,st_astext(geom) as geometryText,type as type
+				FROM public.xian_enjoypolice WHERE mc like '%${name}%' and type like '%${type}%'
+				union
+				SELECT mc as name,st_astext(geom) as geometryText,type as type
+				FROM public.xian_hosbital WHERE mc like '%${name}%' and type like '%${type}%'
+				union
+				SELECT mc as name,st_astext(geom) as geometryText,type as type
+				FROM public.xian_jingrong WHERE mc like '%${name}%' and type like '%${type}%'
+				union
+				SELECT mc as name,st_astext(geom) as geometryText,type as type
+				FROM public.xian_qishiye WHERE mc like '%${name}%' and type like '%${type}%'
+				union
+				SELECT name as name,st_astext(geom) as geometryText ,type1 as type
+				FROM public.xian_road WHERE name like '%${name}%' and type1 like '%${type}%'
+				union
+				SELECT mc as name,st_astext(geom) as geometryText,type as type
+				FROM public.xian_trafficcenter WHERE mc like '%${name}%'  and type like '%${type}%'
+ 	  </select>     
+ 	  <!-- 根据道路名称模糊查询道路，并返回道路名称 -->
+	<select id="queryRoadByName" resultType="java.lang.String">
+				select distinct dlmc from public.road_line 
+				where 1=1
+				<if test="@Ognl@isNotEmpty(roadName)" >
+					and dlmc like '%${roadName}%'
+				</if>
+	</select>
+	<!-- 根据道路名称模糊查询道路，并返回道路 -->
+	<select id="getRoadGeometryByNames" resultMap="multipleQueryInfo">
+				select st_astext(geom) as geometryText,'roads' as type, dlmc as name from public.road_line
+				<where>
+					<foreach collection="roadNames" item="roadName" separator="or">
+						<if test="@Ognl@isNotEmpty(roadName)" >
+							dlmc like '%${roadName}%'
+						</if>
+					</foreach>
+				</where>
+	</select>
+  
+ 	  <!-- 查询所有设备 -->
+	<select id="queryAllDevice" resultType="hashmap">
+				SELECT objectid, road_id as roadid, code, st_astext(geom) as geometryText
+				FROM public.kk_point
+	</select>
+ 	  <!-- 基于GIS的图形化查询设备 -->
+	<select id="queryDevice" resultType="hashmap" parameterType="java.lang.String">
+				SELECT objectid, road_id as roadid, code, st_astext(geom) as geometryText
+				FROM public.kk_point WHERE public.st_contains(st_geometryfromtext(#{geometryText},4326),geom)
+	</select>
+ 	  <!-- 基于GIS的图形化查询 -->
+	<select id="identifyMultipleQueryInfo" resultMap="multipleQueryInfo">
+				SELECT mc as name,st_astext(geom) as geometryText ,type as type
+				FROM public.xian_education WHERE public.st_contains(st_geometryfromtext(#{geometryText},4326),geom)
+				union
+				SELECT mc as name,st_astext(geom) as geometryText ,type as type
+				FROM public.xian_county WHERE public.st_contains(st_geometryfromtext(#{geometryText},4326),geom)
+				union
+				SELECT mc as name,st_astext(geom) as geometryText ,type as type
+				FROM public.xian_districtdanwei WHERE public.st_contains(st_geometryfromtext(#{geometryText},4326),geom)
+				union
+				SELECT mc as name,st_astext(geom) as geometryText ,type as type
+				FROM public.xian_enjoypolice WHERE public.st_contains(st_geometryfromtext(#{geometryText},4326),geom)
+				union
+				SELECT mc as name,st_astext(geom) as geometryText ,type as type
+				FROM public.xian_hosbital WHERE public.st_contains(st_geometryfromtext(#{geometryText},4326),geom)
+				union
+				SELECT mc as name,st_astext(geom) as geometryText ,type as type
+				FROM public.xian_jingrong WHERE public.st_contains(st_geometryfromtext(#{geometryText},4326),geom)
+				union
+				SELECT mc as name,st_astext(geom) as geometryText ,type as type
+				FROM public.xian_qishiye WHERE public.st_contains(st_geometryfromtext(#{geometryText},4326),geom)				
+				union
+				SELECT mc as name,st_astext(geom) as geometryText ,type as type
+				FROM public.xian_trafficcenter WHERE public.st_contains(st_geometryfromtext(#{geometryText},4326),geom) 
+				union
+				SELECT name as name,  st_astext(geom) as geometryText  ,type1 as type
+                FROM public.xian_road where  (SELECT st_intersects(st_geometryfromtext(#{geometryText},4326),geom))
+ 	  </select>      
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.geoServer.mapper.SpatialOperationMapper">
+	<resultMap id="LayerBean" type="com.xiangxun.atms.module.geoServer.domain.LayerBean">
+		<result column="gid" property="id" jdbcType="INTEGER" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="road_id" property="roadId" jdbcType="VARCHAR" />
+		<result column="road_name" property="roadName" jdbcType="VARCHAR" />
+		<result column="geom" property="geometry" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List" >
+    	GID,CODE,NAME,TYPE,ROAD_ID,ROAD_NAME, st_astext(GEOM) as geom
+  	</sql>
+	
+	<select id="intersect" resultType="java.lang.String" parameterType="java.lang.String">
+		select st_astext(st_intersection(#{first}, #{second}))
+	</select>
+	<!--
+	<select id="intersectWithLayer" statementType="STATEMENT">
+		select st_astext(st_intersection(st_geometryfromtext(${geo},4326), t.geom)) from
+			<trim prefix="(" suffix=") t">
+				<foreach collection="tableNames" item="tableName" separator="union">
+					select geom from ${tableName}
+				</foreach>
+			</trim>
+	</select>
+	
+	<select id="contains" resultType="java.lang.Boolean" parameterType="java.lang.String">
+		select st_contains(st_geometryfromtext(#{first}, 4326), st_geometryfromtext(#{second}, 4326))
+	</select>
+	-->	
+	<!-- 获取相交的几何图形 -->
+	<select id="getIntersections" statementType="STATEMENT" resultMap="LayerBean">
+		<foreach collection="tableNames" item="tableName" separator="union">
+			select
+			<include refid="Base_Column_List" />
+			from ${tableName} where _st_intersects(st_buffer(st_geometryfromtext(${geo}, 4326),0.00001), geom)
+		</foreach>
+	</select>
+	
+	<!-- 获取包含在某个几何体中的所有几何体 -->
+	<select id="getInnerGeometries" statementType="STATEMENT" resultMap="LayerBean">
+		<foreach collection="tableNames" item="tableName" separator="union">
+			select
+			<include refid="Base_Column_List"></include>
+			from ${tableName} where st_contains(geom, st_geometryfromtext(${geo}, 4326))
+		</foreach>
+	</select>
+	
+	<!-- 获取任意线要素上的投影点，第一个参数为线，第二个为点 -->
+	<select id="getClosestPoint" parameterType="java.lang.String" resultType="string">
+		select st_astext(st_closestpoint(st_geometryfromtext(#{0},4326), st_geometryfromtext(#{1},4326)));
+	</select>
+	
+	<select id="getClosestPointFromLayer" parameterType="map" resultType="string">
+		select st_astext(public.st_closestpoint(
+			(select t.geom from 
+				(select public.st_distance(p.geom ,public.st_geometryfromtext(#{geo},4326)) as distance, p.geom FROM 
+					<trim prefix="(" suffix=") p">
+						<foreach collection="tableNames" item="tableName" separator="union">
+							select geom from ${tableName}
+						</foreach>
+					</trim>
+				order by distance asc limit  1
+			)t )
+		,public.st_geometryfromtext(#{geo},4326))) as result
+	</select>
+	
+	<select id="getClosestPointFromGeos" parameterType="map" resultType="string">
+	  select st_astext(st_closestpoint(t.geo,st_geometryfromtext(#{point,,jdbcType=VARCHAR},4326))) from (
+      <foreach collection="geos" item="geo" separator="union" >
+      	select st_distance(st_geometryfromtext(#{point,jdbcType=VARCHAR},4326), st_geometryfromtext(#{geo,jdbcType=VARCHAR},4326)) as d, st_geometryfromtext(#{geo,jdbcType=VARCHAR},4326) as geo
+      </foreach>
+      ) t order by t.d asc limit 1
+	</select>
+	
+	<select id="snap" resultType="java.lang.String">
+	select st_astext(result) from 
+		(select result, st_distance(result, public.st_geometryfromtext(${geo},4326)) as dis from (select st_closestpoint(geom, st_geometryfromtext(${geo}, 4326)) as result from ${tableName} 
+			where _st_dwithin(geom, public.st_geometryfromtext(${geo},4326), ${tolerance})) b order by dis limit 1) c
+	</select>
+	
+	<!-- 截断操作，第一个参数为需要截断的几何体，第二个为截断的障碍几何体 -->
+	<select id="split" parameterType="string" resultType="string">
+		select st_astext(st_split(st_geometryfromtext(#{0}, 4326), st_geometryfromtext(#{1},4326)))
+	</select>
+	
+	<!-- 合并操作，为截断操作的反操作 -->
+	<select id="union" parameterType="string" resultType="string">
+		select st_astext(st_union(st_geometryfromtext(#{0}, 4326),st_geometryfromtext(#{1}, 4326)))
+	</select>
+</mapper>
