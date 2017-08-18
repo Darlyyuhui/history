@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.epms.mobile.business.dao.ApbInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.epms.mobile.business.domain.ApbInfo" >
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="CODE" property="code" jdbcType="NVARCHAR" />
+    <result column="NAME" property="name" jdbcType="NVARCHAR" />
+    <result column="LONGITUDE" property="longitude" jdbcType="DECIMAL" />
+    <result column="LATITUDE" property="latitude" jdbcType="DECIMAL" />
+    <result column="ADDRESS" property="address" jdbcType="NVARCHAR" />
+    <result column="ANNUAL_OUTPUT" property="annualOutput" jdbcType="NVARCHAR" />
+    <result column="AREA" property="area" jdbcType="DECIMAL" />
+    <result column="MAIN_PRODUCT" property="mainProduct" jdbcType="NVARCHAR" />
+    <result column="DESCRIBE" property="describe" jdbcType="NVARCHAR" />
+    <result column="AMBIENT" property="ambient" jdbcType="NVARCHAR" />
+    <result column="SOIL_TYPE" property="soilType" jdbcType="NVARCHAR" />
+    <result column="POLLUTE_DESC" property="polluteDesc" jdbcType="NVARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="NVARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    ID, CODE, NAME, LONGITUDE, LATITUDE, ADDRESS, ANNUAL_OUTPUT, AREA, MAIN_PRODUCT, 
+    DESCRIBE, AMBIENT, SOIL_TYPE, POLLUTE_DESC, CREATE_ID, CREATE_TIME, UPDATE_ID, UPDATE_TIME
+  </sql>
+  <select id="findAll"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_APB_INFO 
+  </select>
+</mapper>
