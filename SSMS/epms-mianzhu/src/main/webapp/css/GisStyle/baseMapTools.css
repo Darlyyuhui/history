@@ -1,0 +1,99 @@
+#measureWindow{
+    position:absolute;
+    right:5px;
+    top:5px;
+    z-index:998;
+    width:200px;
+    padding:5px;
+    background:#243C5F;
+}
+.roundedCorners{
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+}
+.innerDiv{
+    background:#F1F1DC; padding:4px;
+}
+#bookmarks-pane{
+    width: 200px !important;
+    top: 5px;
+    right: 210px;
+    position: absolute; 
+    border: 6px solid #243C5F;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    z-index: 40;
+    background:#F1F1DC;
+}
+.esriAddBookmark {
+  	cursor: pointer;
+  	text-align: left;
+}
+.esriBookmarkRemoveImage {
+    background: url('../../images/map/remove_bookmark.gif') no-repeat;
+}
+.esriBookmarks {
+    border: 0px solid #CAFF70;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+}
+.esriBookmarkHighlight {
+    background-color: #ffedaf;
+}
+#bookmarks-pane_pane {
+ 	text-align: center;
+}
+#legendPane {
+   	width: 200px !important;
+    top: 5px;
+    right: 420px;
+    position: absolute; 
+    border: 6px solid #243C5F;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    z-index: 40;
+    background:#F1F1DC;
+}
+#measurementDivbt{
+	width: 50px !important;
+	height:50px;
+	top: 10px;
+	right: 70px;
+	position: absolute; 
+	background:url("../../images/map/i_measure.png")no-repeat;
+	z-index: 40;
+	border:1.5px solid #00f;
+	border-radius:40px;
+	-moz-border-radius:40px;
+	-webkit-border-radius:40px;
+}
+#bookmarksDivbt{
+	width: 50px !important;
+	height:50px;
+	top: 10px;
+	right: 130px;
+	position: absolute; 
+	background:url("../../images/map/i_bookmark_add.png")no-repeat;
+	z-index: 40;
+	border:1.5px solid #00f;
+	border-radius:42px;
+	-moz-border-radius:40px;
+	-webkit-border-radius:40px;
+}
+#legendDivbt{
+ 	width: 50px !important;
+	height:50px;
+	top: 10px;
+	right: 190px;
+	position: absolute; 
+	background:url("../../images/map/i_layers.png")no-repeat;
+	z-index: 41;
+	border:1.5px solid #00f;
+	border-radius:40px;
+	-moz-border-radius:40px;
+	-webkit-border-radius:40px;
+}

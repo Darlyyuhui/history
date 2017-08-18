@@ -1,0 +1,2392 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+	word-break:break-all;
+	word-wrap:break-word;
+	padding-bottom:60px;
+}
+ul,li{
+	list-style:none;
+	padding:0;
+	margin:0;
+}
+.clear {
+	clear:both;
+}
+/*主导航页搜索框样式*/
+
+#body_bg {
+	position:absolute;
+	width:100%;
+	height:100%;
+	left:0;
+	bottom:0;
+	z-index:-1;
+}
+.search {
+	width:500px;
+	height:30px;
+	margin:0 auto;
+	line-height:30px;
+}
+.search span {
+	width:100px;
+	height:30px;
+	display:block;
+	float:left;
+}
+.search_input {
+	line-height:29px;
+	border:0;
+	padding:5px;
+	
+}
+.search_btn {
+	width:70px;
+	height:30px;
+	line-height:29px;
+	margin-left:10px;
+	background:none;
+	white-space:nowrap;
+	border:0;
+	background:url(../../images/picone/btn_search.png) no-repeat 0 0;
+	cursor:pointer;
+}
+.search_btn_h {
+	width:70px;
+	height:30px;
+	line-height:29px;
+	margin-left:10px;
+	background:none;
+	white-space:nowrap;
+	border:0;
+	background:url(../../images/picone/btn_search_h.png) no-repeat 0 0;
+	cursor:pointer;
+}
+
+/*主导航页样式*/
+.menu_box {
+	width:980px;
+	margin:0 auto;
+	overflow:hidden;
+	padding:30px 0 50px;
+}
+.mainmenu {
+	overflow:hidden;
+	margin:0;
+	padding:0;
+}
+.mainmenu li {
+	width:142px;
+	height:150px;
+	float:left;
+	padding:10px;
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+}
+.mainmenu li a {
+	height:150px;
+	display:block;
+	text-align:center;
+	color:#000;
+	font-size:18px;
+	font-family:Microsoft YaHei;
+	border-radius:10px;
+	moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	/*
+	background:#55eef8;
+	border:1px solid #999;
+	background-color:#55eef8;
+	background-image: -moz-linear-gradient(top, #d9e1f2, #9baedf);
+	background-image: -ms-linear-gradient(top, #d9e1f2, #9baedf);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#d9e1f2), to(#9baedf));
+	background-image: -webkit-linear-gradient(top, #d9e1f2, #9baedf);
+	background-image: -o-linear-gradient(top, #d9e1f2, #9baedf);
+	background-image: linear-gradient(top, #d9e1f2, #9baedf);
+	background-repeat: repeat-x;
+ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d9e1f2', endColorstr='#9baedf', GradientType=0);
+	box-shadow:1px 1px 2px #999;
+	-webkit-box-shadow: 1px 1px 2px #999;
+	-moz-box-shadow: 1px 1px 2px #999;*/
+}
+.mainmenu li a:hover {
+	color:#07008e;
+	text-decoration:none;
+	background:#92e4f3;
+	font-size:18px;
+/*	border:1px solid #54687d;
+	background-color:#55eef8;
+	background-image: -moz-linear-gradient(top, #e6ecff, #b9b9ff);
+	background-image: -ms-linear-gradient(top, #e6ecff, #b9b9ff);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e6ecff), to(#b9b9ff));
+	background-image: -webkit-linear-gradient(top, #e6ecff, #b9b9ff);
+	background-image: -o-linear-gradient(top, #e6ecff, #b9b9ff);
+	background-image: linear-gradient(top, #e6ecff, #b9b9ff);
+	background-repeat: repeat-x;
+ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e6ecff', endColorstr='#b9b9ff', GradientType=0);*/
+	box-shadow:0px 0px 2px #999;
+	-webkit-box-shadow: 0px 0px 2px #999;
+	-moz-box-shadow: 0px 0px 2px #999;
+}
+.menu_img {
+	height:110px;
+	padding-top:5px;
+}
+.menu_img img {
+	vertical-align:bottom;
+}
+.mainmenu li a span {
+	font-family:Microsoft YaHei;
+	font-size:14px;
+	padding:2px 15px;
+	display:inline;
+	margin-top:10px;
+	border-radius:20px;
+	moz-border-radius:20px;
+	-webkit-border-radius:20px;
+	background:#a6acd0;
+	color:#fff;
+}
+/*主导航页样式结束*/
+
+/*子系统页顶部样式开始*/
+.logo {
+	width:280px;
+	height:50px;
+	line-height:50px;
+	float:left;
+	background:url(../../images/picone/logo_3.png) no-repeat 0 center;
+}
+.header {
+	height:50px;
+	/*background-color: #e6ecff;
+	background-image: -moz-linear-gradient(top, #e6ecff, #c1c2ff);
+	background-image: -ms-linear-gradient(top, #e6ecff, #c1c2ff);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e6ecff), to(#c1c2ff));
+	background-image: -webkit-linear-gradient(top, #e6ecff, #c1c2ff);
+	background-image: -o-linear-gradient(top, #e6ecff, #c1c2ff);
+	background-image: linear-gradient(top, #e6ecff, #c1c2ff);
+	background-repeat: repeat-x;
+ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e6ecff', endColorstr='#c1c2ff', GradientType=0);
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+	margin-bottom:5px;*/
+	background:url(../../images/picone/head_bg.png) repeat-x 0 0;
+	border-bottom:1px solid #8a9ab1;
+}
+.menu_tab {
+	height:26px;
+	line-height:26px;
+	border-radius:40px 5px 0 0;
+	-moz-border-radius:40px 5px 0 0;
+	-webkit-border-radis:40px 5px 0 0;
+	background:#d0daef;
+	border:1px solid #6f7fa9;
+	border-bottom:0;
+	padding:0 40px;
+	position:relative;
+	bottom:0;
+	left:0;
+	margin-top:23px;
+	float:left;
+}
+.curentpage {
+	height:44px;
+	line-height:44px;
+	border-radius:40px;
+	-moz-border-radius:40px;
+	-webkit-border-radis:40px;
+	background-color:#96bbef;
+	background-image:-moz-linear-gradient(top, #e5ebff, #c5c6ff);
+	background-image:-ms-linear-gradient(top, #e5ebff, #c5c6ff);
+	background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#e5ebff), to(#c5c6ff));
+	background-image:-webkit-linear-gradient(top, #e5ebff, #c5c6ff);
+	background-image:-o-linear-gradient(top, #e5ebff, #c5c6ff);
+	background-image:linear-gradient(top, #e5ebff, #c5c6ff);
+	background-repeat:repeat-x;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e5ebff', endColorstr='#c5c6ff',GradientType=0);
+	border:1px solid #6d7f9a;
+	padding:0 20px 0 33px;
+	font-size:15px;
+	font-weight:bold;
+	font-family:Microsoft YaHei;
+	margin-bottom:10px;
+}
+.close {
+	width:14px;
+	height:16px;
+	position:absolute;
+	top:13px;
+	right:13px;
+	/*margin-top:15px;*/
+	background:url(../../images/picone/close.png) no-repeat center center;
+	cursor:pointer;
+}
+.close img {
+	vertical-align:middle;
+}
+
+.nav_title {
+	height:34px;
+	line-height:34px;
+	border-radius:3px 3px 0 0;
+	-moz-border-radius:3px 20px 0 0;
+	-webkit-border-radius:3px 3px 0 0;
+	/*background-color:#96bbef;
+	background-image:-moz-linear-gradient(top, #e5ebff, #c5c6ff);
+	background-image:-ms-linear-gradient(top, #e5ebff, #c5c6ff);
+	background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#e5ebff), to(#c5c6ff));
+	background-image:-webkit-linear-gradient(top, #e5ebff, #c5c6ff);
+	background-image:-o-linear-gradient(top, #e5ebff, #c5c6ff);
+	background-image:linear-gradient(top, #e5ebff, #c5c6ff);
+	background-repeat:repeat-x;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e5ebff', endColorstr='#c5c6ff',GradientType=0);*/
+	border:1px solid #bdc5d9;
+	border-bottom:1px solid #8a9ab1;
+	font-size:14px;
+	font-family:Microsoft YaHei;
+	background:url(../../images/picone/bg_left_title.png) repeat-x 0 0;
+	color:#000;
+}
+.nav_title span {
+	margin-right:10px;
+	margin-left:10px;
+}
+.nav_title a {
+	text-decoration:none;
+	color:#000;
+	text-shadow:none;
+}
+.nav_title a:hover {
+	text-decoration:none;
+	color:#000;
+	text-shadow:none;
+}
+
+
+/*首页左侧菜单样式*/
+
+
+/*主栏目打开后显示在标签栏样式开始*/
+#mainnavbar {
+	height:36px;
+	line-height:36px;
+	background:url(../../images/picone/mainnavbar_bg.png) repeat-x 0 0;
+	padding:0 5px;
+	border-bottom:1px solid #8a9ab1;
+	margin:0 auto;
+	overflow:hidden;
+}
+.menu_main,.menu_main_h {
+	height:30px;
+	float:left;
+	padding:5px 1px 0;
+	border-radius:5px 5px 0 0;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;
+	text-align:center;
+}
+.menu_main a {
+	display:block;
+	float:left;
+	padding:0 20px;
+	height:30px;
+	line-height:30px;
+	border:1px solid #8a9ab1;
+	border-bottom:0;
+	border-radius:5px 5px 0 0;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;
+	background:url(../../images/picone/bg1.png) repeat-x 0 0;
+	color:#000;
+	text-align:center;
+}
+.menu_main a:hover {
+	display:block;
+	float:left;
+	padding:0 20px;
+	height:31px;
+	line-height:30px;
+	border:1px solid #546685;
+	border-bottom:0;
+	border-radius:5px 5px 0 0;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;
+	text-decoration:none;
+	background:url(../../images/picone/bg1_h.png) repeat-x 0 0;
+	color:#000;
+	margin-bottom:-1px;
+}
+.menu_main_h a {
+	display:block;
+	float:left;
+	padding:0 20px;
+	height:31px;
+	line-height:31px;
+	border:1px solid #546685;
+	border-bottom:0;
+	border-radius:5px 5px 0 0;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;
+	background:url(../../images/picone/bg1_h.png) repeat-x 0 0;
+	color:#000;
+	margin-bottom:-1px;
+}
+.menu_main_h a:hover {
+	display:block;
+	float:left;
+	padding:0 20px;
+	height:31px;
+	line-height:31px;
+	border:1px solid #546685;
+	border-bottom:0;
+	border-radius:5px 5px 0 0;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;
+	background:url(../../images/picone/bg1_h.png) repeat-x 0 0;
+	color:#000;
+	margin-bottom:-1px;
+	text-decoration:none;
+}
+.menu_sys, .menu_active {
+	height:30px;
+	float:left;
+	position:relative;
+	padding:5px 1px 0;
+	border-radius:5px 5px 0 0;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;
+	text-align:center;
+}
+.menu_sys a {
+	display:block;
+	float:left;
+	padding:0 30px 0 10px;
+	height:30px;
+	line-height:30px;
+	border:1px solid #8a9ab1;
+	border-bottom:0;
+	border-radius:5px 5px 0 0;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;
+    background:#e3f2ff url(../images/picone/bg1.png) repeat-x 0 0;
+    color:#000;
+}
+.menu_sys a:hover {
+	float:left;
+	text-decoration:none;
+	background:url(../../images/picone/bg1_h.png) repeat-x 0 0;
+	border:1px solid #546685;
+	border-bottom:0;
+	color:#000;
+	height:31px;
+	line-height:30px;
+	margin-bottom:-1px;
+}
+.menu_active a {
+	float:left;
+	display:block;
+	height:31px;
+	padding:0 30px 0 10px;
+	line-height:31px;
+	background:url(../../images/picone/bg1_h.png) repeat-x 0 0;
+	border:1px solid #546685;
+	border-bottom:0;
+	border-radius:5px 5px 0 0;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;	
+	margin-bottom:-1px;
+}
+.menu_active a:hover {
+	float:left;
+	text-decoration:none;
+	background:url(../../images/picone/bg1_h.png) repeat-x 0 0;
+	border:1px solid #546685;
+	border-bottom:0;
+	color:#000;
+	height:31px;
+	margin-bottom:-1px;
+}
+.menu_sys span {
+	displsy:none;
+	float:right;
+	position:absolute;
+	z-index:50000;
+	right:10px;
+	top:14px;
+	background:url(../../images/picone/close.png) no-repeat 0 0;
+	filter:alpha(opacity=0);
+	opacity:0;
+	-moz-opacity:0;
+	border:1px solid #000;
+}
+.menu_active span {
+	width:14px;
+	height:14px;
+	displsy:block;
+	float:right;
+	position:absolute;
+	right:10px;
+	top:14px;
+	z-index:50000;
+	/*margin-left:5px;
+	margin-top:8px;*/
+	background:url(../../images/picone/close.png) no-repeat 0 0;
+	filter:alpha(opacity=60);
+	opacity:0.6;
+	-moz-opacity:0.6;
+}
+/*主栏目打开后显示在标签栏样式开始结束*/
+.sidenav_index {
+	border:1px solid #bdc5d9;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+}
+.sidenav_index li {
+	height:34px;
+	line-height:33px;
+	clear:both;
+}
+.sidenav_index li a {
+	display:block;
+	height:33px;
+	line-height:33px;
+	text-decoration:none;
+	color:#000;
+	font-family:Microsoft YaHei;
+	font-size:13px;
+}
+.sidenav_index li a:hover {
+	color:#02255a;
+	text-decoration:none;
+}
+.sidenav_index li a i {
+	width:13px;
+	height:13px;
+	display:block;
+	float:left;
+	margin:10px 10px 0 10px;
+}
+.li_first {
+	border-radius:5px 5px 0 0;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radis:5px 5px 0 0;
+	border-bottom:1px solid #bdc5d9;
+	background:url(../../images/picone/nav_bg.gif) repeat-x 0 0;
+}
+.li_first:hover, .li_center:hover, .li_last:hover {
+	background:url(../../images/picone/nav_bg_h.gif) repeat-x 0 0;
+}
+.li_center {
+	border-bottom:1px solid #bdc5d9;
+	background:url(../../images/picone/nav_bg.gif) repeat-x 0 0;
+}
+.li_last {
+	border-radius:0 0 5px 5px;
+	-moz-border-radius:0 0 5px 5px;
+	-webkit-border-radius:0 0 5px 5px;
+	background:url(../../images/picone/nav_bg.gif) repeat-x 0 0;
+}
+/*首页左边样式结束*/
+.position {
+	height:32px;
+	line-height:32px;
+	border:1px solid #bdc5d9;
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	padding:0 10px;
+	background:url(../../images/picone/pos_bg.png) repeat-x 0 0;
+}
+
+.mar_10 {
+	margin:10px;
+}
+.mar_t10 {
+	margin-top:10px;
+}
+.mar_b10 {
+	margin-bottom:10px;
+}
+.mar_r10 {
+	margin-right:10px;
+}
+.mar_l10 {
+	margin-left:10px;
+}
+
+
+.mar_5 {
+	margin:5px;
+}
+.mar_t5 {
+	margin-top:5px;
+}
+.mar_b5 {
+	margin-bottom:5px;
+}
+.mar_r5 {
+	margin-right:5px;
+}
+.mar_l5 {
+	margin-left:5px;
+}
+.conten_box {
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border:1px solid #bdc5d9;
+	background:#f3f8fd;
+}
+/*左侧菜单样式2开始*/
+#sidemenu {
+	padding:0;
+}
+.menu_first {
+	margin:0;	
+}
+.menu_first a:hover {
+	text-decoration:none;
+}
+
+.a_part {
+	height:32px;
+	line-height:32px;
+	font-size:14px;
+	font-family:Microsoft YaHei;
+	border:1px solid #bdc5d9;
+	border-top:0;
+	cursor:pointer;
+	color:#000;
+	margin-bottom:0;
+	background:url(../../images/picone/nav_head_bg.png) repeat-x 0 0;
+	overflow:hidden;
+}
+.a_part span {
+	width:16px;
+	height:16px;
+	line-height:16px;
+	display:inline;
+	float:left;
+	margin-top:10px;
+	margin-right:7px;
+	margin-left:10px;
+}
+.a_part span img {
+	vertical-align:top;
+}
+.a_part a {
+	color:#000;
+	text-decoration:none;
+	float:left;
+}
+.a_part a:hover {
+	color:#2d7aa6;
+	text-decoration:none;
+}
+.btn_slide {
+	display:block;
+}
+.colums_two {
+	display:block;
+	list-style:none;
+	margin-left:0;
+	margin-bottom:0;
+	padding:0;
+	border-left:1px solid #ccd6d7;
+	border-right:1px solid #ccd6d7;
+}
+.colums_two li {
+	padding-left:30px;
+	height:30px;
+	line-height:30px;
+	margin:0;
+	background:url(../../images/picone/nav_list_bg.png) repeat-x 0 0;
+	border-bottom:1px solid #ccd6d7;
+	clear:both;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.colums_two li span {
+	width:12px;
+	height:12px;
+	display:inline;
+	float:left;
+	margin-top:8px;
+	margin-right:5px;
+	background:url(../../images/picone/opa-icons-blue16.png) no-repeat -36px -18px;
+}
+.colums_two li a {
+	font:14px;
+	height:30px;
+	line-height:30px;
+	color:#3c474b;
+	padding:0;
+	margin:0;
+	text-shadow:none;
+}
+.colums_two li a:hover {
+	color:#4874f2;
+	text-decoration:none;
+	text-shadow:none;
+}
+/*左侧菜单样式2结束*/
+/*基础模块下页面样式开始*/
+.xtcs_h4 {
+	height:34px;
+	line-height:34px;
+	border-bottom:1px solid #8a9ab1;
+	font-size:14px;
+	font-family:Microsoft YaHei;
+	padding:0 10px;
+	border-radius:5px 5px 0 0;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;
+	margin-bottom:5px;
+	background-color:#ebeef7;
+	background-image:-moz-linear-gradient(top, #eaedf3, #cdd5ea);
+	background-image:-ms-linear-gradient(top, #eaedf3, #cdd5ea);
+	background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#eaedf3), to(#cdd5ea));
+	background-image:-webkit-linear-gradient(top, #eaedf3, #cdd5ea);
+	background-image:-o-linear-gradient(top, #eaedf3, #cdd5ea);
+	background-image:linear-gradient(top, #eaedf3, #cdd5ea);
+	background-repeat:repeat-x;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eaedf3', endColorstr='#cdd5ea', GradientType=0);
+}
+
+.btn_line {
+	text-align:center;
+	padding:5px;
+}
+.table_box {
+	padding:10px;
+}
+.table-style thead tr {
+	background:url(../../images/picone/th_bg.png) repeat-x 0 0;
+	font-size:12px;
+	font-family:Microsoft YaHei;
+}
+.table-style thead th {
+	white-space:nowrap;
+	vertical-align:middle;
+	text-align:center;
+}
+.table-style tbody {
+	font-size:12px;
+}
+.operation_text {
+	margin:0 5px;
+	color:#036;
+}
+.page_info {
+	float:right;
+}
+.page_info span {
+	color:#00f;
+	font-family:Microsoft YaHei;
+}
+/*查询表格*/
+.chaxun_tabel {
+	margin:0 10px;
+}
+.chaxun_tabel tr td {
+	line-height:30px;
+	padding-right:10px;
+}
+.search_item span {
+	float:left;
+	line-height:30px;
+}
+.mar_l15 {
+	margin-left:15px;
+}
+.mar_r15 {
+	margin-right:15px;
+}
+.ztree_box {
+	float:left;
+	margin-left:0;
+	border:1px solid #bdc5d9;
+	background-color:#f8f9fb;
+}
+/*.ztree_ul {
+	min-height:500px;
+}*/
+.ztree_ul2 {
+	min-height:500px;
+	border:1px solid #bdc5d9;
+	border-left:0;
+	float:left;
+	background-color:#eef3ff;
+	background-image:-moz-linear-gradent(left, #eef3ff, #ecedf2);
+	background-image:-webkit-gradienient(left, #eef3ff, #ecedf2);
+	background-image:-ms-linear-gradit(linear, 0 0, 0 100%, from(#eef3ff), to(#ecedf2));
+	background-image:-webkit-linear-gradient(left, #eef3ff, #ecedf2);
+	background-image:-o-linear-gradient(left, #eef3ff, #ecedf2);
+	background-image:linear-gradient(left, #eef3ff, #ecedf2);
+	background-repeat:repeat-y;
+ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eef3ff', endColorstr='#ecedf2', GradientType=1);
+}
+.controls_p {
+	height:30px;
+	line-height:30px;
+}
+.conten_box_2 {
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border:1px solid #bdc5d9;
+}
+.explain {
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border:1px solid #bdc5d9;
+	background:#f0f1f6;
+	padding:10px;
+}
+.explain h4 {
+	font-size:14px;
+	margin-bottom:10px;
+}
+.explain p {
+	margin:5px 0;
+}
+.explain p span {
+	color:#00f;
+	font-weight:bold;
+}
+.rz_content {
+	padding:10px 10px 20px;
+}
+.menu_area {
+	width:99%;
+	height:auto;
+	overflow:hidden;
+	position:relative;
+	padding:0;
+}
+/*
+.toolbar {
+	height:40px;
+	width:100%;
+	position:absolute;
+	top:46%;
+	left:0;
+}
+.toolbar span, .toolbar cite {
+    cursor:pointer;
+    margin:0 5px;
+}*/
+.operation_bar {
+	margin-bottom:50px;
+	margin-top:40px;
+	height:30px;
+}
+.operation_bar img {
+	margin:5px;
+}
+.options {
+	height:30px;
+	margin:0 auto;
+	line-height:30px;
+}
+.options img, .options cite {
+	cursor:pointer;
+}
+.op_table {
+	height:30px;
+	border-collapse:collapse;
+}
+.op_table tr {
+	height:30px;
+}
+.control_l {
+	width:15px;
+	padding:0;
+	background:url(../../images/picone/op_left.png) no-repeat 0 0;
+}
+.control_c,.control_op {
+	padding:0 ;
+	background:url(../../images/picone/op_c_bg.png) repeat-x 0 0;
+}
+.control_c a {
+	width:25px;
+	height:30px;
+	line-height:30px;
+	display:block;
+	float:left;
+	text-align:center;
+}
+.control_c a img {
+	vertical-align:middle;
+	display:block;
+}
+.control_r {
+	width:15px;
+	background:url(../../images/picone/op_right.png) no-repeat right 0;
+	padding:0;
+}
+.control_op img {
+	vertical-align:top;
+	margin:0;
+	padding:0;
+	display:block;
+}
+.control_r a {
+	width:22px;
+	height:30px;
+	display:block;
+	margin:0;
+	background:url(../../images/picone/gongneng.png) no-repeat 0 0;
+}
+/*主导航页下拉功能菜单*/
+.dropmenu {
+	width:600px;
+	background-color:#fff;
+	border:2px #5a94d0 solid;
+	padding:1px 1px 10px;
+	position:absolute;
+	top:20%;
+	left:40%;
+	display:none;
+	z-index:12000;
+	text-align:left;
+	border-radius:10px;
+	-moz-borderradius:10px;
+	-webkit-border-radius:10px;
+}
+.dropmenu h3 {
+	height:25px;
+	font-size:14px;
+	font-family:Microsoft YaHei;
+	position:relative;
+	padding-left:10px;
+	line-height:25px;
+	color:#fff;
+	border-radius:8px 8px 0 0;
+	-moz-border-radius:8px 8px 0 0;
+	-webkit-border-radius:8px 8px 0 0;
+	background-color:#3366cc;
+	background-image: -moz-linear-gradient(top, #7bafe6, #508bca);
+	background-image: -ms-linear-gradient(top, #7bafe6, #508bca);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#7bafe6), to(#508bca));
+	background-image: -webkit-linear-gradient(top, #7bafe6, #508bca);
+	background-image: -o-linear-gradient(top, #7bafe6, #508bca);
+	background-image: linear-gradient(top, #7bafe6, #508bca);
+	background-repeat: repeat-x;
+ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7bafe6', endColorstr='#508bca', GradientType=0);
+}
+.dropmenu h3 a {
+	position:absolute;
+	right:5px;
+	top:0px;
+	font-size:12px;
+	color:#fff;
+}
+
+/*纯css  tab切换*/
+#tab_nav {
+	margin:2px 0 0;
+	padding:4px;
+	height:26px;
+	background:#d2deed;
+}
+#tab_nav a {
+	height:20px;
+	line-height:20px;
+	padding:0 15px 5px 7px;
+	font:14px/24px "微软雅黑", Verdana, Arial, Helvetica, sans-serif;
+	text-decoration:none;
+	display:block;
+	border-radisu:20px;
+	-moz-border-radius:20px;
+	-webkit-border-radius:20px;
+	background:#528dcb;
+	color:#fff;
+	border:1px solid #5a94d0;
+	float:left;
+	margin-right:20px;
+}
+#tab_nav a:hover {
+	text-decoration:none;
+	color:#000;
+}
+#tab_nav a span {
+	float:left;
+	margin-top:-1px;
+}
+#tab_content {
+	font:"微软雅黑", Verdana, Arial, Helvetica, sans-serif;
+	background:#FFF;
+	height:270px;
+	overflow:hidden;
+	clear:both;
+}
+#t_1, #t_2 {
+	color:#000;
+	width:590px;
+	height:270px;
+	padding:5px 5px 0;
+	overflow:hidden;
+}
+.sidebar {
+	height:335px;
+	width:130px;
+	float:left;
+}
+.sub-menu {
+	border:1px solid #8f9cae;
+	border-top:0;
+	border-bottom:0;
+	margin:0;
+	padding:0;
+}
+.sub-menu li {
+	height:26px;
+	line-height:26px;
+	border-top:1px solid #b6c0cd;
+}
+.sub-menu li a {
+	height:26px;
+	line-height:26px;
+	display:block;
+	background-color:#e5e5e5;
+	background-image:-moz-linear-gradient(top, #ffffff, #cdcdcd);
+	background-image:-ms-linear-gradient(top, #ffffff, #cdcdcd);
+	background-image:-webkit-linear-gradient(top, #ffffff, #cdcdcd);
+	background-image:-webkit-gradient(linear,0 0, 0 100%, from(#ffffff) to(cdcdcd));
+	background-image: -o-linear-gradient(top, #ffffff, #cdcdcd);
+	background-image: linear-gradient(top, #ffffff, #cdcdcd);
+	background-image: -o-linear-gradient(top, #ffffff, #cdcdcd);
+	background-image: linear-gradient(top, #ffffff, #cdcdcd);
+	background-repeat: repeat-x;
+ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#cdcdcd', GradientType=0);
+	cursor:pointer;
+}
+.sub-menu li a:hover {
+	height:26px;
+	line-height:26px;
+	display:block;
+	background-color:#e5e5e5;
+	background-image:-moz-linear-gradient(top, #d6eaf7, #b2d9f0);
+	background-image:-ms-linear-gradient(top, #d6eaf7, #b2d9f0);
+	background-image:-webkit-linear-gradient(top, #d6eaf7, #b2d9f0);
+	background-image:-webkit-gradient(linear,0 0, 0 100%, from(#d6eaf7) to(b2d9f0));
+	background-image: -o-linear-gradient(top, #d6eaf7, #b2d9f0);
+	background-image: linear-gradient(top, #d6eaf7, #b2d9f0);
+	background-image: -o-linear-gradient(top, #d6eaf7, #b2d9f0);
+	background-image: linear-gradient(top, #d6eaf7, #b2d9f0);
+	background-repeat: repeat-x;
+ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d6eaf7', endColorstr='#b2d9f0', GradientType=0);
+	text-decoration:none;
+	color:#000;
+}
+.right_con {
+	border:1px solid #aaa;
+	width:430px;
+	height:333px;
+	padding:0 10px;
+	float:right;
+}
+.div_box {
+	width:183px;
+	height:100px;
+	float:left;
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	margin:5px;
+}
+.del {
+	border:1px solid #666;
+	background:#999;
+}
+.del span {
+	width:20px;
+	height:20px;
+	float:right;
+	display:block;
+	margin-right:-10px;
+	margin-top:-10px;
+	background:url(../../images/picone/Delete.png) no-repeat 0 0;
+	cursor:pointer;
+}
+.add {
+	border:1px solid #aaa;
+	background:#eee url(../../images/picone/Add.png) no-repeat center center;
+}
+
+/*卡口系统  内容分屏显示页*/
+.treenav {
+	min-height:500px;
+	border:1px solid #bdc5d9;
+	border-rigth:0;
+}
+.video_table td {
+	margin:0;
+	padding:0;
+}
+.video_table_inner tr td {
+	margin:0;
+	padding:1px;
+	border:1px solid #6397b0;
+} 
+
+
+/*主菜单滚动效果*/
+.rollBox {
+	width:100%;
+	overflow:hidden;
+	position:relative;
+	margin:0 auto;
+}
+.rollBox .LeftBotton {
+	height:40px;
+	width:20px;
+	overflow:hidden;
+	float:left;
+	display:inline;
+	cursor:pointer;
+	position:absolute;
+	left:2px;
+	top:46%;
+}
+.rollBox .RightBotton {
+	height:40px;
+	width:20px;
+	overflow:hidden;
+	float:right;
+	display:inline;
+	cursor:pointer;
+	position:absolute;
+	right:2px;
+	top:46%;
+}
+.rollBox .Cont {
+	width:980px;
+	overflow:hidden;
+	height:430px;
+	margin:0 auto;
+	padding:0;
+}
+.rollBox .ScrCont {
+	width:10000000px;
+}
+.rollBox .Cont .pic {
+	width:112px;
+	height:140px;
+	float:left;
+	padding:10px;
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	text-align:center;
+	margin:5px 15px;
+}
+.rollBox .Cont .pic img {
+	padding:0;
+	display:block;
+	margin:0 auto;
+	border-radius:8px;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+}
+.rollBox .Cont .pic p {
+	line-height:26px;
+	color:#505050;
+	font-size:12px;
+	margin-top:10px;
+}
+.rollBox #List1, .rollBox #List2 {
+	float:left;
+}
+.nav_name_small {
+	padding:1px 2px;
+	font-family:Microsoft YaHei;
+	font-size:12px;
+	height:20px;
+	overflow:hidden;
+	line-height:20px;
+	color:#000;
+	border-radius:20px;
+	-moz-border-radius:20px;
+	-webkit-border-radius:20px;
+	display:block;
+	text-align:center;
+}
+.nav_name_small:hover {
+	background:#a6acd0;
+	color:#fff;
+	text-decoration:none;
+}
+.list1_nav_p {
+	text-align:center;
+	margin-top:5px;
+	cursor:pointer;
+	height:22px;
+}
+.nav_name_list1 {
+	padding:1px 8px;
+	font-family:Microsoft YaHei;
+	font-size:14px;
+	line-height:22px;
+	margin-top:10px;
+	color:#000;
+	border-radius:20px;
+	-moz-border-radius:20px;
+	-webkit-border-radius:20px;
+	white-space:nowrap;
+	background:#edf2fc;
+	text-decoration:none;
+}
+.nav_name_list1:hover {
+	text-decoration:none;
+	color:#000;
+}
+.nav_name_p {
+	height:22px;
+	max-width:110px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	text-align:center;
+	margin-top:5px;
+	cursor:pointer;
+}
+.nav_name {
+	padding:1px 8px;
+	font-family:Microsoft YaHei;
+	font-size:14px;
+	line-height:22px;
+	margin-top:10px;
+	color:#000;
+	border-radius:20px;
+	-moz-border-radius:20px;
+	-webkit-border-radius:20px;
+	white-space:nowrap;
+}
+.nav_name:hover {
+	padding:1px 8px;
+	font-family:Microsoft YaHei;
+	text-decoration:none;
+	font-size:14px;
+	line-height:22px;
+	margin-top:10px;
+	color:#000;
+	border-radius:20px;
+	-moz-border-radius:20px;
+	-webkit-border-radius:20px;
+	white-space:nowrap;
+	background:#edf2fc;
+}
+.nav_name_big {
+	padding:3px 15px;
+	font-family:Microsoft YaHei;
+	font-size:14px;
+	line-height:30px;
+	margin-top:10px;
+	background:#a6acd0;
+	color:#000;
+	border-radius:20px;
+	-moz-border-radius:20px;
+	-webkit-border-radius:20px;
+	width: 20px;
+	height: 20px;
+}
+.btn-group-wrap {
+	background:#e9edf3;
+	padding:4px 5px 0;
+	border-radius:5px 5px 0 0;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;
+	border:1px solid #bdc5d9;
+	#padding:2px 5px 4px;
+}
+/*3行显示主界面图标*/
+.rollBox .Cont2 {
+	width:980px;
+	overflow:hidden;
+	height:420px;
+	margin:0 auto;
+	padding:0;
+}
+.rollBox .Cont2 .pic-2 {
+	width:100px;
+	height:140px;
+	float:left;
+	text-align:center;
+	margin:0px 20px;
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+}
+.rollBox .Cont2 .pic img {
+	display:block;
+	margin:0 auto;
+}
+
+/*4行显示主界面图标*/
+.rollBox .Cont3 {
+	width:976px;
+	overflow:hidden;
+	height:390px;
+	margin:0 auto;
+	padding:0 2px;
+}
+.rollBox .Cont3 .pic-3 {
+	width:100px;
+	height:130px;
+	float:left;
+	text-align:center;
+	margin:0px 11px;
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+}
+.rollBox .Cont3 .pic img {
+	display:block;
+	margin:0 auto;
+}
+
+/*4行显示主界面图标结束*/
+
+/*短信平台相关页面样式*/
+.sms_list {
+	margin:0;
+	padding:0;
+}
+.sms_list li {
+	line-height:24px;
+	font-size:12px;
+	padding:0 5px;
+}
+.sms_list li input {
+	margin:0;
+	margin-right:5px;
+}
+.button_se {
+	width:47px;
+	height:28px;
+	line-height:28px;
+	border:0;
+	background:url(../../images/picone/button_se.png) no-repeat 0 center;
+}
+.button_se_h {
+	width:47px;
+	height:28px;
+	line-height:28px;
+	border:0;
+	background:url(../../images/picone/button_se2.png) no-repeat 0 center;
+}
+input[type="text"] {
+	border-top:1px solid #546685;
+	border-left:1px solid #546685;
+	border-right:1px solid #aabac8;
+	border-bottom:1px solid #aabac8;
+	height:28px;
+	line-height:20px;
+	padding:4px;
+	margin:0;
+}
+
+textarea {
+	border-top:1px solid #546685;
+	border-left:1px solid #546685;
+	border-right:1px solid #aabac8;
+	border-bottom:1px solid #aabac8;
+	margin:0;
+	padding:4px;
+}
+
+select {
+	border-top:1px solid #546685;
+	border-left:1px solid #546685;
+	border-right:1px solid #aabac8;
+	border-bottom:1px solid #aabac8;
+	margin:0;
+	padding:4px;
+}
+
+/*布控录入*/
+.bukong-table tr td {
+	padding:10px 0 10px 10px;
+	height:28px;
+	line-height:28px;
+}
+
+.bukong-table tr td select {
+	margin-top:0;
+	margin-bottom:0;
+	padding-bottom:0;
+}
+label {
+	margin-top:0;
+	margin-bottom:0;
+}
+label input {
+	margin-top:0;
+	margin-bottom:0;
+}
+
+.table-xinxi tr td {
+	padding-top:10px;
+	padding-bottom:10px;
+}
+/*停车诱导页用样式*/
+.tingche-table tr td {
+	padding:5px 0 5px 10px;
+	height:28px;
+	line-height:28px;	
+}
+
+/*IE下圆角*/
+
+.road {
+	height:40px;
+	line-height:40px; 
+	padding:10px;
+}
+
+.mainInfo {
+	background:#069 url(../../images/picone/menu_body_bg.jpg) no-repeat center bottom;
+}
+.progress-bar {
+	background-color: #666633;
+	width:50px; 
+	height:50px; 
+	padding:2px; 
+	color: white;
+	display: none;
+}
+
+
+.step-import {
+	padding:10px;
+	background:#f9f9f9;
+	margin-bottom:10px;
+	margin-top:-10px;
+	border-bottom:1px solid #ddd;
+}
+.step-import ul {
+	border:0;
+}
+.step-import ul li {
+	float:left;
+	margin-right:10px;
+	height:40px;
+	line-height:40px;
+}
+.step-import ul li span {
+	float:left;
+	margin-right:3px;
+}
+
+/*add by kouyunhao 2013-07-18*/
+.btnbar{
+	margin-bottom:10px;
+	height: 30px;
+}
+
+/*道路管理-信息维护-添加新道路*/
+
+.road_list li {
+	float:left;
+	width:90px;
+	padding:0 5px;
+	height:24px;
+	line-height:24px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	margin:5px 10px 5px 0;
+	cursor:pointer;
+	border:1px solid #eee;
+}
+.road_list li a {
+	display:block;
+}
+.road_list li a:hover {
+	text-decoration:none;
+}
+
+.showmore {
+	margin-bottom:10px;
+}
+.toggleBtn {
+	padding:5px;
+	border:1px solid #bdc5d9;
+	cursor:pointer;
+	background:#f8f8f8;
+	color:#000;
+}
+
+.left-tree {
+	width:220px;
+	height:420px;
+	overflow:scroll;
+	margin:0;
+	padding:0;
+	background-color:#eef3ff;
+}
+.road-info-table {
+	width:420px;
+	height:420px;
+	overflow:scroll;
+	margin:0;
+}
+.tab2-map-info {
+	height:420px;
+	overflow:scroll;
+}
+
+/*左右展开闭合按钮*/
+.lr_btn {
+	width:10px;
+	height:480px;
+	position:relative;
+	float:left;
+	top:0px;
+	left:-20px;
+	background:url(../../images/picone/arr_left.png) no-repeat 0 0;
+	cursor:pointer;
+}
+.lr_btn_bg_l {
+	background:url(../../images/picone/arr_left.png) no-repeat 0 0;
+}
+.lr_btn_bg_r {
+	background:url(../../images/picone/arr_right.png) no-repeat 0 0;
+}
+
+.mar_l20 {
+	margin-left:15px;
+}
+
+/*左右展开闭合按钮*/
+
+/*标号增加样式开始*/
+
+.label-color5,
+.badge-color5 {
+	background-color: #006c6f;
+}
+
+.label-color5[href],
+.badge-color5[href] {
+	background-color: #0daab1;
+}
+.label-color3,
+.badge-color3 {
+	background-color: #005aa0;
+}
+
+.label-color3[href],
+.badge-color3[href] {
+	background-color: #3786c9;
+}
+.label-color4,
+.badge-color4 {
+	background-color: #4a1277;
+}
+
+.label-color4[href],
+.badge-color4[href] {
+	background-color: #3f2b8e;
+}
+.label-color2,
+.badge-color2 {
+	background-color: #9c7500;
+}
+
+.label-color2[href],
+.badge-color2[href] {
+	background-color: #d9a501;
+}
+.label-color1,
+.badge-color1 {
+	background-color: #888c01;
+}
+
+.label-color1[href],
+.badge-color1[href] {
+	background-color: #b9d302;
+}
+
+.label-color6,
+.badge-color6 {
+	background-color: #602f50;
+}
+
+.label-color6[href],
+.badge-color6[href] {
+	background-color: #dc6496;
+}
+
+/*标号增加样式结束*/
+
+/*诱导屏控制 相关页面样式*/
+
+.u_d_btn {
+	float:right;
+	cursor:pointer;
+}
+.line_info {
+	border-top:1px solid #eee;
+	border-bottom:1px solid #699cbc;
+}
+.titlename {
+	width:12%;
+	border-right:1px solid #8ab7d3;
+	background:#bddcef;
+	text-align:center;
+	float:left;
+	height:24px;
+	line-height:24px;
+	padding:2px 0;
+}
+.box-con {
+	float:left;
+	padding:2px 0 2px 5px;
+	height:24px;
+	line-height:24px;
+}
+.Wz-sel {
+	height:24px; 
+	line-height:24px; 
+	padding:2px; 
+	margin-top:-3px;
+	margin-bottom:0;
+}
+.Hhf-btn {
+	height:24px;
+	padding:1px 10px;
+	margin:0;
+	border:1px solid #b7b7b7;	
+	color:#000;
+	height:24px\0;
+	padding-top:3px\0;
+	#height:24px;
+	#padding-top:2px;
+	_height:24px;
+	_padding-top:2px;
+	margin-top:-4px;
+	
+}
+.icon-sanjiao {
+	height:7px;
+	width:7px;
+	display:block;
+	float:left;
+	background:url(../../images/picone/parking/r_dot.png) no-repeat 0 0;
+	margin-top:7px;
+	margin-top:4px\0;
+	margin-right:5px;
+}
+.sel_Radio {
+	margin-top:-1px;
+	margin-top:1px\0;
+	#margin-top:1px;
+	_margin-top:1px;
+}
+.left-icon {
+	margin-right:5px;
+	margin-top:-1px;
+	margin-top:-3px\0;
+	float:left;
+}
+.GdmlBtn_box {
+	padding:10px 5px 12px 5px;
+	padding:10px 5px 13px 5px\0;
+	#padding:10px 5px 13px 5px;
+	_padding:10px 5px 13px 5px;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+}
+. border-top {
+	border-top:1px solid #699cbc;
+}
+/*黄标车查询布局*/
+.hbc_table {
+	margin-bottom:10px;
+}
+.hbc_table td {
+	border:1px solid #ddd;
+	padding:0 3px;
+	font-size:12px;
+}
+
+.hbc_table_thead tr th {
+	height:22px;
+	line-height:22px;
+	padding:3px 2px;
+	background:url(../../images/picone/bg2.png) repeat-x 0 0;
+	text-align:left;
+	border:1px solid #ddd;
+	font-size:12px;
+}
+
+
+.search_item_td {
+	width:64px;
+	text-align:center;
+}
+
+.tbody_td tr td {
+	height:16px;
+	line-height:16px;
+}
+
+.company-info {
+	height:30px;
+	width:100%;
+	line-height:30px;
+	padding:0;
+	background:url(../../images/picone/head_bg.png) repeat-x 0 0;
+	border-top:1px solid #ccc;
+	position:fixed;
+	bottom:0px;
+	left:0;
+	z-index:1039;
+}
+.table_td td {
+	padding:3px 2px;
+}
+
+.td80 {
+	width:80px;
+	text-align:center;
+}
+.td54 {
+	width:54px;
+	text-align:center;
+}
+.mintd_140 {
+	min-width:140px;
+}
+.td96 {
+	width:96px;
+	text-align:center;
+}
+.td40 {
+	width:40px;
+	text-align:center;
+}
+.menuDiv {
+	width:178px;
+}
+.menuDiv h3 {
+	font-size:14px;
+	color:#000;
+	padding:5px 5px 5px 15px;
+	cursor:pointer;
+	height:22px;
+	line-height:22px;
+	border-bottom:1px solid #bdc5d9;
+	font-weight:normal;
+}
+.menuDiv ul {
+	width:100%;
+}
+.kkcx_table tr td {
+	font-size:14px;
+}
+.kkcx_table tr td select,.kkcx_table tr td input,.kkcx_table tr td textarea {
+	margin:0;
+}
+.tr_over {
+	background:#ffffe1;
+}
+.color1 {
+	background:#f5f5f5;
+}
+.color2 {
+	background:#f9f9f9;
+}
+.input-upload[type="file"]{
+	height: 24px;
+	width:250px;
+}
+.input-add[type="button"]{
+	height: 24px;
+}
+
+/*信号控制 区域信息 添加修改页面下属路口里的路口列表样式 */
+.signal_road_list li {
+	float:left;
+	width:220px;
+	height:26px;
+	line-height:26px;
+	background:#f3f3f3;
+	margin:2px 5px;
+	padding:2px;
+	overflow:hidden;
+}
+.signal_road_list li input {
+	float:left;
+	margin-right:5px;
+	margin-top:3px;
+}
+.signal_road_list2 li {
+	float:left;
+	width:180px;
+	height:26px;
+	line-height:26px;
+	background:#f3f3f3;
+	margin:2px 5px;
+	padding:2px;
+	overflow:hidden;
+}
+.signal_road_list2 li input {
+	float:left;
+	margin-right:5px;
+	margin-top:3px;
+}
+.org_width {
+	width:100px;
+	height:24px;
+	white-space:nowrap;
+	overflow:hidden;
+	-o-text-overflow:ellipsis;
+	text-overflow:ellipsis;
+	word-break:keep-all;
+}
+.secMenu p {
+	lineheight:22px;
+	margin:0;
+	cursor:pointer;
+}
+.secMenu a {
+	text-decoration:none;
+	cursor:pointer;
+}
+.secMenu a:hover {
+	text-decoration:none;
+	color:#19156e;
+	cursor:pointer;
+} 
+
+.search-area {
+	/*background:url(../../images/picone/search-area-bg.png) repeat-x 0 bottom;*/
+	background:url(../../images/picone/search-area-bg2.png) repeat-x 0 bottom;
+	border-bottom:1px solid #8a9ab1;
+	border-radius:5px 5px 0 0; 
+	-moz-border-radius:5px 5px 0 0; 
+	-webkit-border-radius:5px 5px 0 0; 
+	white-space:nowrap;
+	overflow-x:auto;
+}
+.search-area2 {
+	/*background:url(../../images/picone/search-area-bg.png) repeat-x 0 bottom;*/
+	background:url(../../images/picone/search-area-bg2.png) repeat-x 0 bottom;
+	border-bottom:1px solid #8a9ab1;
+}
+.sys-page1 {
+	background:#d5e4f0;
+	border-bottom:1px solid #9c9487;
+}
+.sys-page2 {
+	background:#d5e4f0; 
+	border-top:1px solid #9c9487;
+} 
+
+.monitor-td-bg {
+	background:#f0f2f6;
+}
+
+.video-area,.op_command {
+	margin-left:170px;
+	border:1px solid #6397b0;
+}
+.video_right {
+	border:1px solid #6397b0;
+} 
+.op_command {
+	border-top:0;
+	background-color:#f5f5f5;
+	background-image:-moz-linear-gradient(top, #eaecf2, #ffffff);
+	background-image:-ms-linear-gradient(top, #eaecf2, #ffffff);
+	background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#eaecf2), to(#ffffff));
+	background-image:-webkit-linear-gradient(top, #eaecf2, #ffffff);
+	background-image:-o-linear-gradient(top, #eaecf2, #ffffff);
+	background-image:linear-gradient(top, #eaecf2, #ffffff);
+	background-repeat:repeat-x;
+ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eaecf2', endColorstr='#ffffff', GradientType=0);
+}
+.radio-list li {
+	float:left;
+	margin-right:3px;
+}
+.radio-list li input {
+	float:left;
+	margin-top:3px;
+	margin-right:2px;
+	padding:0;
+}
+
+
+.sort-h3-title {
+	background:url(../../images/picone/mainnavbar_bg.png) repeat-x 0 0;
+	margin:0;
+}
+
+.table-th thead {
+	background:url(../../images/picone/thead_bg.png) repwat-x 0 0;
+}
+.table-th thead tr {
+	font-size:12px;
+	font-family:Microsoft YaHei;
+	margin-bottom:-1px;
+}
+.table-th thead th {
+	white-space:nowrap;
+	vertical-align:middle;
+}
+.table-th tbody {
+	font-size:12px;
+}
+
+.table-rail td {
+	padding-top:5px;
+	padding-bottom:5px;
+	height:24px;
+}
+
+.main-box {
+	background:url(../../images/picone/menu_body_bg_blue.jpg) no-repeat center 0;
+	margin:0;
+}
+
+/*file浏览控件样式设定*/
+
+.file-box {
+	position:relative;
+	text-align:cnter;
+	height:65px;
+	overflow:hidden;
+	padding:0;
+}
+.txt {
+	width:90%;
+	/*
+	position:absolute;
+	left:0px;
+	top:0;
+	margin:0;
+	*/
+}
+.file {
+	position:absolute;
+	top:35px;
+	left:0px;
+	left:-156px\0;
+	#left:-156px;
+	_left:-156px;
+	height:28px;
+	filter:alpha(opacity:0);
+	-moz-opacity:0;
+	opacity: 0;
+	width:80px;
+	margin:0;
+	z-index:1000;
+}
+.file-btn {
+	position:absolute;
+	top:35px;
+	left:0px;
+	z-index:0;
+}
+.bgcolor1 {
+	background:#ffffff;
+}
+.bgcolor2 {
+	background:#f9f9f9;
+}
+
+/*file浏览控件样式设定结束*/
+
+.table-cross tr td {
+	border:1px solid #ddd;
+	padding:2px 4px;
+	font-size:12px;
+}
+.table-wrap tr td {
+	border:1px solid #ccc;
+}
+.occ_icon {
+	background:#f9f9f9;
+	padding:2px;
+}
+.occ_icon ul li {
+	height:24px;
+	line-height:24px;
+	margin-right:3px;
+	float:left;
+	padding:0 3px;
+}
+.occ_icon ul li img {
+	display:block;
+	vertical-align:middle;
+	margin:0;
+}
+
+/*file浏览控件样式设定2*/
+.file-box2 {
+	position:relative;
+	width:280px;
+	text-align:left;
+	height:28px;
+	line-height:28px;
+}
+.txt2 {
+	width:180px;
+	position:absolute;
+	left:10px;
+	top:0;
+}
+
+.file2 {
+	position:absolute;
+	top:0;
+	left:10px;
+	left:50px\0;
+	#left:50px;
+	_left:50px;
+	height:24px;
+	filter:alpha(opacity:0);
+	-moz-opacity:0;
+	opacity: 0;
+	width:200px;
+	margin:0;
+	z-index:1110;
+}
+.file-btn2 {
+	position:absolute;
+	top:0px;
+	left:210px;
+	z-index:0;
+}
+
+/*file浏览控件样式设定 2 结束*/
+/*file浏览控件样式设定3*/
+.file-box3 {
+	position:relative;
+	width:280px;
+	text-align:left;
+	height:28px;
+	line-height:28px;
+}
+.txt3 {
+	width:180px;
+	position:absolute;
+	left:0px;
+	top:0;
+}
+
+.file3 {
+	position:absolute;
+	top:0;
+	left:10px;
+	left:50px\0;
+	#left:50px;
+	_left:50px;
+	height:24px;
+	filter:alpha(opacity:0);
+	-moz-opacity:0;
+	opacity: 0;
+	width:200px;
+	margin:0;
+	z-index:1110;
+}
+.file-btn3 {
+	position:absolute;
+	top:0px;
+	left:210px;
+	z-index:0;
+}
+
+/*file浏览控件样式设定 3 结束*/
+
+.gis_div {
+	padding:10px 5px 5px;
+	line-height:24px;
+}
+
+#tab {
+	border:1px solid #ccc;
+	border-radius:0 3px 3px 0;
+	-moz-border-radius:0 3px 3px 0;
+	-webkit-border-radius:0 3px 3px 0;
+	margin:5px 2px 5px 0;
+}
+.Tableft {
+	float:left;
+	width:60px;
+}
+.Tableft h3 {
+	 width:60px;
+	 height:20px;
+	 font-family:"微软雅黑";
+	 line-height:20px;
+	 font-size:12px;
+	 cursor:pointer;
+	 font-weight:bold;
+	 text-align:center;
+	 color:#00007F;
+	 background:#f8f8f8;
+	 border:1px solid #ccc;
+	 border-left:0;
+	 margin:1px 0;
+}
+.result_tab {
+	width:140px;
+	padding:2px;
+	float:right;
+}
+.result_tab div {
+	display:none;
+	font-size:12px;
+}
+.result_tab .block {
+	display:block;
+}
+
+.Tableft .up {
+	background:#eee;
+	border:1px solid #aaa;
+	border-left:0;
+}
+
+.result_tab table tr td {
+	border:1px solid #ccc;
+	padding:1px;
+	font-size:12px;
+	text-align:center;
+	word-break:break-all;
+	word-wrap:break-word;
+	height:20px;
+	line-height:20px;
+}
+.result_tab table tr th {
+	border:1px solid #ccc;
+	padding:0 1px;
+	font-size:10px;
+	font-family:Microsoft YaHei;
+	text-align:center;
+	background:#f8f8f8;
+	height:20px;
+	line-height:20px;
+}
+.result_tab i {
+	height:20px;
+	line-height:20px;
+	margin:1px 0;
+	display:block;
+}
+
+.map_gps_search_table tr td {
+	padding:2px;
+}
+
+.gps-time {
+	height:16px;
+	height:18px\0;
+	#height:18px;
+	_height:18px;
+}
+
+/*地图管理应急指挥菜单栏*/
+.emergencyNav {
+	margin:5px 0 0;
+	border:none;
+	height:28px;
+	padding:1px;
+	background:#c2d2e4;
+}
+.emergencyNav li {
+	width:80px;
+	float:left;
+	border:none;
+	cursor:pointer;
+	margin-right:2px;
+	text-align:center;
+	line-height:28px;
+	padding:0 5px;
+}
+.emergencyNav_li {
+	background:#eee;
+}
+.emergencyNav_h {
+	background:#eef4f7;
+}
+/*内容*/
+.emergencyTabContainer {
+	border:0px;
+	padding:5px;
+}
+.cf {
+	display:block;
+}
+.sa {
+	display:none;
+}
+.emergencyTabContainer select,emergencyTabContainer input {
+	width:80px;
+	height:auto;
+}
+#saBreaksText,#saBreaksUnit {
+	width:60px;
+}
+/*三维标注 应急标绘页面*/
+.MapEmergencySigns{
+	margin:0px;
+}
+.MapEmergencySigns li{
+	float:left;
+	padding:3px;
+	display:block;
+	width:25px;
+	height:25px;
+}
+.MapEmergencySigns li:hover{
+	background:#eee;
+}
+.MapEmergencySigns li img{
+	width:25px;
+	height:25px;
+	display:block;
+}
+.MapEmergencySigns li .mapEmergencySignsRemoveButton{
+	display:none;
+	position:absolute;
+	z-index:20;
+	font-size:9px;
+	font-family:Arial;
+	margin-top:-34px;
+	margin-left:21px;
+	cursor:pointer;
+}
+#MapEmergencySignsTab{
+	height:30px;
+	border-bottom:1px solid #ddd;
+}
+#MapEmergencySignsTab li{
+	float:left;
+	padding:0 20px;
+	text-align:center;
+	height:30px;
+	line-height:30px;
+	background:#eee;
+	cursor:pointer;
+	border-right:1px solid white;
+	font-weight:bold;
+}
+#MapEmergencySignsTab .mapActiveTab{
+	background:#99a0bd;
+	color:white;
+}
+#MapEmergencySignsContent div{
+	padding:0;
+}
+#MapEmergencySignsContent .mapActiveContent{
+	display:block;
+}
+#MapEmergencySignsContent .mapDeactiveContent{
+	display:none;
+}
+.mapLineBox{
+	margin:0;
+	padding:10px;
+}
+.mapLineBox li{
+	padding:9px 0;
+	text-align:center;
+	cursor:pointer;
+}
+.mapLine{
+	font-size:0;
+	line-height:0;
+	margin:0 auto;
+	padding:0;
+	width:100px;
+}
+.mapLineWidth1{
+	height:1px;
+	background:black;
+}
+.mapLineWidth2{
+	height:2px;
+	background:black;
+}
+.mapLineWidth3{
+	height:3px;
+	background:black;
+}
+.mapLineWidth4{
+	height:4px;
+	background:black;
+}
+.mapLineWidth5{
+	height:5px;
+	background:black;
+}
+.mapLineWidth6{
+	height:6px;
+	background:black;
+}
+.mapLineWidth7{
+	height:7px;
+	background:black;
+}
+.mapColorPickerButton{
+	display:block;
+	width:11px;
+	height:11px;
+	background:black;
+	border:2px solid #ccc;
+}
+
+.map_table tr td {
+	padding:2px;
+}
+
+
+.btn {
+  display: inline-block;
+  *display: inline;
+  padding: 4px 10px;
+  height:28px;
+  margin-top:0;
+  margin-bottom:0;
+  *margin-left: .3em;
+  font-size: 14px;
+  color: #333333;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  *background-color: #e6e6e6;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  border: 1px solid #cccccc;
+  *border: 0;
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  border-bottom-color: #b3b3b3;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  *zoom: 1;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+     -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active,
+.btn.active,
+.btn.disabled,
+.btn[disabled] {
+  color: #333333;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+}
+
+.btn:active,
+.btn.active {
+  background-color: #cccccc \9;
+}
+
+.btn:first-child {
+  *margin-left: 0;
+}
+
+.btn:hover,
+.btn:focus {
+  color: #333333;
+  text-decoration: none;
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+     -moz-transition: background-position 0.1s linear;
+       -o-transition: background-position 0.1s linear;
+          transition: background-position 0.1s linear;
+}
+
+.btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.btn.active,
+.btn:active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+     -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.btn.disabled,
+.btn[disabled] {
+  cursor: default;
+  background-image: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+     -moz-box-shadow: none;
+          box-shadow: none;
+}
+.btn-info {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #49afcd;
+  *background-color: #2f96b4;
+  background-image: -moz-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#5bc0de), to(#2f96b4));
+  background-image: -webkit-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: -o-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: linear-gradient(to bottom, #5bc0de, #2f96b4);
+  background-repeat: repeat-x;
+  border-color: #2f96b4 #2f96b4 #1f6377;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5bc0de', endColorstr='#ff2f96b4', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:active,
+.btn-info.active,
+.btn-info.disabled,
+.btn-info[disabled] {
+  color: #ffffff;
+  background-color: #2f96b4;
+  *background-color: #2a85a0;
+}
+
+.btn-info:active,
+.btn-info.active {
+  background-color: #24748c \9;
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,169 @@
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.DialogMaskBackground {
+	position: absolute;
+	z-index: 1000;
+	background: #000;
+	-moz-opacity: 0.8;  /* firefox*/
+	opacity: .80;  /* chrome*/
+	filter: alpha(opacity=80); /* ie*/
+	top: 0;
+	left: 0;
+}
+
+.DialogOuterBox{
+	position: absolute;
+	display:block;
+	z-index: 1001;
+	background: #F0FFFF;
+	border: 1px solid #428bca;
+   	border-radius: 5px 5px 0px 0px;
+}
+
+.DialogInnerBox {
+	margin-top:0px;
+	padding:0px;
+
+}
+
+.DialogOuterBox .DialogBoxTitle {
+	/*width:100%;*/
+	/*background: #eee;*/
+	background: #0a3a5c;
+}
+
+.DialogOuterBox .DialogBoxTitle b {
+	font-size: 14px;
+	/*line-height: 250%;*/
+	margin-left: 15px;
+	color : #FFF;
+	cursor:default;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+	user-select:none;
+}
+
+.dialogOperationButton{
+	float:right;
+	padding-right:10px;
+    padding-left:5px;
+	/*padding-top:5px;*/
+	font-family:Arial;
+	font-weight:bold;
+	font-size:14px;
+	cursor:pointer;
+	color:#FFF;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+	user-select:none;
+}
+
+.DialogInnerBox .DialogBoxContent {
+	font-size: 12px;
+	color:#333;
+}
+
+.DialogInnerBox .DialogBoxContent table {
+	border-collapse: collapse;
+}
+
+.DialogInnerBox .DialogBoxContent table td {
+	/*border: 1px solid black;*/
+	text-align: center;
+}
+
+/**熊杰添加，对话框如果为信息框则，table中的td对齐方式为left*/
+.DialogInnerBox .DialogBoxContent #infoWindowBaseBox table td {
+	text-align: left;
+}
+
+.DialogOuterBox .DialogBoxFooter {
+	padding:0 10px;
+	text-align:center;
+	border-radius:0 0 5px 5px;
+}
+
+.DialogOuterBox .DialogBoxButton{
+	padding:5px 8px;
+	margin-left: 5px;
+	border-radius:2px;
+}
+
+.DialogOuterBox .DialogBoxButton{
+	font-size: 12px;
+	text-align: center;
+	cursor: pointer;
+	line-height: 30px;
+	text-decoration: none;
+	background: #f5f5f5;
+	color: #555;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+	user-select:none;
+	border:1px solid #eee;
+}
+
+.DialogOuterBox .DialogBoxButton:hover {
+	background: #cc0033;
+	color: white;
+}
+
+.DialogOuterBox .DialogBoxButtonDisable{
+	font-size: 13px;
+	text-align: center;
+	line-height: 30px;
+	text-decoration: none;
+	background: #f5f5f5;
+	color: #aaa;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+	user-select:none;
+	border:1px solid #eee;
+}
+
+/**
+ * 地图输出模板设置
+ */
+
+.DialogInnerBox .DialogBoxContent .mapLayoutTemplate{
+	border-collapse : separate;
+}
+
+.DialogInnerBox .DialogBoxContent .mapLayoutTemplate td {
+	width: 170px;
+	padding: 5px;
+	border: 1px solid white;
+}
+
+.DialogInnerBox .DialogBoxContent .mapLayoutTemplate .selectedNode {
+	border: 1px solid #cc0033;
+
+}
+
+.DialogInnerBox .DialogBoxContent .mapLayoutTemplate td img {
+	width: 150px;
+	cursor: pointer;
+}
+
+.DialogInnerBox .DialogBoxContent .mapLayoutTemplate {
+
+}
+.DialogDivBox{
+	width:100%;
+	display:inline-block;
+	text-align: center;
+	margin-left: 10px;
+}
+.DialogUl{
+	display:inline-block;
+	width:100%;
+}
+.Dialogli{
+	float:left;
+	padding-left: 25px;
+	margin-top:5px;
+	margin-left: 15px;
+}

@@ -1,0 +1,42 @@
+替换MapFactory下对应的文件夹的文件
+
+更改MapManagerOpenLayers.js中的内容:
+其中141行
+var baseLayer = new OpenLayers.Layer.WMS(
+				"basemap", "forward/map/title/",{},
+
+"forward/map/title/"为地图请求的jsp地址，Offline下的title为天地图请求的jsp，titleQQ为腾讯地图请求jsp文件
+把对应的文件放在合适的位置，比如放在项目jsp文件夹下的map文件夹下
+其中forward/map/title/为jsp对应的访问路径，这里为相对路径，也可以设置为绝对路径
+
+第115行
+var baseLayer = new OpenLayers.Layer.XYZ(
+为仅仅加载瓦片的XYZ访问方式，比WMS访问速度要快，可以在下载完瓦片后打开，并注释掉WMS段
+离线地图配置_mapConfig.layers.baseMap.url="http://localhost:8080/tiandituTitle/${z}/${y}/${x}.jpg"为底图瓦片对应的web访问路径，z，y，x为自建目录以及文件
+
+********************************************************************************************************************************
+title.jsp第23行
+String outputdir = "d:/tiandituTitle/"+z+"/"+y;
+String vecFilePath = "d:/tiandituTitle/vec.png";
+String cvaFilePath = "d:/tiandituTitle/cva.png";
+
+outputdir为地图离线瓦片存储地址，只需要指定根目录即可，后面的z，y为地图离线瓦片自建子文件夹
+vecFilePath为天地图底图瓦片临时文件，cvaFilePath为天地图地图标注图层临时文件
+30行：
+String redirectUrl = "http://localhost:8080/tiandituTitle/"+z+"/"+y+"/"+x+".png";
+为底图瓦片对应的web访问路径，z，y，x为自建目录以及文件
+
+********************************************************************************************************************************
+titleQQ.jsp第36行
+String outputdir = "d:/qqTitle/"+z+"/"+y;
+为腾讯地图瓦片存储位置
+
+第39行
+String redirectUrl = "http://localhost:8080/qqTitle/"+z+"/"+y+"/"+x+".png";
+为底图瓦片对应的web访问路径
+
+********************************************************************************************************************************
+
+home.jsp中的设置：
+geoserver_resolutions参数设置（也可以在页面地图参数配置中进行设置）对应的值可以参考title.jsp中的resolutions参数，需要那几个级别设置那几个级别的比例尺
+offsetX，offsetY分别对应x轴y轴的坐标偏差，腾讯地图，百度地图有对应的偏差，天地图没有偏差即偏差等于0
