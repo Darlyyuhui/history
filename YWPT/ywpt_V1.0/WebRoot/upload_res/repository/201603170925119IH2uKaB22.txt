@@ -1,0 +1,131 @@
+CREATE OR REPLACE TRIGGER "RECORDLIST_TEMP_PASSPORT"
+AFTER INSERT ON ADMIN.CROSS_RECORDLIST_TEMP
+
+FOR EACH ROW
+declare
+    truck_num number(10);--货车
+    vio_type_code varchar2(10);
+    pass_count number(10);
+    starttime varchar2(10);
+    endtime varchar2(10);
+    limit_starttime varchar2(10);
+    limit_endtime varchar2(10);
+    plate_num varchar2(20);
+    device_code varchar2(20);
+    road_code varchar2(32);
+    insert_flag number(1);
+    month_date_temp varchar2(30);--年月
+    limit_count number(10);
+    pass_datetime varchar2(30);--车辆通行时间
+    road_id_temp varchar(50);
+    limit_time TYPE_SPLIT:=TYPE_SPLIT();--限行时段
+begin
+    insert_flag:=1;
+    vio_type_code:='13446';
+    device_code:=:new.device_code;
+    plate_num:=:new.car_plate_num;
+    month_date_temp := to_char(:new.car_datetime,'yyyyMM');
+    pass_datetime ：= to_char(:new.car_datetime,'yyyyMMddhh24mi');
+    
+    select t.road_id into road_id_temp from admin.sys_device_info@atms_cross t where pack_recordlist_process.record_list.DEVICE_CODE = t.code;
+    dbms_output.put_line('货车禁行中判断道路:'||road_id_temp);
+    --用游标的方式遍历所有可用规则
+     declare
+         cursor mysor is
+         select * from vio_limit_rule r
+            where r.id in (
+                select t.id from
+                    vio_limit_rule t,vio_limit_roaddevice_relation l
+                where
+                    t.starttime<=pack_recordlist_process.record_list.car_datetime
+                and
+                    t.endtime>=pack_recordlist_process.record_list.car_datetime
+                and
+                    t.limittype=3
+                and
+                    t.isvalid=1
+                and
+                    t.id = l.LIMIT_ID
+                and
+                    l.road_id = road_id_temp
+         );
+     begin
+         for i in mysor loop
+             dbms_output.put_line('货车限行时间:'||i.stoptime);
+             --看下限行时间是否存在
+             if i.stoptime is null then
+                dbms_output.put_line('货车限行匹配成功');
+                cross_insert_limit(road_id_temp,'3',pack_recordlist_process.record_list);
+                return;
+             end if;
+
+             limit_time:=fun_split(i.stoptime);
+             --限行开始时间
+             limit_time_start := to_char(pack_recordlist_process.record_list.car_datetime,'yyyy-mm-dd ')||limit_time(1)||':00';
+             --限行结束时间
+             limit_time_end := to_char(pack_recordlist_process.record_list.car_datetime,'yyyy-mm-dd ')||limit_time(2)||':00';
+             --dbms_output.put_line('货车限行时段 '||' '||limit_time_start||' '||limit_time_end);
+             --看看是不是在限行时段内
+             if to_date(limit_time_start,'yyyy-mm-dd hh24:mi:ss')<pack_recordlist_process.record_list.car_datetime
+                and
+                to_date(limit_time_end,'yyyy-mm-dd hh24:mi:ss')>pack_recordlist_process.record_list.car_datetime
+             then
+                dbms_output.put_line('货车限行匹配成功');
+                cross_insert_limit(road_id_temp,'3',pack_recordlist_process.record_list);
+                return;
+             end if;
+         end loop;
+     end;
+
+    --货车信息
+    select count(*) into truck_num from VIO_TRUCK_LIST v where v.plate_num = plate_num;
+    if(truck_num <= 0) then
+         return;
+    end if;
+    --通行证比较
+    select count(*) into pass_count from ADMIN.PAS_PASSPORT_INFO@ATMS_CROSS p where p.plate_number=plate_num;
+    --无通行证
+    if (pass_count<1) then
+         select count(*) into limit_count from vio_limit_rule l where l.limittype='3';
+         --无货车禁行
+         if (limit_count < 1) then
+              insert_flag:=0;            
+         else 
+              select to_char(l2.starttime,'yyyyMMdd') into limit_starttime from vio_limit_rule l2 where l2.limittype=3 and l2.isvalid=1;
+              select to_char(l2.endtime,'yyyyMMdd') into limit_endtime from vio_limit_rule l2 where l2.limittype=3 and l2.isvalid=1;       
+              for i in mysor loop
+              if (pass_datetime<starttime and pass_datetime>endtime) then
+                   insert_flag:=0;
+              else 
+                   return;
+              end if;
+         end if;
+         insert_flag:=0;
+    else
+         select to_char(p.starttime,'yyyyMM') into starttime from ADMIN.PAS_PASSPORT_INFO@ATMS_CROSS p where p.plate_number=plate_num and p.state=2;
+         select to_char(p.endtime,'yyyyMM') into endtime from ADMIN.PAS_PASSPORT_INFO@ATMS_CROSS p where p.plate_number=plate_num and p.state=2;
+         if (month_date_temp<starttime and month_date_temp>endtime) then
+              insert_flag:=0;
+         else 
+              return;
+         end if;
+    end if;
+  
+    if insert_flag=0 then
+         insert into vio_record_temp
+          (id, vio_type_code, road_code, road_name, device_code, dev_name,
+          direction_code, lane_code, car_num, car_num_type_code, car_num_color_code,
+          car_type_code, car_color_code, car_class_code, car_datetime, car_speed,
+          std_speed, speed_rate, img1, img2, img3, img4, inter_speed, inter_length,
+          inter_start_time, inter_end_time, inter_dev_id, marker, is_white, is_export,
+          export_user, export_time, inter_start_num, is_big, img5, img6, feature_img,
+          feature_img_path)
+         values(RECORD_SEQ.NEXTVAL,vio_type_code,'yangling_pass',
+          '',device_code,'',
+          :new.direction_code,:new.lane_code,plate_num,:new.car_plate_type_code,:new.car_plate_color_code,
+          :new.car_type_code,:new.car_color_code,:new.car_class_code,:new.car_datetime,:new.car_speed,
+          '','0',:new.img1_path,:new.img2_path,:new.img3_path,:new.img4_path,'','',
+          '','','','13','','0','','','','','','','','');
+     end if;
+
+end RECORDLIST_TEMP_PASSPORT;

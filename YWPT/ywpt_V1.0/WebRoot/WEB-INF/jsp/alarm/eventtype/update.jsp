@@ -1,0 +1,114 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/jsp/common/header.jspf" %>
+<div class="conten_box">
+	<form id="inputForm" class="form-inline" action="${root}/alarm/eventtype/doUpdate" method="post" style="margin:0;">
+		<h4 class="xtcs_h4" style="margin:0;">事件类型-修改</h4>
+		<input type="hidden" name="menuid" value="${menuid}"/>
+		<input type="hidden" name="id" value="${eventtype.id}"/>
+		<input type="hidden" name="page" value="${page}"/>
+		<div class="mar_5">
+		  <table class="table tingche-table table-border-rl table-border-bot" width="100%">
+			<tr>
+				<td class="device_td_bg3">类型名称：</td>
+				<td>
+					<input style="width:40%;" type="text" id="name" name="name" value="${eventtype.name}" class="required" maxlength="30">
+					<font color="red">*</font>
+				</td> 
+			</tr>
+			<tr>
+				<td class="device_td_bg3">类型编号：</td>
+				<td>
+					<input style="width:40%;" type="text" id="code" name="code" value="${eventtype.code}" class="required" maxlength="10">
+					<font color="red">*</font>
+				</td> 
+			</tr>
+			<tr>
+				<td class="device_td_bg3">事件级别：</td>
+				<td>
+				  <select style="width:41%;" id="relationLevel" name="relationLevel" placeholder="事件级别" class="required">
+					<option value="">请选择</option>
+					<c:forEach items="${levelList}" var="level">
+					    <option value="${level.id}" ${level.id==eventtype.relationLevel?'selected':''}>${level.name}</option>
+					</c:forEach>
+		          </select>
+		          <font color="red">*</font>
+		        </td>
+			</tr>
+			<tr> 
+				<td class="device_td_bg3">类别：</td>
+				<td>
+				  <select style="width:41%;" id="type" name="type" placeholder="类别" class="required">
+					<option value="">请选择</option>
+					<option value="all" ${'all'==eventtype.type?'selected':''}>公共</option>
+					<option value="device" ${'device'==eventtype.type?'selected':''}>卡口</option>
+					<option value="server" ${'server'==eventtype.type?'selected':''}>服务器</option>
+					<option value="database" ${'database'==eventtype.type?'selected':''}>数据库</option>
+					<option value="ftp" ${'ftp'==eventtype.type?'selected':''}>FTP</option>
+					<option value="project" ${'project'==eventtype.type?'selected':''}>平台</option>
+					<option value="cabinet" ${'cabinet'==eventtype.type?'selected':''}>机柜</option>					
+		          </select>
+		          <font color="red">*</font>
+		        </td>
+			</tr>
+			
+            
+			<tr>
+				<td class="device_td_bg3">备注：</td>
+				<td>
+					<textarea rows="3" style="width:60%;" id="note" name="note" maxlength="100" >${eventtype.note}</textarea>
+				</td>	
+			</tr>
+		  </table>
+		</div>
+		<div class="btn_line">
+			<button class="btn btn-info mar_r10" type="submit">保存</button>
+			<input id="cancel_btn" class="btn" type="button" value="返回" onclick="showList()" />
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	function showList(){
+		window.location.href = "${root}/alarm/eventtype/list/${menuid}/?isgetsession=1&page=${page}";
+	}
+	$(document).ready(function() {
+			//聚焦第一个输入框
+			$("#name").focus();
+			//为inputForm注册validate函数
+			$("#inputForm").validate({
+				rules: {
+					"name":{
+						remote:{
+							url:"${root}/alarm/eventtype/nameExist",
+							type:"post",
+							data:{
+								name:function(){
+									return $("#name").val();
+								},
+								oper:function(){
+									return "${eventtype.name}";
+								}
+							}
+						}
+					},
+					"code":{
+						remote:{
+							url:"${root}/alarm/eventtype/codeExist",
+							type:"post",
+							data:{
+								code:function(){
+									return $("#code").val();
+								},
+								oper:function(){
+									return "${eventtype.code}";
+								}
+							}
+						}
+					}
+				}
+			});
+		});
+</script>
+<script src="${root}/compnents/bootstrap/js/jquery.chosen.min.js" type="text/javascript"></script>
+<script src="${root}/compnents/bootstrap/js/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="${root}/compnents/bootstrap/js/charisma.js" type="text/javascript"></script>
+<%@include file="/WEB-INF/jsp/common/fooltertags.jspf" %>

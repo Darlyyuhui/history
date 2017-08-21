@@ -1,0 +1,111 @@
+<%@ page language="java" pageEncoding="utf-8" contentType="text/html; charset=UTF-8"%>
+<script type="text/javascript">
+	//初始化页面
+	var loadContext=[];
+	var currentRest="";
+	$(function(){
+		$("#map").height($("#mainContainer").height()-$("#mapToolBar").height());
+		var mapToolMenuList = ${menulist};
+		var mapToolMenuListContainer = $("#mapMenuList");
+		// 初始化地图工具菜单
+		for(var i = 0,len = mapToolMenuList.length;i<len;i++){
+			var _menubox = $("<div class='mapToolMenuBox'></div>");
+			var _content = $("<div class='mapToolMenuContent'></div>");
+			var _parentTitle;
+			if(mapToolMenuList[i].childCount ){
+				//mapToolMenuListContainer.append("<div>");
+				
+				_parentTitle = $("<div class='mapToolParentMenuTitle'><img src='images/picone/icon1.gif' />&nbsp&nbsp"+mapToolMenuList[i].name+"</div>");
+				_parentTitle.click(function(){
+					var _rest=$($(this).siblings(".mapToolMenuContent").find("input")[0]).val();
+					var refresh = false;
+					var refreshindex = _rest.lastIndexOf("refresh");
+					if(refreshindex != -1) {
+						var flag = _rest.substr(refreshindex+8);
+						if(flag == "true")refresh = true;
+					}
+					var _targetContent = $($(this).siblings(".mapToolMenuContent").find(".mapToolSubMenuContent")[0]);
+					if(_rest && (refresh || !_targetContent.html())){
+						_targetContent.load(_rest);
+						loadContext.push({url:_rest,value:_targetContent});
+					}
+					currentRest = _rest;
+				});
+				_menubox.append(_parentTitle).append(_content);
+
+				var j = 1;
+				while(j <= mapToolMenuList[i].childCount){
+					var _submenubox = $("<div></div>");
+					var _submenuboxtitle = $("<div class='mapToolSubMenuTitle'><span></span>"+mapToolMenuList[i+j].name+"<input type='hidden' value='"+mapToolMenuList[i+j].rest+"'/></div>");
+					_submenubox.append(_submenuboxtitle).append("<div class='mapToolSubMenuContent'></div>");
+					menuClickEvt(_submenuboxtitle);
+					_content.append(_submenubox);
+					j++;
+				}
+				itmap.util.mapToggleBox().init({srcNode:_content}).open(0);
+				mapToolMenuListContainer.append(_menubox);
+			}else{
+				if(mapToolMenuList[i].rest && mapToolMenuList[i].level=="2"){
+					_parentTitle = $("<div class='mapToolParentMenuTitle'><img src='images/picone/icon1.gif' />&nbsp&nbsp"+mapToolMenuList[i].name+"<input type='hidden' value='"+mapToolMenuList[i].rest+"'/></div>");
+					_content.addClass("mapToolSubMenuContent");
+					_menubox.append(_parentTitle).append(_content);
+					menuClickEvt(_parentTitle);
+					mapToolMenuListContainer.append(_menubox);
+					
+					_parentTitle.click(function(){
+						currentRest = "";
+					});
+					continue;
+				}
+			}
+		}
+		
+		$(".mapToolSubMenuTitle").mouseover(function(){
+			$(this).addClass("mapToolSubMenuTitleHover");
+		}).mouseout(function(){
+			$(this).removeClass("mapToolSubMenuTitleHover");
+		});
+		
+		function menuClickEvt(Obj){
+			Obj.click(function(){
+				var _rest=$(this).children("input").val();
+				var refresh = false;
+				var refreshindex = _rest.lastIndexOf("refresh");
+				if(refreshindex != -1) {
+					var flag = _rest.substr(refreshindex+8);
+					if(flag == "true")refresh = true;
+				}
+				var _targetContent = $(this).siblings("div");
+				if(_rest && (refresh || !_targetContent.html())){
+					_targetContent.load(_rest);
+					loadContext.push({url:_rest,value:_targetContent});
+				}
+				currentRest = _rest;
+			});
+		}
+		itmap.util.mapToggleBox().init({srcNode:"mapMenuList",ico:true}).open(-1);
+		$(".mapToolMenuBox:eq(0)").css("borderTopWidth","1px");
+	});
+	
+	// 初始化选项卡
+	var tabSwitch = itmap.util.MapTabTool().init(
+		{
+			src:"menuList",
+			style:{
+				active : "selectelement",
+				deactive : ""
+			}
+		},
+		{
+			src:"mapTabContent",
+			style:{
+				active : "selectelement",
+				deactive : ""
+			}
+		},
+	0);
+	
+</script>
+</body>
+
+</html>
