@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
+		    classpath*:/appContext-properties.xml,
+			classpath*:/com/xiangxun/atms/module/*/config/appContext*.xml,
+			classpath*:/appContext-datasource.xml,
+			classpath*:/appContext*.xml,
+		</param-value>
+  </context-param>
+  
+  <!-- develop|release -->
+  <context-param>
+    <param-name>run.mode</param-name>
+    <param-value>develop</param-value>
+  </context-param>
+  
+  <context-param>
+    <param-name>org.apache.activemq.brokerURL</param-name>
+    <param-value>tcp://193.169.100.205:61616</param-value> 
+  </context-param>
+  
+  <context-param>
+  	<param-name>webAppRootKey</param-name>
+  	<param-value>atms.root</param-value>
+  </context-param>
+  
+  <filter>
+    <filter-name>jettySession</filter-name>
+    <filter-class>
+			org.eclipse.jetty.continuation.ContinuationFilter
+		</filter-class>
+    <async-supported>true</async-supported>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>jettySession</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <servlet>
+    <servlet-name>AjaxServlet</servlet-name>
+    <servlet-class>org.apache.activemq.web.AjaxServlet</servlet-class>
+    <async-supported>true</async-supported>
+  </servlet>
+  
+  
+  
+  <servlet>
+		<servlet-name>DbFile</servlet-name>
+		<servlet-class>com.xiangxun.atms.module.flow.web.DbFileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+		<servlet-name>DbFile</servlet-name>
+		<url-pattern>/dbfile.svl</url-pattern>
+  </servlet-mapping>
+	
+  <!-- 静态资源交给容器处理 -->
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.jpg</url-pattern>
+  </servlet-mapping>
+   <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.xml</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.png</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.gif</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.swf</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.js</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.css</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.html</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.htm</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.mp3</url-pattern>
+  </servlet-mapping>
+   <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.mp4</url-pattern>
+  </servlet-mapping>
+   <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.rar</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.zip</url-pattern>
+  </servlet-mapping>
+  
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <async-supported>true</async-supported>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>AjaxServlet</servlet-name>
+    <url-pattern>/amq/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>appContext</servlet-name>
+    <servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath*:/appContext-servlet.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+    <async-supported>true</async-supported>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>appContext</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+  <filter>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    <async-supported>true</async-supported>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+  
+  
+  <filter>
+    <filter-name>processTime</filter-name>
+    <filter-class>com.xiangxun.atms.framework.filter.ProcessTimeFilter</filter-class>
+    <async-supported>true</async-supported>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>processTime</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- log4j的监听器，为了使用atms.root系统路径，必须配置在spring的ContextLoaderListener监听器之前 -->
+  <listener>
+    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+  </listener>
+  
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <listener>
+    <listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+  </listener>
+  
+  <listener>
+    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+  </listener>
+
+  <listener>
+    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+  </listener>
+  
+  <listener>
+    <listener-class>com.xiangxun.atms.framework.web.listener.SystemInitListener</listener-class>
+  </listener>
+  
+  <listener>
+    <listener-class>com.xiangxun.atms.framework.security.SessionListener</listener-class>
+  </listener>
+  
+  <!-- 销毁卡口定时任务监听-->
+  <listener>
+    <listener-class>com.xiangxun.atms.framework.web.listener.CrossSchedulingDestroyListener</listener-class>
+  </listener> 
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  
+  <servlet>
+    <servlet-name>restlet</servlet-name>
+    <servlet-class>org.restlet.ext.spring.RestletFrameworkServlet</servlet-class>
+    <init-param>
+      <param-name>org.restlet.component</param-name>
+      <param-value>restletComponent</param-value>
+    </init-param>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:/appContext-rest.xml</param-value>
+    </init-param>
+    <async-supported>true</async-supported>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>restlet</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <display-name>UeditorImageUpSvl</display-name>
+    <servlet-name>UeditorImageUpSvl</servlet-name>
+    <servlet-class>com.xiangxun.atms.framework.web.UeditorImageUpSvl</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <display-name>LsRemoteImageSvl</display-name>
+    <servlet-name>LsRemoteImageSvl</servlet-name>
+    <servlet-class>com.xiangxun.atms.framework.web.LsRemoteImageSvl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>LsRemoteImageSvl</servlet-name>
+    <url-pattern>/lsremoteImage</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UeditorImageUpSvl</servlet-name>
+    <url-pattern>/imageup</url-pattern>
+  </servlet-mapping>
+  
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <jsp-config>
+    <jsp-property-group>
+      <url-pattern>/WEB-INF/jsp/system/*</url-pattern>
+      <url-pattern>/WEB-INF/jsp/vio/*</url-pattern>
+      <url-pattern>/WEB-INF/jsp/sms/*</url-pattern>
+      <url-pattern>/WEB-INF/jsp/gps/*</url-pattern>
+      <url-pattern>/WEB-INF/jsp/home/*</url-pattern>
+      <url-pattern>/WEB-INF/jsp/analysis/*</url-pattern>
+      <url-pattern>/WEB-INF/jsp/emergency/plans/*</url-pattern>
+      <url-pattern>/WEB-INF/jsp/emergency/duty/*</url-pattern>
+      <url-pattern>/WEB-INF/jsp/emergency/weather/*</url-pattern>
+      <url-pattern>/WEB-INF/jsp/om/*</url-pattern>
+      <url-pattern>/WEB-INF/jsp/pass/*</url-pattern>
+      <url-pattern>/WEB-INF/jsp/transport/*</url-pattern>
+      <url-pattern>/WEB-INF/jsp/ea/*</url-pattern>
+      <include-prelude>/WEB-INF/jsp/common/header.jspf</include-prelude>
+      <include-coda>/WEB-INF/jsp/common/fooltertags.jspf</include-coda>
+    </jsp-property-group>
+  </jsp-config>
+  
+  
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/WEB-INF/jsp/error/500.jsp</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.net.SocketException</exception-type>
+    <location>/WEB-INF/jsp/error/db_error.jsp</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.Throwable</exception-type>
+    <location>/WEB-INF/jsp/error/500.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/WEB-INF/jsp/error/500.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/WEB-INF/jsp/error/404.jsp</location>
+  </error-page>
+  
+</web-app>

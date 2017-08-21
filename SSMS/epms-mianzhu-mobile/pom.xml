@@ -137,23 +137,10 @@
 		
 		<outputDirectory>target/classes</outputDirectory>
 		<testOutputDirectory>target/classes</testOutputDirectory>
-				<!--汉字乱码-->
-        <finalName>AutoEngine</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
-                </configuration>
-                <!-- mvn spring-boot:repackage -->
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
