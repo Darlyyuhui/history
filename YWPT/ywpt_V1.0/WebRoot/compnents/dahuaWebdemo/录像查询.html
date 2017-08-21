@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+   
+<title>录像查询</title>
+<script src="My97DatePicker/WdatePicker.js"></script>
+<script src="ocxfun.js"></script>
+<link rel="stylesheet" type="text/css" href="DSSPlay.css"/>
+
+
+<script language="javascript" for="DPSDK_OCX" event="OnDownloadRecordProgress(szFileName,fProgress)">
+	document.getElementById("textDownloadProgress").innerText = fProgress;
+</script>
+
+<script language="javascript" for="DPSDK_OCX" event="OnDownloadRecordComplete(szFileName)">
+	document.getElementById("textDownloadProgress").innerText = 100;
+	alert("下载完成!");
+</script>
+
+</head>
+<body id="mbody" onload="init()" onunload="ButtonLogout_onclick();">
+<div id="mainbg">
+
+	<div id="main">
+										
+		 <div class="box_top"></div>
+		<div id="mviewl">
+			<div id="obj">
+				<object id="DPSDK_OCX" classid="CLSID:D3E383B6-765D-448D-9476-DFD8B499926D" style="width: 100%; height: 80%"></object>
+			</div>
+			
+		</div>
+		<!-- <div class="box_bottom" style="margin-left: 80px;">
+          <div class="box_bottom_btn">
+           		<ul>
+           			<li id="back_btn_li"><a class="back_btn"  title="慢放" href="javascript:back();" onmousedown="mousedown(this)" onmouseup="mouseup(this)" ></a></li>
+           			<li><a class="play_btn" href="javascript:stop();" title="停止" onmousedown="mousedown(this)" onmouseup="mouseup(this)"></a></li>
+           			<li><a class="stop_btn" href="javascript:play();" title="播放" onmousedown="mousedown(this)" onmouseup="mouseup(this)"></a></li>
+           			<li><a class="go_btn" href="javascript:go();" title="快进" onmousedown="mousedown(this)" onmouseup="mouseup(this)"></a></li>
+           			<li><a class="photo_btn" href="javascript:photo();" title="抓图" onmousedown="mousedown(this)" onmouseup="mouseup(this)"></a></li>
+           		</ul>
+           </div>
+
+	
+	
+	  <div class="box_bottom_a"><a href='DSSClientOCX.exe'>点击这里手动下载最新的控件</a></div>
+</div>-->
+</div>
+<div class="rightDiv" style="">
+	<div style="border:1px solid white;padding-top:5px;">
+		<div style="margin-left: 10px;">
+			设置窗口数量：
+			<input type="text" id="textWndNum" value="4" size="10"/>
+			<input type="button" id="buttonLogin" value="设置" class="button" onclick="return ButtonCreateWnd_onclick()" />
+		</div>
+	</div>
+	<div style="border:1px solid white;padding-top:5px;height: 190px;">
+		<div style="float: left;margin-left: 10px;width: 230px;">
+			登陆登出</br>
+			IP：   &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;<input type="text" id="textIP" value="172.7.1.208"  size="20"/></br>
+			端口：  &nbsp;&nbsp; <input type="text" id="textPort" value="9000" size="20"/></br>
+			用户名：&nbsp;<input type="text" id="textUser" value="system" size="20"/></br>
+			密码： &nbsp;&nbsp;&nbsp;<input type="text" id="textPassword" value="123456" size="22"/></br></br>
+			
+			<input type="button" id="buttonLogin" value="登录" class="button" onclick="return ButtonLogin_onclick()" />
+			<input type="button" id="buttonLogout" value="登出" class="button" onclick="return ButtonLogout_onclick()" />
+			<input type="button" id="buttonLoadDGroupInfo" value="加载组织结构" class="button" onclick="return ButtonLoadDGroupInfo_onclick()" /></br></br>
+		</div>
+		
+		<div style="width: 250px;height: 150px;overflow: auto;" id="DGroupInfo">
+			
+		</div>
+	</div>
+	
+	<div style="border:1px solid white;padding-top:5px;">
+		<div style="margin-left: 10px;">
+			录像回放</br>
+			通道ID：<input type="text" id="textCameraID" value="1000040$1$0$0" />
+			来源：<select id="selectRecordSource" >
+				<option value="3">平台录像</option>
+				<option value="2">设备录像</option>
+			</select>
+			类型：
+			<select id="selectRecordType" >
+				<option value="0">全部录像</option>
+				<option value="1">手动录像</option>
+				<option value="2">报警录像</option>
+				<option value="3">移动侦测</option>
+				<option value="4">视频丢失</option>
+				<option value="5">视频遮挡</option>
+				<option value="6">定时录像</option>
+				<option value="7">全天录像</option>
+			</select>
+			</br>
+			开始时间：<input id="textStartTime" type="text" name="" value='2013-10-17 00:00:00' onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',startDate:'%y-%M-%d 00:00:00',maxDate:'%y-%M-%d',minDate:'1970-01-01 10:00:00'})" class="select-text" style="padding: 0 5px;" readonly/>			  
+			结束时间：<input id="textEndTime" type="text" name="" value='2013-10-17 23:59:59' onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'%y-%M-%d',minDate:'1970-01-01 10:00:00'})" class="select-text" style="padding: 0 5px;" readonly/>
+			<br /><br />
+			
+				回放：<br />
+			<input type="button" id="buttonQueryRecord" value="查询录像" onclick="return ButtonQueryRecord_onclick()" />
+			<input type="button" id="buttonStartFilePlaybackByWndNo" value="按文件回放" onclick="return ButtonStartFilePlaybackByWndNo_onclick()" />
+			<input type="button" id="buttonStartTimePlaybackByWndNo" value="按时间回放" onclick="return ButtonStartTimePlaybackByWndNo_onclick()" />
+			<input type="button" id="buttonPausePlaybackByWndNo" value="暂停回放" onclick="return ButtonPausePlaybackByWndNo_onclick()" />
+			<input type="button" id="buttonResumePlaybackByWndNo" value="继续回放" onclick="return ButtonResumePlaybackByWndNo_onclick()" />
+			<input type="button" id="buttonStopPlaybackByWndNo" value="停止回放" onclick="return ButtonStopPlaybackByWndNo_onclick()" />
+			<br />速率：
+			
+			<input type="button" id="" value="1倍" onclick="return ButtonSetPlaybackSpeedByWndNo_onclick(8)" />
+			<input type="button" id="" value="2倍" onclick="return ButtonSetPlaybackSpeedByWndNo_onclick(16)" />
+			<input type="button" id="" value="4倍" onclick="return ButtonSetPlaybackSpeedByWndNo_onclick(32)" />
+			<input type="button" id="" value="8倍" onclick="return ButtonSetPlaybackSpeedByWndNo_onclick(64)" />
+			<input type="button" id="" value="1/2倍" onclick="return ButtonSetPlaybackSpeedByWndNo_onclick(4)" />
+			<input type="button" id="" value="1/4倍" onclick="return ButtonSetPlaybackSpeedByWndNo_onclick(2)" />
+			<input type="button" id="" value="1/8倍" onclick="return ButtonSetPlaybackSpeedByWndNo_onclick(1)" />
+			
+			<br /><br />下载：
+			<br />
+			<input type="button" id="buttonDownloadRecordByFile" value="按文件下载" onclick="return ButtonDownloadRecordByFile_onclick()" />
+			<input type="button" id="buttonDownloadRecordByTime" value="按时间下载" onclick="return ButtonDownloadRecordByTime_onclick()" />
+			<input type="button" id="buttonPauseDownloadRecord" value="暂停下载" onclick="return ButtonPauseDownloadRecord_onclick()" />
+			<input type="button" id="buttonResumeDownloadRecord" value="继续下载" onclick="return ButtonResumeDownloadRecord_onclick()" />
+			<input type="button" id="buttonStopDownloadRecord" value="停止下载" onclick="return ButtonStopDownloadRecord_onclick()" /><br />
+		    <br /><br />
+			<input type="button" id="buttonPlaybackCapture" value="回放截图" onclick="return ButtonPlaybackCapture_onclick()" />
+			下载进度：<input type="text" id="textDownloadProgress" value="" />			
+			</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+
+
+</script>
+</body>
+</html>

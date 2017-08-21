@@ -1,0 +1,267 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	margin:0 auto;
+	padding:0;
+}
+body {
+	width:100%;
+	height:100%;
+	padding:0;
+	margin:0;
+	font:Verdana, Geneva, sans-serif,Microsoft YaHei;
+	background:url(../images/login_2014811/login_bg.jpg) no-repeat center center;
+}
+a {
+	text-decoration:none;
+	color:#444;
+}
+a:hover {
+	text-decoration:none;
+	color:#000;
+}
+ul {
+	list-style:none;
+	padding:0;
+	margin:0;
+}
+.clear {
+	clear:both;
+}
+img {
+	border:0;
+	margin::0;
+}
+/*public style end*/
+.login_wrap {
+	width:695px;
+	height:290px;
+	position:relative;
+	left:50%;
+	top:50%;
+	margin-top:-160px;
+	margin-left:-360px;
+}
+.decoration {
+	width:550px;
+	height:240px;
+	position:absolute;
+	left:0;
+	bottom:0;
+	z-index:1;
+}
+.sysname {
+	width:380px;
+	height:40px;
+	line-height:36px;
+	position:absolute;
+	right:0px;
+	top:0;
+	font-size:30px;
+	font-family:Microsoft YaHei;
+	/*font-family:"黑体";*/
+	text-align:center;
+	color:#3f4c78;
+	letter-spacing:3px;
+}
+.login_main_box {
+	width:380px;
+	height:230px;
+	position:absolute;
+	right:0;
+	bottom:15px;
+	background:url(../images/login_2014811/login-box.png) no-repeat center center;
+	z-index:3;
+}
+.version {
+	height:30px;
+	line-height:30px;
+	font-size:12px;
+	font-family:Microsoft YaHei;
+	padding:0 10px;
+	text-align:right;
+	margin-top:1px;
+	color:#999;
+}
+.itms_logo {
+	width:130px;
+	height:44px;
+	position:absolute;
+	left:15px;
+	top:85px;
+}
+.login_info {
+	width:200px;
+	height:150px;
+	position:absolute;
+	right:10px;
+	top:40px;
+}
+.username {
+	width:162px;
+	height:30px;
+	padding-left:28px;
+	background:url(../images/login_2014811/username_bg.png) no-repeat 0 0;
+	margin:10px 0;
+}
+.password {
+	width:162px;
+	height:30px;
+	padding-left:28px;
+	background:url(../images/login_2014811/pass_bg.png) no-repeat 0 0;
+	margin:10px 0 20px;
+	position:absolute;
+	bottom:45px;
+}
+.username input,.password input {
+	width:156px;
+	height:24px;
+	line-height:24px;
+	padding:2px;
+	margin-top:1px;
+	border:0;
+}
+
+.login_error {
+	height:20px;
+	width:200px;
+	position:absolute;
+	bottom:40px;
+}
+.login_btn_line {
+	position:absolute;
+	bottom:10px;
+}
+
+.copyright {
+	height:32px;
+	line-height:32px;
+	width:380px;
+	position:absolute;
+	bottom:0;
+	text-align:center;
+	font-size:12px;
+	color:#666;
+	font-family:Microsoft YaHei;
+}
+
+/*按钮样式*/
+.btn {
+  display: inline-block;
+  *display: inline;
+  padding: 4px 12px;
+  margin-top:0;
+  margin-bottom:0;
+  *margin-left: .3em;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  *background-color: #eaeaea;
+  background-image: -moz-linear-gradient(top, #fefefe, #eaeaea);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fefefe), to(#eaeaea));
+  background-image: -webkit-linear-gradient(top, #fefefe, #eaeaea);
+  background-image: -o-linear-gradient(top, #fefefe, #eaeaea);
+  background-image: linear-gradient(to bottom, #fefefe, #eaeaea);
+  background-repeat: repeat-x;
+  border: 1px solid #cccccc;
+  *border: 0;
+  border-color: #eaeaea #eaeaea #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  border-bottom-color: #b3b3b3;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fefefeff', endColorstr='#ffeaeaea', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  *zoom: 1;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+     -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  line-height:18px;
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active,
+.btn.active,
+.btn.disabled,
+.btn[disabled] {
+  color: #333333;
+  background-color: #eaeaea;
+  *background-color: #d9d9d9;
+}
+
+.btn:active,
+.btn.active {
+  background-color: #cccccc \9;
+}
+
+.btn:first-child {
+  *margin-left: 0;
+}
+
+.btn:hover,
+.btn:focus {
+  color: #333333;
+  text-decoration: none;
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+     -moz-transition: background-position 0.1s linear;
+       -o-transition: background-position 0.1s linear;
+          transition: background-position 0.1s linear;
+}
+
+.btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.btn.active,
+.btn:active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+     -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.btn-info {
+  color: #fefefe;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #49afcd;
+  *background-color: #2f96b4;
+  background-image: -moz-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#5bc0de), to(#2f96b4));
+  background-image: -webkit-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: -o-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: linear-gradient(to bottom, #5bc0de, #2f96b4);
+  background-repeat: repeat-x;
+  border-color: #2f96b4 #2f96b4 #1f6377;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5bc0de', endColorstr='#ff2f96b4', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:active,
+.btn-info.active,
+.btn-info.disabled,
+.btn-info[disabled] {
+  color: #fefefe;
+  background-color: #2f96b4;
+  *background-color: #2a85a0;
+}
+
+.btn-info:active,
+.btn-info.active {
+  background-color: #24748c \9;
+}
+/*结束*/
+

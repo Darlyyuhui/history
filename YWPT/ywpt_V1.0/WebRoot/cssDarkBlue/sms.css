@@ -1,0 +1,240 @@
+/*短信发送页面相关样式*/
+.message_info p {
+	line-height:24px;
+	color:#444;
+}
+.message_info p span {
+	margin:0 10px;
+	color:#999;
+}
+.sort_a_z li {
+	text-align:center;
+	min-width:18px;
+	height:15px;
+	line-height:15px;
+	border:1px solid #ccc;
+	margin:1px 0;
+}
+.sort_a_z li a {
+	height:15px;
+	line-height:15px;
+	display:block;
+	background:#f5f5f5;
+	color:#069;
+}
+.sort_a_z li a:hover {
+	background:#099;
+	color:#0FF;
+}
+.sort_az li {
+	text-align:center;
+	min-width:18px;
+	height:22px;
+	line-height:22px;
+	border:1px solid #ccc;
+	margin:1px 0;
+}
+.sort_az li a {
+	height:22px;
+	line-height:22px;
+	display:block;
+	background:#f5f5f5;
+	color:#069;
+}
+.sort_az li a:hover {
+	background:#099;
+	color:#0FF;
+}
+.sort_line {
+	height:22px;
+	line-height:22px;
+	background:#eaf0f3 url(../picone/mainnavbar_bg.png) repeat-x 0 0;
+	border:1px solid #bdc5d9;
+	margin-bottom:0;
+}
+.sort_line span {
+	display:block;
+	float:left;
+	padding:0 10px;
+	background:#4b5899;
+	color:#fff;
+}
+.sort_line i {
+	float:right;
+	margin-right:5px;
+}
+.sort_name_box {
+	padding:5px;
+	border:1px solid #e3e3e3;
+	margin-bottom:5px;
+	min-height:30px;
+	background:#fefefe;
+}
+.sort_name_list li {
+	float:left;
+	width:70px;
+	background:#f3f3f3;
+	margin:2px 5px;
+	padding:2px;
+}
+.sort_name_list li input,.sort_device_list li input {
+	float:left;
+	margin-right:5px;
+	margin-top:3px;
+	margin-top:0px\0;
+	#margin-top:0px
+	_margin-top:0px
+}
+.sort_device_list li {
+	float:left;
+	width:335px;
+	width:334px\0;
+	#width:334px;
+	_width:334px;
+	background:#f3f3f3;
+	margin:2px 5px;
+	padding:2px;
+}
+.sort_device_list li p {
+	width:305px;
+	height:20px;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	overflow:hidden;
+	white-space:nowrap;
+	margin:0;
+}
+
+.more {
+	width:60px;
+	height:20px;
+	line-height:20px;
+	display:block;
+	text-align:center;
+	background:#a4addb;
+	font-size:12px;
+	color:#fff;
+}
+.more:hover {
+	background:#ccdaeb;
+	text-decoration:none;
+	font-size:12px;
+}
+.sort_name_lxr li {
+	float:left;
+	width:198px;
+	background:#eaf0f3;
+	margin:2px 5px;
+	padding:2px 4px;
+	font-size:12px;
+}
+.sort_name_lxr li input {
+	width:14px;
+	height:14px;
+	float:left;
+	margin:0;
+	margin-right:5px;
+	margin-top:2px;
+	padding:0;
+}
+.sort_name_lxr li span {
+	float:right;
+}
+
+.sort_name_lxr li cite {
+	width:30px;
+	height:14px;
+	display:block;
+	float:right;
+	margin-top:5px;
+	margin-right:10px;
+	background:url(../images/picone/green_arr.png) no-repeat 0 0;
+}
+.sort_name_lxr li i {
+	width:30px;
+	height:14px;
+	display:block;
+	float:right;
+	margin-top:5px;
+	margin-right:10px;
+	background:url(../images/picone/red_arr.png) no-repeat 0 0;
+} 
+
+.position_pop {
+	height:30px;
+	line-height:30px;
+	border-bottom:1px solid #256089;
+	padding:2px 10px;
+	background:url(../images/blue/bg_left_title.png) repeat-x 0 0;
+}
+.message_sort {
+	 position:absolute;
+     right:18px;
+     top:31px;
+	 padding:5px;
+	 background:#fefefe;
+	 max-height:200px;
+	 overflow-y:scroll;
+	 overflow-x:hidden;
+	 border:1px solid #999;
+	 display:none;
+}
+.message_sort li {
+	line-height:24px;
+	margin:3px 0;
+	background:#d5e4f0;	
+	padding:0 5px;
+	cursor:pointer;
+}
+.pop_btn_line {
+	height:30px;
+	padding:5px 10px;
+	background:url(../images/picone/btn_line_bg.png) repeat-x 0 0;
+	text-align:right;
+	border-top:1px solid #829bb0;
+	border-bottom:1px solid #3f6787;
+}
+#se_mess_sort {
+	cursor:pointer; 
+	float:right; 
+	height:14px; 
+	width:17px; 
+	margin-right:8px;
+	margin-top:6px;
+	background:#f9f9f9;
+	border-top:1px solid #ccc;
+	border-right:1px solid #666;
+	border-bottom:1px solid #666;
+	border-left:1px solid #ccc;
+	text-align:center;
+	padding:1px;
+}
+#se_mess_sort img {
+	display:block;
+	margin:0;
+	padding:0;
+}
+.message_head {
+	line-height:30px; 
+	height:30px; 
+	background:url(../images/picone/mainnavbar_bg.png) repeat-x 0 bottom; 
+	padding:0 10px; 
+	border-bottom:1px solid #bdc5d9; 
+	margin-bottom:0; 
+	position:relative;
+}
+
+.modle_list {
+	margin-left:500px;
+	border:1px solid #bdc5d9;
+	height:349px;
+}
+
+.sms_box {
+	background:#f9f9f9;
+	min-height:420px;
+}
+
+
+
+/*短信平台部分样式结束*/

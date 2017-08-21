@@ -1,0 +1,299 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	margin:0 auto;
+	padding:0;
+}
+body {
+	margin:0;
+	padding:0;
+	font:Smsun,Microsoft YaHei;
+}
+a {
+	color:#444;
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:none;
+	color:#000;
+}
+img {
+	margin:0;
+	border:0;
+}
+ul {
+	list-style:none;
+}
+.clear {
+	clear:both;
+}
+/*public style end*/
+.ti_h4 {
+	height:40px;
+	padding:0 10px;
+	line-height:40px;
+	font-family:Microsoft YaHei;
+	background:url(../images/dialog/ti_bg.png) repeat-x 0 0;
+	border-bottom:1px solid #4687ad;
+	font-size:14px;
+}
+.ti_close {
+	width:15px;
+	height:15px;
+	display:block;
+	float:right;
+	position:relative;
+	top:50%;
+	margin-top:-8px;
+	background:url(../images/dialog/ti_close.png) no-repeat 0 0;
+}
+.ti_close:hover {
+	width:15px;
+	height:15px;
+	display:block;
+	float:right;
+	position:relative;
+	top:50%;
+	margin-top:-8px;
+	background:url(../images/dialog/ti_close.png) no-repeat -15px 0;
+}
+.row-main {
+	height:440px;
+}
+/*左侧*/
+.flow_left {
+	width:180px;
+	float:left;
+	border-right:1px solid #999;
+}
+.sort-h3-title {
+	background:url(../images/blue/bg-sort-h3-title.png) repeat-x 0 0;
+	margin:0;
+	height:30px;
+	line-height:30px;
+	font-size:14px;
+	font-family:Microsoft YaHei;
+	padding:0 10px;
+	font-weight:normal;
+	cursor:default;
+	border-bottom:1px solid #6d8eb4;
+}
+.ztree_box {
+	height:307px;
+	padding:5px;
+	overflow:scroll;
+}
+
+.leter_ul li {
+	float:left;
+	width:49px;
+	height:26px;
+	line-height:26px;
+	margin:0 1px 1px 0;
+	text-align:center;
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	background:url(../images/dialog/leter_bg_n.png) repeat-x 0 0;
+	border:1px solid #dcdcdc;
+}
+.leter_ul li a {
+	display:block;
+	cursor:pointer;
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+	font-family:Microsoft YaHei;
+	font-size:13px;
+	color:#515c74;
+}
+.currentBtn{
+	border:1px solid #acb3c9;
+}
+.currentBtn a {
+	color:#000;
+	background:url(../images/dialog/leter_bg.png) repeat-x 0 0;
+}
+
+
+/*右侧*/
+.flow_right {
+	height:440px;
+	width:512px;
+	float:right;
+	position:absolute;
+	right:0;
+	top:0;
+	overflow:hidden;
+}
+.right_detail_wrap {
+	height:440px;
+	overflow-y:scroll;
+}
+.sel_line {
+	margin:0;
+	height:30px;
+	padding:0 10px;
+	background:url(../images/dialog/sel_line_bg.png) repeat-x 0 0;
+	border-bottom:1px solid #dcdcdc;
+	text-align:right;
+	position:fixed;
+	top:0;
+	right:16px;
+	width:482px;
+	z-index:10;
+	
+}
+.device_list {
+	margin:32px 5px 6px 5px;
+}
+.device_list li {
+	float:left;
+	height:22px;
+	line-height:22px;
+	width:230px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	font-size:12px;
+	padding:3px;
+	background:#eee;
+	margin:2px;
+	font-family:Microsoft YaHei;
+}
+.device_list li input[type="checkbox"] {
+	float:left;
+	margin-right:5px;
+	margin-top:4px;
+
+}
+
+/*按钮行*/
+.foot_line {
+	height:40px;
+	padding:0 10px;
+	line-height:40px;
+	background:url(../images/dialog/ti_bg.png) repeat-x 0 0;
+	border-top:1px solid #999;
+	text-align:right;
+}
+
+/*按钮样式*/
+.btn {
+  display: inline-block;
+  *display: inline;
+  padding: 2px 5px;
+  margin-top:0;
+  margin-bottom:0;
+  *margin-left: .3em;
+  font-size: 12px;
+  line-height: 20px;
+  color: #333333;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  *background-color: #eaeaea;
+  background-image: -moz-linear-gradient(top, #fefefe, #eaeaea);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fefefe), to(#eaeaea));
+  background-image: -webkit-linear-gradient(top, #fefefe, #eaeaea);
+  background-image: -o-linear-gradient(top, #fefefe, #eaeaea);
+  background-image: linear-gradient(to bottom, #fefefe, #eaeaea);
+  background-repeat: repeat-x;
+  border: 1px solid #cccccc;
+  *border: 0;
+  border-color: #eaeaea #eaeaea #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  border-bottom-color: #b3b3b3;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fefefeff', endColorstr='#ffeaeaea', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  *zoom: 1;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+     -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  line-height:18px;
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active,
+.btn.active,
+.btn.disabled,
+.btn[disabled] {
+  color: #333333;
+  background-color: #eaeaea;
+  *background-color: #d9d9d9;
+}
+
+.btn:active,
+.btn.active {
+  background-color: #cccccc \9;
+}
+
+.btn:first-child {
+  *margin-left: 0;
+}
+
+.btn:hover,
+.btn:focus {
+  color: #333333;
+  text-decoration: none;
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+     -moz-transition: background-position 0.1s linear;
+       -o-transition: background-position 0.1s linear;
+          transition: background-position 0.1s linear;
+}
+
+.btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.btn.active,
+.btn:active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+     -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.btn-info {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #3c77af;
+  *background-color: #2f96b4;
+  background-image: -moz-linear-gradient(top, #438ecf, #386da3);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#438ecf), to(#386da3));
+  background-image: -webkit-linear-gradient(top, #438ecf, #386da3);
+  background-image: -o-linear-gradient(top, #438ecf, #386da3);
+  background-image: linear-gradient(to bottom, #438ecf, #386da3);
+  background-repeat: repeat-x;
+  border-color: #266598 #266598 #266598;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff438ecf', endColorstr='#ff386da3', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:active,
+.btn-info.active,
+.btn-info.disabled,
+.btn-info[disabled] {
+  color: #ffffff;
+  background-color: #356797;
+  *background-color: #356797;
+}
+
+.btn-info:active,
+.btn-info.active {
+  background-color: #24748c \9;
+}
+/*结束*/

@@ -1,0 +1,154 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	margin:0 auto;
+	padding:0;
+}
+body {
+	font:Verdana, Geneva, sans-serif,SimSon,Microsoft YaHei,Arial;
+	font-size:14px;
+	margin:0;
+	padding:0;
+	background:url(../images/newlogin/body_bg.jpg) repeat-x 0 0;
+}
+a {
+	text-decoration:none;
+	color:#333;
+}
+a:hover {
+	text-decoration:none;
+	color:#036;
+}
+img {
+	border:none;
+	display:block;
+	margin:0;
+}
+ul {
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+.clear {
+	clear:both;
+}
+/*publick end*/
+.wrap {
+	width:950px;
+	height:650px;
+	margin:0 auto;
+	position:relative;
+	background:url(../images/newlogin/LOGIN-wrap.jpg) no-repeat 0 center;
+}
+.login_box {
+	width:461px;
+	height:270px;
+	position:absolute;
+	top:169px;
+	left:246px;
+	background:url(../images/newlogin/login_box_bg.png) no-repeat 0 center;
+}
+.title {
+	height:28px;
+}
+.sysname {
+	height:28px;
+	line-height:28px;
+	float:left;
+	margin-left:60px;
+	font-size:14px;
+	font-weight:bold;
+	font-family:SimSun;
+	color:#517cb1;
+}
+.version {
+	height:28px;
+	line-height:28px;
+	text-align:right;
+	padding-right:10px;
+	font:Arial;
+	font-size:12px;
+	color:#517cb1;
+	float:right;
+}
+.syssign {
+	height:50px;
+	line-height:50px;
+	overflow:hidden;
+	margin-top:23px;
+	padding-left:85px;
+	font-size:36px;
+	font-family:Microsoft YaHei;
+	color:#fff;
+	text-shadow:1px 1px 2px #000;
+	filter:progid:DXImageTransform.Microsoft.Shadow(Strength=2,Direction=135);
+}
+
+
+.info {
+	margin-top:35px;
+	padding-left:98px;
+}
+.info_line {
+	height:30px;
+	line-height:30px;
+	margin-bottom:10px;
+}
+.info_line span {
+	font-size:14px;
+	font-family:Microsoft YaHei;
+	float:left;
+	margin-right:10px;
+}
+.name,.password  {
+	height:30px;
+	width:190px;
+	padding-left:30px;
+	float:left;
+}
+.name{
+	background:url(../images/newlogin/name_bg.png) no-repeat 0 0;
+}
+.password {
+	background:url(../images/newlogin/pass_bg.png) no-repeat 0 0;
+}
+
+.name input,.password input {
+	height:20px;
+	padding:5px;
+	width:180px;
+	line-height:20px;
+	border:0;
+	background:none;
+	color:#aaa;
+}
+.btn_group {
+	padding-left:52px;
+	margin-top:15px;
+}
+.login_btn, .login_btn_h {
+	width:65px;
+	height:25px;
+	border:0;
+	cursor:pointer;
+	font-size:12px;
+	color:#666;
+}
+.login_btn {
+	background:url(../images/newlogin/login_btn2.png) no-repeat 0 0;
+	margin-right:33px;
+}
+.login_btn_h {
+	background:url(../images/newlogin/login_btn_h.png) no-repeat 0 0;
+	margin-right:33px;
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1349 @@
+/**
+ * 初始化
+ **/
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration:none;
+	font-size:12px;
+}
+
+ul{
+	margin:0;
+	padding:0;
+}
+
+html,body{
+	height:100%;
+}
+
+input[type="checkbox"]{
+	width:12px;
+}
+
+/**开源地图通行证查询*/
+/**-------------------*/
+.popup {
+	width: 100%
+}
+.popup .title {
+	background: #65b5e5;
+	color: white;
+	text-align: left;
+}
+.popup .oddRow {
+	background: #d3eaff;
+}
+.popup .evenRow {
+	background: #e9f4ff;
+}
+.oddRow td, .evenRow td {
+	height:20px;
+	line-height:20px;
+	font-size:12px;
+	text-align:center;
+	padding:3px;
+}
+/**------------------*/
+
+/**
+ * 按钮样式
+ **/
+.mapToolMenuButton{
+	/*float : left;
+	width : 80px;
+	height : 30px;*/
+	padding:5px;
+	display : block;
+	font-size : 13px;
+	/*margin-left : 10px;*/
+	text-align : center;
+	background : #eee;
+	cursor : pointer;
+	font-weight : bold;
+}
+
+.mapToolMenuButton:hover{
+	background : #cc0033;
+	color : white;
+}
+
+.mapToolMenuButtonDisable{
+	padding:5px;
+	display : block;
+	font-size : 13px;
+	text-align : center;
+	background : #eee;
+	cursor : pointer;
+	font-weight : bold;
+	color:#aaa;
+}
+
+/**
+ * 	地图结果盒子样式
+ */
+#mapResultBox{
+	position:absolute;
+	z-index: 800;
+	right : 0;
+	bottom : 0;
+	background:#eee;
+}
+
+#mapResultBox #mapResultBoxTitle{
+	height:30px;
+	width:100%;
+	font-size:13px;
+	/*background:#aaa;*/
+	background:url("../images/picone/bg_left_title.png") repeat-x;
+	line-height:30px;
+}
+
+#mapResultBox #mapResultBoxTitle #mapResultBoxTitleContent{
+	font-weight:bold;
+	padding-left:10px;
+	float:left;
+}
+
+#mapResultBox #mapResultBoxTitle #mapResultBoxTitleOper{
+	float:right;
+	width:100px;
+	padding-top:8px;
+	padding-right:4px;
+}
+
+#mapResultBox #mapResultBoxTitle #mapResultBoxTitleOper div{
+	/*padding:0 5px;*/
+	cursor:pointer;
+	display:block;
+	float:right;
+	margin-right:3px;
+}
+
+#mapResultBox #mapResultBoxTitle #mapResultBoxTitleOper #mapResult_rebox{
+	/*background:red;*/
+	background:url("../images/picone/opa-icons-darkgray16.png") no-repeat;
+	background-position:-16px -128px;
+	width:16px;
+	height:16px;
+}
+
+#mapResultBox #mapResultBoxTitle #mapResultBoxTitleOper #mapResult_min{
+	/*background:yellow;*/
+	background:url("../images/picone/opa-icons-darkgray16.png") no-repeat;
+	background-position:-32px -128px;
+	width:16px;
+	height:16px;
+}
+
+#mapResultBox #mapResultBoxTitle #mapResultBoxTitleOper #mapResult_close{
+	background:url("../images/picone/opa-icons-darkgray16.png") no-repeat;
+	/*background:blue;*/
+	background-position:0px -128px;
+	width:16px;
+	height:16px;
+}
+
+#mapResultBox #mapResultOuterBox{
+	padding:5px 0 5px 5px;
+}
+
+#mapResultBox #mapResultBoxContent{
+	overflow-y:scroll;
+}
+
+/**
+ * 	定义统一表格样式
+ */
+.commonResultTable{
+	width:100%;
+}
+
+.commonResultTable .commonResultTableTitleRow {
+	background:#5fb785;
+	color:white;
+}
+
+.commonResultTable .commonResultTableOddRow {
+	background:#faf3ed;
+}
+
+.commonResultTable .commonResultTableEvenRow {
+	background:#f5e8dc;
+}
+
+.commonResultTable tr {
+}
+
+
+.commonResultTable tr td {
+	height:20px;
+	line-height:20px;
+	font-size:12px;
+	text-align:left;
+	padding:3px;
+}
+
+.commonActiveTable tr td {
+	cursor : pointer;
+	border-bottom:1px solid white;
+	text-align:center;
+}
+
+.commonActiveTable tr .tdHover {
+	background:#e8caad;
+	color:white;
+}
+
+.commonActiveTable tr .tdSelected {
+	background:#bfc4a4;
+	color:#2C2C2C;
+	/*color:white;*/
+}
+
+.commonActiveTable .rowHover {
+	background:#e8caad;
+	color:white;
+}
+
+.commonActiveTable .rowSelected {
+}
+
+.commonActiveTable .colSelected {
+}
+
+/**
+ * GIS主页样式
+**/
+
+#mapLeft{
+	width:240px;
+	/*height:100%;*/
+	float:left;
+	border:1px solid #bcbebd;
+	/*height:720px;*/
+	float:left;
+	border-bottom:0;
+}
+#mapLeft #mapOther{
+	display:inline;
+	line-height:0;
+	font-size:0;
+}
+
+#mapCenter{
+	float:left;
+	width:10px;
+	height:720px;
+	cursor:pointer;
+	padding:1px;
+}
+#mapContainer{
+	float:left;
+	height:720px;
+	overflow:hidden;
+	border:1px solid #bcbebd;
+}
+#map{
+	width:100%;
+	height:690px;
+}
+
+#mainContainer{
+	border-collapse:collapse;
+	width:100%;
+	height:100%;
+}
+
+#mainContainer .addBorder{
+	/*border:1px solid #aaa;*/
+}
+
+/**
+ * 	Togglebox
+ */
+
+.mapToggleBox{
+	overflow:hidden;
+}
+
+.mapToggleInnerBox{
+	width:100%;
+	border-bottom:1px solid white;
+}
+
+.mapToggleInnerBox .mapToggleBoxTitle{
+	width:100%;
+	height:30px;
+	line-height:30px;
+	background:#3B7AB6;
+	/*background:url("../images/map/map-toolboxtitle-bg2.png") repeat-x;*/
+	font-weight:bold;
+	color:#fff;
+	text-indent:24px;
+	font-size:13px;
+	cursor:pointer;
+}
+
+.mapToggleInnerBox .mapToggleBoxContent{
+	width:100%;
+	overflow:hidden;
+}
+
+.mapToggleInnerBox .open{
+	
+}
+
+.mapToggleInnerBox .close{
+	
+}
+
+.mapToggleInnerBox .hold{
+	
+}
+
+#toolsTreeContainer{
+	height:300px;
+	background:#aaa;
+}
+
+#toolsOperatorArea{
+	height:220px;
+	background:#CC0033;
+}
+
+/**
+ * 	鹰眼
+ */
+#overViewMapDiv{
+	width:100%;
+	height:200px;
+}
+
+
+/**
+ * 	单击鼠标右键弹出菜单
+ */
+#mapRightClickContextMenu{
+	display:none;
+	background:white;
+	position:absolute;
+	z-index:2500;
+	margin:0;
+	top:0;
+	left:0;
+	width:50px;
+}
+
+#mapRightClickContextMenu li{
+	height:25px;
+	line-height:25px;
+	font-size:13px;
+	padding:0 8px;
+	border-bottom:1px solid white;
+	cursor:pointer;
+	background:#eee;
+	text-align:center;
+}
+
+#mapRightClickContextMenu li:hover{
+	background:#CC0033;
+	color:white;
+}
+
+/**
+ * 	弹出提示框
+ */
+#mapTipBox{
+	//background:#FFB527;
+	background:black;
+	-moz-opacity: 0.7;  /* firefox*/
+	opacity: .70;  /* chrome*/
+	filter: alpha(opacity=70); /* ie*/
+	position:absolute;
+	z-index:2600;
+	border-radius:5px;
+	padding:5px 8px;
+	font-size:14px;
+	font-weight:bold;
+	color:white;
+	font-family:"黑体";
+}
+
+/**
+ * 地图比例尺位置样式
+ */
+#mapScaleBarBox{
+	position:absolute;
+	margin-left:20px;
+	margin-top:660px;
+}
+
+#mapScaleBarBox .esriScalebarLabel{
+	width:40px;
+}
+
+/**
+ * 地图顶部工具条样式
+ */
+#mapToolBar{
+	width:100%;
+	height:28px;
+	background:url(../images/openmap/bg_thead.png) repeat-x 0 0;
+	border-bottom:1px solid #aaa;
+}
+
+#mapToolBar div{
+	float:right;
+	font-size:12px;
+}
+
+#mapToolBar div span{
+	line-height:28px;
+	font-weight:bold;
+	display:block;
+	height:28px;
+	cursor:pointer;
+	text-align:center;
+	padding-left:5px;
+	padding-right:5px;
+	color:#333;
+}
+
+#mapToolBar div ul{
+	display:none;
+	position:absolute;
+	z-index:2000;
+	margin-left:0px;
+	background:#fff;
+	border-top:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+	border-right:1px solid #ccc;
+	border-left:1px solid #ccc;
+}
+
+#mapToolBar div ul li{
+	cursor:pointer;
+	text-align:center;
+}
+
+#mapToolBar .menuIcon{
+	width:28px;
+}
+
+#mapToolBar .menuIcon img{
+	width:14px;
+	height:14px;
+	margin-top:8px;
+}
+
+#mapToolBar .mapMenuList{
+	width:62px;
+	#width:60px;
+	_width:60px;
+}
+
+#mapToolBar .mapMenuList ul{
+	width:60px;
+	line-height:23px;
+}
+
+#mapToolBar .mapMenuList ul li{
+	width:100%;
+}
+
+#mapToolBar .mapMenuTag{
+	width:62px;
+	#width:60px;
+	_width:60px;
+}
+
+#mapToolBar .mapMenuTag ul{
+	width:150px;
+}
+
+#mapToolBar .mapMenuTag ul li{
+	float:left;
+	display:block;
+	line-height:23px;
+	padding-left:5px;
+	padding-right:5px;
+	margin-right:1px;
+}
+
+#mapToolBar .active{
+	display:block;
+}
+
+#mapToolBar .activeSpan{
+	border-top:1px solid #ccc;
+	/*border-left:1px solid #ccc;
+	border-right:1px solid #ccc;*/
+	background:white;
+}
+
+/**
+ * map tab css
+ **/
+.mapActiveContent{
+	display:block;
+	background:#e3f6f0;
+}
+
+.mapDeactiveContent{
+	display:none;
+}
+
+/*标签切换样式开始*/
+#menuList {
+	padding:0 1px;
+	margin: 0px;
+	height:24px;
+	background:url(../images/pictwo/mainnavbar_bg.png) repeat-x 0 0;
+	padding-top:4px;
+}
+#menuList li {
+	background: url(../images/pictwo/tagleft.gif) no-repeat left bottom;
+	float: left;
+	margin:0 2px;
+	height: 24px;
+	padding:0;
+}
+#menuList li a {
+	padding:0 15px;
+	background: url(../images/pictwo/tagright.gif) no-repeat right bottom;
+	float: left;
+	color: #999;
+	line-height: 24px;
+	height: 24px;
+	text-decoration: none;
+}
+#menuList li.emptyTag {
+	background: none transparent scroll repeat 0% 0%;
+	width: 4px;
+}
+#menuList li.selectelement{
+	background-position: left top;
+	margin-bottom: -1px;
+	position: relative;
+	height: 25px;
+}
+#menuList li.selectelement a {
+	background-position: right top;
+	color: #000;
+	line-height: 25px;
+	height: 25px;
+}
+#mapTabContent {
+	overflow:hidden;
+	/*border-bottom:1px solid #bcbebd;*/
+}
+
+/**
+ * 地图工具菜单列表
+ **/
+.mapToolMenuBox{
+	border:1px solid #acba9b;
+	border-top-width:0;
+	border-right-width:0;
+}
+
+.mapModuleTools{
+	width:100%;
+	height:26px;
+	background:#b4e9d5;
+	margin-bottom:5px;
+}
+.mapModuleTools .mapModuleToolsIcon{
+	width:12px;
+	height:12px;
+	float:right;
+	margin-top:4px;
+	margin-right:4px;
+	cursor:pointer;
+}
+.mapModuleMessage{
+	width:90%;
+	height:18px;
+	background:#f3f3f3;
+	line-height:18px;
+	margin:0 auto;
+	padding:3px;
+	text-align:center;
+	display:none;
+	margin-bottom:5px;
+}
+.mapToolParentMenuTitle{
+	height:33px;
+	background-color:#eef1f3;
+	background:url("../images/pictwo/nav_head_bg.png") repeat-x top right;
+	font-family: Microsoft YaHei;
+	color:#000;
+	font-size:13px;
+	cursor:pointer;
+}
+
+.mapToolParentMenuTitle span{
+	display:block;
+	padding-top:10px;
+	padding-left:15px;
+}
+
+.mapToolParentMenuTitleContent{
+	padding-top:8px;
+	padding-left:15px;
+}
+
+.mapToolSubMenuTitle{
+	height:31px;
+	padding-left:30px;
+	line-height:31px;
+	font-size:12px;
+	font-weight:normal;
+	font-family:Microsoft YaHei;
+	background-color:white;
+	background:url("../images/pictwo/nav_list_bg.png") repeat-x;
+	text-decoration:none;
+	border-top:1px solid #c2c2c2;
+	cursor:pointer;
+}
+
+.mapToolSubMenuTitleHover{
+	background:url('../images/picone/two_li_bg.png') repeat-x 0 0 transparent;
+}
+
+.mapToolSubMenuTitle span{
+	width:12px;
+	height:12px;
+	display:inline;
+	margin-top:9px;
+	float:left;
+	background: url("../images/picone/opa-icons-orange16.png") no-repeat -36px -18px;
+}
+.mapToolMenuContent{
+	/*padding:5px;*/
+	display:none;
+}
+
+.mapToolSubMenuContent{
+	display:none;
+	/*padding:5px;*/
+	width:100%;
+	border-top:1px solid #c2c2c2;
+}
+
+#mapMenuList{
+	/*padding:5px;*/
+}
+
+.toggleBoxIcon{
+	width:16px;
+	height:16px;
+	float:right;
+	margin-top:8px;
+	margin-right:10px;
+}
+
+.toggleBoxExpand {
+    background: url("../images/pictwo/accordion_expand.png") no-repeat scroll 0 0 transparent;
+}
+
+.toggleBoxCollapse {
+    background: url("../images/pictwo/accordion_collapse.png") no-repeat scroll 0 0 transparent;
+}
+
+.mapModuleToolIcon{
+	width:12px;
+	height:12px;
+	float:right;
+	margin-right:10px;
+	margin-top:7px;
+	cursor:pointer;
+	background-repeat:no-repeat;
+}
+
+#mapModulesRefresh,.mapModulesRefresh{
+	background-image:url("../images/map/moduleTools.png");
+	background-position:-52px 0;
+}
+
+#mapModulesAutoRefresh,.mapModulesAutoRefresh{
+	background-image:url("../images/map/moduleTools.png");
+	background-position:-39px 0;
+}
+
+#mapAddModule,.mapAddModule{
+	background-image:url("../images/map/moduleTools.png");
+	background-position:0 0;
+}
+
+/**
+ * 结果集
+ **/
+ #mapResultC{
+ 	padding:5px 0 5px 2px;
+	height:681px;
+	height:691px\0;
+	_height:691px;
+	border-bottom:1px solid #bcbebd;
+ }
+ .mapResItemBox{
+ }
+.mapResItemTitle{
+	background: none repeat scroll 0 0 #F9F9F9;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px 5px 5px 5px;
+    color: #444444;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 1px auto 0;
+    padding: 5px;
+}
+.mapResItemBox .selectedTitle{
+	background:#ccc;
+}
+.mapResItemAttr{
+	padding:5px;
+	font-size:12px;
+}
+
+/**
+ * Tab工具
+ * map-tab-tool.js
+ **/
+.zTabTool{
+	display:block;
+	margin:0 auto;
+	height:30px;
+	border-bottom:1px solid #ddd;
+}
+
+.zTabTool li{
+	float:left;
+	padding:0 20px;
+	text-align:center;
+	height:30px;
+	line-height:30px;
+	background:#eee;
+	cursor:pointer;
+	border-right:1px solid white;
+	font-weight:bold;
+}
+
+.zTabTool .mapActiveTab{
+	background:#99a0bd;
+	color:white;
+}
+
+.zTabTool .mapDeactiveTab{
+	background:#eee;
+	color:black;
+}
+
+.zTabToolContent div{
+	left:0;
+	top:0;
+	padding:0;
+}
+
+.zTabToolContent .mapActiveContent{
+	display:block;
+}
+
+.zTabToolContent .mapDeactiveContent{
+	display:none;
+}
+
+/**
+ * 图层控制器样式
+ * map-toc.js
+ * maplayercontrol
+ **/
+ .mapLayerReorderBtn{
+ 	margin-left:10px;
+ 	cursor:pointer;
+ }
+.layerGroupBox{
+	padding-left:20px;
+}
+
+.layerGroupTitle .layerGroupCollapse{
+	width:9px;
+	height:9px;
+	background:red;
+	float:left;
+	margin-right:8px;
+	line-height:0;
+	font-size:0;
+	padding:0;
+	margin-top:5px;
+	cursor:pointer;
+	background:url("../images/map/toccollapse.png") no-repeat;
+}
+
+.layerGroupTitle .groupCollapse{
+	background-position:0 0;
+}
+
+.layerGroupTitle .groupUnCollapse{
+	background-position:-9px 0;
+}
+
+.mapLayersControler{
+	padding-left:15px;
+}
+.mapLayersControler li{
+	list-style:none;
+	height:25px;
+	padding-top:5px;
+	padding-left:3px;
+	cursor:pointer;
+	font-size:13px;
+}
+.mapLayersControler li .checkbox,.layerGroupTitle .checkbox{
+	float:left;
+	margin-right:5px;
+	padding:0px;
+	width:10px;
+}
+.mapLayersControler li .checkbox input,.layerGroupTitle .checkbox input{
+	width:10px;
+	margin-left:0;
+	margin-top:4px;
+	margin-top:1px/0;
+	*margin-top:1px;
+	_margin-top:1px;
+}
+.mapLayersControler li .checkboxText,.layerGroupTitle .checkboxText,.mapLayersControler li .operationBtn{
+	float:left; 
+}
+
+.mapLayersControler li .operationBtn{
+	display:none;
+	width:10px;
+	height:10px;
+	margin-left:5px;
+	margin-top:4px;
+}
+
+.mapLayersControler li .moveLayerToTop{
+	background:url("../images/map/topdel.png") no-repeat;
+}
+
+.mapLayersControler li .removeLayer{
+	background:url("../images/map/topdel.png") no-repeat;
+	background-position:-10px; 0;
+}
+
+/**
+ * 地图导航按钮
+ * map-Navigation.js
+ **/
+#map_zoom_slider{
+	margin-top:58px;
+}
+#mapNavigationBox{
+	position:absolute;
+	z-index:1500;
+	margin-left:14px;
+	margin-top:20px;
+	width:48px;
+	height:48px;
+}
+#mapNavigation{
+	width:48px;
+	height:48px;
+	background-image:url("../images/map/map_op.png");
+	background-repeat:no-repeat;
+}
+
+#mapNavigation #panLeft{
+	position:absolute;
+	width:13px;
+	height:20px;
+	margin-top:14px;
+	cursor:pointer;
+}
+
+#mapNavigation #panRight{
+	position:absolute;
+	width:13px;
+	height:20px;
+	margin-top:14px;
+	margin-left:35px;
+	cursor:pointer;
+}
+
+#mapNavigation #panTop{
+	position:absolute;
+	width:20px;
+	height:13px;
+	margin-left:14px;
+	cursor:pointer;
+}
+
+#mapNavigation #panBottom{
+	position:absolute;
+	width:20px;
+	height:13px;
+	margin-left:14px;
+	margin-top:35px;
+	cursor:pointer;
+}
+
+#mapNavigation #fullExtent{
+	position:absolute;
+	width:14px;
+	height:14px;
+	margin-left:17px;
+	margin-top:17px;
+	cursor:pointer;
+}
+
+/**
+ * 视图转换器
+ * viewswitcher.js
+ **/
+#mapViewSwitcher{
+	position:absolute;
+	z-index:1500;
+	width:28px;
+	height:13px;
+	display:block;
+	margin-left:24px;
+	margin-top:73px;
+}
+
+#mapPostview{
+	position:absolute;
+	width:14px;
+	height:13px;
+	background:url("../images/map/viewswitcher.png") no-repeat;
+	background-position:0 0;
+	cursor:pointer;
+}
+
+#mapNextview{
+	position:absolute;
+	width:14px;
+	height:13px;
+	background:url("../images/map/viewswitcher.png") no-repeat;
+	background-position:-14px 0;
+	margin-left:14px;
+	cursor:pointer;
+}
+
+/**
+ * 地图等待图标
+ */
+#mapWaiting{
+	width:220px;
+	height:19px;
+	margin:0 auto;
+	margin-top:200px;
+	background:url("../images/picone/ajax-loaders/ajax-loader-7.gif");
+}
+.infoWindowLoading{
+	width:220px;
+	height:19px;
+	margin:0 auto;
+	background:url("../images/picone/ajax-loaders/ajax-loader-7.gif");
+}
+
+.loadWaiting{
+	width:220px;
+	height:19px;
+	margin:0 auto;
+	background:url("../images/picone/ajax-loaders/ajax-loader-7.gif");
+}
+
+/**
+ * 地图缩放滑动条
+ * ZoomSlider.js
+ */
+#mapZoomSlider{
+	position:absolute;
+	margin-top:90px;
+	margin-left:34px;
+	z-index:1500;
+}
+#zoomBarContainer{
+	position:absolute;
+}
+#zoomBarContainer #zoomBar{
+	position:absolute;
+}
+#zoomBarContainer #zoomBar li{
+	width:16px;
+	height:20px;
+	display:block;
+	line-height:20px;
+	text-align:right;
+	font-size:12px;
+	cursor:pointer;
+}
+#zoomBarContainer #zoomBarBackground{
+	width:5px;
+	width:7px\0;
+	#width:7px;
+	_width:7px;
+	background:white;
+	position:absolute;
+	border:1px solid #b5bcc7;
+	height:100%;
+	font-size:0px;
+	display:inline;
+}
+#zoomBarContainer #zoomHandler{
+	position:absolute;
+	width:16px;
+	height:15px;
+	cursor:pointer;
+	margin-left:-4px;
+	background:url("../images/map/zoomHandler.png") no-repeat;
+	top:4px;
+}
+
+/**
+ * 部门树样式
+ * DepartmentWidget.js
+ */
+.mapDepartmentListBox{
+	position:absolute;
+	z-index:99;
+	display:none;
+	width:210px;
+	height:220px;
+	background:white;
+	border:1px solid #ccc;
+}
+.mapDepartmentList{
+	width:210px;
+	height:185px;
+	border-bottom:1px solid #eee;
+	overflow-y:scroll;
+	overflow-x:hidden;
+}
+.mapDepartment{
+	width:100px;
+	overflow:hidden;
+	cursor:pointer;
+	border:1px dashed #ccc;
+	padding:0 5px;
+	background:white;
+}
+
+/**
+ * 开源测绘工具
+ * MeasureMent.js
+ */
+#MeasureMentContainer{
+	width:200px;
+	height:70px;
+}
+#MeasureMentContainer #MeasureMentButtons{
+	width:100%;
+	height:30px;
+}
+#MeasureMentButtons div{
+	float:left;
+	margin-right:10px;
+	cursor:pointer;
+	width:30px;
+	height:30px;
+}
+
+#MeasureMentContainer div img{
+	width:16px;
+	height:16px;
+	margin-left:7px;
+	margin-top:7px;
+}
+
+#MeasureMentContainer .buttonClicked{
+	background:#eee;
+}
+
+#MeasureMentContainer #MeasureMentDiv{
+	width:100%;
+	border-top:1px solid black;
+	clear:both;
+	margin-top:5px;
+	margin-bottom:5px;
+	height:1px;
+	line-height:1px;
+	font-size:1px;
+}
+
+/**
+ * 书签工具
+ * BookMark.js
+ */
+#BookmarksBox{
+	width:100%;
+}
+#BookmarksBox li{
+	cursor:pointer;
+	width:95%;
+	padding-left:3px;
+	padding-right:3px;
+	height:25px;
+	line-height:25px;
+}
+#BookmarksBox .BookmarkMouseEnter{
+	background:#eee;
+}
+
+/**
+ * 图例工具
+ * Legend.js
+ */
+#legendContainer{
+	width:250px;
+	overflow:hidden;
+}
+
+.LegendModule{
+	float:left;
+	width:250px;
+}
+
+.LegendItem{
+	float:left;
+	width:105px;
+	width:115px\0;/*ie8+*/
+	#width:115px;/*ie7*/
+	_width:115px;/*ie6*/
+	display:inline;
+	padding:5px;
+}
+
+.LegendItem img{
+	width:18px;
+	height:18px;
+}
+
+.LegendItem .LegendItemIco{
+	float:left;
+	width:18px;
+	height:10px;
+	margin-top:5px;
+}
+
+.LegendItem span{
+	margin-left:5px;
+}
+
+#legendContainerHead{
+	margin-left:48px;
+}
+
+.LegendOperationBtn{
+	width:16px;
+	height:16px;
+	float:left;
+	cursor:pointer;
+	background:url("../images/opa-icons-blue16.png") no-repeat;
+	margin-top:3px;
+}
+
+#LegendPreBtn{
+	background-position-x:-90px;
+}
+
+#LegendNextBtn{
+	background-position-x:-36px;
+}
+
+#LegendModuleTitle{
+	float:left;
+	width:90px;
+	text-align:center;
+}
+
+/**
+ * 分页样式
+ * Pager.js
+ */
+.resultPager{
+	float:left;
+}
+.pagerNumClass{
+	float : left;
+	padding : 5px 4px;
+	border : 1px solid #ccc;
+	font-size : 12px;
+	margin-right:1px;
+	line-height : 8px;
+	color : #000;
+	cursor : pointer;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+	user-select:none;
+	white-space:nowrap;
+}
+.showPagerNumClass{
+	width: 100px;
+	text-align: center;
+}
+.resultPager li{
+	
+}
+.resultPager .selected{
+	border-color : #cc3333;
+	color : #cc3333;
+}
+.resultPager .disableSelect{
+	border-color : #eee;
+	color : #999;
+}
+.resultPager .hover{
+	border-color : #ff6600;
+	color : #ff6600;
+}
+
+.pagerNumInputBox{
+	float:left;
+	width:40px;
+	height:22px;
+	line-height:22px;
+}
+
+.pagerJumpBox{
+	float: right;
+	padding-right: 5px;
+}
+
+#pagerJumpBtn{
+	margin-left:5px;
+}
+
+.pagerStatisticBox{
+	float:right;
+	padding-right: 5px;
+}
+
+.pagerAttachBox{
+	margin-top:25px;
+}
+
+/**
+ * 地图清屏工具
+ */
+.mapClearBtn{
+	position:absolute;
+	margin-left:29px;
+	margin-top:256px;
+	z-index:1500;
+	width:18px;
+	height:18px;
+	cursor:pointer;
+	background:url("../images/map/mapclear.png") no-repeat;
+}
+
+.mapClearBtnNormal{
+	background-position:-18px 0px;
+}
+
+.mapClearBtnHover{
+	background-position:0 0;
+}
+.ul_checkbox li {
+	height:30px;
+	line-height:30px;
+	float:left;
+	margin-right:15px;
+}
+.ul_checkbox li input {
+	margin-top:-2px;
+	margin-right:3px;
+}
+.ul_input_check  {
+	white-space:nowrap;
+}
+.ul_input_check li {
+	float:left;
+	margin-left:10px;
+	white-space:nowrap;
+}
+.ul_input_check li input[type=checkbox] {
+	float:left;
+	margin-right:3px;
+}
+
+/**
+ * 用户图层控制器样式
+ * UserLayer.js.js
+ **/
+.userLayerGroupBox{
+	padding-left:20px;
+}
+
+.userLayerGroupTitle .userLayerGroupCollapse{
+	width:9px;
+	height:9px;
+	background:red;
+	float:left;
+	margin-right:8px;
+	line-height:0;
+	font-size:0;
+	padding:0;
+	margin-top:5px;
+	cursor:pointer;
+	background:url("../images/map/toccollapse.png") no-repeat;
+}
+.userLayerGroupTitle .userGroupCollapse{
+	background-position:0 0;
+}
+.userLayerGroupTitle .userGroupUnCollapse{
+	background-position:-9px 0;
+}
+.userLayersControler{
+	padding-left:15px;
+}
+.userLayersControler li{
+	list-style:none;
+	height:25px;
+	padding-top:5px;
+	padding-left:3px;
+	cursor:pointer;
+	font-size:13px;
+}
+.userLayersControler li .checkbox,.userLayerGroupTitle .checkbox{
+	float:left;
+	margin-right:5px;
+	padding:0px;
+	width:10px;
+}
+.userLayersControler li .checkbox input,.userLayerGroupTitle .checkbox input{
+	width:10px;
+	margin-left:0;
+	margin-top:4px;
+	margin-top:1px/0;
+	*margin-top:1px;
+	_margin-top:1px;
+}
+.userLayersControler li .checkboxText,.userLayerGroupTitle .checkboxText,.userLayersControler li .operationBtn{
+	float:left; 
+}
+.userLayersControler li .operationBtn{
+	display:none;
+	width:10px;
+	height:10px;
+	margin-left:5px;
+	margin-top:4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

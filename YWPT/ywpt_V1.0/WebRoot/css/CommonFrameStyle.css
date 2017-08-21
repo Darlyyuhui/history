@@ -1,0 +1,849 @@
+@CHARSET "UTF-8";
+
+/*
+
+statiscBodyStyle is a style in this system which is to define the table position in the mainFrame.
+please pay a attention the value of topMargin and leftMargin. 
+
+*/
+.statiscBodyStyle {
+	margin-top: expression(this .   topMargin =   valueTop);
+	margin-left: expression(this .   leftMargin =   valueLeft);
+}
+
+/* 
+  FristPart is style in this system  for table of topborder leftborder rightborder
+  bottomborder 
+  */
+body {
+	margin-left: 5px;
+	margin-top: 5px;
+}
+
+.main {
+	width: expression(this .   width =   SystemBannerAndFrameMainWidth);
+	height: auto;
+}
+
+/* width for all table but not define the table height */
+.tableStyle {
+	width: expression(this .   width =     SystemBannerMainAndTableWidth);
+	text-align: center;
+}
+
+/* tableStyleForBreakLaw */
+.tableStyleForBreakLaw {
+	width: expression(this . width =   SystemBannerMainAndTableWidth);
+	height: expression(this . height =   SystemTableHeight);
+}
+
+.tableStyleSpeed {
+	width: expression(this .   width =     SystemBannerMainAndTableWidth);
+	text-align: left;
+}
+
+.statiseTableStyle {
+	width: expression(this .   width =     SystemBannerMainAndTableWidth);
+	height: expression(this .   height =    SystemTableHeight);
+}
+
+/*fieldsetWidth define fieldsetWidth in the flowrateStat page */
+.fieldsetWidthStyle {
+	width: expression(this .   width =   fieldsetWidth);
+}
+
+/* width and height style for System table */
+.tableWidthStyle {
+	width: expression(this .   width =     SystemBannerMainAndTableWidth);
+	height: 300px;
+}
+
+.tableListWidthStyle {
+	width: expression(this .   width =     SystemBannerMainAndTableWidth);
+	height: 50px;
+}
+
+/** SystemBanner style **/
+#SystemBannerStyle {
+	width: expression(this .   width =     SystemBannerAndFrameMainWidth);
+	height: 30px;
+	float: left;
+}
+
+.SystemBannerStyle {
+	width: expression(this .   width =     SystemBannerAndFrameMainWidth);
+	height: 30px;
+	float: left;
+}
+
+#SystemBannerLeftStyle {
+	width: 5px;
+	height: 30px;
+	float: left;
+	background: url("../pic/systemFrameTopLeft.png") left no-repeat;
+}
+
+.SystemBannerLeftStyle {
+	width: 5px;
+	height: 30px;
+	float: left;
+	background: url("../pic/systemFrameTopLeft.png") left no-repeat;
+}
+
+#SystemBannerMainStyle {
+	width: expression(this .   width =     SystemBannerMainAndTableWidth);
+	float: left;
+	height: 30px;
+	font-size: 14px;
+	font-family: '宋体';
+	font-weight: bolder;
+	padding-top: 6px;
+	padding-left: 3px;
+	color: #ffffff;
+	background: url("../pic/systemFrameTop.png") top;
+	border-top-color: #6B99D7;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+.SystemBannerMainStyle {
+	width: expression(this .   width =     SystemBannerMainAndTableWidth);
+	float: left;
+	height: 30px;
+	font-size: 14px;
+	font-family: '宋体';
+	font-weight: bolder;
+	padding-top: 6px;
+	padding-left: 3px;
+	color: #ffffff;
+	background: url("../pic/systemFrameTop.png") top;
+	border-top-color: #6B99D7;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+#SystemBannerRightStyle {
+	width: 5px;
+	height: 30px;
+	float: right;
+	background: url("../pic/systemFrameTopRight.png") right no-repeat;
+}
+
+.SystemBannerRightStyle {
+	width: 5px;
+	height: 30px;
+	float: right;
+	background: url("../pic/systemFrameTopRight.png") right no-repeat;
+}
+
+/* SystemFrameStyle for System table's body such as top bottom left right border*/
+#SystemFrameRoomOut {
+	width: expression(this . width =     SystemBannerAndFrameMainWidth);
+	float: left;
+	border-left-color: #6B99D7;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-color: #6B99D7;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-bottom-color: #6B99D7;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+}
+
+.SystemFrameRoomOut {
+	width: expression(this . width =     SystemBannerAndFrameMainWidth);
+	float: left;
+	border-left-color: #6B99D7;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-color: #6B99D7;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-bottom-color: #6B99D7;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+}
+
+#SystemFrameRoomIn {
+	width: expression(this .     width =     SystemBannerMainAndTableWidth);
+	float: left;
+	border-left-color: #333333;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-top-color: #333333;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+.SystemFrameRoomIn {
+	width: expression(this .     width =     SystemBannerMainAndTableWidth);
+	float: left;
+	border-left-color: #333333;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-top-color: #333333;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+#SystemQueryFrameMain {
+	width: expression(this .   width =   SystemBannerMainAndTableWidth);
+	float: left;
+	border-left-color: #9EBDEF;
+	border-left-style: solid;
+	border-left-width: 3px;
+	border-right-color: #9EBDEF;
+	border-right-style: solid;
+	border-right-width: 4px;
+	border-bottom-color: #9EBDEF;
+	border-bottom-style: solid;
+	border-bottom-width: 4px;
+}
+
+#SystemFrameMain {
+	width: expression(this .      width =     SystemBannerMainAndTableWidth)
+		;
+	float: left;
+	border-left-color: #9EBDEF;
+	border-left-style: solid;
+	border-left-width: 3px;
+	border-right-color: #9EBDEF;
+	border-right-style: solid;
+	border-right-width: 4px;
+	border-bottom-color: #9EBDEF;
+	border-bottom-style: solid;
+	border-bottom-width: 4px;
+}
+
+.SystemFrameMain {
+	width: expression(this .      width =     SystemBannerMainAndTableWidth)
+		;
+	float: left;
+	border-left-color: #9EBDEF;
+	border-left-style: solid;
+	border-left-width: 3px;
+	border-right-color: #9EBDEF;
+	border-right-style: solid;
+	border-right-width: 4px;
+	border-bottom-color: #9EBDEF;
+	border-bottom-style: solid;
+	border-bottom-width: 4px;
+}
+
+#SystemFrameMainPageList {
+	width: expression(this .    width =     SystemBannerMainAndTableWidth);
+	float: left;
+	border-left-color: #9EBDEF;
+	border-left-style: solid;
+	border-left-width: 3px;
+	border-right-color: #9EBDEF;
+	border-right-style: solid;
+	border-right-width: 4px;
+	border-bottom-color: #9EBDEF;
+	border-bottom-style: solid;
+	border-bottom-width: 4px;
+}
+
+#SystemFrameMainTreeTable {
+	width: expression(this .   width =   SystemTreeTableWidth);
+	float: left;
+}
+
+/*
+
+FlowCar Panel Style
+
+*/
+#FlowCarFrameBannerStyle {
+	width: expression(this .   width =     FlowCarBannerAndFrameMainWidth);
+	height: 30px;
+	float: left;
+}
+
+#FlowCarFrameBannerLeftStyle {
+	width: 5px;
+	height: 30px;
+	float: left;
+	background: url("../pic/AlarmFrameTopLeft.png") left no-repeat;
+}
+
+#FlowCarFrameBannerMainStyle {
+	width: expression(this .   width =     FlowCarBannerMainAndTableWidth);
+	float: left;
+	height: 30px;
+	font-size: 15px;
+	font-family: '黑体';
+	padding-top: 5px;
+	padding-left: 3px;
+	color: #ffffff;
+	background: url("../pic/AlarmFrameTop.png") top;
+	border-top-color: #6B99D7;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+#FlowCarFrameBannerRightStyle {
+	width: 5px;
+	height: 30px;
+	float: right;
+	background: url("../pic/AlarmFrameTopRight.png") right no-repeat;
+}
+
+#FlowCarFrameRoomOut {
+	width: expression(this . width =     FlowCarBannerAndFrameMainWidth);
+	float: left;
+	border-left-color: #282828;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-color: #282828;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-bottom-color: #282828;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+}
+
+#FlowCarFrameMain {
+	width: expression(this .      width =     FlowCarBannerMainAndTableWidth)
+		;
+	float: left;
+	border-left-color: #666666;
+	border-left-style: solid;
+	border-left-width: 4px;
+	border-right-color: #666666;
+	border-right-style: solid;
+	border-right-width: 4px;
+	border-bottom-color: #666666;
+	border-bottom-style: solid;
+	border-bottom-width: 4px;
+}
+
+#FlowCarFrameRoomIn {
+	width: expression(this .     width =     FlowCarBannerMainAndTableWidth)
+		;
+	float: left;
+	border-left-color: #333333;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-top-color: #333333;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+/* 
+ AlarmCar Panel Style
+
+ */
+#AlarmCarFrameBannerStyle {
+	width: expression(this .   width =     AlarmCarBannerAndFrameMainWidth);
+	height: 30px;
+	float: left;
+}
+
+#AlarmCarFrameBannerLeftStyle {
+	width: 5px;
+	height: 30px;
+	float: left;
+	background: url("../pic/systemFrameTopLeft.png") left no-repeat;
+}
+
+#AlarmCarFrameBannerMainStyle {
+	width: expression(this .   width =     AlarmCarBannerMainAndTableWidth);
+	float: left;
+	height: 30px;
+	font-size: 15px;
+	font-family: '黑体';
+	padding-top: 5px;
+	padding-left: 3px;
+	color: #ffffff;
+	background: url("../pic/systemFrameTop.png") top;
+	border-top-color: #282828;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+#AlarmCarFrameBannerRightStyle {
+	width: 5px;
+	height: 30px;
+	float: right;
+	background: url("../pic/systemFrameTopRight.png") right no-repeat;
+}
+
+#AlarmCarFrameRoomOut {
+	width: expression(this . width =     AlarmCarBannerAndFrameMainWidth);
+	float: left;
+	border-left-color: #6B99D7;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-color: #6B99D7;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-bottom-color: #6B99D7;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+}
+
+#AlarmCarFrameMain {
+	width: expression(this .      width =     AlarmCarBannerMainAndTableWidth)
+		;
+	float: left;
+	border-left-color: #9EBDEF;
+	border-left-style: solid;
+	border-left-width: 4px;
+	border-right-color: #9EBDEF;
+	border-right-style: solid;
+	border-right-width: 4px;
+	border-bottom-color: #9EBDEF;
+	border-bottom-style: solid;
+	border-bottom-width: 4px;
+}
+
+#AlarmCarFrameRoomIn {
+	width: expression(this .     width =     AlarmCarBannerMainAndTableWidth)
+		;
+	float: left;
+	border-left-color: #333333;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-top-color: #333333;
+	border-top-style: solid;
+	border-top-width: 1px;
+	padding-top: 5px;
+	padding-left: 5px;
+}
+
+/*
+ Plane Panel Style in CrossRoad Page
+*/
+#PlaneFrameBannerStyle {
+	width: expression(this .   width =     PlaneBannerAndFrameMainWidth);
+	height: 30px;
+	float: left;
+}
+
+#PlaneFrameBannerLeftStyle {
+	width: 5px;
+	height: 30px;
+	float: left;
+	background: url("../pic/systemFrameTopLeft.png") left no-repeat;
+}
+
+#PlaneFrameBannerMainStyle {
+	width: expression(this .   width =     PlaneBannerMainAndTableWidth);
+	float: left;
+	height: 30px;
+	font-size: 14px;
+	font-family: '宋体';
+	font-weight: bolder;
+	padding-top: 3px;
+	padding-left: 3px;
+	color: #ffffff;
+	background: url("../pic/systemFrameTop.png") top;
+	border-top-color: #6B99D7;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+#PlaneFrameBannerRightStyle {
+	width: 5px;
+	height: 30px;
+	float: right;
+	background: url("../pic/systemFrameTopRight.png") right no-repeat;
+}
+
+#PlaneFrameRoomOut {
+	width: expression(this . width =     PlaneBannerAndFrameMainWidth);
+	float: left;
+	border-left-color: #6B99D7;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-color: #6B99D7;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-bottom-color: #6B99D7;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+}
+
+#PlaneFrameMain {
+	width: expression(this .      width =     PlaneBannerMainAndTableWidth);
+	float: left;
+	border-left-color: #9EBDEF;
+	border-left-style: solid;
+	border-left-width: 4px;
+	border-right-color: #9EBDEF;
+	border-right-style: solid;
+	border-right-width: 4px;
+	border-bottom-color: #9EBDEF;
+	border-bottom-style: solid;
+	border-bottom-width: 4px;
+}
+
+#PlaneFrameRoomIn {
+	width: expression(this .     width =     PlaneBannerMainAndTableWidth);
+	float: left;
+	border-left-color: #333333;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-top-color: #333333;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+/* 
+ SecondPart is style in this system  for  small data list in some page such as equipList 
+ which is show equip in monitor page 
+*/ /* List is a style which define the width height and bottom border */
+.List {
+	width: 200px;
+	height: auto;
+	border-bottom: 1px;
+	border-bottom-color: #E8E8E8;
+	border-bottom-style: solid;
+}
+
+/* ListBt is a style which define List top banner  */
+.ListBt {
+	font-family: "黑体";
+	padding-left: 5px;
+	font-weight: lighter;
+	font-size: 12px;
+	text-align: left;
+	background-image: url(../pic/bt.png);
+	color: #000011;
+	padding-top: 9px;
+	height: 30px;
+}
+
+/* ListBody is a style which define List body which in the middle of List part*/
+.ListBody {
+	font-family: "黑体";
+	font-size: 14px;
+	font-weight: lighter;
+	list-style: none;
+	border-left: 1px;
+	border-left-color: #3d7cff;
+	border-left-style: solid;
+	border-right: 1px;
+	border-right-color: #3d7cff;
+	border-right-style: solid;
+	border-bottom: 1px;
+	border-bottom-color: #D9D9D9;
+	border-bottom-style: solid;
+	text-align: left;
+}
+
+.ListBodyOver {
+	font-family: "黑体";
+	font-size: 14px;
+	font-weight: lighter;
+	list-style: none;
+	border-left: 1px;
+	border-left-color: #3d7cff;
+	border-left-style: solid;
+	border-right: 1px;
+	border-right-color: #3d7cff;
+	border-right-style: solid;
+	border-bottom: 1px;
+	border-bottom-color: #D9D9D9;
+	border-bottom-style: solid;
+	text-align: left;
+	background: #F2C5C1;
+	color: #000000;
+}
+
+/* ListBody is a style which define List body bottom which is  under the bottom border */
+.ListBodyBottom {
+	font-family: "黑体";
+	font-size: 14px;
+	font-weight: lighter;
+	list-style: none;
+	text-align: right;
+	border-left: 1px;
+	border-left-color: #3d7cff;
+	border-left-style: solid;
+	border-right: 1px;
+	border-right-color: #3d7cff;
+	border-right-style: solid;
+	background: #E0EDF7;
+	color: #330000;
+	text-align: right;
+}
+
+.ListBodyBottomOver {
+	font-family: "黑体";
+	font-size: 14px;
+	font-weight: lighter;
+	list-style: none;
+	text-align: right;
+	border-left: 1px;
+	border-left-color: #3d7cff;
+	border-left-style: solid;
+	border-right: 1px;
+	border-right-color: #3d7cff;
+	border-right-style: solid;
+	background: #E0EDF7;
+	color: #330000;
+	text-align: right;
+}
+
+.ListBottom {
+	text-align: center;
+	margin-top: 5px;
+	border-top: 1px;
+	border-top-color: #80A9FF;
+	border-top-style: dashed;
+}
+
+/*FieldSetStyle is a style which is define the border width and color those is in the all system */
+.FlowCarFieldSetStyle {
+	height: expression(this . heigth =   leftFieldSetHeigth);
+	width: expression(this . width =   leftCommonWidth);
+	border: #3d7cff 1px solid;
+	margin-left: 8px;
+}
+
+.AlarmCarFieldSetStyle {
+	height: expression(this . height =   AlarmCarFieldHeight);
+	width: expression(this . width =   AlarmCarFieldSetWidth);
+	border: #4C83C8 1px solid;
+}
+
+.FieldSetStyle {
+	border: #3d7cff 1px solid;
+}
+
+.FieldSetStatisticStyle {
+	border: #cccccc 1px solid;
+}
+
+/*statisticsMainStyle is style which is define the Statistcs page  width and position  */
+.StatisticsMainStyle {
+	width: expression(this .   width =   StatisticsMainWidth);
+	margin-top: expression(this .   topmargin =   StatisticsMainWidth/ 4);
+	margin-left: expression(this .   leftmargin =   StatisticsMainWidth/ 2);
+}
+
+/*StatisticsBtnStyle is style which is define the btn position in the all Statistics page */
+.StatisticsBtnStyle {
+	margin-top: 10px;
+	text-align: center;
+}
+
+/*KaKouDetailInfomationList is style which is define the BlackCarDetailInfomation in the KaKou page */
+.KaKouDetailInfomationList {
+	width: expression(this . width =   AlarmCarFieldSetWidth);
+	height: auto;
+}
+
+.KaKouDetailInfomationListBt {
+	font-family: "黑体";
+	padding-left: 5px;
+	font-size: 14px;
+	text-align: left;
+	background-image: url(../pic/kakouBt.png);
+	color: #FFFFFF;
+	padding-top: 7px;
+	height: 28px;
+	width: 100%;
+}
+
+/*picFrame is a style which define the picture main frame that in the detail infomation ,
+ such as TCarQueryResult page at so on */
+#picFrame {
+	width: expression(this .   width =    SystemPicFrameWidth);
+	height: auto;
+	float: left;
+	border-left-color: #333333;
+	border-left-style: solid;
+	border-left-width: 2px;
+	border-bottom-color: #4C83C8;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-right-color: #4C83C8;
+	border-right-style: solid;
+	border-right-width: 1px;
+}
+
+#picBanner {
+	width: expression(this .   width =   SystemPicFrameWidth);
+	border-left-color: #333333;
+	border-left-style: solid;
+	border-left-width: 2px;
+	border-bottom-color: #94AFF8;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-right-color: #94AFF8;
+	border-right-style: solid;
+	border-right-width: 1px;
+	height: 20px;
+}
+
+.TCarDetailPic {
+	width: expression(this .   width =   SystemTCarDetailPic);
+	height: expression(this .   height =   SystemTCarDetailPicH);
+	float: left;
+	margin-left: 1px;
+	border: #333333 thin solid;
+}
+
+/*LCarDetailPic is a style which is for the WIDTH AND HEGITH OF PIC in LQueryResult page   */
+.LCarDetailPic {
+	width: expression(this .   width =   SystemLCarDetailPic);
+	height: expression(this .   height =   SystemTCarDetailPicH);
+	float: left;
+	margin-left: 3px;
+	border: #333333 thin solid;
+}
+
+.TCarDetailPic {
+	width: expression(this .   width =   SystemTCarDetailPic);
+	height: 150px;
+	float: left;
+	margin-left: 1px;
+	border: #333333 thin solid;
+}
+
+/*LCarDetailPic is a style which is for the WIDTH AND HEGITH OF PIC in LQueryResult page   */
+.LCarDetailPic {
+	width: expression(this .   width =   SystemLCarDetailPic);
+	height: 300px;
+	float: left;
+	margin-left: 3px;
+	border: #333333 thin solid;
+}
+
+/*
+subTableBannerStyle is a style which is for the sub banner in the common page such as flowrateStat.jsp and deviceAdd.jsp
+*/
+.subTableBannerStyle {
+	width: expression(this .   width =   SystemTreeTableWidth);
+	background: #9EBDEF;
+	font-size: 14px;
+	font-weight: bolder;
+	font-family: '宋体';
+	cursor: hand;
+	color: #ffffff;
+}
+
+/*queryControl is a style which is for the title style in the usrLog.jsp */
+.queryControl {
+	width: 896px;
+	height: 37px;
+	font-size: 12px;
+	font-family: "宋体";
+	background: #999966;
+	padding-top: 7px;
+	padding-left: 7px;
+}
+
+/*SystemFrameRoomOutForDevoiceList is a style which is for the bottom list in the deviceAdd.jsp*/
+	/*passvahicleShowPic is a style which is for define vahicle picture width height and border in the passvahicle.jsp*/
+.passvahicleShowPic {
+	width: expression(this . width =   passvahiclePicWidth);
+	height: expression(this . height =   passvahiclePicHeight);
+	border: 0;
+}
+
+/*amdetailPicStyle is a style which is for define amdetail picture width height and border in the amdetail.jsp*/
+ .amdetailPicStyle
+ {
+  width:expression(this.width = amdetailPicWidth);
+  height:expression(this.height = amdetailPicHeight);
+  border : 0 ;
+ }
+ .SystemSubBannerStyle {
+	width: 100%;
+	float: left;
+	height: 30px;
+	font-size: 14px;
+	font-family: '宋体';
+	font-weight: bolder;
+	padding-top: 6px;
+	padding-left: 3px;
+	color: #ffffff;
+	background: #4C83C8;
+ }
+ .imgStyleWidth
+	 {
+	  width:expression(this.width = picWidth);
+	  height:100%;
+	 }
+.amdetailPicStyle {
+	width: expression(this . width =   amdetailPicWidth);
+	height: expression(this . height =   amdetailPicHeight);
+	border: 0;
+}
+
+.imgStyleWidth {
+	width: expression(this . width =   picWidth);
+	height: 100%;
+}
+
+.grid_table {
+	width: "100%";
+	cellpadding:"0";
+	cellspacing:"0";
+	align:"left";
+	height:"350px";
+	border-collapse:collapse;
+}
+.grid_table tr td{
+	border : 1px solid  #4C83C8;
+}
+
+/**** 页面body ****/	
+ .bodyStyle{
+     	FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#FDFEFE, EndColorStr=#DDE1EB);
+        overflow:hidden;
+ }	
+ /*style for background image in page*/
+.pageForUpdate{
+	background-image:url("../pic/update.png");
+    background-position:right bottom;
+    background-repeat:no-repeat;	
+    width:expression(this.width = screen.width);
+    height:expression(this.height = screen.height-160);
+}
+.pageForInsert{
+	background-image:url("../pic/insertPage.png");
+    background-position:right bottom;
+    background-repeat:no-repeat;	
+    width:expression(this.width = screen.width);
+    height:expression(this.height = screen.height-160);
+}
+.pageForDelete{
+	background-image:url("../pic/delPage.png");
+    background-position:right bottom;
+    background-repeat:no-repeat;	
+    width:expression(this.width = screen.width);
+    height:expression(this.height = screen.height-160);
+}	
+.statiscBodyStyleImg{  
+  background-image:url("../pic/countPage.png");
+  background-position:right bottom;
+  background-repeat:no-repeat;	
+  width:expression(this.width = screenWidth);
+  height:expression(this.height = screenHeight-160);
+}
+.pageForDetail{
+   	background-image:url("../pic/detail.png");
+    background-position:right bottom;
+    background-repeat:no-repeat;	
+    width:expression(this.width = screen.width);
+    height:expression(this.height =  screen.height-160);
+}
+.pageForExport{
+   	background-image:url("../pic/import.png");
+    background-position:right bottom;
+    background-repeat:no-repeat;	
+    width:expression(this.width = screen.width);
+    height:expression(this.height =  screen.height-160);
+}
+/*style for hr*/
+.hrstyle{
+	size:1px;
+	color:#333;
+	width:expression(this . width =   SystemBannerMainAndTableWidth);
+}    

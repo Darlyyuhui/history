@@ -1,0 +1,55 @@
+@charset "utf-8";
+/* CSS Document */
+/*重置*/
+body{margin:0 auto;background-color:#e8e8e8;}
+*{ margin:0; padding:0;font-size:14px;font-family:"微软雅黑"; color:#FFF;}
+a{ text-decoration:none;}
+.clearfix{ clear:both;}
+h1{ font-weight:normal;margin:0; padding:0;}
+input{margin:0; padding:0; border:none; }
+
+ body{ background-image:url(../images/login_ywpt/back01.png); background-position:top;  background-repeat: no-repeat;}
+.background{margin-left:auto; margin-right:auto;position:relative;}
+.login_img02{ margin-top:10px;}
+
+h1 a{ font-size:24px; }
+.username_box{position:absolute; top:108px; left:138px;}
+.username_box input{ border: solid 1px #03699a; position:relative; width:158px; height:24px;font-size:13px;color:#333;}
+.username{ margin-bottom:10px;}
+.username img{ margin-bottom:-3px;}
+
+.icon01{ position:absolute; left:53px; top:3px;}
+.btn01{ float:left; margin-right:10px; margin-left:16px;}
+.btn02{ float:left;}
+
+.login_btn, .login_btn_h {
+	width:65px;
+	height:25px;
+	border:0;
+	cursor:pointer;
+	font-size:12px;
+	color:#fff;
+}
+.login_btn {
+	background:url(../images/login_ywpt/login_btn2.png) no-repeat 0 0;
+	margin-right:33px;
+}
+.login_btn_h {
+	background:url(../images/login_ywpt/login_btn_h.png) no-repeat 0 0;
+	margin-right:33px;
+}
+
+.login_box {position:absolute; top:50%; margin-top:-125px;left:50%; margin-left:-245px;}
+.text{ position:absolute; top:16px; text-align:center;}
+.syssign {
+	width:492px;
+	height:50px;
+	line-height:50px;
+	overflow:hidden;
+	font-size:30px;
+	font-family:Microsoft YaHei;
+	color:#fff;
+	text-shadow:1px 1px 2px #000;
+	filter:progid:DXImageTransform.Microsoft.Shadow(Strength=2,Direction=135);
+}
+

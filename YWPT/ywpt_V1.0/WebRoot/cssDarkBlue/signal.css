@@ -1,0 +1,369 @@
+/*信号灯系统样式*/
+.xinhao-left {
+	width:480px;
+	border-right:1px solid #999;
+	background:#fff;
+}
+.lukou {
+	height:24px;
+	line-height:24px;
+	padding:5px;
+	background:#abb2da;
+	border-bottom:1px solid #999;
+	overflow:hidden;
+	margin-bottom:2px;
+}
+.nav-tabs {
+	height:37px;
+	margin-top:0px;
+}
+.nav-tabs li {
+	float:left;
+}
+.active a {
+	margin-bottom:-10px;
+	border:1px solid #000;
+}
+
+.state_input {
+	width:26px;
+	height:18px;
+	line-height:18px;
+	padding:2px;
+	border-top:1px solid #4f5061;
+	border-left:1px solid #4f5061;
+	border-right:1px solid #abacb8;
+	border-bottom:1px solid #abacb8;
+}
+.state_input_l {
+	width:135px; 
+	height:18px; 
+	line-height:18px;
+	padding:2px;
+	border-top:1px solid #4f5061;
+	border-left:1px solid #4f5061;
+	border-right:1px solid #abacb8;
+	border-bottom:1px solid #abacb8;
+}
+.state_input_m {
+	width:70px; 
+	height:18px; 
+	line-height:18px;
+	padding:2px;
+	border-top:1px solid #4f5061;
+	border-left:1px solid #4f5061;
+	border-right:1px solid #abacb8;
+	border-bottom:1px solid #abacb8;
+}
+
+.state-table {
+	margin:0;
+}
+.state-table tr td {
+	padding:2px 2px 2px 0;
+	vertical-align:middle;
+	font-size:12px;
+	font-family:SimSun;
+}
+.state-table tr td input {
+	margin:0;
+}
+
+.vechile_detector {
+	border-top:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+	margin-top:20px;
+	background:#f9f9f9;
+	padding-top:0;
+}
+.vechile_info_title {
+	font-size:12px;
+	padding:0 10px;
+	position:relative;
+	left:0;
+	top:-10px;
+	#position:relative;
+	#left:0;
+	#top:-12px;
+	margin-bottom:-13px;
+}
+.vechile_info_title span {
+	padding:4px 10px;
+	background:#6bb7de;
+	border:1px solid #457b96;
+	position:relative;
+}
+.vechile_info_div {
+	margin:4px 2px;
+}
+.vechile_info_table tr td {
+	font-size:12px;
+	border:1px solid #ccc;
+	padding:2px 3px;
+	text-align:center;
+	height:20px;
+}
+.vechile_info_table thead tr th {
+	font-size:12px;
+	border:1px solid #ccc;
+	padding:2px 3px;
+	text-align:center;
+	height:20px;
+}
+.vechile_info_td {
+	background:#e7eef3;
+	border:1px solid #999;
+}
+
+.hitch_info_input {
+	border-top:1px solid #4f5061;
+	border-left:1px solid #4f5061;
+	border-right:1px solid #abacb8;
+	border-bottom:1px solid #abacb8;
+	font-size:12px;
+	text-align:center;
+	margin:2px 0px;
+}
+.light_damage_info tr td {
+	font-size:12px;
+	border:1px solid #ccc;
+	padding:2px 3px;
+	background:#fff;
+}
+.light_damage_info tr td input {
+	border:0;
+	background:#fff;
+	float:left;
+	margin-right:3px;
+	padding:0;
+}
+
+.xinhao-right {
+	width:100%;
+}
+.type_radio {
+	margin-top:-3px;
+	margin-top:-2px\0;
+	#margin-top:-2px;
+	_margin-top:-2px;
+	float:left;
+	margin-right:5px;
+}
+.xhpanel {
+	font-size:12px;
+}
+.info_back_list li {
+	height:26px;
+	line-height:26px;
+	clear:both;
+	overflow:hidden;
+}
+.info_back_list li input[type="radio"] {
+	float:left;
+	margin-right:3px;
+	margin-top:7px;
+	margin-top:4px\0;
+	#margin-top:2px;
+	_margin-top:2px;
+	width:13px;
+}
+.infoback_input {
+	width:30px;
+	height:16px;
+	line-height:16px;
+	padding:1px 2px;
+	border-top:1px solid #4f5061;
+	border-left:1px solid #4f5061;
+	border-right:1px solid #abacb8;
+	border-bottom:1px solid #abacb8;
+	margin-left:2px;
+}
+.add_img {
+	vertical-align:top;
+	margin:0;
+	margin-top:4px;
+	cursor:pointer;
+	margin-bottom:0;
+	display:block;
+	margin-left:3px;
+	#margin-left:1px;
+}
+.reduce_img {
+	vertical-align:bottom;
+	cursor:pointer;
+	margin:0;
+	display:block;
+	margin-top:3px;
+	margin-left:3px;
+	#margin-left:1px;
+}
+.add-on-span p {
+	height:10px;
+	line-height:10px;
+	margin:0;
+	margin-top:1px;
+	text-align:center;
+	padding-left:3px;
+	#padding-left:0px;
+	_padding-left:0px;
+}
+.padding_5 {
+	padding:5px;
+}
+.padding_l5 {
+	padding-left:5px;
+}
+.padding_r5 {
+	padding-right:5px;
+}
+.padding_b5 {
+	padding-bottom:5px;
+}
+.padding_t5 {
+	padding-top:5px;
+}
+.padding_10 {
+	padding:10px;
+}
+.padding_t10 {
+	padding-top:10px;
+}
+.padding_b10 {
+	padding-bottom:10px;
+}
+
+.model_input {
+	height:18px; 
+	line-height:18px;
+	padding:2px;
+	border-top:1px solid #4f5061;
+	border-left:1px solid #4f5061;
+	border-right:1px solid #abacb8;
+	border-bottom:1px solid #abacb8;
+}
+
+.quantam {
+	border-top:1px solid #bdc5d9;
+	border-bottom:1px solid #bdc5d9;
+	margin-top:5px;
+	background:#f9f9f9;
+}
+.line_h18 {
+	height:18px;
+	line-height:18px;
+	margin:0;
+}
+.line_box {
+	border-bottom:1px solid #069;
+	padding-bottom:10px;
+}
+.light_state {
+	height:104px;
+	margin-top:0;
+}
+.light_state li {
+	width:49%;
+	float:left;
+	height:26px;
+	line-height:26px;
+	overflow:hidden;
+}
+.light_state li input[type="radio"] {
+	float:left;
+	margin-top:6px;
+	margin-right:5px;
+	margin-right:3px\0;
+	margin-top:2px\0;
+	#margin-top:2px;
+	#margin-right:3px;
+}
+.add_sel_h {
+	height:24px;
+	overflow:hidden;
+	line-height:24px;
+	margin:0;
+}
+.btn_container {
+	border-left:1px solid #ccc;
+}
+.btn_container p {
+	background:#eee;
+	line-height:26px;
+}
+.btn_container input {
+	margin:3px 0;
+}
+
+/*
+.current_road {
+	width:100%;
+	height:26px;
+	line-height:26px;
+	padding:0 10px;
+	position:fixed;
+	bottom:0;
+	font-size:14px;
+}
+*/
+.table_pad5 td {
+	padding-top:10px;
+	padding-bottom:10px;
+	border:1px solid #ccc;
+}
+.startPrecinct-success {
+  background-color: #D2F7AA;
+}
+.stopPrecinct-success {
+  background-color: #FFFFFF;
+}
+
+.timeInfo-table {
+	margin-top:13px;
+}
+.timeInfo-table tr td input {
+	margin:0 5px;
+}
+.current_road {
+	height:22px;
+	line-height:22px;
+	padding:0 8px 0 2px;
+	font-size:14px;
+	width:100%;
+	text-align:center;
+	margin-top:-2px;
+	margin-left:5px;
+}
+.instruction {
+	margin-left:10px;
+	cursor:pointer;
+}
+.instruction img {
+	vertical-align:top;	
+	margin-top:2px;
+}
+.ins_details {
+	position:absolute;
+	left:0px;
+	bottom:25px;
+	background:#fff;
+	border:1px solid #457b96;
+	padding:5px;
+	display:none;
+	z-index:20000;
+	margin:0 10px;
+}
+
+#LightTable thead tr th {
+	font-weight:normal;
+}
+
+
+
+
+
+
+
+
+
+
+

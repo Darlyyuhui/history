@@ -1,0 +1,419 @@
+@CHARSET "UTF-8";
+@charset "utf-8";
+/* 主页面*/
+
+* {
+	margin:0 auto;
+	padding:0;
+}
+body {
+	font:Verdana, Geneva, sans-serif;
+	font-size:12px;
+	padding:0;
+	margin:0;
+}
+.clear {
+	clear:both;
+}
+img {
+	border:0;
+	display:block;
+	vertical-align:middle;
+}
+ul {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+
+.map-head {
+	height:50px;
+	background:url(../../images/openmap/map-head-bg.png) repeat-x 0 0;
+	border-bottom:1px solid #003;
+	margin-bottom:5px;
+}
+.map-table {
+	border-collapse:collapse;
+}
+.map-table tr td {
+	/*border:1px solid #aaa;*/
+}
+.map-table tr .addborder {
+	border:1px solid #aaa;
+}
+
+/*
+#btnBar {
+	background:url(../../images/openmap/lr_btn_bg.png) repeat-y 0 0;
+}
+*/
+
+/*标签切换样式开始*/
+#menuList {
+	padding:0 1px;
+	margin: 0px;
+	height:24px;
+	border-bottom:1px solid #84adba;
+	background:url(../../images/openmap/titleTagbg.png) repeat-x 0 0;
+	padding-top:4px;
+}
+#menuList li {
+	background: url(../../images/openmap/tagleft.gif) no-repeat left bottom;
+	float: left;
+	margin:0 2px;
+	height: 24px;
+	padding:0;
+}
+#menuList li a {
+	padding:0 15px;
+	background: url(../../images/openmap/tagright.gif) no-repeat right bottom;
+	float: left;
+	color: #999;
+	line-height: 24px;
+	height: 24px;
+	text-decoration: none;
+}
+#menuList li.emptyTag {
+	background: none transparent scroll repeat 0% 0%;
+	width: 4px;
+}
+#menuList li.selectelement{
+	background-position: left top;
+	margin-bottom: -1px;
+	position: relative;
+	height: 25px;
+}
+#menuList li.selectelement a {
+	background-position: right top;
+	color: #000;
+	line-height: 25px;
+	height: 25px;
+}
+
+#tagpanel {
+	background-color: #fff;
+	height:150px;
+}
+.tagpanel {
+	padding:5px;
+	display:none;
+	color:#474747;
+	height:122px;
+	overflow-y:hidden;
+}
+#tagpanel div.selectelement {
+	display: block;
+}
+
+/*标签切换样式结束*/
+#optionImg {
+	cursor:pointer;
+}
+
+
+.toolbar {
+	height:28px;
+	line-height:28px;
+	border-bottom:1px solid #8da1b2;
+	width:100%;
+	position:relative;
+	z-index:1000;
+	background:url(../../images/openmap/bg_thead.png) repeat-x 0 0;
+}
+.toolbar ul {
+	padding-top:2px;
+	padding-left:3px;
+}
+.toolbar ul li {
+	float:left;
+	margin:0 2px;
+	cursor:pointer;
+}
+
+.foot-copyright {
+	height:22px;
+	width:100%;
+	line-height:22px;
+	padding:3px 10px;
+	position:fixed;
+	bottom:0;
+	left:0;
+	background:url(../../images/openmap/map-head-bg.png) repeat-x 0 0;
+	text-align:center;
+	z-index:100000;
+}
+.foot-copyright a {
+	text-decoration:none;
+	color:#fff;
+}
+.foot-copyright a:hover {
+	background:#e0e0e0;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	padding:3px 5px;
+	color:#000;
+}
+
+
+/* 标绘*/
+ul {
+	list-style:none;
+	padding:0;
+	margin:0;
+}
+
+#Tabcon {
+	font-size: 12px;
+	margin: 0px auto;
+	width: 600px;
+	height:400px;
+	border:1px solid #aecbd4;
+	padding:0;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	position:absolute;
+	z-index:1500;
+	left:200px;
+	top:150px;
+}
+.Tagtitle {
+	font-size:14px;
+	height:30px;
+	line-height:30px;
+	padding:0 5px;
+	background:url(../../compnents/openmap/img/titleTagbg.png) repeat-x 0 0;
+	margin:3;
+	border-bottom:1px solid #84adba;
+	border-radius:5px 5px 0 0;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;
+}
+
+.gps{
+    font-size:14px;
+	height:30px;
+	padding:0 5px;
+	margin:3;
+}
+.gpsquery{
+	border:1px solid #aaa;
+    padding:10px;
+}
+#devicename{
+	width:100px;
+}
+
+#dept{
+	width:100px;
+}
+
+.tagContenttitle {
+	font-size:12px;
+	height:24px;
+	line-height:24px;
+	padding:0 5px;
+	background:url(../../compnents/openmap/img/titleTagbg.png) repeat-x 0 0;
+	margin:0;
+	border-bottom:1px solid #84adba;
+	border-radius:5px 5px 0 0;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;
+}
+#L_Rbtn {
+	width:14px;
+	height:14px;
+	display:block;
+	float:right;
+	background:url(../../compnents/openmap/img/zuo_icon.png) no-repeat  center center;
+	margin-top:5px;
+	cursor:pointer;
+}
+.closeTag {
+	float:right;
+	cursor:pointer;
+	margin-top:10px;
+	margin-right:5px;
+}
+.Tabcon-box {
+	padding:5px;
+	background:#eff1f6;
+}
+
+#tagsList {
+	padding:0 1px;
+	margin: 0px;
+	height:24px;
+	border-bottom:1px solid #84adba;
+	background:url(../../compnents/openmap/img/titleTagbg.png) repeat-x 0 0;
+}
+#tagsList li {
+	background: url(../../compnents/openmap/img/tagleft.gif) no-repeat left bottom;
+	float: left;
+	margin:0 2px;
+	margin-right: 1px;
+	height: 24px;
+	padding:0;
+}
+#tagsList li a {
+	padding:0 15px;
+	background: url(../../compnents/openmap/img/tagright.gif) no-repeat right bottom;
+	float: left;
+	color: #999;
+	line-height: 24px;
+	height: 24px;
+	text-decoration: none;
+}
+#tagsList li.emptyTag {
+	background: none transparent scroll repeat 0% 0%;
+	width: 4px
+}
+#tagsList li.selectTag {
+	background-position: left top;
+	margin-bottom: -1px;
+	position: relative;
+	height: 25px
+}
+#tagsList li.selectTag a {
+	background-position: right top;
+	color: #000;
+	line-height: 25px;
+	height: 25px
+}
+#tagContent {
+	width:283px;
+	float:left;
+	border:1px solid #aecbd4;
+	background-color: #fff;
+}
+.tagContent {
+	padding:5px;
+	display: none;
+	background: url(../../compnents/openmap/img/bg.gif) repeat-x;
+	color:#474747;
+	height:322px;
+	overflow-y:scroll;
+}
+#tagContent div.selectTag {
+	display: block;
+}
+
+.TagRight {
+	width:295px;
+	float:right;
+	background:#fff;
+}
+.TagRightcon {
+	height:333px;
+	border:1px solid #aecbd4;
+	border-top:0;
+	overflow:auto
+}
+.btnline {
+	padding:5px;
+	border-bottom:1px solid #aecbd4;
+}
+.signBtn {
+	width:84px;
+	height:26px;
+	line-height:23px;
+	line-height:26px\0;
+	line-height:26px;
+	line-height:26px;
+	background:url(../../compnents/openmap/img/Signbtn.png) no-repeat 0 0;
+	border:0;
+	color:#fff;	
+	padding:0 2px;
+	cursor:pointer;
+}
+.signBtn span {
+	width:14px;
+	height:14px;
+	float:left;
+	margin-top:4px;
+	margin-top:5px\0;
+	margin-top:5px;
+	margin-top:5px;
+	margin-left:3px;
+}
+.Spotlist li {
+	float:left;
+	width:48px;
+	height:48px;
+	padding:4px;
+	background:#c7e2eb;
+	border:1px solid #f5f5f5;
+	margin:3px;
+}
+
+#draw-list li{
+    border:1px solid #aecbd4;
+	width:200px;
+	height:35px;
+    margin-bottom:20px;
+    margin-left:20px;
+}
+#draw-list{
+	margin-right:20px;
+	margin-left:20px;
+	margin-top:20px;
+	overflow:auto;
+}
+.Spotlist li img {
+	display:block;
+	margin:0;
+	width:48px;
+	height:48px;
+}
+.surfaceline {
+	padding:0 5px;
+}
+.surfaceline p {
+	height:24px;
+	line-height:24px;
+	margin:0;
+}
+.colorlist li {
+	float:left;
+	width:20px;
+	height:20px;
+	margin:4px 5px 4px 2px;
+}
+.smallmap{
+	float:left;
+	margin:0;
+	width:100%;
+}
+/*开源地图*/
+.gps_h3 {
+	height:26px;
+	line-height:26px;
+	padding:0 5px;
+	font-size:12px;
+	font-weight:normal;
+	font-family:Microsoft YaHei;
+	color:#29438e;
+	background:url(../../images/openmap/titleTagbg.png) repeat-x 0 0;
+	text-decoration:none;
+	border:1px solid #c2c2c2;
+	margin-bottom:-1px;
+	cursor:pointer;
+}
+.gps_tab_content {
+	margin:-1px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

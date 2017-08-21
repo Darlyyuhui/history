@@ -1,0 +1,80 @@
+
+#windownbg {
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background:#000;/*body-bg*/
+	top: 0;
+	left: 0;
+}
+#windown-box {
+	position: fixed;
+	_position: absolute;/*For IE 6.0*/
+	border: 0px solid #747474;
+	background: #eee;
+	text-align: left;
+}
+#windown-title {
+	position: relative;
+	height: 30px;
+	border: 1px solid #747474;
+	overflow: hidden;
+	background:url(../images/blue/head_bg.png) repeat-x 0 0;
+}
+#windown-title h2 {
+	position: relative;
+	left: 10px;
+	top: 2px;
+	font-size: 14px;
+	color: #000000;
+	line-height:28px;
+}
+#windown-close {
+	position: absolute;
+	right: 10px;
+	top: 8px;
+	//width: 10px;
+	width: 16px;
+	height: 16px;
+	text-indent: -10em;
+	overflow: hidden;
+	//background: url(http://leotheme.cn/wp-content/themes/Dreamy/images/icon.png) -820px -720px no-repeat;
+	background: url(../images/picone/uploadify-cancel.png) 0px 0px no-repeat;
+	cursor: pointer;
+}
+#windown-content-border {
+	position: relative;
+	top: 0px;
+	border: 1px solid #747474;
+	border-top:0;
+	padding: 5px 0 5px 5px;
+}
+#windown-content {
+	position: relative;
+	overflow: auto;
+	text-align: center;
+	font-size: 10pt;
+	
+}
+
+#windown-content img,#windown-content iframe{
+	display: block;
+}
+#windown-content .loading {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -8px;
+	margin-top: -8px;
+}
+a{
+	text-decoration : none ;
+	color:black;
+}
+
+.zuokuang{
+	border: 1px solid #747474;
+	padding:1px;
+}
+

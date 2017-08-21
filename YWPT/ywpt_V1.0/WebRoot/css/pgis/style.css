@@ -1,0 +1,13 @@
+
+ .main{
+   width:expression(this.width=Mainwidth);
+   height:expression(this.height=Mainheight);
+   background-color:#00CCFF;
+   
+ }
+ .toolbar{
+   width:100%;
+   height:30px;
+   background:url(images/pgis/images/topbj.jpg) repeat-x;
+ }
+ 

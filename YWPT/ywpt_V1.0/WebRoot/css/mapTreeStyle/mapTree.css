@@ -1,0 +1,14 @@
+.menu_head {
+	line-height:26px;
+	cursor: pointer;
+	position: relative;
+    font-weight:bold;
+    background:url(../../images/picone/mainnavbar_bg.png) repeat-x 0 0;
+    border-bottom:1px solid #bdc5d9;
+}
+.menu_head span {
+	margin-left:10px;
+}
+.menu_body {
+	display:none;
+}

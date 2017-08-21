@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+
+<script language="javascript" for="DPSDK_OCX" event="OnAlarmEvent(szAlarmId, szCameraId, szDeviceName, szChannelName, nAlarmType, nEventType, nLevel, nTime)">
+	if(8 == nAlarmType)
+	{
+		alert(szChannelName);
+	}
+	else if((300 < nAlarmType)&&(nAlarmType < 1100))
+	{
+		alert(szChannelName);
+	}
+	else
+	{
+		alert(szCameraId);
+	}
+</script>
+
+<script language="javascript" for="DPSDK_OCX" event="OnDevStatusEvent(szDevId, nStatus)">
+	switch(nStatus)
+	{
+		case 1:
+			alert("设备上线！");
+			break;
+		case 2:
+			alert("设备离线！");
+			break;			
+	}
+</script>
+   
+<title>实时视频</title>
+<link rel="stylesheet" type="text/css" href="DSSPlay.css"/>
+<script src="ocxfun.js"></script>
+
+</head>
+<body id="mbody" onload="init()" onunload="ButtonLogout_onclick()">
+<div id="mainbg">
+
+	<div id="main">
+										
+		 <div class="box_top"></div>
+		<div id="mviewl">
+			<div id="obj">
+				<object id="DPSDK_OCX" classid="CLSID:D3E383B6-765D-448D-9476-DFD8B499926D" style="width: 100%; height: 80%"></object>
+			</div>
+			
+		</div>
+		 <!--<div class="box_bottom">
+          <div class="box_bottom_btn">
+           		<ul>
+           			<li id="back_btn_li"><a class="back_btn"  href="javascript:back();" onmousedown="mousedown(this)" onmouseup="mouseup(this)" ></a></li>
+           			<li><a class="play_btn" href="javascript:stop();" onmousedown="mousedown(this)" onmouseup="mouseup(this)"></a></li>
+           			<li><a class="stop_btn" href="javascript:play();" onmousedown="mousedown(this)" onmouseup="mouseup(this)"></a></li>
+           			<li><a class="go_btn" href="javascript:go();" onmousedown="mousedown(this)" onmouseup="mouseup(this)"></a></li>
+           			<li><a class="photo_btn" href="javascript:photo();" onmousedown="mousedown(this)" onmouseup="mouseup(this)"></a></li>
+           		</ul>
+           </div>
+
+	
+	
+	<div class="box_bottom_a"><a href='DSSClientOCX.exe'>点击这里手动下载最新的控件</a></div>
+</div>-->
+</div>
+<div class="rightDiv" style="">
+	<div style="border:1px solid white;padding-top:5px;">
+		<div style="margin-left: 10px;">
+			设置窗口数量：
+			<input type="text" id="textWndNum" value="4" size="10"/>
+			<input type="button" id="buttonLogin" value="设置" class="button" onclick="return ButtonCreateWnd_onclick()" />
+		</div>
+	</div>
+	<div style="border:1px solid white;padding-top:5px;height: 190px;">
+		<div style="float: left;margin-left: 10px;width: 230px;">
+			登陆登出</br>
+			IP：   &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;<input type="text" id="textIP" value="172.7.1.208"  size="20"/></br>
+			端口：  &nbsp;&nbsp; <input type="text" id="textPort" value="9000" size="20"/></br>
+			用户名：&nbsp;<input type="text" id="textUser" value="system" size="20"/></br>
+			密码： &nbsp;&nbsp;&nbsp;<input type="text" id="textPassword" value="123456" size="22"/></br></br>
+			
+			<input type="button" id="buttonLogin" value="登录" class="button" onclick="return ButtonLogin_onclick()" />
+			<input type="button" id="buttonLogout" value="登出" class="button" onclick="return ButtonLogout_onclick()" />
+			<input type="button" id="buttonLoadDGroupInfo" value="加载组织结构" class="button" onclick="return ButtonLoadDGroupInfo_onclick()" /></br></br>
+		</div>
+		
+		<div style="width: 250px;height: 150px;overflow: auto;" id="DGroupInfo">
+			
+		</div>
+	</div>
+	
+	<div style="border:1px solid white;padding-top:5px;">
+		<div style="margin-left: 10px;">
+			实时视频</br>
+			通道ID：<input type="text" id="textCameraID" value="1000046$1$0$0" />
+			<select id="selectStreamType" >
+				<option value="1">主码流</option>
+				<option value="2">辅码流</option>
+			</select>
+			<select id="selectMediaType" >
+				<option value="1">视频</option>
+			</select>
+			<select id="selectTransType" >
+				<option value="1">TCP</option>
+			</select>
+			<input type="button" id="buttonStartRealplayByWndNo" value="当前选中窗口播放视频" onclick="return ButtonStartRealplayByWndNo_onclick()" />
+			<input type="button" id="buttonStopRealplayByWndNo" value="关闭当前选中视频" onclick="return ButtonStopRealplayByWndNo_onclick()" />
+			<input type="button" id="buttonCapturePictureByWndNo" value="按窗口号抓图" onclick="return ButtonCapturePictureByWndNo_onclick()" /></br></br>
+		</div>
+	</div>
+	<div style="border:1px solid white;padding-top:5px;">
+		<div style="margin-left: 10px;">
+			云台操作</br>
+				步长：
+			<select id="selectPtzDirectionStep" >
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+			</select></br>
+			<!--<input type="button" id="" value="开始云台" onclick="return ButtonPtzDirection_onclickStop(0)" />-->
+			<table >
+				<tr>
+					<td  width="50px;" align="center"><input type="button" id="" value="左上" onclick="return ButtonPtzDirection_onclick(5)" /></td>
+					<td width="50px;" align="center"><input type="button" class="button" id="" value="&nbsp;&nbsp;上&nbsp;&nbsp;" onclick="return ButtonPtzDirection_onclick(1)" /></td>
+					<td width="50px;" align="center"><input type="button" id="" value="右上" onclick="return ButtonPtzDirection_onclick(7)" /></td>
+				</tr>
+				<tr>
+					<td align="center"><input type="button" id="" value="&nbsp;&nbsp;左&nbsp;&nbsp;" onclick="return ButtonPtzDirection_onclick(3)" /></td>
+					<td align="center"><input type="button" id="" value="停止" onclick="return ButtonPtzDirection_onclickStop(1)" /></td>
+					<td align="center"><input type="button" id="" value="&nbsp;&nbsp;右&nbsp;&nbsp;" onclick="return ButtonPtzDirection_onclick(4)" /></td>
+				</tr>
+				<tr>
+					<td align="center"><input type="button" id="" value="左下" onclick="return ButtonPtzDirection_onclick(6)" /></td>
+					<td align="center"><input type="button" class="button" id="" value="&nbsp;&nbsp;下&nbsp;&nbsp;" onclick="return ButtonPtzDirection_onclick(2)" /></td>
+					<td align="center"><input type="button" id="" value="右下" onclick="return ButtonPtzDirection_onclick(8)" /></br></td>
+				</tr>
+		</table>
+			
+		</div>
+
+	</div>
+	<div style="border:1px solid white;padding-top:5px;m">
+		<div style="margin-left: 10px;">
+			镜头操作</br>
+			倍速：
+			<select id="selectCameraStep" >
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+			</select></br>
+			变焦：
+			<input type="button" id="" value="变倍+" onclick="return ButtonPtzCameraOperation_onclick(0)" />
+			<input type="button" id="" value="变焦+" onclick="return ButtonPtzCameraOperation_onclick(1)" />
+			<input type="button" id="" value="光圈+" onclick="return ButtonPtzCameraOperation_onclick(2)" />
+			<input type="button" id="" value="变倍-" onclick="return ButtonPtzCameraOperation_onclick(3)" />
+			<input type="button" id="" value="变焦-" onclick="return ButtonPtzCameraOperation_onclick(4)" />
+			<input type="button" id="" value="光圈-" onclick="return ButtonPtzCameraOperation_onclick(5)" />
+
+			<!--<input type="button" id="" value="开始镜头控制" onclick="return ButtonPtzCameraOperation_onclickStop(0)" />-->
+			<input type="button" id="" value="停止" onclick="return ButtonPtzCameraOperation_onclickStop(1)" />
+
+			<br /></br>
+			
+		
+		</div>
+	</div>
+	<div style="border:1px solid white;padding-top:5px;m">
+		<div style="margin-left: 10px;">
+		X:<input type="text" id="textXPosition" value="" />
+		Y:<input type="text" id="textYPosition" value="" />
+		变倍:
+		<select id="selectPtzSitStep" >
+			<option value="-4">-4</option>
+			<option value="-3">-3</option>
+			<option value="-2">-2</option>
+			<option value="-1">-1</option>
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+		</select>
+		<input type="button" id="buttonPtzSit" value="三维定位" onclick="return ButtonPtzSit_onclick()" /></br></br></br>
+	</div>
+	</div>
+
+	<div style="border:1px solid white;padding-top:5px;m">
+			<div style="margin-left: 10px;">
+				预置点编号:<input type="text" id="textPrePointNum" value="" />
+				预置点名称:<input type="text" id="textPrePointName" value="" />
+				<input type="button" id="buttonAddPrePoint" value="添加预置点" onclick="return ButtonAddPrePoint_onclick()" />
+				<input type="button" id="buttonDelPrePoint" value="删除预置点" onclick="return ButtonDelPrePoint_onclick()" />
+				<input type="button" id="buttonQueryPrePoint" value="查询预置点" onclick="return ButtonQueryPrePoint_onclick()" />
+				<input type="button" id="buttonSeekPrePoint" value="定位预置点" onclick="return ButtonSeekPrePoint_onclick()" /></br></br>
+		  </div>
+	</div>
+
+
+</div>
+
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+/*地图页面相关样式*/
+#measureWindow {
+    position:absolute;
+    left:57px;
+    top:88px;
+    z-index:100000;
+    width:245px;
+    padding:20px;
+    background:#46472B;
+}
+.roundedCorners{
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+}
+.innerDiv{
+    background:#F1F1DC;
+	padding:4px;
+}
+
+.ceHui {
+	position:absolute;
+	width:30px;
+	height:30px;
+	border-radius:5px;
+	-moz-border0radius:5px;
+	-webkit-border-radius:5px;
+	border:2px solid #666;
+	top:88px;
+	left:22px;
+	z-index:100000;
+	background:url(../images/picone/arrow_out.png) no-repeat center center;
+}
+
+
+/*地图页面相关样式结束*/

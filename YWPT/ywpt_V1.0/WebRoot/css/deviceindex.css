@@ -1,0 +1,189 @@
+/*子系统首页界面样式*/
+.title_intro {
+	height:34px;
+	line-height:34px;
+	font-size:14px;
+	font-family:Microsoft YaHei;
+	padding:0 10px;
+	background:url(../images/picone/mainnavbar_bg.png) repeat-x 0 0;
+	border-radius:5px 5px 0 0;
+	margin:0;
+	border-bottom:1px solid #8a9ab1;
+	text-shadow:none;
+}
+.title_intro span {
+	float:left;
+	width:16px;
+	height:16px;
+	margin-top:9px;
+	margin-right:6px;
+}
+.title_intro cite {
+	float:right;
+	cursor:pointer;
+	font-weight:normal;
+	color:#039;
+}
+.title_intro span img {
+	vertical-align:top;
+}
+.intro_border {
+	border:1px solid #bdc5d9;
+	border-radius:5px 5px 0 0;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;
+}
+
+.service li {
+	line-height:24px;
+	border-bottom:1px dashed #a1d8e6;
+	background:url(../images/picone/add_2.png) no-repeat 5px center;
+	padding-left:20px;
+}
+.introduction {
+	margin-bottom:0;
+}
+.intro_con {
+	padding:4px;
+	*padding-top:2px;
+	#padding-top:2px;
+	_padding-top:2px;
+}
+.shebei_info h4 {
+	background:url(../images/picone/bg_grey.png) repeat-x 0 0;
+	height:30px;
+	line-height:30px;
+	padding:0 5px;
+	border:1px solid #ddd;
+	border-bottom:1px solid #999;
+	font-size:14px;
+	font-weight:normal;
+	color:#2a4086;
+}
+.shebei_info h4 cite {
+	float:left;
+	margin-right:6px;
+	margin-top:-1px;
+}
+.shebei_info_list {
+	border-top:0;	
+	position:absolute;
+}
+.shebei_info_list li {
+	height:26px;
+	line-height:26px;
+	white-space:nowrap;
+}
+.device_info li, .mainentance-order li, .device-title-td {
+	background:url(../images/picone/dot001.png) no-repeat 0 center;
+	padding-left:10px;
+}
+.fault_info li, .performance-mana li {
+	background:url(../images/picone/dot002.png) no-repeat 0 center;
+	padding-left:10px;
+}
+
+.char {
+	width:33%;
+	min-height:160px;
+}
+
+.device_info_pic {
+	width:100px;
+	height:100px;
+}
+.device_info_con li {
+	height:26px;
+	line-height:26px;
+	background:url(../images/picone/dot003.png) no-repeat 0 center;
+	padding-left:12px;
+}
+
+
+
+/*信息滚动  超出宽度使用省略号表示*/
+.device-title {	
+	height:26px;
+	line-height:23px;
+	display:block;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	overflow:hidden;
+}
+.scrollBox {
+	height:208px;
+	overflow:hidden; 
+	border:1px solid #ccc; 
+	border-top:0;
+	position:relative;
+}
+.scroll-table {
+	position:absolute;
+	left:2px;
+}
+.scroll-table tr {
+	height:26px;
+	line-height:26px;
+}
+.scroll-table tr td {
+	height:26px;
+	padding-top:0;
+	padding-bottom:0;
+}
+
+/*卡口报警页面*/
+.alarm_table tr td {
+	vertical-align:top;
+	overflow:hidden;
+	border:1px solid #8a9ab1;
+}
+.alarm_table tr td table tr td {
+	border:0;
+	padding:3px 1px;
+}
+.alarm_table tr td table tr {
+	border-top:1px solid #eee;
+}
+.border-bot {
+	border-bottom:1px solid #bdc5d9;
+}
+
+.th-hebing {
+	vertical-align:middle;
+	background:#eaedf3;
+}
+.border-chart {
+	border:1px solid #bdc5d9;
+}
+.alarm_bg {
+	 background:#dce4ef; 
+}
+.h4-border {
+	border:1px solid #8a9ab1;
+}
+.title-border {
+	border:1px solid #bdc5d9;
+}
+
+.table-top-no thead tr th {
+	border:1px solid #ddd;
+	border-top:0;
+	padding:4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

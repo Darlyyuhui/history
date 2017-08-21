@@ -1,0 +1,235 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	margin:0 auto;
+	padding:0;
+}
+body {
+	font-size:14px;
+	font-family:Verdana, Geneva, sans-serif;
+	padding:0;
+	margin:0;
+}
+img {
+	border:0;
+}
+a {
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:none;
+}
+ul {
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+table {
+	cellpadding:0;
+	cellspacing:0;
+	border-collapse:collapse;
+}
+.clear {
+	clear:both;
+}
+/*公用样式结束*/
+.weather_wrap {
+	width:60%;
+	margin:10px auto;
+	border:1px solid #bdc5d9;
+	background:#e5f7fd;
+}
+.title_intro {
+	height:34px;
+	line-height:34px;
+	font-size:14px;
+	font-family:Microsoft YaHei;
+	padding:0 10px;
+	background:url(../images/weather/mainnavbar_bg.png) repeat-x 0 0;
+	border-top:1px solid #cedaeb;
+	border-bottom:1px solid #8a9ab1;
+	margin:0;
+	text-shadow:none;
+}
+.title_intro span {
+	float:left;
+	width:16px;
+	height:16px;
+	margin-top:9px;
+	margin-right:6px;
+}
+.title_intro cite {
+	float:right;
+	cursor:pointer;
+	font-weight:normal;
+	color:#039;
+}
+.title_intro span img {
+	vertical-align:top;
+}
+.weather_main {
+	padding:5px;
+}
+.Wea_now {
+	height:60px;
+	position:relative;
+}
+.Wea_sign {
+	width:60px;
+	height:60px;
+	position:absolute;
+	left:0;
+	top:0;
+}
+.temperature {
+	height:26px;
+	line-height:26px;
+	font-size:24px;
+	color:#6b6e66;
+	font-family:Arial, Helvetica, sans-serif;
+	position:absolute;
+	left:70px;
+	top:0;
+	text-shadow:0px 1px 0 #000;
+}
+.Wea_state {
+	height:34px;
+	line-height:34px;
+	font-size:32px;
+	font-family:Microsoft YaHei;
+	color:#000;
+	position:absolute;
+	left:70px;
+	top:27px;
+	font-style:italic;
+}
+.city_sel {
+	line-height:20px;
+	position:absolute;
+	right:5px;
+	top:5px;
+}
+.Wea_days {
+	margin-top:10px;
+	border-top:1px solid #e4e7f0;
+	border-bottom:1px solid #bdc5d9;
+}
+.Wea_daily {
+	height:80px;
+	background:url(../images/weather/daily_bg.png) repeat-x 0 0;
+}
+.Wea_daily li {
+	float:left;
+	border-right:1px solid #bdc5d9;
+	text-align:center;
+	width:80px;
+}
+.Wea_daily li a {
+	display:block;
+	color:#000;
+	font-size:12px;
+	font-family:Mcrosoft YaHei;
+	height:80px;
+}
+.Wea_daily li a:hover {
+	display:block;
+	color:#000;
+	font-size:12px;
+	font-family:Mcrosoft YaHei;
+	background:url(../images/weather/daily_bg_h.png) repeat-x 0 0;
+}
+.Wea_daily li img {
+	width:40px;
+	height:40px;
+}
+.today {
+	line-height:30px;
+	margin-top:5px;
+}
+.Wea_today {
+	background:url(../images/weather/daily_bg_h.png) repeat-x 0 0;
+}
+.Wea_details {
+	border:1px solid #8592b3;
+	background:url(../images/weather/wea-bg.png) repeat-x 0 bottom;
+	color:#fff;
+	font-family:Microsoft YaHei;
+}
+.Wea_details ul li {
+	float:left;
+	margin:0 5px;
+	height:36px;
+	line-height:34px;
+}
+.Wea_details img {
+	width:36px;
+	height:36px;
+}
+.Wea_details ul li font {
+	color:#d7d7ff;
+}
+.living {
+	border:1px solid #cedaeb;
+	background:url(../images/weather/zhishu-bg.png) repeat-x 0 bottom;
+	font-family:Microsoft YaHei;
+	margin-top:5px;
+}
+.living ul li {
+	float:left;
+	margin:0 5px;
+	height:40px;
+}
+.living ul li img {
+	width:30px;
+	height:30px;
+	margin-top:5px;
+}
+.keywords {
+	color:#000;
+	font-size:14px;
+	font-family:Microsoft YaHei;
+	line-height:22px;
+}
+.keywords span {
+	color:#7c7d00;
+}
+.description {
+	color:#555;
+	line-height:16px;
+	font-size:12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

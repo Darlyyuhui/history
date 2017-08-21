@@ -1,0 +1,24 @@
+.printtitle{ 
+background-color :white ; 
+border : 0px ; 
+font-size : 40px ; 
+font-family :隶 书 ; 
+width : 100% ; 
+height:40px; 
+text-align : center ; 
+text:宜昌地图;
+} 
+
+.printbottom{ 
+background-color : white ; 
+border : 0px ; 
+font-size : 30px ; 
+font-family : 隶 书 ; 
+width : 100% ; 
+height:30px; 
+text-align : right ; 
+} 
+
+#EzMaps_Container{ 
+border:2px solid black; 
+} 

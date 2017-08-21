@@ -1,0 +1,234 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	margin:0 auto;
+	padding:0;
+}
+body {
+	font:Microsoft YaHei;
+	font-size:12px;
+	line-height:24px;
+}
+a {
+	color:#3588b9;
+	text-decoration:none;
+}
+a:hover {
+	color:444;
+	text-decoration:none;
+}
+img {
+	border:none;
+}
+ul {
+	list-style:none;
+	padding:0;
+	margin:0;
+}
+table {
+	border-collapse:collapse;
+}
+.clear {
+	clear:both;
+}
+/*公共样式结束*/
+/*login页面开始*/
+
+#wrapBg {
+	position:absolute;
+	top:0; 
+	left:0; 
+	z-index:1; 
+	width:100%;
+	background:url(../images/login_big_bg.jpg) repeat-x center bottom;
+}
+.main {
+	width:100%;
+	background:url(../images/world_map.png) no-repeat center center;	
+}
+.bulding_bg {
+	background:url(../images/bulding.png) no-repeat center bottom;
+}
+.head {
+	height:50px;
+	width:100%;
+	background:url(../images/head_top_bg.png) repeat-x 0 0;
+}
+.head_content {
+	width:700px;
+	margin:0 auto;
+}
+.logo_login {
+	float:left;
+	margin-top:8px;
+	margin-left:5px;
+}
+.login_wrap {
+	width:100%;
+	position:absolute;
+	top:30%;
+	top:26%\0;
+	#top:26%;
+	_top:26%;
+}
+.login {
+	width:700px;
+	height:300px;
+	margin-left:30%;
+	position:relative;
+	border-radius:0 0 5px 5px;
+	-moz-border-radius:0 0 5px 5px;
+	-webkit-border-radius:0 0 5px 5px;
+	background:url(../images/login_box_bg.png) no-repeat 0px 0;
+}
+.title_line {
+	position:absolute;
+	height:30px;
+	line-height:30px;
+	width:320px;
+	top:-47px;
+	right:15px;
+	z-index:2000;
+	
+}
+.title_line cite {
+	width:120px;
+	padding-left:10px;
+	display:block;
+	float:left;
+}
+.login_tips {
+	font-size:14px;
+	font-family:Microsoft YaHei;
+}
+.name {
+	width:340px;
+	position:absolute;
+	top:20px;
+	left:10px;
+	font-size:26px;
+	font-family:Microsoft YaHei;
+	color:#000;
+}
+.login_info {
+	width:335px;
+	padding-left:25px;
+	height:340px;
+	position:absolute;
+	right:10px;
+	top:-45px;
+	background:url(../images/user_bg.png) no-repeat 0 0;
+}
+.login_info h4 {
+	padding-left:20px;
+	margin-top:4px;
+	margin-top:3px\0;
+	#margin-top:3px;
+	_margin-top:3px;
+}
+.login_tips {
+	font-size:20px;
+	font-family:Microsoft YaHei;
+	color:#3e4e80;
+	margin:40px 0 20px;
+}
+.u_name {
+	width:310px;
+	height:48px;
+	line-height:48px;
+	background:url(../images/u_name_bg.png) no-repeat 0 center;
+	float:left;
+	margin:10px 0px;
+}
+.u_pass {
+	width:310px;
+	height:48px;
+	line-height:48px;
+	background:url(../images/u_pass_bg.png) no-repeat 0 center;
+	float:left;
+	margin:10px 0px;
+}
+.u_name input, .u_pass input {
+	width:248px;
+	height:30px;
+	line-height:30px;
+	padding:7px 5px;
+	float:right;
+	border:0px;
+	background:none;
+	margin:1px;
+}
+.btn_line {
+	margin-top:15px;
+}
+.login_btn {
+	width:102px;
+	height:40px;
+	line-height:40px;
+	border:0;
+	cursor:pointer;
+	background:url(../images/login_btn.png) no-repeat 0 center;
+	font-size:20px;
+	font-family:"Microsoft YaHei";
+	color:#fff;
+}
+.reset_btn {
+	width:102px;
+	height:40px;
+	line-height:40px;
+	border:0;
+	cursor:pointer;
+	background:url(../images/reset.png) no-repeat 0 center;
+	font-size:20px;
+	font-family:"Microsoft YaHei";
+	color:#000;
+}
+
+.footer {
+	width:100%;
+	height:30px;
+	lineheight:30px;
+	position:fixed;
+	left:0;
+	bottom:0;
+	border-top:1px solid #bab8dd;
+	background:url(../images/footer_bg.png) repeat-x 0 0;
+	font-size:14px;
+	font-family:SimSun;
+}
+.foot_con {
+	width:700px;
+	line-height:30px;
+	margin-left:30%;
+}
+.foot_con span {
+	font-size:14px;
+	font-family:Microsoft YaHei;
+}
+.shadow {
+	width:50%;
+	height:14px;
+	margin-left:30%; 
+	background:url(../images/shadow.png) no-repeat center 0;
+}
+.tips_menu {
+	float:right;
+	margin-right:10px;
+	height:50px;
+}
+.tips_menu li {
+	float:left;
+	margin:0 5px;
+	font-size:14px;
+	height:50px;
+	line-height:50px;
+}
+.tips_menu li a {
+	color:#3d3f42;
+}
+.tips_menu li a:hover {
+	color:#3876ca;
+}
+
+
+/*登录页面样式结束*/

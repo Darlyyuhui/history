@@ -1,0 +1,191 @@
+
+/*违法图片模板页*/
+.thumb_pic {
+	width:124px;
+	height:432px;
+	background:#e2e8f2;
+	border:1px solid #bec8d7;
+	/*background:#e2e8f2;
+	border:1px solid #bec8d7;
+	width:436px;*/
+}
+.details_pic {
+	width:74%;
+	min-width:320px;
+	min-width:320px\0;
+	#min-width:320px;
+	_min-width:320px;
+	max-width:430px;
+	max-width:430px\0;
+	#max-width:430px;
+	_max-width:430px;
+	height:432px;
+	margin-left:5px;
+	background:#e2e8f2;
+	border:1px solid #bec8d7;
+	overflow:hidden;
+	
+}
+.pic_title {
+	height:35px;
+	width:100%;
+	position:relative;
+	line-height:34px;
+	background:url(../images/line_bg.png) repeat-x 0 0;
+	border-bottom:1px solid #999;
+	font-size:14px;
+	font-family:Microsoft YaHei;
+}
+.pic_title_1 {
+	height:35px;
+	line-height:34px;
+	background:url(../images/line_bg.png) repeat-x 0 0;
+	border-bottom:1px solid #999;
+	font-size:14px;
+	font-family:Microsoft YaHei;
+}
+.pic_title span {
+	width:18px;
+	height:17px;
+	display:block;
+	float:left;
+	margin-left:10px;
+	margin-right:10px;
+	background:url(../images/picmix/dot_arr.png) no-repeat left center;
+	margin-top:9px;
+}
+
+/*改成横向排列li样式*/
+/*.pic_muban_list {
+	padding:0;
+	margin:0;
+}
+.pic_muban_list li {
+	float:left;
+	margin:5px 10px;
+}*/
+
+/*改成横向排列样式li接受*/
+.pic_muban_list li p {
+	background:#84a2d5 url(../images/picmix/dot.png) no-repeat 5px center;
+	padding-left:15px;
+	line-height:24px;
+	margin:0;
+}
+.muban_small img {
+	vertical-align:top;
+	cursor:pointer;
+	max-width:90px;
+}
+.pic_muban_now {
+	border:2px solid #a1a1a1;
+}
+.pic_muban_current {
+	border:2px solid #666;
+}
+
+.pic_texie {
+	border-collapse:collapse;
+	width:415px;
+}
+.pic_texie tr td {
+	padding:5px;
+	background:#bfbfbf;
+	position:relative;
+	border:1px solid #999;
+}
+.pic_texie tr td span {
+	position:absolute;
+	right:10px;
+	top:10px;;
+	width:50px;
+	height:50px;
+	display:block;
+	z-index:100000;
+}
+.pic_texie tr td span img {
+	width:50px;
+	height:50px;	
+}
+
+#ShuPai4 img {
+	height:83px;
+	_height:82px;
+	*height:82px;
+	height:82px\0;
+	width:405px;
+}
+#HengPai4 img {
+	width:93px;
+	_width:92px;
+	*width:92px;
+	width:92px\0;
+	height:362px;
+}
+#HunPai4 img {
+	width:196px;
+	height:176px;
+	_height:175px;
+	*height:175px;
+	height:175px\0;
+}
+
+#ShuPai4 span img, #HengPai4 span img, #HunPai4 span img,#ShuPai2 span img, #HengPai2 span img,#ShuPai3 span img, #HengPai3 span img {
+	width:50px;
+	height:50px;
+}
+
+.pic_num {
+	width:85px; 
+	height:24px; 
+	position:absolute; 
+	right:5px; 
+	top:5px; 
+	_top:6px; 
+	#top:6px; 
+	top:6px\0; 
+	float:right; 
+	margin:0; 
+	padding:0;
+}
+.sel_hunp {
+	width:100px; 
+	height:24px; 
+	position:absolute; 
+	right:10px; 
+	top:5px; 
+	_top:6px; 
+	#top:6px; 
+	top:6px\0; 
+	float:right; 
+	margin:0; 
+	padding:0;
+}
+#HengPai2 img {
+	width:196px;
+	height:362px;
+	_height:362px;
+	*height:362px;
+	height:362px\0;
+}
+#ShuPai2 img {
+	height:176px;
+	width:405px;
+}
+
+#HengPai3 img {
+	width:127px;
+	height:126px;
+	_height:126px;
+	*height:126px;
+	height:362px;
+}
+#ShuPai3 img {
+	width:405px;
+	height:114px;
+	_height:113px;
+	*height:113px;
+	height:113px\0;
+}
+
+
