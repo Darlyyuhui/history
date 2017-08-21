@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.sms.dao.EventLogMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.sms.vo.EventLog" >
+    <result column="LOGINDEX" property="logindex" jdbcType="DECIMAL" />
+    <result column="COMMPORT" property="commport" jdbcType="DECIMAL" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="HAPPENTIME" property="happentime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    LOGINDEX, COMMPORT, DESCRIPTION, HAPPENTIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.sms.vo.EventLogSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_EVENTLOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.sms.vo.EventLogSearch" >
+    delete from T_EVENTLOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.sms.vo.EventLog" >
+    insert into T_EVENTLOG (LOGINDEX, COMMPORT, DESCRIPTION, 
+      HAPPENTIME)
+    values (#{logindex,jdbcType=DECIMAL}, #{commport,jdbcType=DECIMAL}, #{description,jdbcType=VARCHAR}, 
+      #{happentime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.sms.vo.EventLog" >
+    insert into T_EVENTLOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(logindex)" >
+        LOGINDEX,
+      </if>
+      <if test="@Ognl@isNotEmpty(commport)" >
+        COMMPORT,
+      </if>
+      <if test="@Ognl@isNotEmpty(description)" >
+        DESCRIPTION,
+      </if>
+      <if test="@Ognl@isNotEmpty(happentime)" >
+        HAPPENTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(logindex)" >
+        #{logindex,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(commport)" >
+        #{commport,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(description)" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(happentime)" >
+        #{happentime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.sms.vo.EventLogSearch" resultType="java.lang.Integer" >
+    select count(*) from T_EVENTLOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_EVENTLOG
+    <set >
+      <if test="@Ognl@isNotEmpty(record.logindex)" >
+        LOGINDEX = #{record.logindex,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.commport)" >
+        COMMPORT = #{record.commport,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.description)" >
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.happentime)" >
+        HAPPENTIME = #{record.happentime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_EVENTLOG
+    set LOGINDEX = #{record.logindex,jdbcType=DECIMAL},
+      COMMPORT = #{record.commport,jdbcType=DECIMAL},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      HAPPENTIME = #{record.happentime,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from T_EVENTLOG
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(logindex)" >
+         and LOGINDEX = #{logindex,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(commport)" >
+         and COMMPORT = #{commport,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(description)" >
+         and DESCRIPTION = #{description,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(happentime)" >
+         and HAPPENTIME = #{happentime,jdbcType=DATE}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from T_EVENTLOG
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(logindex)" >
+         and LOGINDEX = #{logindex,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(commport)" >
+         and COMMPORT = #{commport,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(description)" >
+         and DESCRIPTION = #{description,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(happentime)" >
+         and HAPPENTIME = #{happentime,jdbcType=DATE}
+      </if>
+    </where>
+  </select>
+</mapper>

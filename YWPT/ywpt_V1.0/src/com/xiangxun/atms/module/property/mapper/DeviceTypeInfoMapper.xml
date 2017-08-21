@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.property.mapper.DeviceTypeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.property.domain.DeviceTypeInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PID" property="pid" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+    <result column="POSITION" property="position" jdbcType="SMALLINT" />
+    <result column="LEVELS" property="levels" jdbcType="SMALLINT" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, PID, NAME, NOTE, POSITION, LEVELS, CODE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.property.domain.DeviceTypeInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PROPERTY_DEVICETYPE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from PROPERTY_DEVICETYPE_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from PROPERTY_DEVICETYPE_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.property.domain.DeviceTypeInfoSearch" >
+    delete from PROPERTY_DEVICETYPE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.property.domain.DeviceTypeInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into PROPERTY_DEVICETYPE_INFO (ID,PID, NAME, NOTE, 
+      POSITION, LEVELS, CODE
+      )
+    values (#{id,jdbcType=VARCHAR},#{pid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, 
+      #{position,jdbcType=SMALLINT}, #{levels,jdbcType=SMALLINT}, #{code,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.property.domain.DeviceTypeInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into PROPERTY_DEVICETYPE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="pid != null" >
+        PID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="note != null" >
+        NOTE,
+      </if>
+      <if test="position != null" >
+        POSITION,
+      </if>
+      <if test="levels != null" >
+        LEVELS,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=SMALLINT},
+      </if>
+      <if test="levels != null" >
+        #{levels,jdbcType=SMALLINT},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.property.domain.DeviceTypeInfoSearch" resultType="java.lang.Integer" >
+    select count(*) from PROPERTY_DEVICETYPE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PROPERTY_DEVICETYPE_INFO
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pid != null" >
+        PID = #{record.pid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.note != null" >
+        NOTE = #{record.note,jdbcType=VARCHAR},
+      </if>
+      <if test="record.position != null" >
+        POSITION = #{record.position,jdbcType=SMALLINT},
+      </if>
+      <if test="record.levels != null" >
+        LEVELS = #{record.levels,jdbcType=SMALLINT},
+      </if>
+      <if test="record.code != null" >
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PROPERTY_DEVICETYPE_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      PID = #{record.pid,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      NOTE = #{record.note,jdbcType=VARCHAR},
+      POSITION = #{record.position,jdbcType=SMALLINT},
+      LEVELS = #{record.levels,jdbcType=SMALLINT},
+      CODE = #{record.code,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.property.domain.DeviceTypeInfo" >
+    update PROPERTY_DEVICETYPE_INFO
+    <set >
+      <if test="pid != null" >
+        PID = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        POSITION = #{position,jdbcType=SMALLINT},
+      </if>
+      <if test="levels != null" >
+        LEVELS = #{levels,jdbcType=SMALLINT},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.property.domain.DeviceTypeInfo" >
+    update PROPERTY_DEVICETYPE_INFO
+    set PID = #{pid,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      NOTE = #{note,jdbcType=VARCHAR},
+      POSITION = #{position,jdbcType=SMALLINT},
+      LEVELS = #{levels,jdbcType=SMALLINT},
+      CODE = #{code,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="getLeafNodeById" resultType="com.xiangxun.atms.module.property.domain.DeviceTypeInfo" parameterType="java.lang.String">
+  	 select  ID, PID, NAME , levels from PROPERTY_DEVICETYPE_INFO where PID=#{pid} 
+  </select>
+  
+  <select id="hasChild" resultType="java.lang.Integer" parameterType="java.lang.String">
+  	 select  count(id) from PROPERTY_DEVICETYPE_INFO where PID=#{pid} 
+  </select>
+  
+</mapper>

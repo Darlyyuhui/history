@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.common.deptment.dao.DepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.common.deptment.vo.Department" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PARENTID" property="parentid" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="PRINCIPAL" property="principal" jdbcType="VARCHAR" />
+    <result column="PRINCIPALNAME" property="principalName" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="LEVELS" property="level" jdbcType="SMALLINT" />
+    <result column="RANK" property="rank" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, PARENTID, CODE,NAME, MEMO,LEVELS,STATUS,PRINCIPAL,MOBILE,PRINCIPALNAME,RANK
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.common.deptment.vo.DepartmentSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_ORG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_ORG
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_ORG
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.common.deptment.vo.DepartmentSearch" >
+    delete from SYS_ORG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.common.deptment.vo.Department" useGeneratedKeys="true" keyProperty="id" >
+    insert into SYS_ORG (id,PARENTID, NAME, MEMO,STATUS,LEVELS,PARENTID,PRINCIPAL,MOBILE,PRINCIPALNAME,RANK)
+    values (#{id,jdbcType=VARCHAR},#{parentid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{level,jdbcType=SMALLINT}, #{parentid,jdbcType=VARCHAR},
+       #{principal,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{principalName,jdbcType=VARCHAR, #{rank,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.common.deptment.vo.Department" useGeneratedKeys="true" keyProperty="id" >
+    insert into SYS_ORG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+       <if test="id != null" >
+        id,
+      </if>
+      <if test="parentid != null" >
+        PARENTID,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+       <if test="name != null" >
+        NAME,
+      </if>
+      <if test="memo != null" >
+        MEMO,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+       <if test="level != null" >
+        LEVELS,
+      </if>
+        <if test="principal != null" >
+        PRINCIPAL,
+      </if>
+        <if test="principalName != null" >
+        PRINCIPALNAME,
+      </if>
+        <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="rank != null" >
+        RANK
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+       <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="level !=null">
+        #{level,jdbcType=SMALLINT},
+      </if>
+       <if test="principal != null" >
+         #{principal,jdbcType=VARCHAR},
+      </if>
+        <if test="principalName != null" >
+        #{principalName,jdbcType=VARCHAR},
+      </if>
+        <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.common.deptment.vo.DepartmentSearch" resultType="java.lang.Integer" >
+    select count(*) from SYS_ORG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SYS_ORG
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentid != null" >
+        PARENTID = #{record.parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null" >
+        MEMO = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+       <if test="level != null" >
+        LEVELS =#{record.level}
+      </if>
+      <if test="principal != null" >
+        PRINCIPAL= #{record.principal,jdbcType=VARCHAR},
+      </if>
+        <if test="principalName != null" >
+        PRINCIPALNAME=#{record.principalName,jdbcType=VARCHAR},
+      </if>
+        <if test="mobile != null" >
+        MOBILE=#{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        RANK=#{record.rank,jdbcType=VARCHAR}
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SYS_ORG
+    set ID = #{record.id,jdbcType=VARCHAR},
+      PARENTID = #{record.parentid,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      MEMO = #{record.memo,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      LEVELS = #{record.level,jdbcType=SMALLINT},
+      PRINCIPAL= #{record.principal,jdbcType=VARCHAR},
+      PRINCIPALNAME=#{record.principalName,jdbcType=VARCHAR},
+      MOBILE=#{record.mobile,jdbcType=VARCHAR},
+      RANK=#{record.rank,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.common.deptment.vo.Department" >
+    update SYS_ORG
+    <set >
+      <if test="parentid != null" >
+        PARENTID = #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+       <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+       <if test="level != null" >
+        LEVELS =#{level},
+      </if>
+      <if test="principal != null" >
+        PRINCIPAL= #{principal,jdbcType=VARCHAR},
+      </if>
+       <if test="principalName != null" >
+        PRINCIPALNAME=#{principalName,jdbcType=VARCHAR},
+      </if>
+       <if test="mobile != null" >
+        MOBILE=#{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        RANK=#{rank,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.common.deptment.vo.Department" >
+    update SYS_ORG
+    set PARENTID = #{parentid,jdbcType=VARCHAR},
+      CODE = #{code,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      MEMO = #{memo,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      LEVELS = #{level,jdbcType=SMALLINT},
+      PRINCIPAL= #{record.principal,jdbcType=VARCHAR},
+      PRINCIPALNAME=#{record.principalName,jdbcType=VARCHAR},
+      MOBILE=#{record.mobile,jdbcType=VARCHAR},
+      RANK=#{record.rank,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="getLeafNodeById" resultType="com.xiangxun.atms.common.deptment.vo.Department" parameterType="java.lang.String">
+  	 select  ID, PARENTID, NAME , levels, rank from SYS_ORG where PARENTID=#{parentid} and status='0' order by CODE
+  </select>
+  
+  <select id="hasChild" resultType="java.lang.Integer" parameterType="java.lang.String">
+  	 select  count(id) from SYS_ORG where PARENTID=#{parentid} and status='0'
+  </select>
+  
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from SYS_ORG
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(parentid)" >
+         and PARENTID = #{parentid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(memo)" >
+         and MEMO = #{memo,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(levels)" >
+         and LEVELS = #{levels,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(rank)" >
+         and RANK = #{rank,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from SYS_ORG
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(parentid)" >
+         and PARENTID = #{parentid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(memo)" >
+         and MEMO = #{memo,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(levels)" >
+         and LEVELS = #{levels,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(rank)" >
+         and RANK = #{rank,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  
+  <select id="getCountByLevel" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  	 select count(*) from SYS_ORG where LEVELS = #{levels}
+  </select>
+</mapper>

@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.eventalarm.mapper.ServerStatusProcessMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.eventalarm.domain.ServerStatusProcess" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PID" property="pid" jdbcType="VARCHAR" />
+    <result column="TALKNAME" property="talkname" jdbcType="VARCHAR" />
+    <result column="MEMORY" property="memory" jdbcType="VARCHAR" />
+    <result column="USERSTR" property="userstr" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="INSERTTIME" property="inserttime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, NAME, PID, TALKNAME, MEMORY, USERSTR, IP, INSERTTIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.eventalarm.domain.ServerStatusProcessSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from STATUS_SERVER_PROCESS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from STATUS_SERVER_PROCESS
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from STATUS_SERVER_PROCESS
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.eventalarm.domain.ServerStatusProcessSearch" >
+    delete from STATUS_SERVER_PROCESS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.eventalarm.domain.ServerStatusProcess" useGeneratedKeys="true" keyProperty="id" >
+    insert into STATUS_SERVER_PROCESS (NAME, PID, TALKNAME, 
+      MEMORY, USERSTR, IP, 
+      INSERTTIME)
+    values (#{name,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{talkname,jdbcType=VARCHAR}, 
+      #{memory,jdbcType=VARCHAR}, #{userstr,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{inserttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.eventalarm.domain.ServerStatusProcess" useGeneratedKeys="true" keyProperty="id" >
+    insert into STATUS_SERVER_PROCESS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+        PID,
+      </if>
+      <if test="@Ognl@isNotEmpty(talkname)" >
+        TALKNAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(memory)" >
+        MEMORY,
+      </if>
+      <if test="@Ognl@isNotEmpty(userstr)" >
+        USERSTR,
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        IP,
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        INSERTTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(talkname)" >
+        #{talkname,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(memory)" >
+        #{memory,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(userstr)" >
+        #{userstr,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.eventalarm.domain.ServerStatusProcessSearch" resultType="java.lang.Integer" >
+    select count(*) from STATUS_SERVER_PROCESS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update STATUS_SERVER_PROCESS
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.pid)" >
+        PID = #{record.pid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.talkname)" >
+        TALKNAME = #{record.talkname,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.memory)" >
+        MEMORY = #{record.memory,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.userstr)" >
+        USERSTR = #{record.userstr,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.ip)" >
+        IP = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.inserttime)" >
+        INSERTTIME = #{record.inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update STATUS_SERVER_PROCESS
+    set ID = #{record.id,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      PID = #{record.pid,jdbcType=VARCHAR},
+      TALKNAME = #{record.talkname,jdbcType=VARCHAR},
+      MEMORY = #{record.memory,jdbcType=VARCHAR},
+      USERSTR = #{record.userstr,jdbcType=VARCHAR},
+      IP = #{record.ip,jdbcType=VARCHAR},
+      INSERTTIME = #{record.inserttime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.eventalarm.domain.ServerStatusProcess" >
+    update STATUS_SERVER_PROCESS
+    <set >
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+        PID = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(talkname)" >
+        TALKNAME = #{talkname,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(memory)" >
+        MEMORY = #{memory,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(userstr)" >
+        USERSTR = #{userstr,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        INSERTTIME = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.eventalarm.domain.ServerStatusProcess" >
+    update STATUS_SERVER_PROCESS
+    set NAME = #{name,jdbcType=VARCHAR},
+      PID = #{pid,jdbcType=VARCHAR},
+      TALKNAME = #{talkname,jdbcType=VARCHAR},
+      MEMORY = #{memory,jdbcType=VARCHAR},
+      USERSTR = #{userstr,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR},
+      INSERTTIME = #{inserttime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from STATUS_SERVER_PROCESS
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+         and PID = #{pid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(talkname)" >
+         and TALKNAME = #{talkname,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(memory)" >
+         and MEMORY = #{memory,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(userstr)" >
+         and USERSTR = #{userstr,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+         and IP = #{ip,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+         and INSERTTIME = #{inserttime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from STATUS_SERVER_PROCESS
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+         and PID = #{pid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(talkname)" >
+         and TALKNAME = #{talkname,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(memory)" >
+         and MEMORY = #{memory,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(userstr)" >
+         and USERSTR = #{userstr,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+         and IP = #{ip,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+         and INSERTTIME = #{inserttime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+</mapper>

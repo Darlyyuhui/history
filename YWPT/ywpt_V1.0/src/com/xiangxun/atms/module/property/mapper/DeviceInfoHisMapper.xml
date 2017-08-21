@@ -1,0 +1,1026 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.property.mapper.DeviceInfoHisMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.property.domain.DeviceInfoHis" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="VARCHAR" />
+    <result column="FTP_ID" property="ftpId" jdbcType="VARCHAR" />
+    <result column="ROAD_ID" property="roadId" jdbcType="VARCHAR" />
+    <result column="ISSHOW" property="isshow" jdbcType="VARCHAR" />
+    <result column="BUILDTIME" property="buildtime" jdbcType="TIMESTAMP" />
+    <result column="BUILDISP_ID" property="buildispId" jdbcType="VARCHAR" />
+    <result column="BUILDNETWORK_ID" property="buildnetworkId" jdbcType="VARCHAR" />
+    <result column="POWERSOURCE" property="powersource" jdbcType="VARCHAR" />
+    <result column="TIMEOUT" property="timeout" jdbcType="DECIMAL" />
+    <result column="ISBLACKANALYSE" property="isblackanalyse" jdbcType="VARCHAR" />
+    <result column="PHOTO1" property="photo1" jdbcType="VARCHAR" />
+    <result column="PHOTO2" property="photo2" jdbcType="VARCHAR" />
+    <result column="PHOTO3" property="photo3" jdbcType="VARCHAR" />
+    <result column="IMPORTCODE" property="importcode" jdbcType="VARCHAR" />
+    <result column="LICENSE" property="license" jdbcType="VARCHAR" />
+    <result column="LASTDATATIME" property="lastdatatime" jdbcType="TIMESTAMP" />
+    <result column="PICMIX_ID" property="picmixId" jdbcType="VARCHAR" />
+    <result column="TOPORGCODE" property="toporgcode" jdbcType="VARCHAR" />
+    <result column="DEVICETYPECODE" property="devicetypecode" jdbcType="VARCHAR" />
+    <result column="TRADEMARK" property="trademark" jdbcType="VARCHAR" />
+    <result column="PATTERN" property="pattern" jdbcType="VARCHAR" />
+    <result column="EFFICACIOUS_STIME" property="efficaciousStime" jdbcType="TIMESTAMP" />
+    <result column="EFFICACIOUS_ETIME" property="efficaciousEtime" jdbcType="TIMESTAMP" />
+    <result column="INSPECTORG" property="inspectorg" jdbcType="VARCHAR" />
+    <result column="INSPECTTIME" property="inspecttime" jdbcType="TIMESTAMP" />
+    <result column="INSPECTNUMBER" property="inspectnumber" jdbcType="VARCHAR" />
+    <result column="MAPX" property="mapx" jdbcType="VARCHAR" />
+    <result column="MAPY" property="mapy" jdbcType="VARCHAR" />
+    <result column="VIDEO_CODE" property="videoCode" jdbcType="VARCHAR" />
+    <result column="ISSEND" property="issend" jdbcType="VARCHAR" />
+    <result column="INSERTTIME" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+    <result column="AFTER_RECORD_ID" property="afterRecordId" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="FACTORY_ID" property="factoryId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, ORG_ID, CODE, IP, NAME, COMPANY_ID, FTP_ID, ROAD_ID, ISSHOW, BUILDTIME, BUILDISP_ID, 
+    BUILDNETWORK_ID, POWERSOURCE, TIMEOUT, ISBLACKANALYSE, PHOTO1, PHOTO2, PHOTO3, IMPORTCODE, 
+    LICENSE, LASTDATATIME, PICMIX_ID, TOPORGCODE, DEVICETYPECODE, TRADEMARK, PATTERN, 
+    EFFICACIOUS_STIME, EFFICACIOUS_ETIME, INSPECTORG, INSPECTTIME, INSPECTNUMBER, MAPX, 
+    MAPY, VIDEO_CODE, ISSEND, INSERTTIME, NOTE, AFTER_RECORD_ID, STATUS, FACTORY_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.property.domain.DeviceInfoHisSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PROPERTY_DEVICE_INFO_HIS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from PROPERTY_DEVICE_INFO_HIS
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from PROPERTY_DEVICE_INFO_HIS
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.property.domain.DeviceInfoHisSearch" >
+    delete from PROPERTY_DEVICE_INFO_HIS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.property.domain.DeviceInfoHis" >
+    insert into PROPERTY_DEVICE_INFO_HIS (ID, ORG_ID, CODE, 
+      IP, NAME, COMPANY_ID, 
+      FTP_ID, ROAD_ID, ISSHOW, 
+      BUILDTIME, BUILDISP_ID, BUILDNETWORK_ID, 
+      POWERSOURCE, TIMEOUT, ISBLACKANALYSE, 
+      PHOTO1, PHOTO2, PHOTO3, 
+      IMPORTCODE, LICENSE, LASTDATATIME, 
+      PICMIX_ID, TOPORGCODE, DEVICETYPECODE, 
+      TRADEMARK, PATTERN, EFFICACIOUS_STIME, 
+      EFFICACIOUS_ETIME, INSPECTORG, INSPECTTIME, 
+      INSPECTNUMBER, MAPX, MAPY, 
+      VIDEO_CODE, ISSEND, INSERTTIME, 
+      NOTE, AFTER_RECORD_ID, STATUS, 
+      FACTORY_ID)
+    values (#{id,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{ip,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, 
+      #{ftpId,jdbcType=VARCHAR}, #{roadId,jdbcType=VARCHAR}, #{isshow,jdbcType=VARCHAR}, 
+      #{buildtime,jdbcType=TIMESTAMP}, #{buildispId,jdbcType=VARCHAR}, #{buildnetworkId,jdbcType=VARCHAR}, 
+      #{powersource,jdbcType=VARCHAR}, #{timeout,jdbcType=DECIMAL}, #{isblackanalyse,jdbcType=VARCHAR}, 
+      #{photo1,jdbcType=VARCHAR}, #{photo2,jdbcType=VARCHAR}, #{photo3,jdbcType=VARCHAR}, 
+      #{importcode,jdbcType=VARCHAR}, #{license,jdbcType=VARCHAR}, #{lastdatatime,jdbcType=TIMESTAMP}, 
+      #{picmixId,jdbcType=VARCHAR}, #{toporgcode,jdbcType=VARCHAR}, #{devicetypecode,jdbcType=VARCHAR}, 
+      #{trademark,jdbcType=VARCHAR}, #{pattern,jdbcType=VARCHAR}, #{efficaciousStime,jdbcType=TIMESTAMP}, 
+      #{efficaciousEtime,jdbcType=TIMESTAMP}, #{inspectorg,jdbcType=VARCHAR}, #{inspecttime,jdbcType=TIMESTAMP}, 
+      #{inspectnumber,jdbcType=VARCHAR}, #{mapx,jdbcType=VARCHAR}, #{mapy,jdbcType=VARCHAR}, 
+      #{videoCode,jdbcType=VARCHAR}, #{issend,jdbcType=VARCHAR}, #{inserttime,jdbcType=TIMESTAMP}, 
+      #{note,jdbcType=VARCHAR}, #{afterRecordId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{factoryId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.property.domain.DeviceInfoHis" >
+    insert into PROPERTY_DEVICE_INFO_HIS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(orgId)" >
+        ORG_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        IP,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(companyId)" >
+        COMPANY_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpId)" >
+        FTP_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(roadId)" >
+        ROAD_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(isshow)" >
+        ISSHOW,
+      </if>
+      <if test="@Ognl@isNotEmpty(buildtime)" >
+        BUILDTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(buildispId)" >
+        BUILDISP_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(buildnetworkId)" >
+        BUILDNETWORK_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(powersource)" >
+        POWERSOURCE,
+      </if>
+      <if test="@Ognl@isNotEmpty(timeout)" >
+        TIMEOUT,
+      </if>
+      <if test="@Ognl@isNotEmpty(isblackanalyse)" >
+        ISBLACKANALYSE,
+      </if>
+      <if test="@Ognl@isNotEmpty(photo1)" >
+        PHOTO1,
+      </if>
+      <if test="@Ognl@isNotEmpty(photo2)" >
+        PHOTO2,
+      </if>
+      <if test="@Ognl@isNotEmpty(photo3)" >
+        PHOTO3,
+      </if>
+      <if test="@Ognl@isNotEmpty(importcode)" >
+        IMPORTCODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(license)" >
+        LICENSE,
+      </if>
+      <if test="@Ognl@isNotEmpty(lastdatatime)" >
+        LASTDATATIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(picmixId)" >
+        PICMIX_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(toporgcode)" >
+        TOPORGCODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetypecode)" >
+        DEVICETYPECODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(trademark)" >
+        TRADEMARK,
+      </if>
+      <if test="@Ognl@isNotEmpty(pattern)" >
+        PATTERN,
+      </if>
+      <if test="@Ognl@isNotEmpty(efficaciousStime)" >
+        EFFICACIOUS_STIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(efficaciousEtime)" >
+        EFFICACIOUS_ETIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(inspectorg)" >
+        INSPECTORG,
+      </if>
+      <if test="@Ognl@isNotEmpty(inspecttime)" >
+        INSPECTTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(inspectnumber)" >
+        INSPECTNUMBER,
+      </if>
+      <if test="@Ognl@isNotEmpty(mapx)" >
+        MAPX,
+      </if>
+      <if test="@Ognl@isNotEmpty(mapy)" >
+        MAPY,
+      </if>
+      <if test="@Ognl@isNotEmpty(videoCode)" >
+        VIDEO_CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(issend)" >
+        ISSEND,
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        INSERTTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE,
+      </if>
+      <if test="@Ognl@isNotEmpty(afterRecordId)" >
+        AFTER_RECORD_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+        FACTORY_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(orgId)" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(companyId)" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpId)" >
+        #{ftpId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(roadId)" >
+        #{roadId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(isshow)" >
+        #{isshow,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(buildtime)" >
+        #{buildtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(buildispId)" >
+        #{buildispId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(buildnetworkId)" >
+        #{buildnetworkId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(powersource)" >
+        #{powersource,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(timeout)" >
+        #{timeout,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(isblackanalyse)" >
+        #{isblackanalyse,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(photo1)" >
+        #{photo1,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(photo2)" >
+        #{photo2,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(photo3)" >
+        #{photo3,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(importcode)" >
+        #{importcode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(license)" >
+        #{license,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(lastdatatime)" >
+        #{lastdatatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(picmixId)" >
+        #{picmixId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(toporgcode)" >
+        #{toporgcode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetypecode)" >
+        #{devicetypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(trademark)" >
+        #{trademark,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(pattern)" >
+        #{pattern,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(efficaciousStime)" >
+        #{efficaciousStime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(efficaciousEtime)" >
+        #{efficaciousEtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(inspectorg)" >
+        #{inspectorg,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inspecttime)" >
+        #{inspecttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(inspectnumber)" >
+        #{inspectnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(mapx)" >
+        #{mapx,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(mapy)" >
+        #{mapy,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(videoCode)" >
+        #{videoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(issend)" >
+        #{issend,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(afterRecordId)" >
+        #{afterRecordId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+        #{factoryId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.property.domain.DeviceInfoHisSearch" resultType="java.lang.Integer" >
+    select count(*) from PROPERTY_DEVICE_INFO_HIS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PROPERTY_DEVICE_INFO_HIS
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.orgId)" >
+        ORG_ID = #{record.orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.code)" >
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.ip)" >
+        IP = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.companyId)" >
+        COMPANY_ID = #{record.companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.ftpId)" >
+        FTP_ID = #{record.ftpId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.roadId)" >
+        ROAD_ID = #{record.roadId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.isshow)" >
+        ISSHOW = #{record.isshow,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.buildtime)" >
+        BUILDTIME = #{record.buildtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.buildispId)" >
+        BUILDISP_ID = #{record.buildispId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.buildnetworkId)" >
+        BUILDNETWORK_ID = #{record.buildnetworkId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.powersource)" >
+        POWERSOURCE = #{record.powersource,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.timeout)" >
+        TIMEOUT = #{record.timeout,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.isblackanalyse)" >
+        ISBLACKANALYSE = #{record.isblackanalyse,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.photo1)" >
+        PHOTO1 = #{record.photo1,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.photo2)" >
+        PHOTO2 = #{record.photo2,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.photo3)" >
+        PHOTO3 = #{record.photo3,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.importcode)" >
+        IMPORTCODE = #{record.importcode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.license)" >
+        LICENSE = #{record.license,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.lastdatatime)" >
+        LASTDATATIME = #{record.lastdatatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.picmixId)" >
+        PICMIX_ID = #{record.picmixId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.toporgcode)" >
+        TOPORGCODE = #{record.toporgcode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.devicetypecode)" >
+        DEVICETYPECODE = #{record.devicetypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.trademark)" >
+        TRADEMARK = #{record.trademark,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.pattern)" >
+        PATTERN = #{record.pattern,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.efficaciousStime)" >
+        EFFICACIOUS_STIME = #{record.efficaciousStime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.efficaciousEtime)" >
+        EFFICACIOUS_ETIME = #{record.efficaciousEtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.inspectorg)" >
+        INSPECTORG = #{record.inspectorg,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.inspecttime)" >
+        INSPECTTIME = #{record.inspecttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.inspectnumber)" >
+        INSPECTNUMBER = #{record.inspectnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.mapx)" >
+        MAPX = #{record.mapx,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.mapy)" >
+        MAPY = #{record.mapy,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.videoCode)" >
+        VIDEO_CODE = #{record.videoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.issend)" >
+        ISSEND = #{record.issend,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.inserttime)" >
+        INSERTTIME = #{record.inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.note)" >
+        NOTE = #{record.note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.afterRecordId)" >
+        AFTER_RECORD_ID = #{record.afterRecordId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.status)" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.factoryId)" >
+        FACTORY_ID = #{record.factoryId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PROPERTY_DEVICE_INFO_HIS
+    set ID = #{record.id,jdbcType=VARCHAR},
+      ORG_ID = #{record.orgId,jdbcType=VARCHAR},
+      CODE = #{record.code,jdbcType=VARCHAR},
+      IP = #{record.ip,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      COMPANY_ID = #{record.companyId,jdbcType=VARCHAR},
+      FTP_ID = #{record.ftpId,jdbcType=VARCHAR},
+      ROAD_ID = #{record.roadId,jdbcType=VARCHAR},
+      ISSHOW = #{record.isshow,jdbcType=VARCHAR},
+      BUILDTIME = #{record.buildtime,jdbcType=TIMESTAMP},
+      BUILDISP_ID = #{record.buildispId,jdbcType=VARCHAR},
+      BUILDNETWORK_ID = #{record.buildnetworkId,jdbcType=VARCHAR},
+      POWERSOURCE = #{record.powersource,jdbcType=VARCHAR},
+      TIMEOUT = #{record.timeout,jdbcType=DECIMAL},
+      ISBLACKANALYSE = #{record.isblackanalyse,jdbcType=VARCHAR},
+      PHOTO1 = #{record.photo1,jdbcType=VARCHAR},
+      PHOTO2 = #{record.photo2,jdbcType=VARCHAR},
+      PHOTO3 = #{record.photo3,jdbcType=VARCHAR},
+      IMPORTCODE = #{record.importcode,jdbcType=VARCHAR},
+      LICENSE = #{record.license,jdbcType=VARCHAR},
+      LASTDATATIME = #{record.lastdatatime,jdbcType=TIMESTAMP},
+      PICMIX_ID = #{record.picmixId,jdbcType=VARCHAR},
+      TOPORGCODE = #{record.toporgcode,jdbcType=VARCHAR},
+      DEVICETYPECODE = #{record.devicetypecode,jdbcType=VARCHAR},
+      TRADEMARK = #{record.trademark,jdbcType=VARCHAR},
+      PATTERN = #{record.pattern,jdbcType=VARCHAR},
+      EFFICACIOUS_STIME = #{record.efficaciousStime,jdbcType=TIMESTAMP},
+      EFFICACIOUS_ETIME = #{record.efficaciousEtime,jdbcType=TIMESTAMP},
+      INSPECTORG = #{record.inspectorg,jdbcType=VARCHAR},
+      INSPECTTIME = #{record.inspecttime,jdbcType=TIMESTAMP},
+      INSPECTNUMBER = #{record.inspectnumber,jdbcType=VARCHAR},
+      MAPX = #{record.mapx,jdbcType=VARCHAR},
+      MAPY = #{record.mapy,jdbcType=VARCHAR},
+      VIDEO_CODE = #{record.videoCode,jdbcType=VARCHAR},
+      ISSEND = #{record.issend,jdbcType=VARCHAR},
+      INSERTTIME = #{record.inserttime,jdbcType=TIMESTAMP},
+      NOTE = #{record.note,jdbcType=VARCHAR},
+      AFTER_RECORD_ID = #{record.afterRecordId,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      FACTORY_ID = #{record.factoryId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.property.domain.DeviceInfoHis" >
+    update PROPERTY_DEVICE_INFO_HIS
+    <set >
+      <if test="@Ognl@isNotEmpty(orgId)" >
+        ORG_ID = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(companyId)" >
+        COMPANY_ID = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpId)" >
+        FTP_ID = #{ftpId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(roadId)" >
+        ROAD_ID = #{roadId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(isshow)" >
+        ISSHOW = #{isshow,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(buildtime)" >
+        BUILDTIME = #{buildtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(buildispId)" >
+        BUILDISP_ID = #{buildispId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(buildnetworkId)" >
+        BUILDNETWORK_ID = #{buildnetworkId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(powersource)" >
+        POWERSOURCE = #{powersource,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(timeout)" >
+        TIMEOUT = #{timeout,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(isblackanalyse)" >
+        ISBLACKANALYSE = #{isblackanalyse,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(photo1)" >
+        PHOTO1 = #{photo1,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(photo2)" >
+        PHOTO2 = #{photo2,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(photo3)" >
+        PHOTO3 = #{photo3,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(importcode)" >
+        IMPORTCODE = #{importcode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(license)" >
+        LICENSE = #{license,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(lastdatatime)" >
+        LASTDATATIME = #{lastdatatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(picmixId)" >
+        PICMIX_ID = #{picmixId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(toporgcode)" >
+        TOPORGCODE = #{toporgcode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetypecode)" >
+        DEVICETYPECODE = #{devicetypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(trademark)" >
+        TRADEMARK = #{trademark,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(pattern)" >
+        PATTERN = #{pattern,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(efficaciousStime)" >
+        EFFICACIOUS_STIME = #{efficaciousStime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(efficaciousEtime)" >
+        EFFICACIOUS_ETIME = #{efficaciousEtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(inspectorg)" >
+        INSPECTORG = #{inspectorg,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inspecttime)" >
+        INSPECTTIME = #{inspecttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(inspectnumber)" >
+        INSPECTNUMBER = #{inspectnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(mapx)" >
+        MAPX = #{mapx,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(mapy)" >
+        MAPY = #{mapy,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(videoCode)" >
+        VIDEO_CODE = #{videoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(issend)" >
+        ISSEND = #{issend,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        INSERTTIME = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(afterRecordId)" >
+        AFTER_RECORD_ID = #{afterRecordId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+        FACTORY_ID = #{factoryId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.property.domain.DeviceInfoHis" >
+    update PROPERTY_DEVICE_INFO_HIS
+    set ORG_ID = #{orgId,jdbcType=VARCHAR},
+      CODE = #{code,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      COMPANY_ID = #{companyId,jdbcType=VARCHAR},
+      FTP_ID = #{ftpId,jdbcType=VARCHAR},
+      ROAD_ID = #{roadId,jdbcType=VARCHAR},
+      ISSHOW = #{isshow,jdbcType=VARCHAR},
+      BUILDTIME = #{buildtime,jdbcType=TIMESTAMP},
+      BUILDISP_ID = #{buildispId,jdbcType=VARCHAR},
+      BUILDNETWORK_ID = #{buildnetworkId,jdbcType=VARCHAR},
+      POWERSOURCE = #{powersource,jdbcType=VARCHAR},
+      TIMEOUT = #{timeout,jdbcType=DECIMAL},
+      ISBLACKANALYSE = #{isblackanalyse,jdbcType=VARCHAR},
+      PHOTO1 = #{photo1,jdbcType=VARCHAR},
+      PHOTO2 = #{photo2,jdbcType=VARCHAR},
+      PHOTO3 = #{photo3,jdbcType=VARCHAR},
+      IMPORTCODE = #{importcode,jdbcType=VARCHAR},
+      LICENSE = #{license,jdbcType=VARCHAR},
+      LASTDATATIME = #{lastdatatime,jdbcType=TIMESTAMP},
+      PICMIX_ID = #{picmixId,jdbcType=VARCHAR},
+      TOPORGCODE = #{toporgcode,jdbcType=VARCHAR},
+      DEVICETYPECODE = #{devicetypecode,jdbcType=VARCHAR},
+      TRADEMARK = #{trademark,jdbcType=VARCHAR},
+      PATTERN = #{pattern,jdbcType=VARCHAR},
+      EFFICACIOUS_STIME = #{efficaciousStime,jdbcType=TIMESTAMP},
+      EFFICACIOUS_ETIME = #{efficaciousEtime,jdbcType=TIMESTAMP},
+      INSPECTORG = #{inspectorg,jdbcType=VARCHAR},
+      INSPECTTIME = #{inspecttime,jdbcType=TIMESTAMP},
+      INSPECTNUMBER = #{inspectnumber,jdbcType=VARCHAR},
+      MAPX = #{mapx,jdbcType=VARCHAR},
+      MAPY = #{mapy,jdbcType=VARCHAR},
+      VIDEO_CODE = #{videoCode,jdbcType=VARCHAR},
+      ISSEND = #{issend,jdbcType=VARCHAR},
+      INSERTTIME = #{inserttime,jdbcType=TIMESTAMP},
+      NOTE = #{note,jdbcType=VARCHAR},
+      AFTER_RECORD_ID = #{afterRecordId,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      FACTORY_ID = #{factoryId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from PROPERTY_DEVICE_INFO_HIS
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(orgId)" >
+         and ORG_ID = #{orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+         and IP = #{ip,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(companyId)" >
+         and COMPANY_ID = #{companyId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpId)" >
+         and FTP_ID = #{ftpId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(roadId)" >
+         and ROAD_ID = #{roadId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(isshow)" >
+         and ISSHOW = #{isshow,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(buildtime)" >
+         and BUILDTIME = #{buildtime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(buildispId)" >
+         and BUILDISP_ID = #{buildispId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(buildnetworkId)" >
+         and BUILDNETWORK_ID = #{buildnetworkId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(powersource)" >
+         and POWERSOURCE = #{powersource,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(timeout)" >
+         and TIMEOUT = #{timeout,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(isblackanalyse)" >
+         and ISBLACKANALYSE = #{isblackanalyse,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(photo1)" >
+         and PHOTO1 = #{photo1,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(photo2)" >
+         and PHOTO2 = #{photo2,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(photo3)" >
+         and PHOTO3 = #{photo3,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(importcode)" >
+         and IMPORTCODE = #{importcode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(license)" >
+         and LICENSE = #{license,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(lastdatatime)" >
+         and LASTDATATIME = #{lastdatatime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(picmixId)" >
+         and PICMIX_ID = #{picmixId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(toporgcode)" >
+         and TOPORGCODE = #{toporgcode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetypecode)" >
+         and DEVICETYPECODE = #{devicetypecode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(trademark)" >
+         and TRADEMARK = #{trademark,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(pattern)" >
+         and PATTERN = #{pattern,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(efficaciousStime)" >
+         and EFFICACIOUS_STIME = #{efficaciousStime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(efficaciousEtime)" >
+         and EFFICACIOUS_ETIME = #{efficaciousEtime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(inspectorg)" >
+         and INSPECTORG = #{inspectorg,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inspecttime)" >
+         and INSPECTTIME = #{inspecttime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(inspectnumber)" >
+         and INSPECTNUMBER = #{inspectnumber,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(mapx)" >
+         and MAPX = #{mapx,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(mapy)" >
+         and MAPY = #{mapy,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(videoCode)" >
+         and VIDEO_CODE = #{videoCode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(issend)" >
+         and ISSEND = #{issend,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+         and INSERTTIME = #{inserttime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(afterRecordId)" >
+         and AFTER_RECORD_ID = #{afterRecordId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+         and FACTORY_ID = #{factoryId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from PROPERTY_DEVICE_INFO_HIS
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(orgId)" >
+         and ORG_ID = #{orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+         and IP = #{ip,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(companyId)" >
+         and COMPANY_ID = #{companyId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpId)" >
+         and FTP_ID = #{ftpId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(roadId)" >
+         and ROAD_ID = #{roadId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(isshow)" >
+         and ISSHOW = #{isshow,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(buildtime)" >
+         and BUILDTIME = #{buildtime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(buildispId)" >
+         and BUILDISP_ID = #{buildispId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(buildnetworkId)" >
+         and BUILDNETWORK_ID = #{buildnetworkId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(powersource)" >
+         and POWERSOURCE = #{powersource,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(timeout)" >
+         and TIMEOUT = #{timeout,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(isblackanalyse)" >
+         and ISBLACKANALYSE = #{isblackanalyse,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(photo1)" >
+         and PHOTO1 = #{photo1,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(photo2)" >
+         and PHOTO2 = #{photo2,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(photo3)" >
+         and PHOTO3 = #{photo3,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(importcode)" >
+         and IMPORTCODE = #{importcode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(license)" >
+         and LICENSE = #{license,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(lastdatatime)" >
+         and LASTDATATIME = #{lastdatatime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(picmixId)" >
+         and PICMIX_ID = #{picmixId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(toporgcode)" >
+         and TOPORGCODE = #{toporgcode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetypecode)" >
+         and DEVICETYPECODE = #{devicetypecode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(trademark)" >
+         and TRADEMARK = #{trademark,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(pattern)" >
+         and PATTERN = #{pattern,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(efficaciousStime)" >
+         and EFFICACIOUS_STIME = #{efficaciousStime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(efficaciousEtime)" >
+         and EFFICACIOUS_ETIME = #{efficaciousEtime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(inspectorg)" >
+         and INSPECTORG = #{inspectorg,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inspecttime)" >
+         and INSPECTTIME = #{inspecttime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(inspectnumber)" >
+         and INSPECTNUMBER = #{inspectnumber,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(mapx)" >
+         and MAPX = #{mapx,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(mapy)" >
+         and MAPY = #{mapy,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(videoCode)" >
+         and VIDEO_CODE = #{videoCode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(issend)" >
+         and ISSEND = #{issend,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+         and INSERTTIME = #{inserttime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(afterRecordId)" >
+         and AFTER_RECORD_ID = #{afterRecordId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+         and FACTORY_ID = #{factoryId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  
+  <select id="countRecordInHistory" parameterType="java.lang.String" resultType="java.lang.Integer">
+     select count(*) from PROPERTY_DEVICE_INFO_HIS t, PROPERTY_DEVICE_INFO t1 where t.after_record_id=t1.id and t1.id=#{0}
+  </select>
+</mapper>

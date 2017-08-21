@@ -1,0 +1,796 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.property.mapper.CabInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.property.domain.CabInfo" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="VARCHAR" />
+    <result column="ROAD_ID" property="roadId" jdbcType="VARCHAR" />
+    <result column="ISSHOW" property="isshow" jdbcType="VARCHAR" />
+    <result column="BUILDTIME" property="buildtime" jdbcType="DATE" />
+    <result column="BUILDNETWORK_ID" property="buildnetworkId" jdbcType="VARCHAR" />
+    <result column="PHOTO1" property="photo1" jdbcType="VARCHAR" />
+    <result column="PHOTO2" property="photo2" jdbcType="VARCHAR" />
+    <result column="PHOTO3" property="photo3" jdbcType="VARCHAR" />
+    <result column="SN" property="sn" jdbcType="VARCHAR" />
+    <result column="LASTDATATIME" property="lastdatatime" jdbcType="DATE" />
+    <result column="TOPORGCODE" property="toporgcode" jdbcType="VARCHAR" />
+    <result column="DEVICETYPECODE" property="devicetypecode" jdbcType="VARCHAR" />
+    <result column="TRADEMARK" property="trademark" jdbcType="VARCHAR" />
+    <result column="PATTERN" property="pattern" jdbcType="VARCHAR" />
+    <result column="EFFICACIOUS_STIME" property="efficaciousStime" jdbcType="DATE" />
+    <result column="FFICACIOUS_ETIME" property="fficaciousEtime" jdbcType="DATE" />
+    <result column="INSPECTORG" property="inspectorg" jdbcType="VARCHAR" />
+    <result column="INSPECTTIME" property="inspecttime" jdbcType="DATE" />
+    <result column="INSPECTNUMBER" property="inspectnumber" jdbcType="VARCHAR" />
+    <result column="MAPX" property="mapx" jdbcType="VARCHAR" />
+    <result column="MAPY" property="mapy" jdbcType="VARCHAR" />
+    <result column="ISSEND" property="issend" jdbcType="VARCHAR" />
+    <result column="INSERTTIME" property="inserttime" jdbcType="DATE" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="FACTORY_ID" property="factoryId" jdbcType="VARCHAR" />
+    <result column="PORT" property="port" jdbcType="VARCHAR" />
+    <result column="ALARMHOSTIP" property="alarmhostip" jdbcType="VARCHAR" />
+    <result column="ALARMHOSTPORT" property="alarmhostport" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, ORG_ID, CODE, IP, NAME, COMPANY_ID, ROAD_ID, ISSHOW, BUILDTIME, BUILDNETWORK_ID, 
+    PHOTO1, PHOTO2, PHOTO3, SN, LASTDATATIME, TOPORGCODE, DEVICETYPECODE, TRADEMARK, 
+    PATTERN, EFFICACIOUS_STIME, FFICACIOUS_ETIME, INSPECTORG, INSPECTTIME, INSPECTNUMBER, 
+    MAPX, MAPY, ISSEND, INSERTTIME, NOTE, STATUS, FACTORY_ID, PORT, ALARMHOSTIP, ALARMHOSTPORT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.property.domain.CabInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PROPERTY_ICABINET_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.property.domain.CabInfoSearch" >
+    delete from PROPERTY_ICABINET_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  
+   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from PROPERTY_ICABINET_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.property.domain.CabInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into PROPERTY_ICABINET_INFO (ORG_ID, CODE, IP, 
+      NAME, COMPANY_ID, ROAD_ID, 
+      ISSHOW, BUILDTIME, BUILDNETWORK_ID, 
+      PHOTO1, PHOTO2, PHOTO3, 
+      SN, LASTDATATIME, TOPORGCODE, 
+      DEVICETYPECODE, TRADEMARK, PATTERN, 
+      EFFICACIOUS_STIME, FFICACIOUS_ETIME, INSPECTORG, 
+      INSPECTTIME, INSPECTNUMBER, MAPX, 
+      MAPY, ISSEND, INSERTTIME, 
+      NOTE, STATUS, FACTORY_ID, 
+      PORT, ALARMHOSTIP, ALARMHOSTPORT
+      )
+    values (#{orgId,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, #{roadId,jdbcType=VARCHAR}, 
+      #{isshow,jdbcType=VARCHAR}, #{buildtime,jdbcType=DATE}, #{buildnetworkId,jdbcType=VARCHAR}, 
+      #{photo1,jdbcType=VARCHAR}, #{photo2,jdbcType=VARCHAR}, #{photo3,jdbcType=VARCHAR}, 
+      #{sn,jdbcType=VARCHAR}, #{lastdatatime,jdbcType=DATE}, #{toporgcode,jdbcType=VARCHAR}, 
+      #{devicetypecode,jdbcType=VARCHAR}, #{trademark,jdbcType=VARCHAR}, #{pattern,jdbcType=VARCHAR}, 
+      #{efficaciousStime,jdbcType=DATE}, #{fficaciousEtime,jdbcType=DATE}, #{inspectorg,jdbcType=VARCHAR}, 
+      #{inspecttime,jdbcType=DATE}, #{inspectnumber,jdbcType=VARCHAR}, #{mapx,jdbcType=VARCHAR}, 
+      #{mapy,jdbcType=VARCHAR}, #{issend,jdbcType=VARCHAR}, #{inserttime,jdbcType=DATE}, 
+      #{note,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{factoryId,jdbcType=VARCHAR}, 
+      #{port,jdbcType=VARCHAR}, #{alarmhostip,jdbcType=VARCHAR}, #{alarmhostport,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.property.domain.CabInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into PROPERTY_ICABINET_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(orgId)" >
+        ORG_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        IP,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(companyId)" >
+        COMPANY_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(roadId)" >
+        ROAD_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(isshow)" >
+        ISSHOW,
+      </if>
+      <if test="@Ognl@isNotEmpty(buildtime)" >
+        BUILDTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(buildnetworkId)" >
+        BUILDNETWORK_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(photo1)" >
+        PHOTO1,
+      </if>
+      <if test="@Ognl@isNotEmpty(photo2)" >
+        PHOTO2,
+      </if>
+      <if test="@Ognl@isNotEmpty(photo3)" >
+        PHOTO3,
+      </if>
+      <if test="@Ognl@isNotEmpty(sn)" >
+        SN,
+      </if>
+      <if test="@Ognl@isNotEmpty(lastdatatime)" >
+        LASTDATATIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(toporgcode)" >
+        TOPORGCODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetypecode)" >
+        DEVICETYPECODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(trademark)" >
+        TRADEMARK,
+      </if>
+      <if test="@Ognl@isNotEmpty(pattern)" >
+        PATTERN,
+      </if>
+      <if test="@Ognl@isNotEmpty(efficaciousStime)" >
+        EFFICACIOUS_STIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(fficaciousEtime)" >
+        FFICACIOUS_ETIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(inspectorg)" >
+        INSPECTORG,
+      </if>
+      <if test="@Ognl@isNotEmpty(inspecttime)" >
+        INSPECTTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(inspectnumber)" >
+        INSPECTNUMBER,
+      </if>
+      <if test="@Ognl@isNotEmpty(mapx)" >
+        MAPX,
+      </if>
+      <if test="@Ognl@isNotEmpty(mapy)" >
+        MAPY,
+      </if>
+      <if test="@Ognl@isNotEmpty(issend)" >
+        ISSEND,
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        INSERTTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE,
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+        FACTORY_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(port)" >
+        PORT,
+      </if>
+      <if test="@Ognl@isNotEmpty(alarmhostip)" >
+        ALARMHOSTIP,
+      </if>
+      <if test="@Ognl@isNotEmpty(alarmhostport)" >
+        ALARMHOSTPORT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(orgId)" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(companyId)" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(roadId)" >
+        #{roadId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(isshow)" >
+        #{isshow,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(buildtime)" >
+        #{buildtime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(buildnetworkId)" >
+        #{buildnetworkId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(photo1)" >
+        #{photo1,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(photo2)" >
+        #{photo2,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(photo3)" >
+        #{photo3,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(sn)" >
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(lastdatatime)" >
+        #{lastdatatime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(toporgcode)" >
+        #{toporgcode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetypecode)" >
+        #{devicetypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(trademark)" >
+        #{trademark,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(pattern)" >
+        #{pattern,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(efficaciousStime)" >
+        #{efficaciousStime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(fficaciousEtime)" >
+        #{fficaciousEtime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(inspectorg)" >
+        #{inspectorg,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inspecttime)" >
+        #{inspecttime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(inspectnumber)" >
+        #{inspectnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(mapx)" >
+        #{mapx,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(mapy)" >
+        #{mapy,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(issend)" >
+        #{issend,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        #{inserttime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+        #{factoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(port)" >
+        #{port,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(alarmhostip)" >
+        #{alarmhostip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(alarmhostport)" >
+        #{alarmhostport,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.property.domain.CabInfoSearch" resultType="java.lang.Integer" >
+    select count(*) from PROPERTY_ICABINET_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PROPERTY_ICABINET_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.orgId)" >
+        ORG_ID = #{record.orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.code)" >
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.ip)" >
+        IP = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.companyId)" >
+        COMPANY_ID = #{record.companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.roadId)" >
+        ROAD_ID = #{record.roadId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.isshow)" >
+        ISSHOW = #{record.isshow,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.buildtime)" >
+        BUILDTIME = #{record.buildtime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.buildnetworkId)" >
+        BUILDNETWORK_ID = #{record.buildnetworkId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.photo1)" >
+        PHOTO1 = #{record.photo1,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.photo2)" >
+        PHOTO2 = #{record.photo2,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.photo3)" >
+        PHOTO3 = #{record.photo3,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.sn)" >
+        SN = #{record.sn,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.lastdatatime)" >
+        LASTDATATIME = #{record.lastdatatime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.toporgcode)" >
+        TOPORGCODE = #{record.toporgcode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.devicetypecode)" >
+        DEVICETYPECODE = #{record.devicetypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.trademark)" >
+        TRADEMARK = #{record.trademark,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.pattern)" >
+        PATTERN = #{record.pattern,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.efficaciousStime)" >
+        EFFICACIOUS_STIME = #{record.efficaciousStime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.fficaciousEtime)" >
+        FFICACIOUS_ETIME = #{record.fficaciousEtime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.inspectorg)" >
+        INSPECTORG = #{record.inspectorg,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.inspecttime)" >
+        INSPECTTIME = #{record.inspecttime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.inspectnumber)" >
+        INSPECTNUMBER = #{record.inspectnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.mapx)" >
+        MAPX = #{record.mapx,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.mapy)" >
+        MAPY = #{record.mapy,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.issend)" >
+        ISSEND = #{record.issend,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.inserttime)" >
+        INSERTTIME = #{record.inserttime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.note)" >
+        NOTE = #{record.note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.status)" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.factoryId)" >
+        FACTORY_ID = #{record.factoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.port)" >
+        PORT = #{record.port,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.alarmhostip)" >
+        ALARMHOSTIP = #{record.alarmhostip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.alarmhostport)" >
+        ALARMHOSTPORT = #{record.alarmhostport,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.property.domain.CabInfo" >
+    update PROPERTY_ICABINET_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(ip)" >
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+    
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+        FACTORY_ID = #{factoryId,jdbcType=VARCHAR},
+      </if>
+      
+       <if test="@Ognl@isNotEmpty(companyId)" >
+        COMPANY_ID = #{companyId,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="@Ognl@isNotEmpty(mapx)" >
+         and MAPX = #{mapx,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(mapy)" >
+         and MAPY = #{mapy,jdbcType=VARCHAR}
+      </if>
+      
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PROPERTY_ICABINET_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      ORG_ID = #{record.orgId,jdbcType=VARCHAR},
+      CODE = #{record.code,jdbcType=VARCHAR},
+      IP = #{record.ip,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      COMPANY_ID = #{record.companyId,jdbcType=VARCHAR},
+      ROAD_ID = #{record.roadId,jdbcType=VARCHAR},
+      ISSHOW = #{record.isshow,jdbcType=VARCHAR},
+      BUILDTIME = #{record.buildtime,jdbcType=DATE},
+      BUILDNETWORK_ID = #{record.buildnetworkId,jdbcType=VARCHAR},
+      PHOTO1 = #{record.photo1,jdbcType=VARCHAR},
+      PHOTO2 = #{record.photo2,jdbcType=VARCHAR},
+      PHOTO3 = #{record.photo3,jdbcType=VARCHAR},
+      SN = #{record.sn,jdbcType=VARCHAR},
+      LASTDATATIME = #{record.lastdatatime,jdbcType=DATE},
+      TOPORGCODE = #{record.toporgcode,jdbcType=VARCHAR},
+      DEVICETYPECODE = #{record.devicetypecode,jdbcType=VARCHAR},
+      TRADEMARK = #{record.trademark,jdbcType=VARCHAR},
+      PATTERN = #{record.pattern,jdbcType=VARCHAR},
+      EFFICACIOUS_STIME = #{record.efficaciousStime,jdbcType=DATE},
+      FFICACIOUS_ETIME = #{record.fficaciousEtime,jdbcType=DATE},
+      INSPECTORG = #{record.inspectorg,jdbcType=VARCHAR},
+      INSPECTTIME = #{record.inspecttime,jdbcType=DATE},
+      INSPECTNUMBER = #{record.inspectnumber,jdbcType=VARCHAR},
+      MAPX = #{record.mapx,jdbcType=VARCHAR},
+      MAPY = #{record.mapy,jdbcType=VARCHAR},
+      ISSEND = #{record.issend,jdbcType=VARCHAR},
+      INSERTTIME = #{record.inserttime,jdbcType=DATE},
+      NOTE = #{record.note,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      FACTORY_ID = #{record.factoryId,jdbcType=VARCHAR},
+      PORT = #{record.port,jdbcType=VARCHAR},
+      ALARMHOSTIP = #{record.alarmhostip,jdbcType=VARCHAR},
+      ALARMHOSTPORT = #{record.alarmhostport,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from PROPERTY_ICABINET_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(orgId)" >
+         and ORG_ID = #{orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+         and IP LIKE '%${ip}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME LIKE '%${name}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(companyId)" >
+         and COMPANY_ID = #{companyId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(roadId)" >
+         and ROAD_ID = #{roadId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(roadPid)" >
+         and ROAD_ID IN (select r.id from sys_road_info r where r.pid=#{roadPid,jdbcType=VARCHAR})
+      </if>
+      <if test="@Ognl@isNotEmpty(isshow)" >
+         and ISSHOW = #{isshow,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(buildtime)" >
+         and BUILDTIME = #{buildtime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(buildnetworkId)" >
+         and BUILDNETWORK_ID = #{buildnetworkId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(photo1)" >
+         and PHOTO1 = #{photo1,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(photo2)" >
+         and PHOTO2 = #{photo2,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(photo3)" >
+         and PHOTO3 = #{photo3,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(sn)" >
+         and SN = #{sn,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(lastdatatime)" >
+         and LASTDATATIME = #{lastdatatime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(toporgcode)" >
+         and TOPORGCODE = #{toporgcode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetypecode)" >
+         and DEVICETYPECODE = #{devicetypecode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(trademark)" >
+         and TRADEMARK = #{trademark,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(pattern)" >
+         and PATTERN = #{pattern,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(efficaciousStime)" >
+         and EFFICACIOUS_STIME = #{efficaciousStime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(fficaciousEtime)" >
+         and FFICACIOUS_ETIME = #{fficaciousEtime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(inspectorg)" >
+         and INSPECTORG = #{inspectorg,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inspecttime)" >
+         and INSPECTTIME = #{inspecttime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(inspectnumber)" >
+         and INSPECTNUMBER = #{inspectnumber,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(mapx)" >
+         and MAPX = #{mapx,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(mapy)" >
+         and MAPY = #{mapy,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(issend)" >
+         and ISSEND = #{issend,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+         and INSERTTIME = #{inserttime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+         and FACTORY_ID = #{factoryId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(port)" >
+         and PORT = #{port,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(alarmhostip)" >
+         and ALARMHOSTIP = #{alarmhostip,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(alarmhostport)" >
+         and ALARMHOSTPORT = #{alarmhostport,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="getAll" resultMap="BaseResultMap">
+  	select * from  PROPERTY_ICABINET_INFO 
+  	
+  </select> 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from PROPERTY_ICABINET_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from PROPERTY_ICABINET_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(orgId)" >
+         and ORG_ID = #{orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+         and IP LIKE '%${ip}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME LIKE '%${name}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(companyId)" >
+         and COMPANY_ID = #{companyId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(roadId)" >
+         and ROAD_ID = #{roadId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(isshow)" >
+         and ISSHOW = #{isshow,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(buildtime)" >
+         and BUILDTIME = #{buildtime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(buildnetworkId)" >
+         and BUILDNETWORK_ID = #{buildnetworkId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(photo1)" >
+         and PHOTO1 = #{photo1,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(photo2)" >
+         and PHOTO2 = #{photo2,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(photo3)" >
+         and PHOTO3 = #{photo3,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(sn)" >
+         and SN = #{sn,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(lastdatatime)" >
+         and LASTDATATIME = #{lastdatatime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(toporgcode)" >
+         and TOPORGCODE = #{toporgcode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetypecode)" >
+         and DEVICETYPECODE = #{devicetypecode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(trademark)" >
+         and TRADEMARK = #{trademark,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(pattern)" >
+         and PATTERN = #{pattern,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(efficaciousStime)" >
+         and EFFICACIOUS_STIME = #{efficaciousStime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(fficaciousEtime)" >
+         and FFICACIOUS_ETIME = #{fficaciousEtime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(inspectorg)" >
+         and INSPECTORG = #{inspectorg,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inspecttime)" >
+         and INSPECTTIME = #{inspecttime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(inspectnumber)" >
+         and INSPECTNUMBER = #{inspectnumber,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(mapx)" >
+         and MAPX = #{mapx,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(mapy)" >
+         and MAPY = #{mapy,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(issend)" >
+         and ISSEND = #{issend,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+         and INSERTTIME = #{inserttime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+         and FACTORY_ID = #{factoryId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(port)" >
+         and PORT = #{port,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(alarmhostip)" >
+         and ALARMHOSTIP = #{alarmhostip,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(alarmhostport)" >
+         and ALARMHOSTPORT = #{alarmhostport,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  
+  
+</mapper>

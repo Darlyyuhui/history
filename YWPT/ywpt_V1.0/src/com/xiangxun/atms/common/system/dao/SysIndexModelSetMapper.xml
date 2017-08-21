@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.common.system.dao.SysIndexModelSetMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.common.system.vo.SysIndexModelSet" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="LEFT" property="left" jdbcType="VARCHAR" />
+    <result column="CENTER" property="center" jdbcType="VARCHAR" />
+    <result column="RIGHT" property="right" jdbcType="VARCHAR" />
+    <result column="INSERTTIME" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, LEFT, CENTER, RIGHT, INSERTTIME, USERID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.common.system.vo.SysIndexModelSetSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_INDEX_MODEL_SET
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_INDEX_MODEL_SET
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_INDEX_MODEL_SET
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.common.system.vo.SysIndexModelSetSearch" >
+    delete from SYS_INDEX_MODEL_SET
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.common.system.vo.SysIndexModelSet" useGeneratedKeys="true" keyProperty="id" >
+    insert into SYS_INDEX_MODEL_SET (LEFT, CENTER, RIGHT, 
+      INSERTTIME, USERID)
+    values (#{left,jdbcType=VARCHAR}, #{center,jdbcType=VARCHAR}, #{right,jdbcType=VARCHAR}, 
+      #{inserttime,jdbcType=TIMESTAMP}, #{userid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.common.system.vo.SysIndexModelSet" useGeneratedKeys="true" keyProperty="id" >
+    insert into SYS_INDEX_MODEL_SET
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(left)" >
+        LEFT,
+      </if>
+      <if test="@Ognl@isNotEmpty(center)" >
+        CENTER,
+      </if>
+      <if test="@Ognl@isNotEmpty(right)" >
+        RIGHT,
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        INSERTTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(userid)" >
+        USERID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(left)" >
+        #{left,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(center)" >
+        #{center,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(right)" >
+        #{right,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(userid)" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.common.system.vo.SysIndexModelSetSearch" resultType="java.lang.Integer" >
+    select count(*) from SYS_INDEX_MODEL_SET
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SYS_INDEX_MODEL_SET
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.left)" >
+        LEFT = #{record.left,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.center)" >
+        CENTER = #{record.center,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.right)" >
+        RIGHT = #{record.right,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.inserttime)" >
+        INSERTTIME = #{record.inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.userid)" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SYS_INDEX_MODEL_SET
+    set ID = #{record.id,jdbcType=VARCHAR},
+      LEFT = #{record.left,jdbcType=VARCHAR},
+      CENTER = #{record.center,jdbcType=VARCHAR},
+      RIGHT = #{record.right,jdbcType=VARCHAR},
+      INSERTTIME = #{record.inserttime,jdbcType=TIMESTAMP},
+      USERID = #{record.userid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.common.system.vo.SysIndexModelSet" >
+    update SYS_INDEX_MODEL_SET
+    <set >
+      <if test="@Ognl@isNotEmpty(left)" >
+        LEFT = #{left,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(center)" >
+        CENTER = #{center,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(right)" >
+        RIGHT = #{right,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        INSERTTIME = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(userid)" >
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.common.system.vo.SysIndexModelSet" >
+    update SYS_INDEX_MODEL_SET
+    set LEFT = #{left,jdbcType=VARCHAR},
+      CENTER = #{center,jdbcType=VARCHAR},
+      RIGHT = #{right,jdbcType=VARCHAR},
+      INSERTTIME = #{inserttime,jdbcType=TIMESTAMP},
+      USERID = #{userid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from SYS_INDEX_MODEL_SET
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(left)" >
+         and LEFT = #{left,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(center)" >
+         and CENTER = #{center,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(right)" >
+         and RIGHT = #{right,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+         and INSERTTIME = #{inserttime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(userid)" >
+         and USERID = #{userid,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from SYS_INDEX_MODEL_SET
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(left)" >
+         and LEFT = #{left,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(center)" >
+         and CENTER = #{center,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(right)" >
+         and RIGHT = #{right,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+         and INSERTTIME = #{inserttime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(userid)" >
+         and USERID = #{userid,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from (select * from sys_index_model_set t where t.userid = #{userid,jdbcType=VARCHAR} order by t.inserttime desc) c where rownum = 1
+  </select>
+  
+</mapper>

@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.sergrade.mapper.GradeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.sergrade.domain.GradeInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="MINPOINT" property="minpoint" jdbcType="DECIMAL" />
+    <result column="MAXPOINT" property="maxpoint" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, CODE, NAME, REMARK, MINPOINT, MAXPOINT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.sergrade.domain.GradeInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SERGRADE_GRADE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SERGRADE_GRADE_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SERGRADE_GRADE_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.sergrade.domain.GradeInfoSearch" >
+    delete from SERGRADE_GRADE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.sergrade.domain.GradeInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into SERGRADE_GRADE_INFO (CODE, NAME, REMARK, 
+      MINPOINT, MAXPOINT)
+    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{minpoint,jdbcType=DECIMAL}, #{maxpoint,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.sergrade.domain.GradeInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into SERGRADE_GRADE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(remark)" >
+        REMARK,
+      </if>
+      <if test="@Ognl@isNotEmpty(minpoint)" >
+        MINPOINT,
+      </if>
+      <if test="@Ognl@isNotEmpty(maxpoint)" >
+        MAXPOINT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(remark)" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(minpoint)" >
+        #{minpoint,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(maxpoint)" >
+        #{maxpoint,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.sergrade.domain.GradeInfoSearch" resultType="java.lang.Integer" >
+    select count(*) from SERGRADE_GRADE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SERGRADE_GRADE_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.code)" >
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.remark)" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.minpoint)" >
+        MINPOINT = #{record.minpoint,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.maxpoint)" >
+        MAXPOINT = #{record.maxpoint,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SERGRADE_GRADE_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      CODE = #{record.code,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      MINPOINT = #{record.minpoint,jdbcType=DECIMAL},
+      MAXPOINT = #{record.maxpoint,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.sergrade.domain.GradeInfo" >
+    update SERGRADE_GRADE_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(remark)" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(minpoint)" >
+        MINPOINT = #{minpoint,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(maxpoint)" >
+        MAXPOINT = #{maxpoint,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.sergrade.domain.GradeInfo" >
+    update SERGRADE_GRADE_INFO
+    set CODE = #{code,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      MINPOINT = #{minpoint,jdbcType=DECIMAL},
+      MAXPOINT = #{maxpoint,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from SERGRADE_GRADE_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(remark)" >
+         and REMARK = #{remark,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(minpoint)" >
+         and MINPOINT = #{minpoint,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(maxpoint)" >
+         and MAXPOINT = #{maxpoint,jdbcType=DECIMAL}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from SERGRADE_GRADE_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(remark)" >
+         and REMARK = #{remark,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(minpoint)" >
+         and MINPOINT = #{minpoint,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(maxpoint)" >
+         and MAXPOINT = #{maxpoint,jdbcType=DECIMAL}
+      </if>
+    </where>
+  </select>
+  
+  
+  <select id="selectList" resultMap="BaseResultMap" >
+    select 
+    	t.ID, CODE, t.NAME, t.REMARK, t.MINPOINT, t.MAXPOINT
+    from SERGRADE_GRADE_INFO t 
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and t.ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+	     and t.CODE LIKE '%${code}%'
+	  </if>
+	  <if test="@Ognl@isNotEmpty(name)" >
+         and t.NAME LIKE '%${name}%'
+      </if>
+	  
+    </where>
+    order by t.code asc
+  </select>
+  
+  <select id="selectTotal" resultType="java.lang.Integer" >
+    select count(*) from SERGRADE_GRADE_INFO t
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and t.ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+	     and t.CODE LIKE '%${code}%'
+	  </if>
+	  <if test="@Ognl@isNotEmpty(name)" >
+         and t.NAME LIKE '%${name}%'
+      </if>
+	  
+    </where>
+  </select>
+  
+</mapper>

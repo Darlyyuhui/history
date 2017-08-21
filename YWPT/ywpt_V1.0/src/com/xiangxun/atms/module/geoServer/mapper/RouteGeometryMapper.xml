@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.geoServer.mapper.RouteGeometryMapper">
+	<resultMap id="GeometryQuery" type="com.xiangxun.atms.module.geoServer.domain.RouteGeometry">
+	</resultMap>
+
+	<insert id="save" parameterType="com.xiangxun.atms.module.geoServer.domain.RouteGeometry">
+		insert into road_polygon
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="@Ognl@isNotEmpty(name)" >
+				name,
+			</if>
+			<if test="@Ognl@isNotEmpty(startPoint)" >
+				startpoint,
+			</if>
+			<if test="@Ognl@isNotEmpty(endPoint)" >
+				endpoint,
+			</if>
+			<if test="@Ognl@isNotEmpty(direction)" >
+				direction,
+			</if>
+			<if test="@Ognl@isNotEmpty(status)" >
+				status,
+			</if>
+			<if test="@Ognl@isNotEmpty(statusTime)">
+				statustime,
+			</if>
+			<if test="@Ognl@isNotEmpty(lever)">
+				lever,
+			</if>
+			<if test="@Ognl@isNotEmpty(geomText)">
+				geom,
+			</if>
+			<if test="@Ognl@isNotEmpty(foreignid)">
+				foreignid
+			</if>
+		</trim>
+    	<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(name)" >
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="@Ognl@isNotEmpty(startPoint)" >
+				#{startPoint,jdbcType=VARCHAR},
+			</if>
+			<if test="@Ognl@isNotEmpty(endPoint)" >
+				#{endPoint,jdbcType=VARCHAR},
+			</if>
+			<if test="@Ognl@isNotEmpty(direction)" >
+				#{direction,jdbcType=VARCHAR},
+			</if>
+			<if test="@Ognl@isNotEmpty(geomText)" >
+				st_geometryfromtext(#{geomText,jdbcType=VARCHAR},4326),
+			</if>
+			<if test="@Ognl@isNotEmpty(foreignid)" >
+				#{foreignid,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByForeignid" parameterType="com.xiangxun.atms.module.geoServer.domain.RouteGeometry">
+		update road_polygon
+			set name=#{name,jdbcType=VARCHAR},
+				startpoint=#{startPoint,jdbcType=VARCHAR},
+				endpoint=#{endPoint,jdbcType=VARCHAR},
+				direction=#{direction,jdbcType=VARCHAR},
+				geom=st_geometryfromtext(#{geomText,jdbcType=VARCHAR},4326)
+				where foreignid=#{foreignid,jdbcType=VARCHAR}		
+	</update>
+ </mapper>

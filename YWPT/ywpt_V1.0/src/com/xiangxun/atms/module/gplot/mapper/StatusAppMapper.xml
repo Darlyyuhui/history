@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.gplot.mapper.StatusAppMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.gplot.domain.StatusApp" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="CONNECT_STATUS" property="connectStatus" jdbcType="DECIMAL" />
+    <result column="RESOURCE_INFO" property="resourceInfo" jdbcType="VARCHAR" />
+    <result column="APP_NAME" property="appName" jdbcType="VARCHAR" />
+    <result column="APP_STATUS" property="appStatus" jdbcType="DECIMAL" />
+    <result column="PATH" property="path" jdbcType="VARCHAR" />
+    <result column="INSERTTIME" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="INSERTPC" property="insertpc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, IP, TYPE, CONNECT_STATUS, RESOURCE_INFO, APP_NAME, APP_STATUS, PATH, INSERTTIME, 
+    INSERTPC
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.gplot.domain.StatusAppSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from STATUS_APP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from STATUS_APP
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from STATUS_APP
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.gplot.domain.StatusAppSearch" >
+    delete from STATUS_APP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.gplot.domain.StatusApp" >
+    insert into STATUS_APP (ID, IP, TYPE, 
+      CONNECT_STATUS, RESOURCE_INFO, APP_NAME, 
+      APP_STATUS, PATH, INSERTTIME, 
+      INSERTPC)
+    values (#{id,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{connectStatus,jdbcType=DECIMAL}, #{resourceInfo,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, 
+      #{appStatus,jdbcType=DECIMAL}, #{path,jdbcType=VARCHAR}, #{inserttime,jdbcType=TIMESTAMP}, 
+      #{insertpc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.gplot.domain.StatusApp" >
+    insert into STATUS_APP
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        IP,
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+        TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(connectStatus)" >
+        CONNECT_STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(resourceInfo)" >
+        RESOURCE_INFO,
+      </if>
+      <if test="@Ognl@isNotEmpty(appName)" >
+        APP_NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(appStatus)" >
+        APP_STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(path)" >
+        PATH,
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        INSERTTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(insertpc)" >
+        INSERTPC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(connectStatus)" >
+        #{connectStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(resourceInfo)" >
+        #{resourceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(appName)" >
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(appStatus)" >
+        #{appStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(path)" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(insertpc)" >
+        #{insertpc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.gplot.domain.StatusAppSearch" resultType="java.lang.Integer" >
+    select count(*) from STATUS_APP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update STATUS_APP
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.ip)" >
+        IP = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.type)" >
+        TYPE = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.connectStatus)" >
+        CONNECT_STATUS = #{record.connectStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.resourceInfo)" >
+        RESOURCE_INFO = #{record.resourceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.appName)" >
+        APP_NAME = #{record.appName,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.appStatus)" >
+        APP_STATUS = #{record.appStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.path)" >
+        PATH = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.inserttime)" >
+        INSERTTIME = #{record.inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.insertpc)" >
+        INSERTPC = #{record.insertpc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update STATUS_APP
+    set ID = #{record.id,jdbcType=VARCHAR},
+      IP = #{record.ip,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=VARCHAR},
+      CONNECT_STATUS = #{record.connectStatus,jdbcType=DECIMAL},
+      RESOURCE_INFO = #{record.resourceInfo,jdbcType=VARCHAR},
+      APP_NAME = #{record.appName,jdbcType=VARCHAR},
+      APP_STATUS = #{record.appStatus,jdbcType=DECIMAL},
+      PATH = #{record.path,jdbcType=VARCHAR},
+      INSERTTIME = #{record.inserttime,jdbcType=TIMESTAMP},
+      INSERTPC = #{record.insertpc,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.gplot.domain.StatusApp" >
+    update STATUS_APP
+    <set >
+      <if test="@Ognl@isNotEmpty(ip)" >
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(connectStatus)" >
+        CONNECT_STATUS = #{connectStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(resourceInfo)" >
+        RESOURCE_INFO = #{resourceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(appName)" >
+        APP_NAME = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(appStatus)" >
+        APP_STATUS = #{appStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(path)" >
+        PATH = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        INSERTTIME = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(insertpc)" >
+        INSERTPC = #{insertpc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.gplot.domain.StatusApp" >
+    update STATUS_APP
+    set IP = #{ip,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      CONNECT_STATUS = #{connectStatus,jdbcType=DECIMAL},
+      RESOURCE_INFO = #{resourceInfo,jdbcType=VARCHAR},
+      APP_NAME = #{appName,jdbcType=VARCHAR},
+      APP_STATUS = #{appStatus,jdbcType=DECIMAL},
+      PATH = #{path,jdbcType=VARCHAR},
+      INSERTTIME = #{inserttime,jdbcType=TIMESTAMP},
+      INSERTPC = #{insertpc,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from STATUS_APP
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+         and IP = #{ip,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+         and TYPE = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(connectStatus)" >
+         and CONNECT_STATUS = #{connectStatus,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(resourceInfo)" >
+         and RESOURCE_INFO = #{resourceInfo,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(appName)" >
+         and APP_NAME = #{appName,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(appStatus)" >
+         and APP_STATUS = #{appStatus,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(path)" >
+         and PATH = #{path,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+         and INSERTTIME = #{inserttime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(insertpc)" >
+         and INSERTPC = #{insertpc,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from STATUS_APP
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+         and IP = #{ip,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+         and TYPE = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(connectStatus)" >
+         and CONNECT_STATUS = #{connectStatus,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(resourceInfo)" >
+         and RESOURCE_INFO = #{resourceInfo,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(appName)" >
+         and APP_NAME = #{appName,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(appStatus)" >
+         and APP_STATUS = #{appStatus,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(path)" >
+         and PATH = #{path,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+         and INSERTTIME = #{inserttime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(insertpc)" >
+         and INSERTPC = #{insertpc,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.sms.dao.TempRecRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.sms.vo.TempRecRecord" >
+    <result column="SMSINDEX" property="smsindex" jdbcType="DECIMAL" />
+    <result column="SOURCENUMBER" property="sourcenumber" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="SENTTIME" property="senttime" jdbcType="DATE" />
+    <result column="COMMPORT" property="commport" jdbcType="DECIMAL" />
+    <result column="MSGTYPE" property="msgtype" jdbcType="DECIMAL" />
+    <result column="SUBSMSINDEX" property="subsmsindex" jdbcType="DECIMAL" />
+    <result column="SUBSMSCOUNT" property="subsmscount" jdbcType="DECIMAL" />
+    <result column="SMSID" property="smsid" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SMSINDEX, SOURCENUMBER, CONTENT, SENTTIME, COMMPORT, MSGTYPE, SUBSMSINDEX, SUBSMSCOUNT, 
+    SMSID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.sms.vo.TempRecRecordSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_TEMPRECRECORD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.sms.vo.TempRecRecordSearch" >
+    delete from T_TEMPRECRECORD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.sms.vo.TempRecRecord" >
+    insert into T_TEMPRECRECORD (SMSINDEX, SOURCENUMBER, CONTENT, 
+      SENTTIME, COMMPORT, MSGTYPE, 
+      SUBSMSINDEX, SUBSMSCOUNT, SMSID
+      )
+    values (#{smsindex,jdbcType=DECIMAL}, #{sourcenumber,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{senttime,jdbcType=DATE}, #{commport,jdbcType=DECIMAL}, #{msgtype,jdbcType=DECIMAL}, 
+      #{subsmsindex,jdbcType=DECIMAL}, #{subsmscount,jdbcType=DECIMAL}, #{smsid,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.sms.vo.TempRecRecord" >
+    insert into T_TEMPRECRECORD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(smsindex)" >
+        SMSINDEX,
+      </if>
+      <if test="@Ognl@isNotEmpty(sourcenumber)" >
+        SOURCENUMBER,
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+        CONTENT,
+      </if>
+      <if test="@Ognl@isNotEmpty(senttime)" >
+        SENTTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(commport)" >
+        COMMPORT,
+      </if>
+      <if test="@Ognl@isNotEmpty(msgtype)" >
+        MSGTYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(subsmsindex)" >
+        SUBSMSINDEX,
+      </if>
+      <if test="@Ognl@isNotEmpty(subsmscount)" >
+        SUBSMSCOUNT,
+      </if>
+      <if test="@Ognl@isNotEmpty(smsid)" >
+        SMSID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(smsindex)" >
+        #{smsindex,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(sourcenumber)" >
+        #{sourcenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(senttime)" >
+        #{senttime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(commport)" >
+        #{commport,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(msgtype)" >
+        #{msgtype,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(subsmsindex)" >
+        #{subsmsindex,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(subsmscount)" >
+        #{subsmscount,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(smsid)" >
+        #{smsid,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.sms.vo.TempRecRecordSearch" resultType="java.lang.Integer" >
+    select count(*) from T_TEMPRECRECORD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_TEMPRECRECORD
+    <set >
+      <if test="@Ognl@isNotEmpty(record.smsindex)" >
+        SMSINDEX = #{record.smsindex,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.sourcenumber)" >
+        SOURCENUMBER = #{record.sourcenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.content)" >
+        CONTENT = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.senttime)" >
+        SENTTIME = #{record.senttime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.commport)" >
+        COMMPORT = #{record.commport,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.msgtype)" >
+        MSGTYPE = #{record.msgtype,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.subsmsindex)" >
+        SUBSMSINDEX = #{record.subsmsindex,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.subsmscount)" >
+        SUBSMSCOUNT = #{record.subsmscount,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.smsid)" >
+        SMSID = #{record.smsid,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_TEMPRECRECORD
+    set SMSINDEX = #{record.smsindex,jdbcType=DECIMAL},
+      SOURCENUMBER = #{record.sourcenumber,jdbcType=VARCHAR},
+      CONTENT = #{record.content,jdbcType=VARCHAR},
+      SENTTIME = #{record.senttime,jdbcType=DATE},
+      COMMPORT = #{record.commport,jdbcType=DECIMAL},
+      MSGTYPE = #{record.msgtype,jdbcType=DECIMAL},
+      SUBSMSINDEX = #{record.subsmsindex,jdbcType=DECIMAL},
+      SUBSMSCOUNT = #{record.subsmscount,jdbcType=DECIMAL},
+      SMSID = #{record.smsid,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from T_TEMPRECRECORD
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(smsindex)" >
+         and SMSINDEX = #{smsindex,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(sourcenumber)" >
+         and SOURCENUMBER = #{sourcenumber,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+         and CONTENT = #{content,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(senttime)" >
+         and SENTTIME = #{senttime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(commport)" >
+         and COMMPORT = #{commport,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(msgtype)" >
+         and MSGTYPE = #{msgtype,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(subsmsindex)" >
+         and SUBSMSINDEX = #{subsmsindex,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(subsmscount)" >
+         and SUBSMSCOUNT = #{subsmscount,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(smsid)" >
+         and SMSID = #{smsid,jdbcType=DECIMAL}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from T_TEMPRECRECORD
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(smsindex)" >
+         and SMSINDEX = #{smsindex,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(sourcenumber)" >
+         and SOURCENUMBER = #{sourcenumber,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+         and CONTENT = #{content,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(senttime)" >
+         and SENTTIME = #{senttime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(commport)" >
+         and COMMPORT = #{commport,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(msgtype)" >
+         and MSGTYPE = #{msgtype,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(subsmsindex)" >
+         and SUBSMSINDEX = #{subsmsindex,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(subsmscount)" >
+         and SUBSMSCOUNT = #{subsmscount,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(smsid)" >
+         and SMSID = #{smsid,jdbcType=DECIMAL}
+      </if>
+    </where>
+  </select>
+</mapper>

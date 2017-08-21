@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.geoServer.mapper.GeoServerDeviceInfoMapper">
+	<resultMap id="devicePoint" type="com.xiangxun.atms.module.geoServer.domain.DevicePoint">
+		<result column="gid" property="gId" jdbcType="INTEGER" />
+		<result column="road_id" property="roadId" jdbcType="INTEGER" />
+		<result column="road_group" property="roadGroupId" jdbcType="VARCHAR" />
+		<result column="type" property="deviceType" jdbcType="VARCHAR" />
+		<result column="code" property="deviceCode" jdbcType="VARCHAR" />
+		<result column="geometryText" property="geometryText" jdbcType="VARCHAR" />	
+	</resultMap>
+	<!-- 根据道路名称模糊查询道路，并返回道路名称 -->
+	<select id="queryRoadByName" resultType="java.lang.String">
+		select distinct dlmc from public.road_line 
+		where 1=1
+		<if test="@Ognl@isNotEmpty(roadName)" >
+			and dlmc like '%${roadName}%'
+		</if>
+	</select>
+	<!-- 根据道路名称模糊查询道路信息 -->
+	<select id="getRoadInfoByName" resultType="hashmap">
+		select *, st_astext(geom)  as geometryText from public.road_line 
+		where 1=1
+		<if test="@Ognl@isNotEmpty(roadName)" >
+			and dlmc like '%${roadName}%'
+		</if>
+	</select>
+	<!-- 根据设备code数组查询对应的设备信息 -->
+	<select id="getDeviceByCodes" resultMap="devicePoint">
+		SELECT gid, road_id, road_group, type, code, st_astext(geom) as geometryText FROM public.kk_point
+		where 1=1
+		<if test="@Ognl@isNotEmpty(codes)" >
+			and code in 
+			<foreach collection="codes" item="code" open="(" close=")" separator="," >
+            	#{code}
+	      	</foreach>
+		</if>
+	</select>
+	<insert id="addDeviceInfo" parameterType="com.xiangxun.atms.module.geoServer.domain.DevicePoint">
+		INSERT INTO public.kk_point
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(deviceType)" >
+				type,
+			</if>
+			<if test="@Ognl@isNotEmpty(roadId)" >
+				road_id,
+			</if>
+			<if test="@Ognl@isNotEmpty(roadGroupId)" >
+				road_group,
+			</if>
+			<if test="@Ognl@isNotEmpty(deviceCode)" >
+				code,
+			</if>
+			<if test="@Ognl@isNotEmpty(geometryText)" >
+				geom,
+			</if>
+		</trim>
+    	<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(deviceType)" >
+				#{deviceType,jdbcType=VARCHAR},
+			</if>
+			<if test="@Ognl@isNotEmpty(roadId)" >
+				#{roadId},
+			</if>
+			<if test="@Ognl@isNotEmpty(roadGroupId)" >
+				#{roadGroupId,jdbcType=VARCHAR},
+			</if>
+			<if test="@Ognl@isNotEmpty(deviceCode)" >
+				#{deviceCode,jdbcType=VARCHAR},
+			</if>
+			<if test="@Ognl@isNotEmpty(geometryText)" >
+				st_geometryfromtext(#{geometryText,jdbcType=VARCHAR},4326)),
+			</if>
+		</trim>
+	</insert>
+	<delete id="deleteDevice" parameterType="com.xiangxun.atms.module.geoServer.domain.DevicePoint">
+		DELETE FROM public.kk_point WHERE gid=#{gId};
+	</delete>
+	<update id="updateDeviceInfo" parameterType="com.xiangxun.atms.module.geoServer.domain.DevicePoint">
+		UPDATE public.kk_point 
+		<set >
+			<if test="@Ognl@isNotEmpty(deviceType)" >
+				type=#{deviceType,jdbcType=VARCHAR},
+			</if>
+			<if test="@Ognl@isNotEmpty(roadId)" >
+				road_id=#{roadId},
+			</if>
+			<if test="@Ognl@isNotEmpty(roadGroupId)" >
+				road_group=#{roadGroupId,jdbcType=VARCHAR},
+			</if>
+			<if test="@Ognl@isNotEmpty(deviceCode)" >
+				code=#{deviceCode,jdbcType=VARCHAR},
+			</if>
+			<if test="@Ognl@isNotEmpty(geometryText)" >
+				geom=st_geometryfromtext(#{geometryText,jdbcType=VARCHAR},4326),
+			</if>
+		</set>
+		WHERE gid=#{gId};
+	</update>
+</mapper>

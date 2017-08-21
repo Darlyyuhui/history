@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.common.system.dao.RetrieveInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.common.system.vo.RetrieveInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DELTIME" property="deltime" jdbcType="TIMESTAMP" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="CLEARFLAG" property="clearflag" jdbcType="VARCHAR" />
+    <result column="POJOCLASS" property="pojoclass" jdbcType="VARCHAR" />
+    <result column="OPERATORIP" property="operatorip" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xiangxun.atms.common.system.vo.RetrieveInfo" extends="BaseResultMap" >
+    <result column="CONTENT" property="content" jdbcType="CLOB" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, DELTIME, OPERATOR, CLEARFLAG, POJOCLASS, OPERATORIP
+  </sql>
+  <sql id="Blob_Column_List" >
+    CONTENT
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.xiangxun.atms.common.system.vo.RetrieveInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from SYS_RETRIEVE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.common.system.vo.RetrieveInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" /> 
+     ,
+    <include refid="Blob_Column_List" /> 
+    from SYS_RETRIEVE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause} desc
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from SYS_RETRIEVE_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_RETRIEVE_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.common.system.vo.RetrieveInfoSearch" >
+    delete from SYS_RETRIEVE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.common.system.vo.RetrieveInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into SYS_RETRIEVE_INFO (DELTIME, OPERATOR, CLEARFLAG, 
+      POJOCLASS, OPERATORIP, CONTENT
+      )
+    values (#{deltime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}, #{clearflag,jdbcType=VARCHAR}, 
+      #{pojoclass,jdbcType=VARCHAR}, #{operatorip,jdbcType=VARCHAR}, #{content,jdbcType=CLOB}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.common.system.vo.RetrieveInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into SYS_RETRIEVE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(deltime)" >
+        DELTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+        OPERATOR,
+      </if>
+      <if test="@Ognl@isNotEmpty(clearflag)" >
+        CLEARFLAG,
+      </if>
+      <if test="@Ognl@isNotEmpty(pojoclass)" >
+        POJOCLASS,
+      </if>
+      <if test="@Ognl@isNotEmpty(operatorip)" >
+        OPERATORIP,
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+        CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deltime)" >
+        #{deltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(clearflag)" >
+        #{clearflag,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(pojoclass)" >
+        #{pojoclass,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(operatorip)" >
+        #{operatorip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+        #{content,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.common.system.vo.RetrieveInfoSearch" resultType="java.lang.Integer" >
+    select count(*) from SYS_RETRIEVE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SYS_RETRIEVE_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.deltime)" >
+        DELTIME = #{record.deltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.operator)" >
+        OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.clearflag)" >
+        CLEARFLAG = #{record.clearflag,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.pojoclass)" >
+        POJOCLASS = #{record.pojoclass,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.operatorip)" >
+        OPERATORIP = #{record.operatorip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.content)" >
+        CONTENT = #{record.content,jdbcType=CLOB},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update SYS_RETRIEVE_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      DELTIME = #{record.deltime,jdbcType=TIMESTAMP},
+      OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      CLEARFLAG = #{record.clearflag,jdbcType=VARCHAR},
+      POJOCLASS = #{record.pojoclass,jdbcType=VARCHAR},
+      OPERATORIP = #{record.operatorip,jdbcType=VARCHAR},
+      CONTENT = #{record.content,jdbcType=CLOB}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SYS_RETRIEVE_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      DELTIME = #{record.deltime,jdbcType=TIMESTAMP},
+      OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      CLEARFLAG = #{record.clearflag,jdbcType=VARCHAR},
+      POJOCLASS = #{record.pojoclass,jdbcType=VARCHAR},
+      OPERATORIP = #{record.operatorip,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.common.system.vo.RetrieveInfo" >
+    update SYS_RETRIEVE_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(deltime)" >
+        DELTIME = #{deltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(clearflag)" >
+        CLEARFLAG = #{clearflag,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(pojoclass)" >
+        POJOCLASS = #{pojoclass,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(operatorip)" >
+        OPERATORIP = #{operatorip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+        CONTENT = #{content,jdbcType=CLOB},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xiangxun.atms.common.system.vo.RetrieveInfo" >
+    update SYS_RETRIEVE_INFO
+    set DELTIME = #{deltime,jdbcType=TIMESTAMP},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      CLEARFLAG = #{clearflag,jdbcType=VARCHAR},
+      POJOCLASS = #{pojoclass,jdbcType=VARCHAR},
+      OPERATORIP = #{operatorip,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=CLOB}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.common.system.vo.RetrieveInfo" >
+    update SYS_RETRIEVE_INFO
+    set DELTIME = #{deltime,jdbcType=TIMESTAMP},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      CLEARFLAG = #{clearflag,jdbcType=VARCHAR},
+      POJOCLASS = #{pojoclass,jdbcType=VARCHAR},
+      OPERATORIP = #{operatorip,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from SYS_RETRIEVE_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deltime)" >
+         and DELTIME = #{deltime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+         and OPERATOR = #{operator,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(clearflag)" >
+         and CLEARFLAG = #{clearflag,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(pojoclass)" >
+         and POJOCLASS = #{pojoclass,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(operatorip)" >
+         and OPERATORIP = #{operatorip,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+         and CONTENT = #{content,jdbcType=CLOB}
+      </if>
+    </where>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from SYS_RETRIEVE_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deltime)" >
+         and DELTIME = #{deltime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+         and OPERATOR = #{operator,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(clearflag)" >
+         and CLEARFLAG = #{clearflag,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(pojoclass)" >
+         and POJOCLASS = #{pojoclass,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(operatorip)" >
+         and OPERATORIP = #{operatorip,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+         and CONTENT = #{content,jdbcType=CLOB}
+      </if>
+    </where>
+  </select>
+</mapper>

@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.property.mapper.ServerInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.property.domain.ServerInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="SERVERIP" property="serverip" jdbcType="VARCHAR" />
+    <result column="MODEL" property="model" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="CPU_MODEL" property="cpuModel" jdbcType="VARCHAR" />
+    <result column="CPU_TYPE" property="cpuType" jdbcType="VARCHAR" />
+    <result column="CPU_NUM" property="cpuNum" jdbcType="DECIMAL" />
+    <result column="CPU_CORE_NUM" property="cpuCoreNum" jdbcType="DECIMAL" />
+    <result column="THREE_CACHE" property="threeCache" jdbcType="DECIMAL" />
+    <result column="THREAD_NUM" property="threadNum" jdbcType="DECIMAL" />
+    <result column="RAM_TYPE" property="ramType" jdbcType="VARCHAR" />
+    <result column="RAM_VOLUME" property="ramVolume" jdbcType="VARCHAR" />
+    <result column="DISK_PORT_TYPE" property="diskPortType" jdbcType="VARCHAR" />
+    <result column="DISK_VOLUME" property="diskVolume" jdbcType="VARCHAR" />
+    <result column="ADD_TIME" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
+    <result column="FACTORY_ID" property="factoryId" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, NAME, CODE, SERVERIP, MODEL, TYPE, CPU_MODEL, CPU_TYPE, CPU_NUM, CPU_CORE_NUM, 
+    THREE_CACHE, THREAD_NUM, RAM_TYPE, RAM_VOLUME, DISK_PORT_TYPE, DISK_VOLUME, ADD_TIME, 
+    OPERATOR, NOTE, ORG_ID, FACTORY_ID, STATUS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.property.domain.ServerInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PROPERTY_SERVER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from PROPERTY_SERVER_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from PROPERTY_SERVER_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.property.domain.ServerInfoSearch" >
+    delete from PROPERTY_SERVER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.property.domain.ServerInfo" >
+    insert into PROPERTY_SERVER_INFO (ID, NAME, CODE, 
+      SERVERIP, MODEL, TYPE, 
+      CPU_MODEL, CPU_TYPE, CPU_NUM, 
+      CPU_CORE_NUM, THREE_CACHE, THREAD_NUM, 
+      RAM_TYPE, RAM_VOLUME, DISK_PORT_TYPE, 
+      DISK_VOLUME, ADD_TIME, OPERATOR, 
+      NOTE, ORG_ID, FACTORY_ID, 
+      STATUS)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{serverip,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{cpuModel,jdbcType=VARCHAR}, #{cpuType,jdbcType=VARCHAR}, #{cpuNum,jdbcType=DECIMAL}, 
+      #{cpuCoreNum,jdbcType=DECIMAL}, #{threeCache,jdbcType=DECIMAL}, #{threadNum,jdbcType=DECIMAL}, 
+      #{ramType,jdbcType=VARCHAR}, #{ramVolume,jdbcType=VARCHAR}, #{diskPortType,jdbcType=VARCHAR}, 
+      #{diskVolume,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{factoryId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.property.domain.ServerInfo" >
+    insert into PROPERTY_SERVER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(serverip)" >
+        SERVERIP,
+      </if>
+      <if test="@Ognl@isNotEmpty(model)" >
+        MODEL,
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+        TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuModel)" >
+        CPU_MODEL,
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuType)" >
+        CPU_TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuNum)" >
+        CPU_NUM,
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuCoreNum)" >
+        CPU_CORE_NUM,
+      </if>
+      <if test="@Ognl@isNotEmpty(threeCache)" >
+        THREE_CACHE,
+      </if>
+      <if test="@Ognl@isNotEmpty(threadNum)" >
+        THREAD_NUM,
+      </if>
+      <if test="@Ognl@isNotEmpty(ramType)" >
+        RAM_TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(ramVolume)" >
+        RAM_VOLUME,
+      </if>
+      <if test="@Ognl@isNotEmpty(diskPortType)" >
+        DISK_PORT_TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(diskVolume)" >
+        DISK_VOLUME,
+      </if>
+      <if test="@Ognl@isNotEmpty(addTime)" >
+        ADD_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+        OPERATOR,
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE,
+      </if>
+      <if test="@Ognl@isNotEmpty(orgId)" >
+        ORG_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+        FACTORY_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(serverip)" >
+        #{serverip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(model)" >
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuModel)" >
+        #{cpuModel,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuType)" >
+        #{cpuType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuNum)" >
+        #{cpuNum,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuCoreNum)" >
+        #{cpuCoreNum,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(threeCache)" >
+        #{threeCache,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(threadNum)" >
+        #{threadNum,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(ramType)" >
+        #{ramType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ramVolume)" >
+        #{ramVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(diskPortType)" >
+        #{diskPortType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(diskVolume)" >
+        #{diskVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(addTime)" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(orgId)" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+        #{factoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.property.domain.ServerInfoSearch" resultType="java.lang.Integer" >
+    select count(*) from PROPERTY_SERVER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PROPERTY_SERVER_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.code)" >
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.serverip)" >
+        SERVERIP = #{record.serverip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.model)" >
+        MODEL = #{record.model,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.type)" >
+        TYPE = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.cpuModel)" >
+        CPU_MODEL = #{record.cpuModel,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.cpuType)" >
+        CPU_TYPE = #{record.cpuType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.cpuNum)" >
+        CPU_NUM = #{record.cpuNum,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.cpuCoreNum)" >
+        CPU_CORE_NUM = #{record.cpuCoreNum,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.threeCache)" >
+        THREE_CACHE = #{record.threeCache,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.threadNum)" >
+        THREAD_NUM = #{record.threadNum,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.ramType)" >
+        RAM_TYPE = #{record.ramType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.ramVolume)" >
+        RAM_VOLUME = #{record.ramVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.diskPortType)" >
+        DISK_PORT_TYPE = #{record.diskPortType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.diskVolume)" >
+        DISK_VOLUME = #{record.diskVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.addTime)" >
+        ADD_TIME = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.operator)" >
+        OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.note)" >
+        NOTE = #{record.note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.orgId)" >
+        ORG_ID = #{record.orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.factoryId)" >
+        FACTORY_ID = #{record.factoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.status)" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PROPERTY_SERVER_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      CODE = #{record.code,jdbcType=VARCHAR},
+      SERVERIP = #{record.serverip,jdbcType=VARCHAR},
+      MODEL = #{record.model,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=VARCHAR},
+      CPU_MODEL = #{record.cpuModel,jdbcType=VARCHAR},
+      CPU_TYPE = #{record.cpuType,jdbcType=VARCHAR},
+      CPU_NUM = #{record.cpuNum,jdbcType=DECIMAL},
+      CPU_CORE_NUM = #{record.cpuCoreNum,jdbcType=DECIMAL},
+      THREE_CACHE = #{record.threeCache,jdbcType=DECIMAL},
+      THREAD_NUM = #{record.threadNum,jdbcType=DECIMAL},
+      RAM_TYPE = #{record.ramType,jdbcType=VARCHAR},
+      RAM_VOLUME = #{record.ramVolume,jdbcType=VARCHAR},
+      DISK_PORT_TYPE = #{record.diskPortType,jdbcType=VARCHAR},
+      DISK_VOLUME = #{record.diskVolume,jdbcType=VARCHAR},
+      ADD_TIME = #{record.addTime,jdbcType=TIMESTAMP},
+      OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      NOTE = #{record.note,jdbcType=VARCHAR},
+      ORG_ID = #{record.orgId,jdbcType=VARCHAR},
+      FACTORY_ID = #{record.factoryId,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.property.domain.ServerInfo" >
+    update PROPERTY_SERVER_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(serverip)" >
+        SERVERIP = #{serverip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(model)" >
+        MODEL = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuModel)" >
+        CPU_MODEL = #{cpuModel,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuType)" >
+        CPU_TYPE = #{cpuType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuNum)" >
+        CPU_NUM = #{cpuNum,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuCoreNum)" >
+        CPU_CORE_NUM = #{cpuCoreNum,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(threeCache)" >
+        THREE_CACHE = #{threeCache,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(threadNum)" >
+        THREAD_NUM = #{threadNum,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(ramType)" >
+        RAM_TYPE = #{ramType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ramVolume)" >
+        RAM_VOLUME = #{ramVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(diskPortType)" >
+        DISK_PORT_TYPE = #{diskPortType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(diskVolume)" >
+        DISK_VOLUME = #{diskVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(addTime)" >
+        ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(orgId)" >
+        ORG_ID = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+        FACTORY_ID = #{factoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.property.domain.ServerInfo" >
+    update PROPERTY_SERVER_INFO
+    set NAME = #{name,jdbcType=VARCHAR},
+      CODE = #{code,jdbcType=VARCHAR},
+      SERVERIP = #{serverip,jdbcType=VARCHAR},
+      MODEL = #{model,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      CPU_MODEL = #{cpuModel,jdbcType=VARCHAR},
+      CPU_TYPE = #{cpuType,jdbcType=VARCHAR},
+      CPU_NUM = #{cpuNum,jdbcType=DECIMAL},
+      CPU_CORE_NUM = #{cpuCoreNum,jdbcType=DECIMAL},
+      THREE_CACHE = #{threeCache,jdbcType=DECIMAL},
+      THREAD_NUM = #{threadNum,jdbcType=DECIMAL},
+      RAM_TYPE = #{ramType,jdbcType=VARCHAR},
+      RAM_VOLUME = #{ramVolume,jdbcType=VARCHAR},
+      DISK_PORT_TYPE = #{diskPortType,jdbcType=VARCHAR},
+      DISK_VOLUME = #{diskVolume,jdbcType=VARCHAR},
+      ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      NOTE = #{note,jdbcType=VARCHAR},
+      ORG_ID = #{orgId,jdbcType=VARCHAR},
+      FACTORY_ID = #{factoryId,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from PROPERTY_SERVER_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME LIKE '%${name}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE LIKE '%${code}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(serverip)" >
+         and SERVERIP LIKE '%${serverip}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(model)" >
+         and MODEL = #{model,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+         and TYPE = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuModel)" >
+         and CPU_MODEL = #{cpuModel,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuType)" >
+         and CPU_TYPE = #{cpuType,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuNum)" >
+         and CPU_NUM = #{cpuNum,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuCoreNum)" >
+         and CPU_CORE_NUM = #{cpuCoreNum,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(threeCache)" >
+         and THREE_CACHE = #{threeCache,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(threadNum)" >
+         and THREAD_NUM = #{threadNum,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(ramType)" >
+         and RAM_TYPE = #{ramType,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ramVolume)" >
+         and RAM_VOLUME = #{ramVolume,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(diskPortType)" >
+         and DISK_PORT_TYPE = #{diskPortType,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(diskVolume)" >
+         and DISK_VOLUME = #{diskVolume,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(addTime)" >
+         and ADD_TIME = #{addTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+         and OPERATOR = #{operator,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(orgId)" >
+         and ORG_ID = #{orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+         and FACTORY_ID = #{factoryId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="sortType != null" >
+       order by ${sortType} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from PROPERTY_SERVER_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME LIKE '%${name}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE LIKE '%${code}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(serverip)" >
+         and SERVERIP LIKE '%${serverip}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(model)" >
+         and MODEL = #{model,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+         and TYPE = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuModel)" >
+         and CPU_MODEL = #{cpuModel,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuType)" >
+         and CPU_TYPE = #{cpuType,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuNum)" >
+         and CPU_NUM = #{cpuNum,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuCoreNum)" >
+         and CPU_CORE_NUM = #{cpuCoreNum,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(threeCache)" >
+         and THREE_CACHE = #{threeCache,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(threadNum)" >
+         and THREAD_NUM = #{threadNum,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(ramType)" >
+         and RAM_TYPE = #{ramType,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ramVolume)" >
+         and RAM_VOLUME = #{ramVolume,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(diskPortType)" >
+         and DISK_PORT_TYPE = #{diskPortType,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(diskVolume)" >
+         and DISK_VOLUME = #{diskVolume,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(addTime)" >
+         and ADD_TIME = #{addTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+         and OPERATOR = #{operator,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(orgId)" >
+         and ORG_ID = #{orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+         and FACTORY_ID = #{factoryId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="sortType != null" >
+       order by ${sortType} 
+    </if>
+  </select>
+  
+  <select id="insertHistoryRecord" parameterType="java.lang.String">
+    insert into PROPERTY_SERVER_INFO_HIS (<include refid="Base_Column_List" />) 
+    select <include refid="Base_Column_List" /> from PROPERTY_SERVER_INFO t where t.id=#{0}
+  </select>
+  
+  <select id="updatePrimaryKey" parameterType="java.lang.String">
+    update PROPERTY_SERVER_INFO t set t.id=#{0} where t.id=#{1}
+  </select>
+  
+  <select id="getListByFactoryid" resultMap="BaseResultMap" >
+    	select 
+    		<include refid="Base_Column_List" />
+     	from PROPERTY_SERVER_INFO
+    	<where >
+      	<if test="@Ognl@isNotEmpty(orgs)" >
+         	and ${orgs}
+      	</if>
+      	<if test="@Ognl@isNotEmpty(orgId)" >
+         	and ORG_ID = #{orgId,jdbcType=VARCHAR}
+      	</if>
+      	<if test="@Ognl@isNotEmpty(factoryId)" >
+         	and FACTORY_ID = #{factoryId,jdbcType=VARCHAR}
+      	</if>
+      
+    	</where>
+       order by nlssort(name,'NLS_SORT=SCHINESE_PINYIN_M')
+  	</select>
+</mapper>

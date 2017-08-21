@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.common.user.dao.UserAuthorityMapper" >
+  
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.common.user.vo.UserAuthority" >
+  	 <result column="USERID" property="userid" jdbcType="VARCHAR" />
+     <result column="MENUID" property="menuid" jdbcType="VARCHAR" />
+     <result column="DEPTID" property="deptid" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <insert id="save" parameterType="com.xiangxun.atms.common.user.vo.UserAuthority">
+  	 INSERT INTO SYS_USER_DATA_AUTHORITY(USERID,MENUID,DEPTID) values(#{userid},#{menuid},#{deptid})
+  </insert>
+  
+  <delete id="deleteByUserid" parameterType="java.lang.String">
+  	  DELETE FROM SYS_USER_DATA_AUTHORITY
+  	  where USERID = #{userid}
+  </delete>
+  
+  
+  <select id="getDeptIdByUserAndMenu" resultType="java.lang.String" parameterType="java.lang.String">
+  	select  DEPTID from  SYS_USER_DATA_AUTHORITY t where T.USERID = #{0} and t.MENUID = #{1}
+  </select>
+  
+  <select id="getMenusByUserId" resultType="java.lang.String" parameterType="java.lang.String">
+  	select distinct menuid from SYS_USER_DATA_AUTHORITY where userid=#{userid}
+  </select>
+  
+  <select id="getDeptartMentsByUserAndMenu" resultType="com.xiangxun.atms.common.deptment.vo.Department" parameterType="java.lang.String">
+    select id,parentid,name from SYS_ORG o where o.id in(
+  		SELECT deptid
+  			FROM sys_user_data_authority t
+ 		where T.USERID = #{0} and t.MENUID = #{1})
+  </select>
+  
+  <select id="getDeptIdByUserId" resultType="com.xiangxun.atms.common.user.vo.UserAuthority" parameterType="java.lang.String">
+  	select  * from  SYS_USER_DATA_AUTHORITY t where T.USERID = #{0} 
+  </select>
+  
+  
+</mapper>

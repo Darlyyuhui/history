@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.question.mapper.QuestionSchemeMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.question.domain.QuestionScheme" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="INFO_ID" property="infoId" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+    <result column="INSERT_TIME" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="SCHEME_NO" property="schemeNo" jdbcType="VARCHAR" />
+    
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="QUE_CONTENT" property="queContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, INFO_ID, CONTENT, FILE_PATH, INSERT_TIME, OPERATOR, SCHEME_NO
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.question.domain.QuestionSchemeSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from QUESTION_SCHEME
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    	t.ID, t.INFO_ID, t.CONTENT, t.FILE_PATH, t.INSERT_TIME, t.OPERATOR, t.SCHEME_NO, t2.TITLE as TITLE, t2.CONTENT as QUE_CONTENT
+    from QUESTION_SCHEME t 
+    left join sys_user t1 on t.operator = t1.id
+    left join QUESTION_INFO t2 on t.info_id = t2.id
+    where t.ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from QUESTION_SCHEME
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.question.domain.QuestionSchemeSearch" >
+    delete from QUESTION_SCHEME
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.question.domain.QuestionScheme" useGeneratedKeys="true" keyProperty="id" >
+    insert into QUESTION_SCHEME (INFO_ID, CONTENT, FILE_PATH, 
+      INSERT_TIME, OPERATOR, SCHEME_NO
+      )
+    values (#{infoId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, 
+      #{insertTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}, #{schemeNo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.question.domain.QuestionScheme" useGeneratedKeys="true" keyProperty="id" >
+    insert into QUESTION_SCHEME
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(infoId)" >
+        INFO_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+        CONTENT,
+      </if>
+      <if test="@Ognl@isNotEmpty(filePath)" >
+        FILE_PATH,
+      </if>
+      <if test="@Ognl@isNotEmpty(insertTime)" >
+        INSERT_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+        OPERATOR,
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeNo)" >
+        SCHEME_NO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(infoId)" >
+        #{infoId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(filePath)" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(insertTime)" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeNo)" >
+        #{schemeNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.question.domain.QuestionSchemeSearch" resultType="java.lang.Integer" >
+    select count(*) from QUESTION_SCHEME
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update QUESTION_SCHEME
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.infoId)" >
+        INFO_ID = #{record.infoId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.content)" >
+        CONTENT = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.filePath)" >
+        FILE_PATH = #{record.filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.insertTime)" >
+        INSERT_TIME = #{record.insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.operator)" >
+        OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.schemeNo)" >
+        SCHEME_NO = #{record.schemeNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update QUESTION_SCHEME
+    set ID = #{record.id,jdbcType=VARCHAR},
+      INFO_ID = #{record.infoId,jdbcType=VARCHAR},
+      CONTENT = #{record.content,jdbcType=VARCHAR},
+      FILE_PATH = #{record.filePath,jdbcType=VARCHAR},
+      INSERT_TIME = #{record.insertTime,jdbcType=TIMESTAMP},
+      OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      SCHEME_NO = #{record.schemeNo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.question.domain.QuestionScheme" >
+    update QUESTION_SCHEME
+    <set >
+      <if test="@Ognl@isNotEmpty(infoId)" >
+        INFO_ID = #{infoId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(filePath)" >
+        FILE_PATH = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(insertTime)" >
+        INSERT_TIME = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeNo)" >
+        SCHEME_NO = #{schemeNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.question.domain.QuestionScheme" >
+    update QUESTION_SCHEME
+    set INFO_ID = #{infoId,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=VARCHAR},
+      FILE_PATH = #{filePath,jdbcType=VARCHAR},
+      INSERT_TIME = #{insertTime,jdbcType=TIMESTAMP},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      SCHEME_NO = #{schemeNo,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from QUESTION_SCHEME
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(infoId)" >
+         and INFO_ID = #{infoId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+         and CONTENT = #{content,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(filePath)" >
+         and FILE_PATH = #{filePath,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(insertTime)" >
+         and INSERT_TIME = #{insertTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+         and OPERATOR = #{operator,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeNo)" >
+         and SCHEME_NO = #{schemeNo,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from QUESTION_SCHEME
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(infoId)" >
+         and INFO_ID = #{infoId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+         and CONTENT = #{content,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(filePath)" >
+         and FILE_PATH = #{filePath,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(insertTime)" >
+         and INSERT_TIME = #{insertTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+         and OPERATOR = #{operator,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeNo)" >
+         and SCHEME_NO = #{schemeNo,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  
+  
+  <select id="selectList" resultMap="BaseResultMap" >
+    select 
+    	t.ID, t.INFO_ID, t.CONTENT, t.FILE_PATH, t.INSERT_TIME, t.OPERATOR, t.SCHEME_NO, t2.TITLE as TITLE, t2.CONTENT as QUE_CONTENT
+    from QUESTION_SCHEME t 
+    left join sys_user t1 on t.operator = t1.id
+    left join QUESTION_INFO t2 on t.info_id = t2.id
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and t.ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(infoId)" >
+         and t.INFO_ID = #{infoId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(title)" >
+	     and t2.TITLE LIKE '%${title}%'
+	  </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+	     and t1.NAME LIKE '%${operator}%'
+	  </if>
+	  <if test="@Ognl@isNotEmpty(beginDate)" >
+         <![CDATA[and t.INSERT_TIME >= to_date(#{beginDate},'yyyy-mm-dd hh24:mi:ss')]]>
+      </if>
+      <if test="@Ognl@isNotEmpty(endDate)" >
+         <![CDATA[and t.INSERT_TIME <= to_date(#{endDate},'yyyy-mm-dd hh24:mi:ss')]]>
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortType)" >
+       order by ${sortType} 
+    </if>
+  </select>
+  
+  <select id="selectTotal" resultType="java.lang.Integer" >
+    select count(*) from QUESTION_SCHEME t
+    left join sys_user t1 on t.operator = t1.id
+     <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and t.ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(infoId)" >
+         and t.INFO_ID = #{infoId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(title)" >
+	     and t2.TITLE LIKE '%${title}%'
+	  </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+	     and t1.NAME LIKE '%${operator}%'
+	  </if>
+	  <if test="@Ognl@isNotEmpty(beginDate)" >
+         <![CDATA[and t.INSERT_TIME >= to_date(#{beginDate},'yyyy-mm-dd hh24:mi:ss')]]>
+      </if>
+      <if test="@Ognl@isNotEmpty(endDate)" >
+         <![CDATA[and t.INSERT_TIME <= to_date(#{endDate},'yyyy-mm-dd hh24:mi:ss')]]>
+      </if>
+	  
+    </where>
+  </select>
+  
+  <select id="selectByInfoId" resultMap="BaseResultMap" >
+    select 
+    	t.ID, t.INFO_ID, t.CONTENT, t.FILE_PATH, t.INSERT_TIME, t.OPERATOR, t.SCHEME_NO, t2.TITLE as TITLE, t2.CONTENT as QUE_CONTENT
+    from QUESTION_SCHEME t 
+    left join sys_user t1 on t.operator = t1.id
+    left join QUESTION_INFO t2 on t.info_id = t2.id
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and t.ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(infoId)" >
+         and t.INFO_ID = #{infoId,jdbcType=VARCHAR}
+      </if>
+      
+    </where>
+    <if test="@Ognl@isNotEmpty(sortType)" >
+       order by ${sortType} 
+    </if>
+  </select>
+  
+</mapper>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ywpt" default="all" basedir=".">
+
+    <description> - 生成war包 - </description>
+
+    <property environment="env" />
+
+    <property name="debuglevel" value="source,lines,vars" />
+    <property name="target" value="1.7" />
+    <property name="source" value="1.7" />
+
+    <property name="output.dir" location="." />
+    <property name="output.file" value="ywpt.war" />
+
+    <property name="project.build" location="./build" />
+    <property name="project.src" location="./src" />
+    <property name="project.web" location="./WebRoot" />
+    <property name="project.lib" location="./WebRoot/WEB-INF/lib" />
+    <property name="project.res" location="./res" />
+    <property name="project.svc" location="./svc" />
+    <property name="project.config" location="./config" /> 
+
+    <property name="project.war" location="${project.build}/${output.file}" />
+
+    <property name="tmp" location="${project.build}/tmp" />
+    <property name="tmp.src" location="${tmp}/src" />
+    <property name="tmp.lib" location="${project.web}/WEB-INF/lib" />
+    <property name="tmp.bin" location="${tmp}/bin" />
+    <property name="tmp.web" location="${tmp}/web" />
+    <property name="tmp.classes" location="${tmp}/classes" />
+
+    <property name="checkstyle.dir" location="./ant-task/checkstyle" />
+    <property name="findbugs.dir" location="./ant-task/findbugs/home" />
+    <property name="findbugs.report.dir" location="./ant-task/findbugs" />
+    <property name="junit.reports.dir" value="./ant-task/junit/reports" />
+    <property name="junit.class.dir" value="./ant-task/junit/bin" />
+    <property name="junit.test.src" location="./test/java" />
+    <property name="junit.test.resources" location="./test/resources" />
+
+    <path id="javaclass.path">
+        <!--<pathelement path="${env.classpath}" />-->
+        <pathelement path="C:\apache-tomcat-8.0.30\lib\servlet-api.jar" />
+        <pathelement path="C:\apache-tomcat-8.0.30\lib\jsp-api.jar" />
+        <fileset dir="${project.lib}">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="D:\Program Files (x86)\Java\jdk1.7.0_67\jre\lib">
+			<include name="*.jar" />
+		</fileset>
+        <!-- <fileset dir="${project.lib}" includes="*.jar" /> -->
+    </path>
+
+    <path id="findbugs.path">
+        <fileset dir="${findbugs.dir}" includes="**/*.jar" />
+    </path>
+
+    <target name="clean">
+        <delete file="${output.dir}/${output.file}" failonerror="false" />
+        <delete dir="${project.build}" failonerror="false" />
+        <mkdir dir="${project.build}" />
+    </target>
+
+    <target name="all" depends="clean,buildwar" />
+
+    <target name="initdir">
+
+        <echo message="Init directories " />
+
+        <delete dir="${tmp}" failonerror="false" />
+
+        <mkdir dir="${tmp}" />
+
+        <mkdir dir="${tmp.src}" />
+        <copy todir="${tmp.src}">
+            <fileset dir="${project.src}" excludes="**/.svn/**" />
+        </copy>
+
+        <mkdir dir="${tmp.lib}" />
+        <!-- 
+        <copy todir="${tmp.lib}">
+            <fileset dir="${project.web}/WEB-INF/lib" includes="*.jar" />
+        </copy>
+        -->
+
+        <mkdir dir="${tmp.bin}" />
+
+        <mkdir dir="${tmp.web}/WEB-INF/lib" />
+
+        <delete dir="${tmp.web}/WEB-INF/classes" failonerror="false" />
+        <mkdir dir="${tmp.web}/WEB-INF/classes" />
+
+    </target>
+
+    <target name="compilejava" depends="initdir">
+        <echo message="Compiling java code " />
+
+        <javac debug="true" debuglevel="${debuglevel}" destdir="${tmp.bin}" source="${source}" bootclasspath="D:\Program Files (x86)\Java\jdk1.7.0_67\jre\lib\rt.jar"
+ target="${target}" encoding="UTF-8">
+            <src path="${tmp.src}" />
+            <classpath refid="javaclass.path" />
+        </javac>
+
+        <copy todir="${tmp.web}/WEB-INF/classes" includeemptydirs="false">
+            <fileset dir="${tmp.src}">
+                <exclude name="**/*.java" />
+            </fileset>
+        </copy>
+        <copy todir="${tmp.web}/WEB-INF/classes" includeemptydirs="false">
+            <fileset dir="${tmp.bin}">
+                <include name="**/*.class" />
+            </fileset>
+        </copy>
+        <copy todir="${tmp.web}/WEB-INF/classes">
+            <fileset dir="${project.config}" excludes="**/.svn/**" /> 
+        </copy>       
+    </target>
+
+    <target name="compilejava-without-copy" depends="initdir">
+        <echo message="Compiling java code " />
+
+        <javac debug="true" destdir="${tmp.bin}" source="${source}" bootclasspath="D:\Program Files (x86)\Java\jdk1.7.0_67\jre\lib\rt.jar" target="${target}" encoding="UTF-8">
+            <src path="${tmp.src}" />
+            <classpath refid="javaclass.path" />
+        </javac>
+
+    </target>
+
+    <target name="buildwar" depends="compilejava">
+
+        <echo message="Packing war file " />
+
+        <copy todir="${tmp.web}">
+            <fileset dir="${project.web}" excludes="**/.svn/**" />
+        </copy>
+
+        <delete file="${project.war}" failonerror="false" />
+        <war destfile="${project.war}" basedir="${tmp.web}" webxml="${tmp.web}/WEB-INF/web.xml" encoding="utf-8" />
+        <delete dir="${tmp}" failonerror="false" />
+
+        <delete file="${output.dir}/${output.file}" failonerror="false" />
+        <move todir="${output.dir}" includeemptydirs="false" filtering="true">
+            <fileset dir="${project.build}">
+                <include name="**/*.war" />
+            </fileset>
+        </move>
+
+        <delete dir="${project.build}" failonerror="false" />
+
+    </target>
+	
+	<target name="run" depends="buildwar">
+	        <testng  classpathref="runpath"  outputDir="test-output">
+	            <xmlfileset dir="${basedir}" includes="testng.xml"/>
+	            <jvmarg value="-ea" />
+	        </testng>
+	 </target>
+
+ 
+</project>
+

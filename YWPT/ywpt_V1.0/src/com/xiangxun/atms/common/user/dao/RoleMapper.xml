@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.common.user.dao.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.common.user.vo.Role" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="RANK" property="rank" jdbcType="VARCHAR" />
+    <collection property="resources" ofType="com.xiangxun.atms.common.system.vo.SystemResource">
+    	  <result column="resourceName" property="resourceName" jdbcType="VARCHAR" />
+    	  <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, CODE, NAME, MEMO, STATUS, RANK
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.common.user.vo.RoleSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_ROLE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_ROLE
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getRoleResourceContent" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.common.user.vo.Role">
+  	SELECT t.*, B.CONTENT,B.NAME AS resourceName
+  	FROM sys_role_resources a LEFT OUTER JOIN sys_role t ON (t.ID = a.role_id)
+       LEFT JOIN sys_resource b ON (a.resource_id = b.ID)
+	<where >
+	  <if test="id != null" >
+        t.ID = #{id}
+      </if>
+      <if test="code != null" >
+        and t.CODE =#{code}
+      </if>
+      <if test="name != null" >
+        and t.NAME =#{name}
+      </if>
+      <if test="status != null" >
+        and t.STATUS =#{status}
+      </if>
+      <if test="rank != null" >
+        and t.RANK =#{rank}
+      </if>
+	</where>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_ROLE
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.common.user.vo.RoleSearch" >
+    delete from SYS_ROLE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  
+  
+  <insert id="insert" parameterType="com.xiangxun.atms.common.user.vo.Role" useGeneratedKeys="true" keyProperty="id" >
+    insert into SYS_ROLE (id,CODE, NAME, MEMO, 
+      STATUS, RANK)
+    values ( #{id,jdbcType=VARCHAR},#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR},#{rank,jdbcType=VARCHAR})
+  </insert>
+  
+  
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.common.user.vo.Role" useGeneratedKeys="true" keyProperty="id" >
+    insert into SYS_ROLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="memo != null" >
+        MEMO,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="rank != null" >
+        RANK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+   	  <if test="id != null" >
+      	#{id,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <select id="countByExample" parameterType="com.xiangxun.atms.common.user.vo.RoleSearch" resultType="java.lang.Integer" >
+    select count(*) from SYS_ROLE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SYS_ROLE
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null" >
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null" >
+        MEMO = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rank != null" >
+        RANK = #{record.rank,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.common.user.vo.Role" >
+    update SYS_ROLE
+    <set >
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        RANK = #{rank,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.common.user.vo.Role" >
+    update SYS_ROLE set CODE = #{code,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      MEMO = #{memo,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      RANK = #{rank,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="getRolesByName" resultType="java.lang.Integer" parameterType="java.lang.String">
+  	select count(*) from SYS_ROLE where NAME =#{name}
+  </select>
+  
+  
+</mapper>

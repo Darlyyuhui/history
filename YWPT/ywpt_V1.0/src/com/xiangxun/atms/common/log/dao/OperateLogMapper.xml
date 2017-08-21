@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.common.log.dao.OperateLogMapper" >
+  <resultMap id="OperateMap" type="com.xiangxun.atms.common.log.vo.OperationLog" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="CLASSNAME" property="className" jdbcType="VARCHAR" />
+    <result column="METHODNAME" property="methodName" jdbcType="VARCHAR" />
+    <result column="PARAMS" property="args" jdbcType="CLOB" />
+    <result column="MODULENAME" property="moduleName" jdbcType="VARCHAR" />
+    <result column="OPERATETYPE" property="operateType" jdbcType="VARCHAR" />
+    <result column="ISSUCCESS" property="isSuccess" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="CLOB" />
+    <result column="DES" property="des" jdbcType="VARCHAR" />
+    <result column="OPERATETIME" property="operateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, OPERATOR, IP, CLASSNAME, METHODNAME, MODULENAME, OPERATETYPE, 
+    ISSUCCESS, DES, OPERATETIME
+  </sql>
+  <sql id="Example_Where_Clause">
+  	 <where >
+  	 	 <if test="@Ognl@isNotEmpty(operator)" >
+        and OPERATOR =#{operator}
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        and  IP = #{ip}
+      </if>
+      <if test="@Ognl@isNotEmpty(className)" >
+        and CLASSNAME = #{className}
+      </if>
+      <if test="@Ognl@isNotEmpty(methodName)" >
+        and METHODNAME =#{methodName}
+      </if>
+      <if test="@Ognl@isNotEmpty(args)" >
+        and PARAMS= #{args}
+      </if>
+      <if test="@Ognl@isNotEmpty(moduleName)" >
+        and MODULENAME = #{moduleName}
+      </if>
+      <if test="@Ognl@isNotEmpty(operateType)" >
+        and OPERATETYPE = #{operateType}
+      </if>
+      <if test="@Ognl@isNotEmpty(isSuccess)" >
+        and ISSUCCESS = #{isSuccess}
+      </if>
+      <if test="@Ognl@isNotEmpty(des)" >
+        and DES =#{des}
+      </if>
+      <if test="@Ognl@isNotEmpty(startTime)" >
+        and OPERATETIME <![CDATA[>=]]> to_date('${startTime}','yyyy-mm-dd hh24:mi:ss')
+      </if>
+     <if test="@Ognl@isNotEmpty(endtime)" >
+        and OPERATETIME <![CDATA[<=]]> to_date('${endtime}','yyyy-mm-dd hh24:mi:ss')
+      </if>
+     <if test="@Ognl@isNotEmpty(operateTime)" >
+        and OPERATETIME= ${operateTime}
+      </if>
+  	 </where>
+  
+  </sql>
+  <select id="selectLogs" resultMap="OperateMap" parameterType="com.xiangxun.atms.common.log.vo.OperationLog" >
+    select
+    <include refid="Base_Column_List" />
+    from SYS_OPER_LOG
+    <include refid="Example_Where_Clause" />
+    order by OPERATETIME desc
+  </select>
+  
+  <insert id="insert" parameterType="com.xiangxun.atms.common.log.vo.SystemLog" useGeneratedKeys="true" keyProperty="id" >
+    insert into SYS_OPER_LOG(
+    	ID, 
+    	OPERATOR,
+    	IP,
+    	CLASSNAME,
+    	METHODNAME,
+    	PARAMS,
+    	MODULENAME,
+    	OPERATETYPE,
+    	ISSUCCESS,
+    	CONTENT,
+    	DES, 
+    	OPERATETIME
+    )values(
+      #{id},
+      #{operator},
+      #{ip},
+      #{className,jdbcType=VARCHAR}, 
+      #{methodName,jdbcType=VARCHAR},
+      #{args,jdbcType=CLOB}, 
+      #{moduleName,jdbcType=VARCHAR}, 
+      #{operateType,jdbcType=VARCHAR},
+      #{isSuccess,jdbcType=VARCHAR}, 
+      #{content,jdbcType=CLOB}, 
+      #{des,jdbcType=VARCHAR},
+      #{operateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.common.log.vo.SystemLog" resultType="java.lang.Integer" >
+    select count(*) from SYS_OPER_LOG
+    <include refid="Example_Where_Clause" />
+  </select>
+  
+  
+  <select id="selectLogById" parameterType="java.lang.String" resultMap="OperateMap">
+  	select ID, OPERATOR, IP, CLASSNAME, METHODNAME, MODULENAME, OPERATETYPE,ISSUCCESS, DES, OPERATETIME,PARAMS,CONTENT from SYS_OPER_LOG where id = #{id}
+  </select>
+  
+  <!-- 根据ID删除操作日志 -->
+  <delete id="deleteLogById" parameterType="java.lang.String" >
+    delete from SYS_OPER_LOG
+    where ID = #{id}
+  </delete>
+  
+  <!-- 按操作人员统计违法确认的操作日志数 -->
+  <sql id="getLogStatis">
+  	select t.operator, count(*) as counts
+	  from sys_oper_log t
+	  where t.classname = 'VioConfirmCtl' and t.modulename = '违法确认'
+ 	  <if test="@Ognl@isNotEmpty(startTime)" >
+ 		and t.operatetime <![CDATA[ >= ]]> TO_DATE('${startTime}', 'yyyy-mm-dd HH24:mi:ss')
+ 	  </if>
+ 	  <if test="@Ognl@isNotEmpty(endtime)" >
+   		and t.operatetime <![CDATA[ < ]]> TO_DATE('${endtime}', 'yyyy-mm-dd HH24:mi:ss')
+   	  </if>    
+	 group by t.operator
+	 order by t.operator
+  </sql>
+  <!-- 获取按操作人员统计违法确认的操作日志数 -->
+  <select id="selectLogStatis" resultMap="OperateMap" parameterType="com.xiangxun.atms.common.log.vo.OperationLog" >
+  	<include refid="getLogStatis"/>
+  </select>
+  
+  <!-- 获取按操作人员统计违法确认的操作日志数 总记录数-->
+	<select id="selectTotalLogStatis" resultType="java.lang.Integer">
+		select count(*) from (
+			<include refid="getLogStatis"/>
+		)g
+	</select>
+  
+</mapper>

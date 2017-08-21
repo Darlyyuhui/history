@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.sms.dao.SendTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.sms.vo.SendTask" >
+    <result column="TASKID" property="taskid" jdbcType="DECIMAL" />
+    <result column="DESTNUMBER" property="destnumber" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="SIGNNAME" property="signname" jdbcType="VARCHAR" />
+    <result column="SENDPRIORITY" property="sendpriority" jdbcType="DECIMAL" />
+    <result column="SENDTIME" property="sendtime" jdbcType="DATE" />
+    <result column="STATUSREPORT" property="statusreport" jdbcType="DECIMAL" />
+    <result column="ENGLISHFLAG" property="englishflag" jdbcType="DECIMAL" />
+    <result column="MSGTYPE" property="msgtype" jdbcType="DECIMAL" />
+    <result column="PUSHURL" property="pushurl" jdbcType="VARCHAR" />
+    <result column="RECACTION" property="recaction" jdbcType="DECIMAL" />
+    <result column="VALIDMINUTE" property="validminute" jdbcType="DECIMAL" />
+    <result column="SENDFLAG" property="sendflag" jdbcType="DECIMAL" />
+    <result column="COMMPORT" property="commport" jdbcType="DECIMAL" />
+    <result column="SPLITCOUNT" property="splitcount" jdbcType="DECIMAL" />
+    <result column="BATCHID" property="batchid" jdbcType="VARCHAR" />
+    <result column="RINGFLAG" property="ringflag" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TASKID, DESTNUMBER, CONTENT, SIGNNAME, SENDPRIORITY, SENDTIME, STATUSREPORT, ENGLISHFLAG, 
+    MSGTYPE, PUSHURL, RECACTION, VALIDMINUTE, SENDFLAG, COMMPORT, SPLITCOUNT, BATCHID, 
+    RINGFLAG
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.sms.vo.SendTaskSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_SENDTASK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.sms.vo.SendTaskSearch" >
+    delete from T_SENDTASK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.sms.vo.SendTask" >
+    insert into T_SENDTASK (TASKID, DESTNUMBER, CONTENT, 
+      SIGNNAME, SENDPRIORITY, SENDTIME, 
+      STATUSREPORT, ENGLISHFLAG, MSGTYPE, 
+      PUSHURL, RECACTION, VALIDMINUTE, 
+      SENDFLAG, COMMPORT, SPLITCOUNT, 
+      BATCHID, RINGFLAG)
+    values (#{taskid,jdbcType=DECIMAL}, #{destnumber,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{signname,jdbcType=VARCHAR}, #{sendpriority,jdbcType=DECIMAL}, #{sendtime,jdbcType=DATE}, 
+      #{statusreport,jdbcType=DECIMAL}, #{englishflag,jdbcType=DECIMAL}, #{msgtype,jdbcType=DECIMAL}, 
+      #{pushurl,jdbcType=VARCHAR}, #{recaction,jdbcType=DECIMAL}, #{validminute,jdbcType=DECIMAL}, 
+      #{sendflag,jdbcType=DECIMAL}, #{commport,jdbcType=DECIMAL}, #{splitcount,jdbcType=DECIMAL}, 
+      #{batchid,jdbcType=VARCHAR}, #{ringflag,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.sms.vo.SendTask" >
+    insert into T_SENDTASK
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        TASKID,
+      <if test="@Ognl@isNotEmpty(destnumber)" >
+        DESTNUMBER,
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+        CONTENT,
+      </if>
+      <if test="@Ognl@isNotEmpty(signname)" >
+        SIGNNAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(sendpriority)" >
+        SENDPRIORITY,
+      </if>
+      <if test="@Ognl@isNotEmpty(sendtime)" >
+        SENDTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(statusreport)" >
+        STATUSREPORT,
+      </if>
+      <if test="@Ognl@isNotEmpty(englishflag)" >
+        ENGLISHFLAG,
+      </if>
+      <if test="@Ognl@isNotEmpty(msgtype)" >
+        MSGTYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(pushurl)" >
+        PUSHURL,
+      </if>
+      <if test="@Ognl@isNotEmpty(recaction)" >
+        RECACTION,
+      </if>
+      <if test="@Ognl@isNotEmpty(validminute)" >
+        VALIDMINUTE,
+      </if>
+      <if test="@Ognl@isNotEmpty(sendflag)" >
+        SENDFLAG,
+      </if>
+      <if test="@Ognl@isNotEmpty(commport)" >
+        COMMPORT,
+      </if>
+      <if test="@Ognl@isNotEmpty(splitcount)" >
+        SPLITCOUNT,
+      </if>
+      <if test="@Ognl@isNotEmpty(batchid)" >
+        BATCHID,
+      </if>
+      <if test="@Ognl@isNotEmpty(ringflag)" >
+        RINGFLAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        SEQ_T_SENDTASK.Nextval,
+      <if test="@Ognl@isNotEmpty(destnumber)" >
+        #{destnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(signname)" >
+        #{signname,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(sendpriority)" >
+        #{sendpriority,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(sendtime)" >
+        #{sendtime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(statusreport)" >
+        #{statusreport,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(englishflag)" >
+        #{englishflag,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(msgtype)" >
+        #{msgtype,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(pushurl)" >
+        #{pushurl,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(recaction)" >
+        #{recaction,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(validminute)" >
+        #{validminute,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(sendflag)" >
+        #{sendflag,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(commport)" >
+        #{commport,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(splitcount)" >
+        #{splitcount,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(batchid)" >
+        #{batchid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ringflag)" >
+        #{ringflag,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.sms.vo.SendTaskSearch" resultType="java.lang.Integer" >
+    select count(*) from T_SENDTASK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_SENDTASK
+    <set >
+      <if test="@Ognl@isNotEmpty(record.taskid)" >
+        TASKID = #{record.taskid,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.destnumber)" >
+        DESTNUMBER = #{record.destnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.content)" >
+        CONTENT = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.signname)" >
+        SIGNNAME = #{record.signname,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.sendpriority)" >
+        SENDPRIORITY = #{record.sendpriority,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.sendtime)" >
+        SENDTIME = #{record.sendtime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.statusreport)" >
+        STATUSREPORT = #{record.statusreport,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.englishflag)" >
+        ENGLISHFLAG = #{record.englishflag,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.msgtype)" >
+        MSGTYPE = #{record.msgtype,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.pushurl)" >
+        PUSHURL = #{record.pushurl,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.recaction)" >
+        RECACTION = #{record.recaction,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.validminute)" >
+        VALIDMINUTE = #{record.validminute,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.sendflag)" >
+        SENDFLAG = #{record.sendflag,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.commport)" >
+        COMMPORT = #{record.commport,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.splitcount)" >
+        SPLITCOUNT = #{record.splitcount,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.batchid)" >
+        BATCHID = #{record.batchid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.ringflag)" >
+        RINGFLAG = #{record.ringflag,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_SENDTASK
+    set TASKID = #{record.taskid,jdbcType=DECIMAL},
+      DESTNUMBER = #{record.destnumber,jdbcType=VARCHAR},
+      CONTENT = #{record.content,jdbcType=VARCHAR},
+      SIGNNAME = #{record.signname,jdbcType=VARCHAR},
+      SENDPRIORITY = #{record.sendpriority,jdbcType=DECIMAL},
+      SENDTIME = #{record.sendtime,jdbcType=DATE},
+      STATUSREPORT = #{record.statusreport,jdbcType=DECIMAL},
+      ENGLISHFLAG = #{record.englishflag,jdbcType=DECIMAL},
+      MSGTYPE = #{record.msgtype,jdbcType=DECIMAL},
+      PUSHURL = #{record.pushurl,jdbcType=VARCHAR},
+      RECACTION = #{record.recaction,jdbcType=DECIMAL},
+      VALIDMINUTE = #{record.validminute,jdbcType=DECIMAL},
+      SENDFLAG = #{record.sendflag,jdbcType=DECIMAL},
+      COMMPORT = #{record.commport,jdbcType=DECIMAL},
+      SPLITCOUNT = #{record.splitcount,jdbcType=DECIMAL},
+      BATCHID = #{record.batchid,jdbcType=VARCHAR},
+      RINGFLAG = #{record.ringflag,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from T_SENDTASK
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(taskid)" >
+         and TASKID = #{taskid,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(destnumber)" >
+         and DESTNUMBER = #{destnumber,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+         and CONTENT = #{content,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(signname)" >
+         and SIGNNAME = #{signname,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(sendpriority)" >
+         and SENDPRIORITY = #{sendpriority,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(sendtime)" >
+         and SENDTIME = #{sendtime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(statusreport)" >
+         and STATUSREPORT = #{statusreport,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(englishflag)" >
+         and ENGLISHFLAG = #{englishflag,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(msgtype)" >
+         and MSGTYPE = #{msgtype,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(pushurl)" >
+         and PUSHURL = #{pushurl,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(recaction)" >
+         and RECACTION = #{recaction,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(validminute)" >
+         and VALIDMINUTE = #{validminute,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(sendflag)" >
+         and SENDFLAG = #{sendflag,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(commport)" >
+         and COMMPORT = #{commport,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(splitcount)" >
+         and SPLITCOUNT = #{splitcount,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(batchid)" >
+         and BATCHID = #{batchid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ringflag)" >
+         and RINGFLAG = #{ringflag,jdbcType=DECIMAL}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from T_SENDTASK
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(taskid)" >
+         and TASKID = #{taskid,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(destnumber)" >
+         and DESTNUMBER = #{destnumber,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+         and CONTENT = #{content,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(signname)" >
+         and SIGNNAME = #{signname,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(sendpriority)" >
+         and SENDPRIORITY = #{sendpriority,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(sendtime)" >
+         and SENDTIME = #{sendtime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(statusreport)" >
+         and STATUSREPORT = #{statusreport,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(englishflag)" >
+         and ENGLISHFLAG = #{englishflag,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(msgtype)" >
+         and MSGTYPE = #{msgtype,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(pushurl)" >
+         and PUSHURL = #{pushurl,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(recaction)" >
+         and RECACTION = #{recaction,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(validminute)" >
+         and VALIDMINUTE = #{validminute,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(sendflag)" >
+         and SENDFLAG = #{sendflag,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(commport)" >
+         and COMMPORT = #{commport,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(splitcount)" >
+         and SPLITCOUNT = #{splitcount,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(batchid)" >
+         and BATCHID = #{batchid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ringflag)" >
+         and RINGFLAG = #{ringflag,jdbcType=DECIMAL}
+      </if>
+    </where>
+  </select>
+</mapper>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.question.mapper.TopCountMapper">
+	<!-- 获取按天、周、月、时间段 频发故障设备TOP统计数量 -->
+	<sql id="getDays">
+		SELECT   
+			a.device_code as device_code,
+			a.is_outer as is_outer,
+			a.device_type as device_type,
+		     <foreach collection="types" item="type" index="k" separator="," >
+		     	sum(a.a${k+1}) a${k+1}
+		     </foreach>
+		     
+	  	FROM (
+	          SELECT 
+	          		t.device_code,
+	          		t.is_outer,
+	          		t.device_type,
+                   	<foreach collection="types" item="type" index="k" separator="," >
+	               		NVL ((CASE t.event_type WHEN '${type}' THEN t.counts END),0) a${k+1}	              
+	       			</foreach>
+	          FROM (    
+	               	SELECT 
+		               	b.device_code, b.event_type, b.is_outer, b.device_type, count(b.id) as counts
+					FROM alarm_device_log b
+					WHERE b.alarm_time <![CDATA[>=]]> TO_DATE ('${startTime} 00:00:00', 'yyyy-mm-dd hh24:mi:ss')
+						AND b.alarm_time <![CDATA[<=]]> TO_DATE ('${endTime} 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+						And b.device_code in (select a.deviceid from property_asset_info a)
+						<if test="@Ognl@isTrue(flag,'device')">
+							 and b.device_type = 'device'
+						</if>
+						<if test="@Ognl@isTrue(flag,'video')">
+							 and b.device_type = 'video'
+						</if>
+						<if test="@Ognl@isTrue(flag,'server')">
+							 and b.device_type = 'server'
+						</if>
+						<if test="@Ognl@isTrue(flag,'database')">
+							 and b.device_type = 'database'
+						</if>
+						<if test="@Ognl@isTrue(flag,'ftp')">
+							 and b.device_type = 'ftp'
+						</if>
+						<if test="@Ognl@isTrue(flag,'project')">
+							 and b.device_type = 'project'
+						</if>
+						<if test="@Ognl@isTrue(flag,'cabinet')">
+							 and b.device_type = 'cabinet'
+						</if>
+	               	group by b.device_code, b.event_type, b.is_outer, b.device_type
+        	  )t
+       	)a
+       	<if test="@Ognl@isNotEmpty(topsql)" >
+       		${topsql}
+       	</if>
+		group by device_code, is_outer, device_type
+	</sql>
+	
+	<!-- 获取按天、周、月、时间段 频发故障设备TOP统计数量 -->	        
+	<select id="selectTop" resultType="map">
+		<include refid="getDays"/>
+		<if test="@Ognl@isNotEmpty(sortType)" >
+	       order by ${sortType} 
+	    </if>
+	</select>
+	
+	<!-- 获取按天、周、月、时间段 频发故障设备TOP统计数量 合计栏数据-->
+	<select id="selectTotals" resultType="map">
+		select 
+		 <foreach collection="types" item="type" index="k" separator="," >
+		 	sum(a${k+1}) as a${k+1}
+		 </foreach>
+		from(
+			<include refid="getDays"/>
+		)g
+	</select>
+	
+	<!-- 获取按天、周、月、时间段 频发故障设备TOP统计数量 记录总数-->
+	<select id="selectTotalTop" resultType="java.lang.Integer">
+		select count(*) from (
+			<include refid="getDays"/>
+		)g
+	</select>
+	
+</mapper>

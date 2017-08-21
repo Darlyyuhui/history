@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.repository.mapper.KnowledgeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.repository.domain.KnowledgeInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PATH" property="path" jdbcType="VARCHAR" />
+    <result column="PID" property="pid" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="APPLYFLAG" property="applyflag" jdbcType="VARCHAR" />
+    <result column="APPLYTIME" property="applytime" jdbcType="TIMESTAMP" />
+    <result column="VERIFYFLAG" property="verifyflag" jdbcType="VARCHAR" />
+    <result column="VERIFIER" property="verifier" jdbcType="VARCHAR" />
+    <result column="VERIFYTIME" property="verifytime" jdbcType="TIMESTAMP" />
+    <result column="VERIFYRESULT" property="verifyresult" jdbcType="VARCHAR" />
+    <result column="DISABLED" property="disabled" jdbcType="VARCHAR" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+    <result column="REBUTREASON" property="rebutreason" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xiangxun.atms.module.repository.domain.KnowledgeInfo" extends="BaseResultMap" >
+    <result column="CONTEXT" property="context" jdbcType="CLOB" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, TYPE, NAME, PATH, PID, OPERATOR, CREATETIME, APPLYFLAG, APPLYTIME, VERIFYFLAG, 
+    VERIFIER, VERIFYTIME, VERIFYRESULT, DISABLED, NOTE, REBUTREASON
+  </sql>
+  <sql id="Blob_Column_List" >
+    CONTEXT
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.xiangxun.atms.module.repository.domain.KnowledgeInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from REPOSITORY_KNOWLEDGE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.repository.domain.KnowledgeInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from REPOSITORY_KNOWLEDGE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from REPOSITORY_KNOWLEDGE_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from REPOSITORY_KNOWLEDGE_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.repository.domain.KnowledgeInfoSearch" >
+    delete from REPOSITORY_KNOWLEDGE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.repository.domain.KnowledgeInfo" >
+    insert into REPOSITORY_KNOWLEDGE_INFO (ID, TYPE, NAME, 
+      PATH, PID, OPERATOR, 
+      CREATETIME, APPLYFLAG, APPLYTIME, 
+      VERIFYFLAG, VERIFIER, VERIFYTIME, 
+      VERIFYRESULT, DISABLED, NOTE, 
+      REBUTREASON, CONTEXT)
+    values (#{id,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{path,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{applyflag,jdbcType=VARCHAR}, #{applytime,jdbcType=TIMESTAMP}, 
+      #{verifyflag,jdbcType=VARCHAR}, #{verifier,jdbcType=VARCHAR}, #{verifytime,jdbcType=TIMESTAMP}, 
+      #{verifyresult,jdbcType=VARCHAR}, #{disabled,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, 
+      #{rebutreason,jdbcType=VARCHAR}, #{context,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.repository.domain.KnowledgeInfo" >
+    insert into REPOSITORY_KNOWLEDGE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+        TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(path)" >
+        PATH,
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+        PID,
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+        OPERATOR,
+      </if>
+      <if test="@Ognl@isNotEmpty(createtime)" >
+        CREATETIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(applyflag)" >
+        APPLYFLAG,
+      </if>
+      <if test="@Ognl@isNotEmpty(applytime)" >
+        APPLYTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(verifyflag)" >
+        VERIFYFLAG,
+      </if>
+      <if test="@Ognl@isNotEmpty(verifier)" >
+        VERIFIER,
+      </if>
+      <if test="@Ognl@isNotEmpty(verifytime)" >
+        VERIFYTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(verifyresult)" >
+        VERIFYRESULT,
+      </if>
+      <if test="@Ognl@isNotEmpty(disabled)" >
+        DISABLED,
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE,
+      </if>
+      <if test="@Ognl@isNotEmpty(rebutreason)" >
+        REBUTREASON,
+      </if>
+      <if test="@Ognl@isNotEmpty(context)" >
+        CONTEXT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(path)" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createtime)" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(applyflag)" >
+        #{applyflag,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(applytime)" >
+        #{applytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(verifyflag)" >
+        #{verifyflag,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(verifier)" >
+        #{verifier,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(verifytime)" >
+        #{verifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(verifyresult)" >
+        #{verifyresult,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(disabled)" >
+        #{disabled,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(rebutreason)" >
+        #{rebutreason,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(context)" >
+        #{context,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.repository.domain.KnowledgeInfoSearch" resultType="java.lang.Integer" >
+    select count(*) from REPOSITORY_KNOWLEDGE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update REPOSITORY_KNOWLEDGE_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.type)" >
+        TYPE = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.path)" >
+        PATH = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.pid)" >
+        PID = #{record.pid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.operator)" >
+        OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createtime)" >
+        CREATETIME = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.applyflag)" >
+        APPLYFLAG = #{record.applyflag,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.applytime)" >
+        APPLYTIME = #{record.applytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.verifyflag)" >
+        VERIFYFLAG = #{record.verifyflag,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.verifier)" >
+        VERIFIER = #{record.verifier,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.verifytime)" >
+        VERIFYTIME = #{record.verifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.verifyresult)" >
+        VERIFYRESULT = #{record.verifyresult,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.disabled)" >
+        DISABLED = #{record.disabled,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.note)" >
+        NOTE = #{record.note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.rebutreason)" >
+        REBUTREASON = #{record.rebutreason,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.context)" >
+        CONTEXT = #{record.context,jdbcType=CLOB},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update REPOSITORY_KNOWLEDGE_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      PATH = #{record.path,jdbcType=VARCHAR},
+      PID = #{record.pid,jdbcType=VARCHAR},
+      OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      CREATETIME = #{record.createtime,jdbcType=TIMESTAMP},
+      APPLYFLAG = #{record.applyflag,jdbcType=VARCHAR},
+      APPLYTIME = #{record.applytime,jdbcType=TIMESTAMP},
+      VERIFYFLAG = #{record.verifyflag,jdbcType=VARCHAR},
+      VERIFIER = #{record.verifier,jdbcType=VARCHAR},
+      VERIFYTIME = #{record.verifytime,jdbcType=TIMESTAMP},
+      VERIFYRESULT = #{record.verifyresult,jdbcType=VARCHAR},
+      DISABLED = #{record.disabled,jdbcType=VARCHAR},
+      NOTE = #{record.note,jdbcType=VARCHAR},
+      REBUTREASON = #{record.rebutreason,jdbcType=VARCHAR},
+      CONTEXT = #{record.context,jdbcType=CLOB}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update REPOSITORY_KNOWLEDGE_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      PATH = #{record.path,jdbcType=VARCHAR},
+      PID = #{record.pid,jdbcType=VARCHAR},
+      OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      CREATETIME = #{record.createtime,jdbcType=TIMESTAMP},
+      APPLYFLAG = #{record.applyflag,jdbcType=VARCHAR},
+      APPLYTIME = #{record.applytime,jdbcType=TIMESTAMP},
+      VERIFYFLAG = #{record.verifyflag,jdbcType=VARCHAR},
+      VERIFIER = #{record.verifier,jdbcType=VARCHAR},
+      VERIFYTIME = #{record.verifytime,jdbcType=TIMESTAMP},
+      VERIFYRESULT = #{record.verifyresult,jdbcType=VARCHAR},
+      DISABLED = #{record.disabled,jdbcType=VARCHAR},
+      NOTE = #{record.note,jdbcType=VARCHAR},
+      REBUTREASON = #{record.rebutreason,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.repository.domain.KnowledgeInfo" >
+    update REPOSITORY_KNOWLEDGE_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(type)" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(path)" >
+        PATH = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+        PID = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createtime)" >
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(applyflag)" >
+        APPLYFLAG = #{applyflag,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(applytime)" >
+        APPLYTIME = #{applytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(verifyflag)" >
+        VERIFYFLAG = #{verifyflag,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(verifier)" >
+        VERIFIER = #{verifier,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(verifytime)" >
+        VERIFYTIME = #{verifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(verifyresult)" >
+        VERIFYRESULT = #{verifyresult,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(disabled)" >
+        DISABLED = #{disabled,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(rebutreason)" >
+        REBUTREASON = #{rebutreason,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(context)" >
+        CONTEXT = #{context,jdbcType=CLOB},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xiangxun.atms.module.repository.domain.KnowledgeInfo" >
+    update REPOSITORY_KNOWLEDGE_INFO
+    set TYPE = #{type,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      PATH = #{path,jdbcType=VARCHAR},
+      PID = #{pid,jdbcType=VARCHAR},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      APPLYFLAG = #{applyflag,jdbcType=VARCHAR},
+      APPLYTIME = #{applytime,jdbcType=TIMESTAMP},
+      VERIFYFLAG = #{verifyflag,jdbcType=VARCHAR},
+      VERIFIER = #{verifier,jdbcType=VARCHAR},
+      VERIFYTIME = #{verifytime,jdbcType=TIMESTAMP},
+      VERIFYRESULT = #{verifyresult,jdbcType=VARCHAR},
+      DISABLED = #{disabled,jdbcType=VARCHAR},
+      NOTE = #{note,jdbcType=VARCHAR},
+      REBUTREASON = #{rebutreason,jdbcType=VARCHAR},
+      CONTEXT = #{context,jdbcType=CLOB}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.repository.domain.KnowledgeInfo" >
+    update REPOSITORY_KNOWLEDGE_INFO
+    set TYPE = #{type,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      PATH = #{path,jdbcType=VARCHAR},
+      PID = #{pid,jdbcType=VARCHAR},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      APPLYFLAG = #{applyflag,jdbcType=VARCHAR},
+      APPLYTIME = #{applytime,jdbcType=TIMESTAMP},
+      VERIFYFLAG = #{verifyflag,jdbcType=VARCHAR},
+      VERIFIER = #{verifier,jdbcType=VARCHAR},
+      VERIFYTIME = #{verifytime,jdbcType=TIMESTAMP},
+      VERIFYRESULT = #{verifyresult,jdbcType=VARCHAR},
+      DISABLED = #{disabled,jdbcType=VARCHAR},
+      NOTE = #{note,jdbcType=VARCHAR},
+      REBUTREASON = #{rebutreason,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from REPOSITORY_KNOWLEDGE_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+         and TYPE = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME LIKE '%${name}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(path)" >
+         and PATH = #{path,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+         and PID = #{pid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+         and OPERATOR = #{operator,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createtime)" >
+         and CREATETIME = #{createtime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(applyflag)" >
+         and APPLYFLAG = #{applyflag,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(applytime)" >
+         and APPLYTIME = #{applytime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(verifyflag)" >
+         and VERIFYFLAG = #{verifyflag,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(verifier)" >
+         and VERIFIER = #{verifier,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(verifytime)" >
+         and VERIFYTIME = #{verifytime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(verifyresult)" >
+         and VERIFYRESULT = #{verifyresult,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(disabled)" >
+         and DISABLED = #{disabled,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(rebutreason)" >
+         and REBUTREASON = #{rebutreason,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(context)" >
+         and CONTEXT = #{context,jdbcType=CLOB}
+      </if>
+    </where>
+    <if test="sortType != null" >
+       order by ${sortType} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from REPOSITORY_KNOWLEDGE_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+         and TYPE = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME LIKE '%${name}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(path)" >
+         and PATH = #{path,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+         and PID = #{pid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+         and OPERATOR = #{operator,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createtime)" >
+         and CREATETIME = #{createtime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(applyflag)" >
+         and APPLYFLAG = #{applyflag,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(applytime)" >
+         and APPLYTIME = #{applytime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(verifyflag)" >
+         and VERIFYFLAG = #{verifyflag,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(verifier)" >
+         and VERIFIER = #{verifier,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(verifytime)" >
+         and VERIFYTIME = #{verifytime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(verifyresult)" >
+         and VERIFYRESULT = #{verifyresult,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(disabled)" >
+         and DISABLED = #{disabled,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(rebutreason)" >
+         and REBUTREASON = #{rebutreason,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(context)" >
+         and CONTEXT = #{context,jdbcType=CLOB}
+      </if>
+    </where>
+    <if test="sortType != null" >
+       order by ${sortType} 
+    </if>
+  </select>
+  
+  <select id="selectKnowledgeByType" resultType="hashmap" parameterType="java.lang.String">
+	  select a.types as types,count(a.types) as counts from (select s.name as types from REPOSITORY_KNOWLEDGE_INFO t, REPOSITORY_CATALOG_INFO s where t.pid=s.id
+	  <if test="@Ognl@isNotEmpty(operator)" >
+         and t.OPERATOR = #{operator,jdbcType=VARCHAR}
+      </if>
+	  ) a group by a.types
+  </select>
+  <select id="selectKnowledgeByStatus" resultType="hashmap" parameterType="java.lang.String">
+  </select>
+</mapper>

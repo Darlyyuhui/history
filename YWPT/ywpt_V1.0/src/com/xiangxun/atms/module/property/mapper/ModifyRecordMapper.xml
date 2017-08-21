@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.property.mapper.ModifyRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.property.domain.ModifyRecord" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="MODIFY_ID" property="modifyId" jdbcType="VARCHAR" />
+    <result column="MODULE_NAME" property="moduleName" jdbcType="VARCHAR" />
+    <result column="MODIFY_TYPE" property="modifyType" jdbcType="VARCHAR" />
+    <result column="MODIFY_OPERATOR" property="modifyOperator" jdbcType="VARCHAR" />
+    <result column="MODIFY_DATETIME" property="modifyDatetime" jdbcType="TIMESTAMP" />
+    <result column="MODIFY_REASON" property="modifyReason" jdbcType="VARCHAR" />
+    <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="OPERATOR_TIME" property="operatorTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, MODIFY_ID, MODULE_NAME, MODIFY_TYPE, MODIFY_OPERATOR, MODIFY_DATETIME, MODIFY_REASON, 
+    VERSION, OPERATOR, OPERATOR_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.property.domain.ModifyRecordSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_MODIFY_RECORD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_MODIFY_RECORD
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_MODIFY_RECORD
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.property.domain.ModifyRecordSearch" >
+    delete from SYS_MODIFY_RECORD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.property.domain.ModifyRecord" >
+    insert into SYS_MODIFY_RECORD (ID, MODIFY_ID, MODULE_NAME, 
+      MODIFY_TYPE, MODIFY_OPERATOR, MODIFY_DATETIME, 
+      MODIFY_REASON, VERSION, OPERATOR, 
+      OPERATOR_TIME)
+    values (#{id,jdbcType=VARCHAR}, #{modifyId,jdbcType=VARCHAR}, #{moduleName,jdbcType=VARCHAR}, 
+      #{modifyType,jdbcType=VARCHAR}, #{modifyOperator,jdbcType=VARCHAR}, #{modifyDatetime,jdbcType=TIMESTAMP}, 
+      #{modifyReason,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
+      #{operatorTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.property.domain.ModifyRecord" >
+    insert into SYS_MODIFY_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(modifyId)" >
+        MODIFY_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(moduleName)" >
+        MODULE_NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(modifyType)" >
+        MODIFY_TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(modifyOperator)" >
+        MODIFY_OPERATOR,
+      </if>
+      <if test="@Ognl@isNotEmpty(modifyDatetime)" >
+        MODIFY_DATETIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(modifyReason)" >
+        MODIFY_REASON,
+      </if>
+      <if test="@Ognl@isNotEmpty(version)" >
+        VERSION,
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+        OPERATOR,
+      </if>
+      <if test="@Ognl@isNotEmpty(operatorTime)" >
+        OPERATOR_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(modifyId)" >
+        #{modifyId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(moduleName)" >
+        #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(modifyType)" >
+        #{modifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(modifyOperator)" >
+        #{modifyOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(modifyDatetime)" >
+        #{modifyDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(modifyReason)" >
+        #{modifyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(version)" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(operatorTime)" >
+        #{operatorTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.property.domain.ModifyRecordSearch" resultType="java.lang.Integer" >
+    select count(*) from SYS_MODIFY_RECORD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SYS_MODIFY_RECORD
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.modifyId)" >
+        MODIFY_ID = #{record.modifyId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.moduleName)" >
+        MODULE_NAME = #{record.moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.modifyType)" >
+        MODIFY_TYPE = #{record.modifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.modifyOperator)" >
+        MODIFY_OPERATOR = #{record.modifyOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.modifyDatetime)" >
+        MODIFY_DATETIME = #{record.modifyDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.modifyReason)" >
+        MODIFY_REASON = #{record.modifyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.version)" >
+        VERSION = #{record.version,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.operator)" >
+        OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.operatorTime)" >
+        OPERATOR_TIME = #{record.operatorTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SYS_MODIFY_RECORD
+    set ID = #{record.id,jdbcType=VARCHAR},
+      MODIFY_ID = #{record.modifyId,jdbcType=VARCHAR},
+      MODULE_NAME = #{record.moduleName,jdbcType=VARCHAR},
+      MODIFY_TYPE = #{record.modifyType,jdbcType=VARCHAR},
+      MODIFY_OPERATOR = #{record.modifyOperator,jdbcType=VARCHAR},
+      MODIFY_DATETIME = #{record.modifyDatetime,jdbcType=TIMESTAMP},
+      MODIFY_REASON = #{record.modifyReason,jdbcType=VARCHAR},
+      VERSION = #{record.version,jdbcType=VARCHAR},
+      OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      OPERATOR_TIME = #{record.operatorTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.property.domain.ModifyRecord" >
+    update SYS_MODIFY_RECORD
+    <set >
+      <if test="@Ognl@isNotEmpty(modifyId)" >
+        MODIFY_ID = #{modifyId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(moduleName)" >
+        MODULE_NAME = #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(modifyType)" >
+        MODIFY_TYPE = #{modifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(modifyOperator)" >
+        MODIFY_OPERATOR = #{modifyOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(modifyDatetime)" >
+        MODIFY_DATETIME = #{modifyDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(modifyReason)" >
+        MODIFY_REASON = #{modifyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(version)" >
+        VERSION = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(operatorTime)" >
+        OPERATOR_TIME = #{operatorTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.property.domain.ModifyRecord" >
+    update SYS_MODIFY_RECORD
+    set MODIFY_ID = #{modifyId,jdbcType=VARCHAR},
+      MODULE_NAME = #{moduleName,jdbcType=VARCHAR},
+      MODIFY_TYPE = #{modifyType,jdbcType=VARCHAR},
+      MODIFY_OPERATOR = #{modifyOperator,jdbcType=VARCHAR},
+      MODIFY_DATETIME = #{modifyDatetime,jdbcType=TIMESTAMP},
+      MODIFY_REASON = #{modifyReason,jdbcType=VARCHAR},
+      VERSION = #{version,jdbcType=VARCHAR},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      OPERATOR_TIME = #{operatorTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+   	<foreach collection="times" item="time" index="k" separator="union all" >
+   	   select 
+		 t.ID, MODIFY_ID, MODULE_NAME, MODIFY_TYPE, MODIFY_OPERATOR, MODIFY_DATETIME, MODIFY_REASON, 
+    	 VERSION, t.OPERATOR, OPERATOR_TIME
+       from SYS_MODIFY_RECORD t LEFT JOIN
+	     <if test="@Ognl@isTrue(time,1)">
+			 PROPERTY_DEVICE_INFO_HIS t1 ON t.MODIFY_ID = t1.ID
+		 </if>
+		 <if test="@Ognl@isTrue(time,2)">
+			 PROPERTY_VIDEO_INFO_HIS t2 ON t.MODIFY_ID = t2.ID
+		 </if>
+		 <if test="@Ognl@isTrue(time,3)">
+			 PROPERTY_SERVER_INFO_HIS t3 ON t.MODIFY_ID = t3.ID
+		 </if>
+	    <where >
+	      <if test="@Ognl@isNotEmpty(orgs)" >
+	         and ${orgs}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(id)" >
+	         and ID = #{id,jdbcType=VARCHAR}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(modifyId)" >
+	         and MODIFY_ID = #{modifyId,jdbcType=VARCHAR}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(moduleName)" >
+	         and MODULE_NAME LIKE '%${moduleName}%'
+	      </if>
+	      <if test="@Ognl@isNotEmpty(modifyType)" >
+	         and MODIFY_TYPE = #{modifyType,jdbcType=VARCHAR}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(modifyOperator)" >
+	         and MODIFY_OPERATOR LIKE '%${modifyOperator}%'
+	      </if>
+	      <if test="@Ognl@isNotEmpty(modifyDatetime)" >
+	         and MODIFY_DATETIME = #{modifyDatetime,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(modifyReason)" >
+	         and MODIFY_REASON = #{modifyReason,jdbcType=VARCHAR}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(version)" >
+	         and VERSION = #{version,jdbcType=VARCHAR}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(operator)" >
+	         and OPERATOR = #{operator,jdbcType=VARCHAR}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(operatorTime)" >
+	         and OPERATOR_TIME = #{operatorTime,jdbcType=TIMESTAMP}
+	      </if>
+	    </where>
+   	</foreach>
+    <if test="sortType != null" >
+       order by ${sortType} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+ 	select sum(counts) from (
+	<foreach collection="times" item="time" index="k" separator="union all" >
+		select count(*) as counts from SYS_MODIFY_RECORD t LEFT JOIN
+	     <if test="@Ognl@isTrue(time,1)">
+			 PROPERTY_DEVICE_INFO_HIS t1 ON t.MODIFY_ID = t1.ID
+		 </if>
+		 <if test="@Ognl@isTrue(time,2)">
+			 PROPERTY_VIDEO_INFO_HIS t2 ON t.MODIFY_ID = t2.ID
+		 </if>
+		 <if test="@Ognl@isTrue(time,3)">
+			 PROPERTY_SERVER_INFO_HIS t3 ON t.MODIFY_ID = t3.ID
+		 </if>
+	    <where >
+	      <if test="@Ognl@isNotEmpty(orgs)" >
+	         and ${orgs}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(id)" >
+	         and ID = #{id,jdbcType=VARCHAR}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(modifyId)" >
+	         and MODIFY_ID = #{modifyId,jdbcType=VARCHAR}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(moduleName)" >
+	         and MODULE_NAME LIKE '%${moduleName}%'
+	      </if>
+	      <if test="@Ognl@isNotEmpty(modifyType)" >
+	         and MODIFY_TYPE = #{modifyType,jdbcType=VARCHAR}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(modifyOperator)" >
+	         and MODIFY_OPERATOR LIKE '%${modifyOperator}%'
+	      </if>
+	      <if test="@Ognl@isNotEmpty(modifyDatetime)" >
+	         and MODIFY_DATETIME = #{modifyDatetime,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(modifyReason)" >
+	         and MODIFY_REASON = #{modifyReason,jdbcType=VARCHAR}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(version)" >
+	         and VERSION = #{version,jdbcType=VARCHAR}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(operator)" >
+	         and OPERATOR = #{operator,jdbcType=VARCHAR}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(operatorTime)" >
+	         and OPERATOR_TIME = #{operatorTime,jdbcType=TIMESTAMP}
+	      </if>
+	    </where>
+	</foreach>
+	)
+  </select>
+</mapper>

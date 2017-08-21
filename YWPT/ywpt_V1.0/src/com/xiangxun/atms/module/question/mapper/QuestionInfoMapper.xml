@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.question.mapper.QuestionInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.question.domain.QuestionInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="INSERT_TIME" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, OPERATOR, INSERT_TIME, CONTENT, TITLE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.question.domain.QuestionInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from QUESTION_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from QUESTION_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from QUESTION_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.question.domain.QuestionInfoSearch" >
+    delete from QUESTION_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.question.domain.QuestionInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into QUESTION_INFO (OPERATOR, INSERT_TIME, CONTENT, 
+      TITLE)
+    values (#{operator,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, #{content,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.question.domain.QuestionInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into QUESTION_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+        OPERATOR,
+      </if>
+      <if test="@Ognl@isNotEmpty(insertTime)" >
+        INSERT_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+        CONTENT,
+      </if>
+      <if test="@Ognl@isNotEmpty(title)" >
+        TITLE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(insertTime)" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(title)" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.question.domain.QuestionInfoSearch" resultType="java.lang.Integer" >
+    select count(*) from QUESTION_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update QUESTION_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.operator)" >
+        OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.insertTime)" >
+        INSERT_TIME = #{record.insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.content)" >
+        CONTENT = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.title)" >
+        TITLE = #{record.title,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update QUESTION_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      INSERT_TIME = #{record.insertTime,jdbcType=TIMESTAMP},
+      CONTENT = #{record.content,jdbcType=VARCHAR},
+      TITLE = #{record.title,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.question.domain.QuestionInfo" >
+    update QUESTION_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(operator)" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(insertTime)" >
+        INSERT_TIME = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(title)" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.question.domain.QuestionInfo" >
+    update QUESTION_INFO
+    set OPERATOR = #{operator,jdbcType=VARCHAR},
+      INSERT_TIME = #{insertTime,jdbcType=TIMESTAMP},
+      CONTENT = #{content,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from QUESTION_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+         and OPERATOR = #{operator,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(insertTime)" >
+         and INSERT_TIME = #{insertTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+         and CONTENT = #{content,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(title)" >
+         and TITLE = #{title,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from QUESTION_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+         and OPERATOR = #{operator,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(insertTime)" >
+         and INSERT_TIME = #{insertTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+         and CONTENT = #{content,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(title)" >
+         and TITLE = #{title,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  
+  <select id="selectList" resultMap="BaseResultMap" >
+    select 
+    	t.ID, t.OPERATOR, t.INSERT_TIME, t.CONTENT, t.TITLE
+    from QUESTION_INFO t 
+    left join sys_user t1 on t.operator = t1.id
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and t.ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+	     and t1.NAME LIKE '%${operator}%'
+	  </if>
+	  <if test="@Ognl@isNotEmpty(title)" >
+	     and t.TITLE LIKE '%${title}%'
+	  </if>
+	  <if test="@Ognl@isNotEmpty(beginDate)" >
+         <![CDATA[and t.INSERT_TIME >= to_date(#{beginDate},'yyyy-mm-dd hh24:mi:ss')]]>
+      </if>
+      <if test="@Ognl@isNotEmpty(endDate)" >
+         <![CDATA[and t.INSERT_TIME <= to_date(#{endDate},'yyyy-mm-dd hh24:mi:ss')]]>
+      </if>
+    </where>
+    order by t.INSERT_TIME desc
+  </select>
+  
+  <select id="selectTotal" resultType="java.lang.Integer" >
+    select count(*) from QUESTION_INFO t
+    left join sys_user t1 on t.operator = t1.id
+     <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and t.ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(operator)" >
+	     and t1.NAME LIKE '%${operator}%'
+	  </if>
+	  <if test="@Ognl@isNotEmpty(title)" >
+	     and t.TITLE LIKE '%${title}%'
+	  </if>
+	  <if test="@Ognl@isNotEmpty(beginDate)" >
+         <![CDATA[and t.INSERT_TIME >= to_date(#{beginDate},'yyyy-mm-dd hh24:mi:ss')]]>
+      </if>
+      <if test="@Ognl@isNotEmpty(endDate)" >
+         <![CDATA[and t.INSERT_TIME <= to_date(#{endDate},'yyyy-mm-dd hh24:mi:ss')]]>
+      </if>
+	  
+    </where>
+  </select>
+  
+  
+</mapper>

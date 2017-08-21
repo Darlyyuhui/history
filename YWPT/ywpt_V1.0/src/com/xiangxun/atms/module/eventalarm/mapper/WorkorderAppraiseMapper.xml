@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.eventalarm.mapper.WorkorderAppraiseMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.eventalarm.domain.WorkorderAppraise" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="WORKORDERID" property="workorderid" jdbcType="VARCHAR" />
+    <result column="CONTACTNAME" property="contactname" jdbcType="VARCHAR" />
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+    <result column="VIOLATERULE" property="violaterule" jdbcType="VARCHAR" />
+    <result column="DEDUCTSCORE" property="deductscore" jdbcType="DECIMAL" />
+    <result column="FINALSCORE" property="finalscore" jdbcType="DECIMAL" />
+    <result column="APPRAISER" property="appraiser" jdbcType="VARCHAR" />
+    <result column="APPRAISETIME" property="appraisetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, WORKORDERID, CONTACTNAME, TELEPHONE, VIOLATERULE, DEDUCTSCORE, FINALSCORE, APPRAISER, 
+    APPRAISETIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.eventalarm.domain.WorkorderAppraiseSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ALARM_WORKORDER_APPRAISE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ALARM_WORKORDER_APPRAISE
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ALARM_WORKORDER_APPRAISE
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.eventalarm.domain.WorkorderAppraiseSearch" >
+    delete from ALARM_WORKORDER_APPRAISE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.eventalarm.domain.WorkorderAppraise" >
+    insert into ALARM_WORKORDER_APPRAISE (ID, WORKORDERID, CONTACTNAME, 
+      TELEPHONE, VIOLATERULE, DEDUCTSCORE, 
+      FINALSCORE, APPRAISER, APPRAISETIME
+      )
+    values (#{id,jdbcType=VARCHAR}, #{workorderid,jdbcType=VARCHAR}, #{contactname,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{violaterule,jdbcType=VARCHAR}, #{deductscore,jdbcType=DECIMAL}, 
+      #{finalscore,jdbcType=DECIMAL}, #{appraiser,jdbcType=VARCHAR}, #{appraisetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.eventalarm.domain.WorkorderAppraise" >
+    insert into ALARM_WORKORDER_APPRAISE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(workorderid)" >
+        WORKORDERID,
+      </if>
+      <if test="@Ognl@isNotEmpty(contactname)" >
+        CONTACTNAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(telephone)" >
+        TELEPHONE,
+      </if>
+      <if test="@Ognl@isNotEmpty(violaterule)" >
+        VIOLATERULE,
+      </if>
+      <if test="@Ognl@isNotEmpty(deductscore)" >
+        DEDUCTSCORE,
+      </if>
+      <if test="@Ognl@isNotEmpty(finalscore)" >
+        FINALSCORE,
+      </if>
+      <if test="@Ognl@isNotEmpty(appraiser)" >
+        APPRAISER,
+      </if>
+      <if test="@Ognl@isNotEmpty(appraisetime)" >
+        APPRAISETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(workorderid)" >
+        #{workorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(contactname)" >
+        #{contactname,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(telephone)" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(violaterule)" >
+        #{violaterule,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deductscore)" >
+        #{deductscore,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(finalscore)" >
+        #{finalscore,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(appraiser)" >
+        #{appraiser,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(appraisetime)" >
+        #{appraisetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.eventalarm.domain.WorkorderAppraiseSearch" resultType="java.lang.Integer" >
+    select count(*) from ALARM_WORKORDER_APPRAISE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ALARM_WORKORDER_APPRAISE
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.workorderid)" >
+        WORKORDERID = #{record.workorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.contactname)" >
+        CONTACTNAME = #{record.contactname,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.telephone)" >
+        TELEPHONE = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.violaterule)" >
+        VIOLATERULE = #{record.violaterule,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.deductscore)" >
+        DEDUCTSCORE = #{record.deductscore,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.finalscore)" >
+        FINALSCORE = #{record.finalscore,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.appraiser)" >
+        APPRAISER = #{record.appraiser,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.appraisetime)" >
+        APPRAISETIME = #{record.appraisetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ALARM_WORKORDER_APPRAISE
+    set ID = #{record.id,jdbcType=VARCHAR},
+      WORKORDERID = #{record.workorderid,jdbcType=VARCHAR},
+      CONTACTNAME = #{record.contactname,jdbcType=VARCHAR},
+      TELEPHONE = #{record.telephone,jdbcType=VARCHAR},
+      VIOLATERULE = #{record.violaterule,jdbcType=VARCHAR},
+      DEDUCTSCORE = #{record.deductscore,jdbcType=DECIMAL},
+      FINALSCORE = #{record.finalscore,jdbcType=DECIMAL},
+      APPRAISER = #{record.appraiser,jdbcType=VARCHAR},
+      APPRAISETIME = #{record.appraisetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.eventalarm.domain.WorkorderAppraise" >
+    update ALARM_WORKORDER_APPRAISE
+    <set >
+      <if test="@Ognl@isNotEmpty(workorderid)" >
+        WORKORDERID = #{workorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(contactname)" >
+        CONTACTNAME = #{contactname,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(telephone)" >
+        TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(violaterule)" >
+        VIOLATERULE = #{violaterule,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deductscore)" >
+        DEDUCTSCORE = #{deductscore,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(finalscore)" >
+        FINALSCORE = #{finalscore,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(appraiser)" >
+        APPRAISER = #{appraiser,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(appraisetime)" >
+        APPRAISETIME = #{appraisetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.eventalarm.domain.WorkorderAppraise" >
+    update ALARM_WORKORDER_APPRAISE
+    set WORKORDERID = #{workorderid,jdbcType=VARCHAR},
+      CONTACTNAME = #{contactname,jdbcType=VARCHAR},
+      TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      VIOLATERULE = #{violaterule,jdbcType=VARCHAR},
+      DEDUCTSCORE = #{deductscore,jdbcType=DECIMAL},
+      FINALSCORE = #{finalscore,jdbcType=DECIMAL},
+      APPRAISER = #{appraiser,jdbcType=VARCHAR},
+      APPRAISETIME = #{appraisetime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from ALARM_WORKORDER_APPRAISE
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(workorderid)" >
+         and WORKORDERID = #{workorderid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(contactname)" >
+         and CONTACTNAME = #{contactname,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(telephone)" >
+         and TELEPHONE = #{telephone,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(violaterule)" >
+         and VIOLATERULE = #{violaterule,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deductscore)" >
+         and DEDUCTSCORE = #{deductscore,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(finalscore)" >
+         and FINALSCORE = #{finalscore,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(appraiser)" >
+         and APPRAISER = #{appraiser,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(appraisetime)" >
+         and APPRAISETIME = #{appraisetime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from ALARM_WORKORDER_APPRAISE
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(workorderid)" >
+         and WORKORDERID = #{workorderid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(contactname)" >
+         and CONTACTNAME = #{contactname,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(telephone)" >
+         and TELEPHONE = #{telephone,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(violaterule)" >
+         and VIOLATERULE = #{violaterule,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deductscore)" >
+         and DEDUCTSCORE = #{deductscore,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(finalscore)" >
+         and FINALSCORE = #{finalscore,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(appraiser)" >
+         and APPRAISER = #{appraiser,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(appraisetime)" >
+         and APPRAISETIME = #{appraisetime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+  <select id="findAvgFinalscore" resultType="java.lang.Integer" >
+    select avg(counts) as counts from (
+								    	select avg(awa.finalscore) as counts,awa.workorderid from ALARM_WORKORDER_APPRAISE awa,alarm_workorder_info awi,sergrade_factory_info sfi
+											where awa.workorderid = awi.id and awi.companyid = sfi.id and awi.companyid = #{id,jdbcType=VARCHAR} group by awa.workorderid
+										)
+  </select>
+</mapper>

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.repository.mapper.CatalogInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.repository.domain.CatalogInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PID" property="pid" jdbcType="VARCHAR" />
+    <result column="LEVELS" property="levels" jdbcType="DECIMAL" />
+    <result column="DISABLED" property="disabled" jdbcType="DECIMAL" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, NAME, PID, LEVELS, DISABLED, NOTE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.repository.domain.CatalogInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from REPOSITORY_CATALOG_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from REPOSITORY_CATALOG_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from REPOSITORY_CATALOG_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.repository.domain.CatalogInfoSearch" >
+    delete from REPOSITORY_CATALOG_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.repository.domain.CatalogInfo" >
+    insert into REPOSITORY_CATALOG_INFO (ID, NAME, PID, 
+      LEVELS, DISABLED, NOTE
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, 
+      #{levels,jdbcType=DECIMAL}, #{disabled,jdbcType=DECIMAL}, #{note,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.repository.domain.CatalogInfo" >
+    insert into REPOSITORY_CATALOG_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+        PID,
+      </if>
+      <if test="@Ognl@isNotEmpty(levels)" >
+        LEVELS,
+      </if>
+      <if test="@Ognl@isNotEmpty(disabled)" >
+        DISABLED,
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(levels)" >
+        #{levels,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(disabled)" >
+        #{disabled,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.repository.domain.CatalogInfoSearch" resultType="java.lang.Integer" >
+    select count(*) from REPOSITORY_CATALOG_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update REPOSITORY_CATALOG_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.pid)" >
+        PID = #{record.pid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.levels)" >
+        LEVELS = #{record.levels,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.disabled)" >
+        DISABLED = #{record.disabled,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.note)" >
+        NOTE = #{record.note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update REPOSITORY_CATALOG_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      PID = #{record.pid,jdbcType=VARCHAR},
+      LEVELS = #{record.levels,jdbcType=DECIMAL},
+      DISABLED = #{record.disabled,jdbcType=DECIMAL},
+      NOTE = #{record.note,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.repository.domain.CatalogInfo" >
+    update REPOSITORY_CATALOG_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+        PID = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(levels)" >
+        LEVELS = #{levels,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(disabled)" >
+        DISABLED = #{disabled,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.repository.domain.CatalogInfo" >
+    update REPOSITORY_CATALOG_INFO
+    set NAME = #{name,jdbcType=VARCHAR},
+      PID = #{pid,jdbcType=VARCHAR},
+      LEVELS = #{levels,jdbcType=DECIMAL},
+      DISABLED = #{disabled,jdbcType=DECIMAL},
+      NOTE = #{note,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from REPOSITORY_CATALOG_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+         and PID = #{pid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(levels)" >
+         and LEVELS = #{levels,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(disabled)" >
+         and DISABLED = #{disabled,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from REPOSITORY_CATALOG_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+         and PID = #{pid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(levels)" >
+         and LEVELS = #{levels,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(disabled)" >
+         and DISABLED = #{disabled,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  
+  <select id="getLeafNodeById" resultType="com.xiangxun.atms.module.repository.domain.CatalogInfo" parameterType="java.lang.String">
+  	 select  ID, PID, NAME , LEVELS from REPOSITORY_CATALOG_INFO where PID=#{pid} and DISABLED='0' order by NAME
+  </select>
+  
+  <select id="hasChild" resultType="java.lang.Integer" parameterType="java.lang.String">
+  	 select  count(id) from REPOSITORY_CATALOG_INFO where PID=#{pid} and DISABLED='0'
+  </select>
+</mapper>

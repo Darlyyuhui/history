@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.eventalarm.mapper.AlarmLogMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.eventalarm.domain.AlarmLog" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DEVICE_NAME" property="deviceName" jdbcType="VARCHAR" />
+    <result column="DEVICE_CODE" property="deviceCode" jdbcType="VARCHAR" />
+    <result column="DEVICE_IP" property="deviceIp" jdbcType="VARCHAR" />
+    <result column="DEVICE_TYPE" property="deviceType" jdbcType="VARCHAR" />
+    <result column="IS_OUTER" property="isOuter" jdbcType="VARCHAR" />
+    <result column="ALARM_TIME" property="alarmTime" jdbcType="TIMESTAMP" />
+    <result column="EVENT_TYPE" property="eventType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, DEVICE_NAME, DEVICE_CODE, DEVICE_IP, DEVICE_TYPE, IS_OUTER, ALARM_TIME, EVENT_TYPE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.eventalarm.domain.AlarmLogSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ALARM_DEVICE_LOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ALARM_DEVICE_LOG
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ALARM_DEVICE_LOG
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.eventalarm.domain.AlarmLogSearch" >
+    delete from ALARM_DEVICE_LOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.eventalarm.domain.AlarmLog" >
+    insert into ALARM_DEVICE_LOG (ID, DEVICE_NAME, DEVICE_CODE, 
+      DEVICE_IP, DEVICE_TYPE, IS_OUTER, 
+      ALARM_TIME, EVENT_TYPE)
+    values (#{id,jdbcType=VARCHAR}, #{deviceName,jdbcType=VARCHAR}, #{deviceCode,jdbcType=VARCHAR}, 
+      #{deviceIp,jdbcType=VARCHAR}, #{deviceType,jdbcType=VARCHAR}, #{isOuter,jdbcType=VARCHAR}, 
+      #{alarmTime,jdbcType=TIMESTAMP}, #{eventType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.eventalarm.domain.AlarmLog" >
+    insert into ALARM_DEVICE_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceName)" >
+        DEVICE_NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceCode)" >
+        DEVICE_CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceIp)" >
+        DEVICE_IP,
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceType)" >
+        DEVICE_TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(isOuter)" >
+        IS_OUTER,
+      </if>
+      <if test="@Ognl@isNotEmpty(alarmTime)" >
+        ALARM_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(eventType)" >
+        EVENT_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceName)" >
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceCode)" >
+        #{deviceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceIp)" >
+        #{deviceIp,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceType)" >
+        #{deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(isOuter)" >
+        #{isOuter,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(alarmTime)" >
+        #{alarmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(eventType)" >
+        #{eventType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.eventalarm.domain.AlarmLogSearch" resultType="java.lang.Integer" >
+    select count(*) from ALARM_DEVICE_LOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ALARM_DEVICE_LOG
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.deviceName)" >
+        DEVICE_NAME = #{record.deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.deviceCode)" >
+        DEVICE_CODE = #{record.deviceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.deviceIp)" >
+        DEVICE_IP = #{record.deviceIp,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.deviceType)" >
+        DEVICE_TYPE = #{record.deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.isOuter)" >
+        IS_OUTER = #{record.isOuter,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.alarmTime)" >
+        ALARM_TIME = #{record.alarmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.eventType)" >
+        EVENT_TYPE = #{record.eventType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ALARM_DEVICE_LOG
+    set ID = #{record.id,jdbcType=VARCHAR},
+      DEVICE_NAME = #{record.deviceName,jdbcType=VARCHAR},
+      DEVICE_CODE = #{record.deviceCode,jdbcType=VARCHAR},
+      DEVICE_IP = #{record.deviceIp,jdbcType=VARCHAR},
+      DEVICE_TYPE = #{record.deviceType,jdbcType=VARCHAR},
+      IS_OUTER = #{record.isOuter,jdbcType=VARCHAR},
+      ALARM_TIME = #{record.alarmTime,jdbcType=TIMESTAMP},
+      EVENT_TYPE = #{record.eventType,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.eventalarm.domain.AlarmLog" >
+    update ALARM_DEVICE_LOG
+    <set >
+      <if test="@Ognl@isNotEmpty(deviceName)" >
+        DEVICE_NAME = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceCode)" >
+        DEVICE_CODE = #{deviceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceIp)" >
+        DEVICE_IP = #{deviceIp,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceType)" >
+        DEVICE_TYPE = #{deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(isOuter)" >
+        IS_OUTER = #{isOuter,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(alarmTime)" >
+        ALARM_TIME = #{alarmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(eventType)" >
+        EVENT_TYPE = #{eventType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.eventalarm.domain.AlarmLog" >
+    update ALARM_DEVICE_LOG
+    set DEVICE_NAME = #{deviceName,jdbcType=VARCHAR},
+      DEVICE_CODE = #{deviceCode,jdbcType=VARCHAR},
+      DEVICE_IP = #{deviceIp,jdbcType=VARCHAR},
+      DEVICE_TYPE = #{deviceType,jdbcType=VARCHAR},
+      IS_OUTER = #{isOuter,jdbcType=VARCHAR},
+      ALARM_TIME = #{alarmTime,jdbcType=TIMESTAMP},
+      EVENT_TYPE = #{eventType,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    	t.ID, DEVICE_NAME, DEVICE_CODE, t.DEVICE_IP, DEVICE_TYPE, IS_OUTER, ALARM_TIME, EVENT_TYPE	
+     from ALARM_DEVICE_LOG t
+     <if test="@Ognl@isNotEmpty(orgs)" >
+		LEFT JOIN
+	    <if test="@Ognl@isTrue(deviceType,'device')">
+			 PROPERTY_DEVICE_INFO t1
+		</if>
+		<if test="@Ognl@isTrue(deviceType,'video')">
+			 PROPERTY_VIDEO_INFO t1
+		</if>
+		<if test="@Ognl@isTrue(deviceType,'server')">
+			 PROPERTY_SERVER_INFO t1
+		</if>
+	    ON t.DEVICE_CODE=t1.CODE
+	</if>
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceName)" >
+         and DEVICE_NAME LIKE '%${deviceName}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceCode)" >
+         and DEVICE_CODE LIKE '%${deviceCode}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceIp)" >
+         and DEVICE_IP = #{deviceIp,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceType)" >
+         and DEVICE_TYPE = #{deviceType,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(isOuter)" >
+         and IS_OUTER = #{isOuter,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(alarmTime)" >
+         and ALARM_TIME = #{alarmTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(startTime)" >
+        and to_char(ALARM_TIME,'yyyy-mm-dd') <![CDATA[>=]]> '${startTime}'
+      </if>
+      <if test="@Ognl@isNotEmpty(endTime)" >
+        and to_char(ALARM_TIME,'yyyy-mm-dd') <![CDATA[<=]]> '${endTime}'
+      </if>
+      <if test="@Ognl@isNotEmpty(eventType)" >
+         and EVENT_TYPE = #{eventType,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="sortType != null" >
+       order by ${sortType} 
+    </if>
+  </select>
+  
+  <!-- tianbo自己写的 -->
+  <select id="getListByConditionOne" resultType="hashmap" >
+select * from (
+					select t.DEVICE_NAME as name, t.DEVICE_CODE as code, t.DEVICE_IP as ip, t.DEVICE_TYPE as devicetype, max(ALARM_TIME) as time, EVENT_TYPE as eventtype, count(*) as count
+					from ALARM_DEVICE_LOG t
+					group by t.DEVICE_NAME,t.DEVICE_CODE,t.DEVICE_IP,t.DEVICE_TYPE,t.EVENT_TYPE order by time desc 
+				   ) 
+	where rownum <![CDATA[<=]]> '5'
+  </select>
+  
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from ALARM_DEVICE_LOG t
+    <if test="@Ognl@isNotEmpty(orgs)" >
+		LEFT JOIN
+	    <if test="@Ognl@isTrue(deviceType,'device')">
+			 PROPERTY_DEVICE_INFO t1
+		</if>
+		<if test="@Ognl@isTrue(deviceType,'video')">
+			 PROPERTY_VIDEO_INFO t1
+		</if>
+		<if test="@Ognl@isTrue(deviceType,'server')">
+			 PROPERTY_SERVER_INFO t1
+		</if>
+	    ON t.DEVICE_CODE=t1.CODE
+	</if>
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceName)" >
+         and DEVICE_NAME LIKE '%${deviceName}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceCode)" >
+         and DEVICE_CODE LIKE '%${deviceCode}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceIp)" >
+         and DEVICE_IP = #{deviceIp,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceType)" >
+         and DEVICE_TYPE = #{deviceType,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(isOuter)" >
+         and IS_OUTER = #{isOuter,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(alarmTime)" >
+         and ALARM_TIME = #{alarmTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(startTime)" >
+        and to_char(ALARM_TIME,'yyyy-mm-dd') <![CDATA[>=]]> '${startTime}'
+      </if>
+      <if test="@Ognl@isNotEmpty(endTime)" >
+        and to_char(ALARM_TIME,'yyyy-mm-dd') <![CDATA[<=]]> '${endTime}'
+      </if>
+      <if test="@Ognl@isNotEmpty(eventType)" >
+         and EVENT_TYPE = #{eventType,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="sortType != null" >
+       order by ${sortType} 
+    </if>
+  </select>
+  
+  <select id="selectAlarmtimesByType" resultType="hashmap" parameterType="java.lang.String">
+  	select t.event_type as eventtype, count(*) as alarmtimes from ALARM_DEVICE_LOG t group by t.event_type
+  </select>
+  
+  <select id="selectAlarmtimesByGrade" resultType="hashmap" parameterType="java.lang.String">
+  	select aeli.name as name, count(*) as alarmtimes 
+	from ALARM_DEVICE_LOG adl,alarm_eventtype_info aei,alarm_eventlevel_info aeli 
+	where adl.event_type = aei.code and aei.relation_level = aeli.id 
+	group by aeli.name
+  </select>
+  
+  <select id="getNewAlarm" resultMap="BaseResultMap" >
+   ${sql}
+  </select>
+  
+  
+  <delete id="deleteStatusByJob" >
+  delete from STATUS_DEVICE t where t.inserttime <![CDATA[ < ]]> to_date(TO_CHAR(SYSDATE,'yyyy-mm-dd'),'yyyy-mm-dd');
+  delete from STATUS_APP t where t.inserttime <![CDATA[ < ]]> to_date(TO_CHAR(SYSDATE,'yyyy-mm-dd'),'yyyy-mm-dd');
+  delete from STATUS_SERVER t where t.inserttime <![CDATA[ < ]]> to_date(TO_CHAR(SYSDATE,'yyyy-mm-dd'),'yyyy-mm-dd');
+  delete from STATUS_SERVER_PROCESS t where t.inserttime <![CDATA[ < ]]> to_date(TO_CHAR(SYSDATE,'yyyy-mm-dd'),'yyyy-mm-dd');
+  </delete>
+</mapper>

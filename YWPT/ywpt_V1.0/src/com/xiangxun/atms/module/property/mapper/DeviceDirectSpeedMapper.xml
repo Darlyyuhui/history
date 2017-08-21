@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.property.mapper.DeviceDirectSpeedMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.property.domain.DeviceDirectSpeed" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DEVICE_CODE" property="deviceCode" jdbcType="VARCHAR" />
+    <result column="DIRECTION_CODE" property="directionCode" jdbcType="VARCHAR" />
+    <result column="LANDTOTAL" property="landtotal" jdbcType="VARCHAR" />
+    <result column="CARLIMITSPEED" property="carlimitspeed" jdbcType="VARCHAR" />
+    <result column="CARLIMITSPEEDCATCH" property="carlimitspeedcatch" jdbcType="VARCHAR" />
+    <result column="BIGCARLIMITSPEED" property="bigcarlimitspeed" jdbcType="VARCHAR" />
+    <result column="BIGCARLIMITSPEEDCATCH" property="bigcarlimitspeedcatch" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, DEVICE_CODE, DIRECTION_CODE, LANDTOTAL, CARLIMITSPEED, CARLIMITSPEEDCATCH, BIGCARLIMITSPEED, 
+    BIGCARLIMITSPEEDCATCH
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.property.domain.DeviceDirectSpeedSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PROPERTY_DEVICE_DIRECT_SPEED
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from PROPERTY_DEVICE_DIRECT_SPEED
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from PROPERTY_DEVICE_DIRECT_SPEED
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.property.domain.DeviceDirectSpeedSearch" >
+    delete from PROPERTY_DEVICE_DIRECT_SPEED
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.property.domain.DeviceDirectSpeed" useGeneratedKeys="true" keyProperty="id" >
+    insert into PROPERTY_DEVICE_DIRECT_SPEED (ID,DEVICE_CODE, DIRECTION_CODE, LANDTOTAL, 
+      CARLIMITSPEED, CARLIMITSPEEDCATCH, BIGCARLIMITSPEED, 
+      BIGCARLIMITSPEEDCATCH)
+    values (#{id,jdbcType=VARCHAR},#{deviceCode,jdbcType=VARCHAR}, #{directionCode,jdbcType=VARCHAR}, #{landtotal,jdbcType=VARCHAR}, 
+      #{carlimitspeed,jdbcType=VARCHAR}, #{carlimitspeedcatch,jdbcType=VARCHAR}, #{bigcarlimitspeed,jdbcType=VARCHAR}, 
+      #{bigcarlimitspeedcatch,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.property.domain.DeviceDirectSpeed" useGeneratedKeys="true" keyProperty="id" >
+    insert into PROPERTY_DEVICE_DIRECT_SPEED
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="deviceCode != null" >
+        DEVICE_CODE,
+      </if>
+      <if test="directionCode != null" >
+        DIRECTION_CODE,
+      </if>
+      <if test="landtotal != null" >
+        LANDTOTAL,
+      </if>
+      <if test="carlimitspeed != null" >
+        CARLIMITSPEED,
+      </if>
+      <if test="carlimitspeedcatch != null" >
+        CARLIMITSPEEDCATCH,
+      </if>
+      <if test="bigcarlimitspeed != null" >
+        BIGCARLIMITSPEED,
+      </if>
+      <if test="bigcarlimitspeedcatch != null" >
+        BIGCARLIMITSPEEDCATCH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCode != null" >
+        #{deviceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="directionCode != null" >
+        #{directionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="landtotal != null" >
+        #{landtotal,jdbcType=VARCHAR},
+      </if>
+      <if test="carlimitspeed != null" >
+        #{carlimitspeed,jdbcType=VARCHAR},
+      </if>
+      <if test="carlimitspeedcatch != null" >
+        #{carlimitspeedcatch,jdbcType=VARCHAR},
+      </if>
+      <if test="bigcarlimitspeed != null" >
+        #{bigcarlimitspeed,jdbcType=VARCHAR},
+      </if>
+      <if test="bigcarlimitspeedcatch != null" >
+        #{bigcarlimitspeedcatch,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.property.domain.DeviceDirectSpeedSearch" resultType="java.lang.Integer" >
+    select count(*) from PROPERTY_DEVICE_DIRECT_SPEED
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PROPERTY_DEVICE_DIRECT_SPEED
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceCode != null" >
+        DEVICE_CODE = #{record.deviceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.directionCode != null" >
+        DIRECTION_CODE = #{record.directionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.landtotal != null" >
+        LANDTOTAL = #{record.landtotal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carlimitspeed != null" >
+        CARLIMITSPEED = #{record.carlimitspeed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carlimitspeedcatch != null" >
+        CARLIMITSPEEDCATCH = #{record.carlimitspeedcatch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigcarlimitspeed != null" >
+        BIGCARLIMITSPEED = #{record.bigcarlimitspeed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigcarlimitspeedcatch != null" >
+        BIGCARLIMITSPEEDCATCH = #{record.bigcarlimitspeedcatch,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PROPERTY_DEVICE_DIRECT_SPEED
+    set ID = #{record.id,jdbcType=VARCHAR},
+      DEVICE_CODE = #{record.deviceCode,jdbcType=VARCHAR},
+      DIRECTION_CODE = #{record.directionCode,jdbcType=VARCHAR},
+      LANDTOTAL = #{record.landtotal,jdbcType=VARCHAR},
+      CARLIMITSPEED = #{record.carlimitspeed,jdbcType=VARCHAR},
+      CARLIMITSPEEDCATCH = #{record.carlimitspeedcatch,jdbcType=VARCHAR},
+      BIGCARLIMITSPEED = #{record.bigcarlimitspeed,jdbcType=VARCHAR},
+      BIGCARLIMITSPEEDCATCH = #{record.bigcarlimitspeedcatch,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.property.domain.DeviceDirectSpeed" >
+    update PROPERTY_DEVICE_DIRECT_SPEED
+    <set >
+      <if test="deviceCode != null" >
+        DEVICE_CODE = #{deviceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="directionCode != null" >
+        DIRECTION_CODE = #{directionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="landtotal != null" >
+        LANDTOTAL = #{landtotal,jdbcType=VARCHAR},
+      </if>
+      <if test="carlimitspeed != null" >
+        CARLIMITSPEED = #{carlimitspeed,jdbcType=VARCHAR},
+      </if>
+      <if test="carlimitspeedcatch != null" >
+        CARLIMITSPEEDCATCH = #{carlimitspeedcatch,jdbcType=VARCHAR},
+      </if>
+      <if test="bigcarlimitspeed != null" >
+        BIGCARLIMITSPEED = #{bigcarlimitspeed,jdbcType=VARCHAR},
+      </if>
+      <if test="bigcarlimitspeedcatch != null" >
+        BIGCARLIMITSPEEDCATCH = #{bigcarlimitspeedcatch,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.property.domain.DeviceDirectSpeed" >
+    update PROPERTY_DEVICE_DIRECT_SPEED
+    set DEVICE_CODE = #{deviceCode,jdbcType=VARCHAR},
+      DIRECTION_CODE = #{directionCode,jdbcType=VARCHAR},
+      LANDTOTAL = #{landtotal,jdbcType=VARCHAR},
+      CARLIMITSPEED = #{carlimitspeed,jdbcType=VARCHAR},
+      CARLIMITSPEEDCATCH = #{carlimitspeedcatch,jdbcType=VARCHAR},
+      BIGCARLIMITSPEED = #{bigcarlimitspeed,jdbcType=VARCHAR},
+      BIGCARLIMITSPEEDCATCH = #{bigcarlimitspeedcatch,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getDeviceDirectSpeedByDeviceCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List" /> 
+    from PROPERTY_DEVICE_DIRECT_SPEED t where t.DEVICE_CODE = #{deviceCode}
+  </select>
+  
+  <delete id="deleteByDeviceCode" parameterType="java.lang.String" >
+    delete from PROPERTY_DEVICE_DIRECT_SPEED
+    where DEVICE_CODE = #{deviceCode,jdbcType=VARCHAR}
+  </delete>
+
+</mapper>

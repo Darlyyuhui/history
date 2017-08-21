@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.sergrade.mapper.SergradeCountMapper">
+	<!-- 获取服务商下的责任资产数量 -->
+	<sql id="getSergrade">
+		select 
+		  a.factoryName as factoryName,
+		  sum(a.a1) as a1,
+		  sum(a.a2) as a2,
+		  sum(a.a3) as a3,
+		  sum(a.a4) as a4,
+		  sum(a.a5) as a5,
+		  sum(a.a6) as a6
+		from (
+		  
+		    select 
+		      b.factoryName,
+		      NVL ((CASE b.type WHEN 'device' THEN b.counts END),0) a1,
+		      NVL ((CASE b.type WHEN 'server' THEN b.counts END),0) a2,              
+		      NVL ((CASE b.type WHEN 'database' THEN b.counts END),0) a3,              
+		      NVL ((CASE b.type WHEN 'ftp' THEN b.counts END),0) a4,              
+		      NVL ((CASE b.type WHEN 'project' THEN b.counts END),0) a5,
+		      NVL ((CASE b.type WHEN 'cabinet' THEN b.counts END),0) a6              
+		
+		    from (    
+		          select 
+		            count(distinct t.deviceid) as counts, 'device' as type, t2.name as factoryName 
+		          from sergrade_factory_contact t
+		          left join sergrade_contact_info t1 on t.contactid = t1.id
+		          left join sergrade_factory_info t2 on t1.factoryid = t2.id
+		          inner join property_device_info t4 on t.deviceid = t4.id
+		          <where >
+	      			  <if test="@Ognl@isNotEmpty(factoryName)" >
+			          	and t2.name like '%${factoryName}%'
+	      			  </if>  
+		          </where>
+		          group by t2.name
+		
+		          union all
+		           select 
+		            count(distinct t.deviceid) as counts, 'cabinet' as type, t2.name as factoryName 
+		          from sergrade_factory_contact t
+		          left join sergrade_contact_info t1 on t.contactid = t1.id
+		          left join sergrade_factory_info t2 on t1.factoryid = t2.id
+		          inner join property_icabinet_info t4 on t.deviceid = t4.id
+		          <where >
+	      			  <if test="@Ognl@isNotEmpty(factoryName)" >
+			          	and t2.name like '%${factoryName}%'
+	      			  </if>  
+		          </where>
+		          group by t2.name
+		          
+		          union all
+		          
+		          select 
+		            count(distinct t.deviceid) as counts, 'server' as type, t2.name as factoryName 
+		          from sergrade_factory_contact t
+		          left join sergrade_contact_info t1 on t.contactid = t1.id
+		          left join sergrade_factory_info t2 on t1.factoryid = t2.id
+		          inner join property_server_info t4 on t.deviceid = t4.id
+		          <where >
+	      			  <if test="@Ognl@isNotEmpty(factoryName)" >
+			          	and t2.name like '%${factoryName}%'
+	      			  </if>  
+		          </where>
+		          group by t2.name
+		          
+		          union all
+		
+		          select 
+		            count(distinct t.deviceid) as counts, 'database' as type, t2.name as factoryName 
+		          from sergrade_factory_contact t
+		          left join sergrade_contact_info t1 on t.contactid = t1.id
+		          left join sergrade_factory_info t2 on t1.factoryid = t2.id
+		          inner join property_database_info t4 on t.deviceid = t4.id
+		          <where >
+	      			  <if test="@Ognl@isNotEmpty(factoryName)" >
+			          	and t2.name like '%${factoryName}%'
+	      			  </if>  
+		          </where>
+		          group by t2.name
+		          
+		          union all
+		
+		          select 
+		            count(distinct t.deviceid) as counts, 'ftp' as type, t2.name as factoryName 
+		          from sergrade_factory_contact t
+		          left join sergrade_contact_info t1 on t.contactid = t1.id
+		          left join sergrade_factory_info t2 on t1.factoryid = t2.id
+		          inner join property_ftp_info t4 on t.deviceid = t4.id
+		          <where >
+	      			  <if test="@Ognl@isNotEmpty(factoryName)" >
+			          	and t2.name like '%${factoryName}%'
+	      			  </if>  
+		          </where>
+		          group by t2.name
+		          
+		          union all
+		
+		          select 
+		            count(distinct t.deviceid) as counts, 'project' as type, t2.name as factoryName 
+		          from sergrade_factory_contact t
+		          left join sergrade_contact_info t1 on t.contactid = t1.id
+		          left join sergrade_factory_info t2 on t1.factoryid = t2.id
+		          inner join property_project_info t4 on t.deviceid = t4.id
+		          <where >
+	      			  <if test="@Ognl@isNotEmpty(factoryName)" >
+			          	and t2.name like '%${factoryName}%'
+	      			  </if>  
+		          </where>
+		          group by t2.name
+		    ) b
+		) a
+		group by factoryName
+		order by factoryName
+	</sql>
+	
+	<!-- 获取按天、周、月、时间段 统计厂商故障数 柱状图-->
+	<sql id="getChartSergrade">
+		select 
+		  a.factoryName as factoryName,
+		  sum(a.a1) as a1,
+		  sum(a.a2) as a2,
+		  sum(a.a3) as a3,
+		  sum(a.a4) as a4,
+		  sum(a.a5) as a5,
+		   sum(a.a6) as a6
+		from (
+		  
+		    select 
+		      b.factoryName,
+		      NVL ((CASE b.type WHEN 'device' THEN b.counts END),0) a1,		      
+		      NVL ((CASE b.type WHEN 'server' THEN b.counts END),0) a2,              
+		      NVL ((CASE b.type WHEN 'database' THEN b.counts END),0) a3,              
+		      NVL ((CASE b.type WHEN 'ftp' THEN b.counts END),0) a4,
+		      NVL ((CASE b.type WHEN 'project' THEN b.counts END),0) a5,
+		      NVL ((CASE b.type WHEN 'cabinet' THEN b.counts END),0) a6         
+		
+		    from (    
+		          select 
+		            count(distinct t.deviceid) as counts, 'device' as type, t2.name as factoryName 
+		          from sergrade_factory_contact t
+		          left join sergrade_contact_info t1 on t.contactid = t1.id
+		          left join sergrade_factory_info t2 on t1.factoryid = t2.id
+		          inner join property_device_info t4 on t.deviceid = t4.id
+		          <where >
+	      			  <if test="@Ognl@isNotEmpty(factoryName)" >
+			          	and t2.name like '%${factoryName}%'
+	      			  </if>  
+		          </where>
+		          group by t2.name
+		
+		          union all
+		
+		          select 
+		            count(distinct t.deviceid) as counts, 'server' as type, t2.name as factoryName 
+		          from sergrade_factory_contact t
+		          left join sergrade_contact_info t1 on t.contactid = t1.id
+		          left join sergrade_factory_info t2 on t1.factoryid = t2.id
+		          inner join property_server_info t4 on t.deviceid = t4.id
+		          <where >
+	      			  <if test="@Ognl@isNotEmpty(factoryName)" >
+			          	and t2.name like '%${factoryName}%'
+	      			  </if>  
+		          </where>
+		          group by t2.name
+		          
+		          union all
+		
+		          select 
+		            count(distinct t.deviceid) as counts, 'database' as type, t2.name as factoryName 
+		          from sergrade_factory_contact t
+		          left join sergrade_contact_info t1 on t.contactid = t1.id
+		          left join sergrade_factory_info t2 on t1.factoryid = t2.id
+		          inner join property_database_info t4 on t.deviceid = t4.id
+		          <where >
+	      			  <if test="@Ognl@isNotEmpty(factoryName)" >
+			          	and t2.name like '%${factoryName}%'
+	      			  </if>  
+		          </where>
+		          group by t2.name
+		          
+		          union all
+		
+		          select 
+		            count(distinct t.deviceid) as counts, 'ftp' as type, t2.name as factoryName 
+		          from sergrade_factory_contact t
+		          left join sergrade_contact_info t1 on t.contactid = t1.id
+		          left join sergrade_factory_info t2 on t1.factoryid = t2.id
+		          inner join property_ftp_info t4 on t.deviceid = t4.id
+		          <where >
+	      			  <if test="@Ognl@isNotEmpty(factoryName)" >
+			          	and t2.name like '%${factoryName}%'
+	      			  </if>  
+		          </where>
+		          group by t2.name
+		          
+		          union all
+		
+		          select 
+		            count(distinct t.deviceid) as counts, 'project' as type, t2.name as factoryName 
+		          from sergrade_factory_contact t
+		          left join sergrade_contact_info t1 on t.contactid = t1.id
+		          left join sergrade_factory_info t2 on t1.factoryid = t2.id
+		          inner join property_project_info t4 on t.deviceid = t4.id
+		          <where >
+	      			  <if test="@Ognl@isNotEmpty(factoryName)" >
+			          	and t2.name like '%${factoryName}%'
+	      			  </if>  
+		          </where>
+		          group by t2.name
+		          
+		           union all
+		
+		          select 
+		            count(distinct t.deviceid) as counts, 'cabinet' as type, t2.name as factoryName 
+		          from sergrade_factory_contact t
+		          left join sergrade_contact_info t1 on t.contactid = t1.id
+		          left join sergrade_factory_info t2 on t1.factoryid = t2.id
+		          inner join property_icabinet_info t4 on t.deviceid = t4.id
+		          <where >
+	      			  <if test="@Ognl@isNotEmpty(factoryName)" >
+			          	and t2.name like '%${factoryName}%'
+	      			  </if>  
+		          </where>
+		          group by t2.name
+		    ) b
+		) a
+		group by factoryName
+		order by factoryName
+	</sql>
+	
+	
+	<!-- 获取服务商下运维人员的责任资产数量 -->	        
+	<select id="selectSergrade" resultType="map">
+		<include refid="getSergrade"/>
+	</select>
+	
+	<!-- 获取服务商下运维人员的责任资产数量  柱状图-->
+	<select id="selectChart" resultType="map">
+		<include refid="getChartSergrade"/>
+	</select>
+	
+	<!-- 获取服务商下运维人员的责任资产数量  合计栏数据-->
+	<select id="selectTotals" resultType="map">
+		select 
+		 	sum(a1) as a1,
+		 	sum(a2) as a2,
+		 	sum(a3) as a3,
+		 	sum(a4) as a4,
+		 	sum(a5) as a5,
+		 	sum(a6) as a6
+		from(
+			<include refid="getSergrade"/>
+		)g
+	</select>
+	
+	<!-- 获取按天、周、月、时间段 故障类型 统计故障数量 记录总数-->
+	<select id="selectTotalSergrade" resultType="java.lang.Integer">
+		select count(*) from (
+			<include refid="getSergrade"/>
+		)g
+	</select>
+	
+</mapper>

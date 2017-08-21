@@ -1,0 +1,1001 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.property.mapper.VideoInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.property.domain.VideoInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DIRECTION_CODE" property="directionCode" jdbcType="VARCHAR" />
+    <result column="VIDEOTYPE_CODE" property="videotypeCode" jdbcType="VARCHAR" />
+    <result column="ISCLOUD" property="iscloud" jdbcType="VARCHAR" />
+    <result column="ROADINFO_ID" property="roadinfoId" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="PORT" property="port" jdbcType="VARCHAR" />
+    <result column="TRACODE" property="tracode" jdbcType="VARCHAR" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="IPHIS" property="iphis" jdbcType="VARCHAR" />
+    <result column="PORTHIS" property="porthis" jdbcType="VARCHAR" />
+    <result column="TRACODEHIS" property="tracodehis" jdbcType="VARCHAR" />
+    <result column="USERNAMEHIS" property="usernamehis" jdbcType="VARCHAR" />
+    <result column="PASSWORDHIS" property="passwordhis" jdbcType="VARCHAR" />
+    <result column="COMPANYID" property="companyid" jdbcType="VARCHAR" />
+    <result column="PHOTO1" property="photo1" jdbcType="VARCHAR" />
+    <result column="PHOTO2" property="photo2" jdbcType="VARCHAR" />
+    <result column="PHOTO3" property="photo3" jdbcType="VARCHAR" />
+    <result column="USETEMPLATE" property="usetemplate" jdbcType="VARCHAR" />
+    <result column="REALVIDEOADDRESSID" property="realvideoaddressid" jdbcType="VARCHAR" />
+    <result column="HISVIDEOADDRESSID" property="hisvideoaddressid" jdbcType="VARCHAR" />
+    <result column="MAPX" property="mapx" jdbcType="VARCHAR" />
+    <result column="MAPY" property="mapy" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="DEVICE_IP" property="deviceIp" jdbcType="VARCHAR" />
+    <result column="DEVICE_USERNAME" property="deviceUsername" jdbcType="VARCHAR" />
+    <result column="DEVICE_PASSWORD" property="devicePassword" jdbcType="VARCHAR" />
+    <result column="DEVICE_PORT" property="devicePort" jdbcType="VARCHAR" />
+    <result column="DEVICE_SHAPE" property="deviceShape" jdbcType="VARCHAR" />
+    <result column="INSERTTIME" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="FACTORY_ID" property="factoryId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, DIRECTION_CODE, VIDEOTYPE_CODE, ISCLOUD, ROADINFO_ID, NAME, ORG_ID, IP, PORT, 
+    TRACODE, USERNAME, PASSWORD, IPHIS, PORTHIS, TRACODEHIS, USERNAMEHIS, PASSWORDHIS, 
+    COMPANYID, PHOTO1, PHOTO2, PHOTO3, USETEMPLATE, REALVIDEOADDRESSID, HISVIDEOADDRESSID, 
+    MAPX, MAPY, CODE, DEVICE_IP, DEVICE_USERNAME, DEVICE_PASSWORD, DEVICE_PORT, DEVICE_SHAPE, 
+    INSERTTIME, NOTE, STATUS, FACTORY_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.property.domain.VideoInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PROPERTY_VIDEO_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from PROPERTY_VIDEO_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from PROPERTY_VIDEO_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.property.domain.VideoInfoSearch" >
+    delete from PROPERTY_VIDEO_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.property.domain.VideoInfo" >
+    insert into PROPERTY_VIDEO_INFO (ID, DIRECTION_CODE, VIDEOTYPE_CODE, 
+      ISCLOUD, ROADINFO_ID, NAME, 
+      ORG_ID, IP, PORT, TRACODE, 
+      USERNAME, PASSWORD, IPHIS, 
+      PORTHIS, TRACODEHIS, USERNAMEHIS, 
+      PASSWORDHIS, COMPANYID, PHOTO1, 
+      PHOTO2, PHOTO3, USETEMPLATE, 
+      REALVIDEOADDRESSID, HISVIDEOADDRESSID, 
+      MAPX, MAPY, CODE, DEVICE_IP, 
+      DEVICE_USERNAME, DEVICE_PASSWORD, DEVICE_PORT, 
+      DEVICE_SHAPE, INSERTTIME, NOTE, 
+      STATUS, FACTORY_ID)
+    values (#{id,jdbcType=VARCHAR}, #{directionCode,jdbcType=VARCHAR}, #{videotypeCode,jdbcType=VARCHAR}, 
+      #{iscloud,jdbcType=VARCHAR}, #{roadinfoId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{orgId,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{port,jdbcType=VARCHAR}, #{tracode,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{iphis,jdbcType=VARCHAR}, 
+      #{porthis,jdbcType=VARCHAR}, #{tracodehis,jdbcType=VARCHAR}, #{usernamehis,jdbcType=VARCHAR}, 
+      #{passwordhis,jdbcType=VARCHAR}, #{companyid,jdbcType=VARCHAR}, #{photo1,jdbcType=VARCHAR}, 
+      #{photo2,jdbcType=VARCHAR}, #{photo3,jdbcType=VARCHAR}, #{usetemplate,jdbcType=VARCHAR}, 
+      #{realvideoaddressid,jdbcType=VARCHAR}, #{hisvideoaddressid,jdbcType=VARCHAR}, 
+      #{mapx,jdbcType=VARCHAR}, #{mapy,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{deviceIp,jdbcType=VARCHAR}, 
+      #{deviceUsername,jdbcType=VARCHAR}, #{devicePassword,jdbcType=VARCHAR}, #{devicePort,jdbcType=VARCHAR}, 
+      #{deviceShape,jdbcType=VARCHAR}, #{inserttime,jdbcType=TIMESTAMP}, #{note,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{factoryId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.property.domain.VideoInfo" >
+    insert into PROPERTY_VIDEO_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(directionCode)" >
+        DIRECTION_CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(videotypeCode)" >
+        VIDEOTYPE_CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(iscloud)" >
+        ISCLOUD,
+      </if>
+      <if test="@Ognl@isNotEmpty(roadinfoId)" >
+        ROADINFO_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(orgId)" >
+        ORG_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        IP,
+      </if>
+      <if test="@Ognl@isNotEmpty(port)" >
+        PORT,
+      </if>
+      <if test="@Ognl@isNotEmpty(tracode)" >
+        TRACODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(username)" >
+        USERNAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(password)" >
+        PASSWORD,
+      </if>
+      <if test="@Ognl@isNotEmpty(iphis)" >
+        IPHIS,
+      </if>
+      <if test="@Ognl@isNotEmpty(porthis)" >
+        PORTHIS,
+      </if>
+      <if test="@Ognl@isNotEmpty(tracodehis)" >
+        TRACODEHIS,
+      </if>
+      <if test="@Ognl@isNotEmpty(usernamehis)" >
+        USERNAMEHIS,
+      </if>
+      <if test="@Ognl@isNotEmpty(passwordhis)" >
+        PASSWORDHIS,
+      </if>
+      <if test="@Ognl@isNotEmpty(companyid)" >
+        COMPANYID,
+      </if>
+      <if test="@Ognl@isNotEmpty(photo1)" >
+        PHOTO1,
+      </if>
+      <if test="@Ognl@isNotEmpty(photo2)" >
+        PHOTO2,
+      </if>
+      <if test="@Ognl@isNotEmpty(photo3)" >
+        PHOTO3,
+      </if>
+      <if test="@Ognl@isNotEmpty(usetemplate)" >
+        USETEMPLATE,
+      </if>
+      <if test="@Ognl@isNotEmpty(realvideoaddressid)" >
+        REALVIDEOADDRESSID,
+      </if>
+      <if test="@Ognl@isNotEmpty(hisvideoaddressid)" >
+        HISVIDEOADDRESSID,
+      </if>
+      <if test="@Ognl@isNotEmpty(mapx)" >
+        MAPX,
+      </if>
+      <if test="@Ognl@isNotEmpty(mapy)" >
+        MAPY,
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceIp)" >
+        DEVICE_IP,
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceUsername)" >
+        DEVICE_USERNAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(devicePassword)" >
+        DEVICE_PASSWORD,
+      </if>
+      <if test="@Ognl@isNotEmpty(devicePort)" >
+        DEVICE_PORT,
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceShape)" >
+        DEVICE_SHAPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        INSERTTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE,
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+        FACTORY_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(directionCode)" >
+        #{directionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(videotypeCode)" >
+        #{videotypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(iscloud)" >
+        #{iscloud,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(roadinfoId)" >
+        #{roadinfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(orgId)" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(port)" >
+        #{port,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(tracode)" >
+        #{tracode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(username)" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(password)" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(iphis)" >
+        #{iphis,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(porthis)" >
+        #{porthis,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(tracodehis)" >
+        #{tracodehis,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(usernamehis)" >
+        #{usernamehis,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(passwordhis)" >
+        #{passwordhis,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(companyid)" >
+        #{companyid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(photo1)" >
+        #{photo1,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(photo2)" >
+        #{photo2,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(photo3)" >
+        #{photo3,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(usetemplate)" >
+        #{usetemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(realvideoaddressid)" >
+        #{realvideoaddressid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(hisvideoaddressid)" >
+        #{hisvideoaddressid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(mapx)" >
+        #{mapx,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(mapy)" >
+        #{mapy,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceIp)" >
+        #{deviceIp,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceUsername)" >
+        #{deviceUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicePassword)" >
+        #{devicePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicePort)" >
+        #{devicePort,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceShape)" >
+        #{deviceShape,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+        #{factoryId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.property.domain.VideoInfoSearch" resultType="java.lang.Integer" >
+    select count(*) from PROPERTY_VIDEO_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PROPERTY_VIDEO_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.directionCode)" >
+        DIRECTION_CODE = #{record.directionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.videotypeCode)" >
+        VIDEOTYPE_CODE = #{record.videotypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.iscloud)" >
+        ISCLOUD = #{record.iscloud,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.roadinfoId)" >
+        ROADINFO_ID = #{record.roadinfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.orgId)" >
+        ORG_ID = #{record.orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.ip)" >
+        IP = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.port)" >
+        PORT = #{record.port,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.tracode)" >
+        TRACODE = #{record.tracode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.username)" >
+        USERNAME = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.password)" >
+        PASSWORD = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.iphis)" >
+        IPHIS = #{record.iphis,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.porthis)" >
+        PORTHIS = #{record.porthis,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.tracodehis)" >
+        TRACODEHIS = #{record.tracodehis,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.usernamehis)" >
+        USERNAMEHIS = #{record.usernamehis,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.passwordhis)" >
+        PASSWORDHIS = #{record.passwordhis,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.companyid)" >
+        COMPANYID = #{record.companyid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.photo1)" >
+        PHOTO1 = #{record.photo1,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.photo2)" >
+        PHOTO2 = #{record.photo2,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.photo3)" >
+        PHOTO3 = #{record.photo3,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.usetemplate)" >
+        USETEMPLATE = #{record.usetemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.realvideoaddressid)" >
+        REALVIDEOADDRESSID = #{record.realvideoaddressid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.hisvideoaddressid)" >
+        HISVIDEOADDRESSID = #{record.hisvideoaddressid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.mapx)" >
+        MAPX = #{record.mapx,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.mapy)" >
+        MAPY = #{record.mapy,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.code)" >
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.deviceIp)" >
+        DEVICE_IP = #{record.deviceIp,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.deviceUsername)" >
+        DEVICE_USERNAME = #{record.deviceUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.devicePassword)" >
+        DEVICE_PASSWORD = #{record.devicePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.devicePort)" >
+        DEVICE_PORT = #{record.devicePort,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.deviceShape)" >
+        DEVICE_SHAPE = #{record.deviceShape,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.inserttime)" >
+        INSERTTIME = #{record.inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.note)" >
+        NOTE = #{record.note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.status)" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.factoryId)" >
+        FACTORY_ID = #{record.factoryId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PROPERTY_VIDEO_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      DIRECTION_CODE = #{record.directionCode,jdbcType=VARCHAR},
+      VIDEOTYPE_CODE = #{record.videotypeCode,jdbcType=VARCHAR},
+      ISCLOUD = #{record.iscloud,jdbcType=VARCHAR},
+      ROADINFO_ID = #{record.roadinfoId,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      ORG_ID = #{record.orgId,jdbcType=VARCHAR},
+      IP = #{record.ip,jdbcType=VARCHAR},
+      PORT = #{record.port,jdbcType=VARCHAR},
+      TRACODE = #{record.tracode,jdbcType=VARCHAR},
+      USERNAME = #{record.username,jdbcType=VARCHAR},
+      PASSWORD = #{record.password,jdbcType=VARCHAR},
+      IPHIS = #{record.iphis,jdbcType=VARCHAR},
+      PORTHIS = #{record.porthis,jdbcType=VARCHAR},
+      TRACODEHIS = #{record.tracodehis,jdbcType=VARCHAR},
+      USERNAMEHIS = #{record.usernamehis,jdbcType=VARCHAR},
+      PASSWORDHIS = #{record.passwordhis,jdbcType=VARCHAR},
+      COMPANYID = #{record.companyid,jdbcType=VARCHAR},
+      PHOTO1 = #{record.photo1,jdbcType=VARCHAR},
+      PHOTO2 = #{record.photo2,jdbcType=VARCHAR},
+      PHOTO3 = #{record.photo3,jdbcType=VARCHAR},
+      USETEMPLATE = #{record.usetemplate,jdbcType=VARCHAR},
+      REALVIDEOADDRESSID = #{record.realvideoaddressid,jdbcType=VARCHAR},
+      HISVIDEOADDRESSID = #{record.hisvideoaddressid,jdbcType=VARCHAR},
+      MAPX = #{record.mapx,jdbcType=VARCHAR},
+      MAPY = #{record.mapy,jdbcType=VARCHAR},
+      CODE = #{record.code,jdbcType=VARCHAR},
+      DEVICE_IP = #{record.deviceIp,jdbcType=VARCHAR},
+      DEVICE_USERNAME = #{record.deviceUsername,jdbcType=VARCHAR},
+      DEVICE_PASSWORD = #{record.devicePassword,jdbcType=VARCHAR},
+      DEVICE_PORT = #{record.devicePort,jdbcType=VARCHAR},
+      DEVICE_SHAPE = #{record.deviceShape,jdbcType=VARCHAR},
+      INSERTTIME = #{record.inserttime,jdbcType=TIMESTAMP},
+      NOTE = #{record.note,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      FACTORY_ID = #{record.factoryId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.property.domain.VideoInfo" >
+    update PROPERTY_VIDEO_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(directionCode)" >
+        DIRECTION_CODE = #{directionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(videotypeCode)" >
+        VIDEOTYPE_CODE = #{videotypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(iscloud)" >
+        ISCLOUD = #{iscloud,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(roadinfoId)" >
+        ROADINFO_ID = #{roadinfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(orgId)" >
+        ORG_ID = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(port)" >
+        PORT = #{port,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(tracode)" >
+        TRACODE = #{tracode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(username)" >
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(password)" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(iphis)" >
+        IPHIS = #{iphis,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(porthis)" >
+        PORTHIS = #{porthis,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(tracodehis)" >
+        TRACODEHIS = #{tracodehis,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(usernamehis)" >
+        USERNAMEHIS = #{usernamehis,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(passwordhis)" >
+        PASSWORDHIS = #{passwordhis,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(companyid)" >
+        COMPANYID = #{companyid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(photo1)" >
+        PHOTO1 = #{photo1,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(photo2)" >
+        PHOTO2 = #{photo2,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(photo3)" >
+        PHOTO3 = #{photo3,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(usetemplate)" >
+        USETEMPLATE = #{usetemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(realvideoaddressid)" >
+        REALVIDEOADDRESSID = #{realvideoaddressid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(hisvideoaddressid)" >
+        HISVIDEOADDRESSID = #{hisvideoaddressid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(mapx)" >
+        MAPX = #{mapx,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(mapy)" >
+        MAPY = #{mapy,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceIp)" >
+        DEVICE_IP = #{deviceIp,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceUsername)" >
+        DEVICE_USERNAME = #{deviceUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicePassword)" >
+        DEVICE_PASSWORD = #{devicePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicePort)" >
+        DEVICE_PORT = #{devicePort,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceShape)" >
+        DEVICE_SHAPE = #{deviceShape,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        INSERTTIME = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+        FACTORY_ID = #{factoryId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.property.domain.VideoInfo" >
+    update PROPERTY_VIDEO_INFO
+    set DIRECTION_CODE = #{directionCode,jdbcType=VARCHAR},
+      VIDEOTYPE_CODE = #{videotypeCode,jdbcType=VARCHAR},
+      ISCLOUD = #{iscloud,jdbcType=VARCHAR},
+      ROADINFO_ID = #{roadinfoId,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      ORG_ID = #{orgId,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR},
+      PORT = #{port,jdbcType=VARCHAR},
+      TRACODE = #{tracode,jdbcType=VARCHAR},
+      USERNAME = #{username,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      IPHIS = #{iphis,jdbcType=VARCHAR},
+      PORTHIS = #{porthis,jdbcType=VARCHAR},
+      TRACODEHIS = #{tracodehis,jdbcType=VARCHAR},
+      USERNAMEHIS = #{usernamehis,jdbcType=VARCHAR},
+      PASSWORDHIS = #{passwordhis,jdbcType=VARCHAR},
+      COMPANYID = #{companyid,jdbcType=VARCHAR},
+      PHOTO1 = #{photo1,jdbcType=VARCHAR},
+      PHOTO2 = #{photo2,jdbcType=VARCHAR},
+      PHOTO3 = #{photo3,jdbcType=VARCHAR},
+      USETEMPLATE = #{usetemplate,jdbcType=VARCHAR},
+      REALVIDEOADDRESSID = #{realvideoaddressid,jdbcType=VARCHAR},
+      HISVIDEOADDRESSID = #{hisvideoaddressid,jdbcType=VARCHAR},
+      MAPX = #{mapx,jdbcType=VARCHAR},
+      MAPY = #{mapy,jdbcType=VARCHAR},
+      CODE = #{code,jdbcType=VARCHAR},
+      DEVICE_IP = #{deviceIp,jdbcType=VARCHAR},
+      DEVICE_USERNAME = #{deviceUsername,jdbcType=VARCHAR},
+      DEVICE_PASSWORD = #{devicePassword,jdbcType=VARCHAR},
+      DEVICE_PORT = #{devicePort,jdbcType=VARCHAR},
+      DEVICE_SHAPE = #{deviceShape,jdbcType=VARCHAR},
+      INSERTTIME = #{inserttime,jdbcType=TIMESTAMP},
+      NOTE = #{note,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      FACTORY_ID = #{factoryId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from PROPERTY_VIDEO_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(directionCode)" >
+         and DIRECTION_CODE = #{directionCode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(videotypeCode)" >
+         and VIDEOTYPE_CODE = #{videotypeCode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(iscloud)" >
+         and ISCLOUD = #{iscloud,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(roadinfoId)" >
+         and ROADINFO_ID LIKE #{roadinfoId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(roadinfoPid)" >
+         and ROADINFO_ID IN (select r.id from sys_road_info r where r.pid=#{roadinfoPid,jdbcType=VARCHAR})
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME LIKE #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(orgId)" >
+         and ORG_ID = #{orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+         and IP = #{ip,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(port)" >
+         and PORT = #{port,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(tracode)" >
+         and TRACODE = #{tracode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(username)" >
+         and USERNAME = #{username,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(password)" >
+         and PASSWORD = #{password,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(iphis)" >
+         and IPHIS = #{iphis,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(porthis)" >
+         and PORTHIS = #{porthis,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(tracodehis)" >
+         and TRACODEHIS = #{tracodehis,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(usernamehis)" >
+         and USERNAMEHIS = #{usernamehis,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(passwordhis)" >
+         and PASSWORDHIS = #{passwordhis,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(companyid)" >
+         and COMPANYID = #{companyid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(photo1)" >
+         and PHOTO1 = #{photo1,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(photo2)" >
+         and PHOTO2 = #{photo2,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(photo3)" >
+         and PHOTO3 = #{photo3,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(usetemplate)" >
+         and USETEMPLATE = #{usetemplate,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(realvideoaddressid)" >
+         and REALVIDEOADDRESSID = #{realvideoaddressid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(hisvideoaddressid)" >
+         and HISVIDEOADDRESSID = #{hisvideoaddressid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(mapx)" >
+         and MAPX = #{mapx,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(mapy)" >
+         and MAPY = #{mapy,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE LIKE #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceIp)" >
+         and DEVICE_IP = #{deviceIp,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceUsername)" >
+         and DEVICE_USERNAME = #{deviceUsername,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(devicePassword)" >
+         and DEVICE_PASSWORD = #{devicePassword,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(devicePort)" >
+         and DEVICE_PORT = #{devicePort,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceShape)" >
+         and DEVICE_SHAPE = #{deviceShape,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+       	 and INSERTTIME = #{inserttime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+         and FACTORY_ID = #{factoryId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="sortType != null" >
+       order by ${sortType} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from PROPERTY_VIDEO_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(directionCode)" >
+         and DIRECTION_CODE = #{directionCode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(videotypeCode)" >
+         and VIDEOTYPE_CODE = #{videotypeCode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(iscloud)" >
+         and ISCLOUD = #{iscloud,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(roadinfoId)" >
+         and ROADINFO_ID LIKE #{roadinfoId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(roadinfoPid)" >
+         and ROADINFO_ID IN (select r.id from sys_road_info r where r.pid=#{roadinfoPid,jdbcType=VARCHAR})
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME LIKE #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(orgId)" >
+         and ORG_ID = #{orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+         and IP = #{ip,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(port)" >
+         and PORT = #{port,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(tracode)" >
+         and TRACODE = #{tracode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(username)" >
+         and USERNAME = #{username,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(password)" >
+         and PASSWORD = #{password,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(iphis)" >
+         and IPHIS = #{iphis,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(porthis)" >
+         and PORTHIS = #{porthis,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(tracodehis)" >
+         and TRACODEHIS = #{tracodehis,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(usernamehis)" >
+         and USERNAMEHIS = #{usernamehis,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(passwordhis)" >
+         and PASSWORDHIS = #{passwordhis,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(companyid)" >
+         and COMPANYID = #{companyid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(photo1)" >
+         and PHOTO1 = #{photo1,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(photo2)" >
+         and PHOTO2 = #{photo2,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(photo3)" >
+         and PHOTO3 = #{photo3,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(usetemplate)" >
+         and USETEMPLATE = #{usetemplate,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(realvideoaddressid)" >
+         and REALVIDEOADDRESSID = #{realvideoaddressid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(hisvideoaddressid)" >
+         and HISVIDEOADDRESSID = #{hisvideoaddressid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(mapx)" >
+         and MAPX = #{mapx,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(mapy)" >
+         and MAPY = #{mapy,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceIp)" >
+         and DEVICE_IP = #{deviceIp,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceUsername)" >
+         and DEVICE_USERNAME = #{deviceUsername,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(devicePassword)" >
+         and DEVICE_PASSWORD = #{devicePassword,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(devicePort)" >
+         and DEVICE_PORT = #{devicePort,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceShape)" >
+         and DEVICE_SHAPE = #{deviceShape,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+       	 and INSERTTIME = #{inserttime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+         and FACTORY_ID = #{factoryId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="sortType != null" >
+       order by ${sortType} 
+    </if>
+  </select>
+  <select id="getMaxCodeNum"  resultType="java.lang.Integer">
+    select *
+	  from (
+	  	select substr(tb.code, 15, 4) subint, rownum
+          from PROPERTY_VIDEO_INFO tb 
+          where tb.code is not null
+	      order by subint desc)
+	  where rownum = 1
+  </select>
+  <select id="countByCode"  resultType="java.lang.Integer">
+     select count(*) from PROPERTY_VIDEO_INFO where code = #{code,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectDevlistByRoadId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List" />
+    from PROPERTY_VIDEO_INFO
+    where ROADINFO_ID = #{roadinfoId,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectDevlistByOrgId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List" />
+    from PROPERTY_VIDEO_INFO
+    where ORG_ID = #{orgId,jdbcType=VARCHAR}
+    order by nlssort(name,'NLS_SORT=SCHINESE_PINYIN_M')
+	</select>
+	
+	<select id="insertHistoryRecord" parameterType="java.lang.String">
+  	  insert into PROPERTY_VIDEO_INFO_HIS (<include refid="Base_Column_List" />) 
+  	  select <include refid="Base_Column_List" /> from PROPERTY_VIDEO_INFO t where t.id=#{0}
+    </select>
+  
+    <select id="updatePrimaryKey" parameterType="java.lang.String">
+  	  update PROPERTY_VIDEO_INFO t set t.id=#{0} where t.id=#{1}
+    </select>
+    
+    <select id="getListByFactoryid" resultMap="BaseResultMap" >
+    	select 
+    		<include refid="Base_Column_List" />
+     	from PROPERTY_VIDEO_INFO
+    	<where >
+      	<if test="@Ognl@isNotEmpty(orgs)" >
+         	and ${orgs}
+      	</if>
+      	<if test="@Ognl@isNotEmpty(orgId)" >
+         	and ORG_ID = #{orgId,jdbcType=VARCHAR}
+      	</if>
+      	<if test="@Ognl@isNotEmpty(factoryId)" >
+         	and FACTORY_ID = #{factoryId,jdbcType=VARCHAR}
+      	</if>
+      
+    	</where>
+       order by nlssort(name,'NLS_SORT=SCHINESE_PINYIN_M')
+  	</select>
+</mapper>

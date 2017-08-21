@@ -1,0 +1,925 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.property.mapper.AssetInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.property.domain.AssetInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DEVICEID" property="deviceid" jdbcType="VARCHAR" />
+    <result column="ASSETCODE" property="assetcode" jdbcType="VARCHAR" />
+    <result column="ASSETNAME" property="assetname" jdbcType="VARCHAR" />
+    <result column="ASSETMODEL" property="assetmodel" jdbcType="VARCHAR" />
+    <result column="ASSETTYPE" property="assettype" jdbcType="VARCHAR" />
+    <result column="ASSETSTATUS" property="assetstatus" jdbcType="VARCHAR" />
+    <result column="GUARANTEETIME" property="guaranteetime" jdbcType="TIMESTAMP" />
+    <result column="PURCHASETIME" property="purchasetime" jdbcType="TIMESTAMP" />
+    <result column="MANUFACTURER" property="manufacturer" jdbcType="VARCHAR" />
+    <result column="ENGINEERING" property="engineering" jdbcType="VARCHAR" />
+    <result column="INSTALLTIME" property="installtime" jdbcType="TIMESTAMP" />
+    <result column="INSTALLPLACE" property="installplace" jdbcType="VARCHAR" />
+    <result column="SERVICEID" property="serviceid" jdbcType="VARCHAR" />
+    <result column="MACADDRESS" property="macaddress" jdbcType="VARCHAR" />
+    <result column="CPU_STATUS" property="cpuStatus" jdbcType="VARCHAR" />
+    <result column="MEMORY_STATUS" property="memoryStatus" jdbcType="VARCHAR" />
+    <result column="DISK_STATUS" property="diskStatus" jdbcType="VARCHAR" />
+    <result column="CABINET_STATUS" property="cabinetStatus" jdbcType="INTEGER" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="REFRESHTIME" property="refreshtime" jdbcType="TIMESTAMP" />
+    <result column="POWER_STATUS" property="powerStatus" jdbcType="VARCHAR" />
+    <result column="NET_STATUS" property="netStatus" jdbcType="VARCHAR" />
+    <result column="DATA_STATUS" property="dataStatus" jdbcType="VARCHAR" />
+    <result column="FACTORY_ID" property="factoryId" jdbcType="VARCHAR" />
+    <result column="PAYOUTSTATUS" property="payoutstatus" jdbcType="VARCHAR" />
+    <result column="ORGNAME" property="orgName" jdbcType="VARCHAR" />
+    <result column="ORGID" property="orgId" jdbcType="VARCHAR" />
+    
+    
+     
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, DEVICEID, ASSETCODE, ASSETNAME, ASSETMODEL, ASSETTYPE, ASSETSTATUS, GUARANTEETIME, 
+    PURCHASETIME, MANUFACTURER, ENGINEERING, INSTALLTIME, INSTALLPLACE, SERVICEID, MACADDRESS, 
+    CPU_STATUS, MEMORY_STATUS, DISK_STATUS, CABINET_STATUS, IP, REFRESHTIME, POWER_STATUS, NET_STATUS, 
+    DATA_STATUS, FACTORY_ID, PAYOUTSTATUS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.property.domain.AssetInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PROPERTY_ASSET_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from PROPERTY_ASSET_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from PROPERTY_ASSET_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.property.domain.AssetInfoSearch" >
+    delete from PROPERTY_ASSET_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.property.domain.AssetInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into PROPERTY_ASSET_INFO (DEVICEID, ASSETCODE, ASSETNAME, 
+      ASSETMODEL, ASSETTYPE, ASSETSTATUS, 
+      GUARANTEETIME, PURCHASETIME, MANUFACTURER, 
+      ENGINEERING, INSTALLTIME, INSTALLPLACE, 
+      SERVICEID, MACADDRESS, CPU_STATUS, 
+      MEMORY_STATUS, DISK_STATUS, CABINET_STATUS, IP, 
+      REFRESHTIME, POWER_STATUS, NET_STATUS, 
+      DATA_STATUS, FACTORY_ID, PAYOUTSTATUS)
+    values (#{deviceid,jdbcType=VARCHAR}, #{assetcode,jdbcType=VARCHAR}, #{assetname,jdbcType=VARCHAR}, 
+      #{assetmodel,jdbcType=VARCHAR}, #{assettype,jdbcType=VARCHAR}, #{assetstatus,jdbcType=VARCHAR}, 
+      #{guaranteetime,jdbcType=TIMESTAMP}, #{purchasetime,jdbcType=TIMESTAMP}, #{manufacturer,jdbcType=VARCHAR}, 
+      #{engineering,jdbcType=VARCHAR}, #{installtime,jdbcType=TIMESTAMP}, #{installplace,jdbcType=VARCHAR}, 
+      #{serviceid,jdbcType=VARCHAR}, #{macaddress,jdbcType=VARCHAR}, #{cpuStatus,jdbcType=VARCHAR}, 
+      #{memoryStatus,jdbcType=VARCHAR}, #{diskStatus,jdbcType=VARCHAR},#{cabinetStatus,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, 
+      #{refreshtime,jdbcType=TIMESTAMP}, #{powerStatus,jdbcType=VARCHAR}, #{netStatus,jdbcType=VARCHAR}, 
+      #{dataStatus,jdbcType=VARCHAR}, #{factoryId,jdbcType=VARCHAR}, #{payoutstatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.property.domain.AssetInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into PROPERTY_ASSET_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceid)" >
+        DEVICEID,
+      </if>
+      <if test="@Ognl@isNotEmpty(assetcode)" >
+        ASSETCODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(assetname)" >
+        ASSETNAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(assetmodel)" >
+        ASSETMODEL,
+      </if>
+      <if test="@Ognl@isNotEmpty(assettype)" >
+        ASSETTYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(assetstatus)" >
+        ASSETSTATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(guaranteetime)" >
+        GUARANTEETIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(purchasetime)" >
+        PURCHASETIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(manufacturer)" >
+        MANUFACTURER,
+      </if>
+      <if test="@Ognl@isNotEmpty(engineering)" >
+        ENGINEERING,
+      </if>
+      <if test="@Ognl@isNotEmpty(installtime)" >
+        INSTALLTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(installplace)" >
+        INSTALLPLACE,
+      </if>
+      <if test="@Ognl@isNotEmpty(serviceid)" >
+        SERVICEID,
+      </if>
+      <if test="@Ognl@isNotEmpty(macaddress)" >
+        MACADDRESS,
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuStatus)" >
+        CPU_STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(memoryStatus)" >
+        MEMORY_STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(diskStatus)" >
+        DISK_STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(cabinetStatus)" >
+        CABINET_STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        IP,
+      </if>
+      <if test="@Ognl@isNotEmpty(refreshtime)" >
+        REFRESHTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(powerStatus)" >
+        POWER_STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(netStatus)" >
+        NET_STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(dataStatus)" >
+        DATA_STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+        FACTORY_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(payoutstatus)" >
+        PAYOUTSTATUS,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceid)" >
+        #{deviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assetcode)" >
+        #{assetcode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assetname)" >
+        #{assetname,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assetmodel)" >
+        #{assetmodel,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assettype)" >
+        #{assettype,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assetstatus)" >
+        #{assetstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(guaranteetime)" >
+        #{guaranteetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(purchasetime)" >
+        #{purchasetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(manufacturer)" >
+        #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(engineering)" >
+        #{engineering,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(installtime)" >
+        #{installtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(installplace)" >
+        #{installplace,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(serviceid)" >
+        #{serviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(macaddress)" >
+        #{macaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuStatus)" >
+        #{cpuStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(memoryStatus)" >
+        #{memoryStatus,jdbcType=VARCHAR},
+      </if>
+    
+      <if test="@Ognl@isNotEmpty(diskStatus)" >
+        #{diskStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(cabinetStatus)" >
+        #{cabinetStatus,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(refreshtime)" >
+        #{refreshtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(powerStatus)" >
+        #{powerStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(netStatus)" >
+        #{netStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(dataStatus)" >
+        #{dataStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+        #{factoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(payoutstatus)" >
+        #{payoutstatus,jdbcType=VARCHAR},
+      </if>
+      
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.property.domain.AssetInfoSearch" resultType="java.lang.Integer" >
+    select count(*) from PROPERTY_ASSET_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PROPERTY_ASSET_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.deviceid)" >
+        DEVICEID = #{record.deviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.assetcode)" >
+        ASSETCODE = #{record.assetcode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.assetname)" >
+        ASSETNAME = #{record.assetname,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.assetmodel)" >
+        ASSETMODEL = #{record.assetmodel,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.assettype)" >
+        ASSETTYPE = #{record.assettype,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.assetstatus)" >
+        ASSETSTATUS = #{record.assetstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.guaranteetime)" >
+        GUARANTEETIME = #{record.guaranteetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.purchasetime)" >
+        PURCHASETIME = #{record.purchasetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.manufacturer)" >
+        MANUFACTURER = #{record.manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.engineering)" >
+        ENGINEERING = #{record.engineering,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.installtime)" >
+        INSTALLTIME = #{record.installtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.installplace)" >
+        INSTALLPLACE = #{record.installplace,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.serviceid)" >
+        SERVICEID = #{record.serviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.macaddress)" >
+        MACADDRESS = #{record.macaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.cpuStatus)" >
+        CPU_STATUS = #{record.cpuStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.memoryStatus)" >
+        MEMORY_STATUS = #{record.memoryStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.diskStatus)" >
+        DISK_STATUS = #{record.diskStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.cabinetStatus)" >
+        CABINET_STATUS = #{record.cabinetStatus,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.ip)" >
+        IP = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.refreshtime)" >
+        REFRESHTIME = #{record.refreshtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.powerStatus)" >
+        POWER_STATUS = #{record.powerStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.netStatus)" >
+        NET_STATUS = #{record.netStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.dataStatus)" >
+        DATA_STATUS = #{record.dataStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.factoryId)" >
+        FACTORY_ID = #{record.factoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.payoutstatus)" >
+        PAYOUTSTATUS = #{record.payoutstatus,jdbcType=VARCHAR},
+      </if>
+       
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PROPERTY_ASSET_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      DEVICEID = #{record.deviceid,jdbcType=VARCHAR},
+      ASSETCODE = #{record.assetcode,jdbcType=VARCHAR},
+      ASSETNAME = #{record.assetname,jdbcType=VARCHAR},
+      ASSETMODEL = #{record.assetmodel,jdbcType=VARCHAR},
+      ASSETTYPE = #{record.assettype,jdbcType=VARCHAR},
+      ASSETSTATUS = #{record.assetstatus,jdbcType=VARCHAR},
+      GUARANTEETIME = #{record.guaranteetime,jdbcType=TIMESTAMP},
+      PURCHASETIME = #{record.purchasetime,jdbcType=TIMESTAMP},
+      MANUFACTURER = #{record.manufacturer,jdbcType=VARCHAR},
+      ENGINEERING = #{record.engineering,jdbcType=VARCHAR},
+      INSTALLTIME = #{record.installtime,jdbcType=TIMESTAMP},
+      INSTALLPLACE = #{record.installplace,jdbcType=VARCHAR},
+      SERVICEID = #{record.serviceid,jdbcType=VARCHAR},
+      MACADDRESS = #{record.macaddress,jdbcType=VARCHAR},
+      CPU_STATUS = #{record.cpuStatus,jdbcType=VARCHAR},
+      MEMORY_STATUS = #{record.memoryStatus,jdbcType=VARCHAR},
+      DISK_STATUS = #{record.diskStatus,jdbcType=VARCHAR},
+      CABINET_STATUS = #{record.cabinetStatus,jdbcType=INTEGER},
+      IP = #{record.ip,jdbcType=VARCHAR},
+      REFRESHTIME = #{record.refreshtime,jdbcType=TIMESTAMP},
+      POWER_STATUS = #{record.powerStatus,jdbcType=VARCHAR},
+      NET_STATUS = #{record.netStatus,jdbcType=VARCHAR},
+      DATA_STATUS = #{record.dataStatus,jdbcType=VARCHAR},
+      FACTORY_ID = #{record.factoryId,jdbcType=VARCHAR},
+      PAYOUTSTATUS = #{record.payoutstatus,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.property.domain.AssetInfo" >
+    update PROPERTY_ASSET_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(deviceid)" >
+        DEVICEID = #{deviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assetcode)" >
+        ASSETCODE = #{assetcode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assetname)" >
+        ASSETNAME = #{assetname,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assetmodel)" >
+        ASSETMODEL = #{assetmodel,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assettype)" >
+        ASSETTYPE = #{assettype,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assetstatus)" >
+        ASSETSTATUS = #{assetstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(guaranteetime)" >
+        GUARANTEETIME = #{guaranteetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(purchasetime)" >
+        PURCHASETIME = #{purchasetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(manufacturer)" >
+        MANUFACTURER = #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(engineering)" >
+        ENGINEERING = #{engineering,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(installtime)" >
+        INSTALLTIME = #{installtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(installplace)" >
+        INSTALLPLACE = #{installplace,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(serviceid)" >
+        SERVICEID = #{serviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(macaddress)" >
+        MACADDRESS = #{macaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuStatus)" >
+        CPU_STATUS = #{cpuStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(memoryStatus)" >
+        MEMORY_STATUS = #{memoryStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(diskStatus)" >
+        DISK_STATUS = #{diskStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(cabinetStatus)" >
+        CABINET_STATUS = #{cabinetStatus,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(refreshtime)" >
+        REFRESHTIME = #{refreshtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(powerStatus)" >
+        POWER_STATUS = #{powerStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(netStatus)" >
+        NET_STATUS = #{netStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(dataStatus)" >
+        DATA_STATUS = #{dataStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+        FACTORY_ID = #{factoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(payoutstatus)" >
+        PAYOUTSTATUS = #{payoutstatus,jdbcType=VARCHAR},
+      </if>
+     
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.property.domain.AssetInfo" >
+    update PROPERTY_ASSET_INFO
+    set DEVICEID = #{deviceid,jdbcType=VARCHAR},
+      ASSETCODE = #{assetcode,jdbcType=VARCHAR},
+      ASSETNAME = #{assetname,jdbcType=VARCHAR},
+      ASSETMODEL = #{assetmodel,jdbcType=VARCHAR},
+      ASSETTYPE = #{assettype,jdbcType=VARCHAR},
+      ASSETSTATUS = #{assetstatus,jdbcType=VARCHAR},
+      GUARANTEETIME = #{guaranteetime,jdbcType=TIMESTAMP},
+      PURCHASETIME = #{purchasetime,jdbcType=TIMESTAMP},
+      MANUFACTURER = #{manufacturer,jdbcType=VARCHAR},
+      ENGINEERING = #{engineering,jdbcType=VARCHAR},
+      INSTALLTIME = #{installtime,jdbcType=TIMESTAMP},
+      INSTALLPLACE = #{installplace,jdbcType=VARCHAR},
+      SERVICEID = #{serviceid,jdbcType=VARCHAR},
+      MACADDRESS = #{macaddress,jdbcType=VARCHAR},
+      CPU_STATUS = #{cpuStatus,jdbcType=VARCHAR},
+      MEMORY_STATUS = #{memoryStatus,jdbcType=VARCHAR},
+      DISK_STATUS = #{diskStatus,jdbcType=VARCHAR},
+      CABINET_STATUS = #{cabinetStatus,jdbcType=INTEGER},
+      IP = #{ip,jdbcType=VARCHAR},
+      REFRESHTIME = #{refreshtime,jdbcType=TIMESTAMP},
+      POWER_STATUS = #{powerStatus,jdbcType=VARCHAR},
+      NET_STATUS = #{netStatus,jdbcType=VARCHAR},
+      DATA_STATUS = #{dataStatus,jdbcType=VARCHAR},
+      FACTORY_ID = #{factoryId,jdbcType=VARCHAR},
+      PAYOUTSTATUS = #{payoutstatus,jdbcType=VARCHAR}
+
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+	    t.ID, DEVICEID, ASSETCODE, ASSETNAME, ASSETMODEL, ASSETTYPE, ASSETSTATUS, GUARANTEETIME, 
+	    PURCHASETIME, MANUFACTURER, ENGINEERING, INSTALLTIME, INSTALLPLACE, SERVICEID, MACADDRESS, 
+	    CPU_STATUS, MEMORY_STATUS, DISK_STATUS, CABINET_STATUS, t.IP, REFRESHTIME, POWER_STATUS,NET_STATUS,DATA_STATUS, t.FACTORY_ID, PAYOUTSTATUS
+    from PROPERTY_ASSET_INFO t
+     <if test="@Ognl@isNotEmpty(orgs)" >
+	    LEFT JOIN
+	    <if test="@Ognl@isTrue(assettype,'device')">
+			 PROPERTY_DEVICE_INFO t1
+		</if>
+		<if test="@Ognl@isTrue(assettype,'video')">
+			 PROPERTY_VIDEO_INFO t1
+		</if>
+		<if test="@Ognl@isTrue(assettype,'server')">
+			 PROPERTY_SERVER_INFO t1
+		</if>
+		
+	    ON t.DEVICEID = t1.ID
+    </if>
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceid)" >
+         and DEVICEID = #{deviceid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(assetcode)" >
+         and ASSETCODE = #{assetcode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(assetname)" >
+         and ASSETNAME LIKE '%${assetname}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(assetmodel)" >
+         and ASSETMODEL = #{assetmodel,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(assettype)" >
+         and ASSETTYPE = #{assettype,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(assetstatus)" >
+         and ASSETSTATUS = #{assetstatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(guaranteetime)" >
+         and GUARANTEETIME = #{guaranteetime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(purchasetime)" >
+         and PURCHASETIME = #{purchasetime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(manufacturer)" >
+         and MANUFACTURER = #{manufacturer,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(engineering)" >
+         and ENGINEERING = #{engineering,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(installtime)" >
+         and INSTALLTIME = #{installtime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(installplace)" >
+         and INSTALLPLACE = #{installplace,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(serviceid)" >
+         and SERVICEID = #{serviceid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(macaddress)" >
+         and MACADDRESS = #{macaddress,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuStatus)" >
+         and CPU_STATUS = #{cpuStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(memoryStatus)" >
+         and MEMORY_STATUS = #{memoryStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(diskStatus)" >
+         and DISK_STATUS = #{diskStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(cabinetStatus)" >
+         and CABINET_STATUS = #{cabinetStatus,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+         and IP = #{ip,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(refreshtime)" >
+         and REFRESHTIME = #{refreshtime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(powerStatus)" >
+         and POWER_STATUS = #{powerStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(netStatus)" >
+         and NET_STATUS = #{netStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(dataStatus)" >
+         and DATA_STATUS = #{dataStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(payoutstatus)" >
+         and PAYOUTSTATUS = #{payoutstatus,jdbcType=VARCHAR}
+      </if>
+      
+       
+    </where>
+    <if test="@Ognl@isNotEmpty(sortType)" >
+       order by ${sortType} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from PROPERTY_ASSET_INFO t
+    <if test="@Ognl@isNotEmpty(orgs)" >
+		LEFT JOIN
+	    <if test="@Ognl@isTrue(assettype,'device')">
+			 PROPERTY_DEVICE_INFO t1
+		</if>
+		<if test="@Ognl@isTrue(assettype,'video')">
+			 PROPERTY_VIDEO_INFO t1
+		</if>
+		<if test="@Ognl@isTrue(assettype,'database')">
+			 PROPERTY_DATABASE_INFO t1
+		</if>
+		<if test="@Ognl@isTrue(assettype,'server')">
+			 PROPERTY_SERVER_INFO t1
+		</if>
+		
+	    ON t.DEVICEID = t1.ID
+	</if>
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceid)" >
+         and DEVICEID = #{deviceid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(assetcode)" >
+         and ASSETCODE = #{assetcode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(assetname)" >
+         and ASSETNAME LIKE '%${assetname}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(assetmodel)" >
+         and ASSETMODEL = #{assetmodel,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(assettype)" >
+         and ASSETTYPE = #{assettype,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(assetstatus)" >
+         and ASSETSTATUS = #{assetstatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(guaranteetime)" >
+         and GUARANTEETIME = #{guaranteetime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(purchasetime)" >
+         and PURCHASETIME = #{purchasetime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(manufacturer)" >
+         and MANUFACTURER = #{manufacturer,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(engineering)" >
+         and ENGINEERING = #{engineering,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(installtime)" >
+         and INSTALLTIME = #{installtime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(installplace)" >
+         and INSTALLPLACE = #{installplace,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(serviceid)" >
+         and SERVICEID = #{serviceid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(macaddress)" >
+         and MACADDRESS = #{macaddress,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuStatus)" >
+         and CPU_STATUS = #{cpuStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(memoryStatus)" >
+         and MEMORY_STATUS = #{memoryStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(diskStatus)" >
+         and DISK_STATUS = #{diskStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(cabinetStatus)" >
+         and CABINET_STATUS = #{cabinetStatus,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+         and IP = #{ip,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(refreshtime)" >
+         and REFRESHTIME = #{refreshtime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(powerStatus)" >
+         and POWER_STATUS = #{powerStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(netStatus)" >
+         and NET_STATUS = #{netStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(dataStatus)" >
+         and DATA_STATUS = #{dataStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(payoutstatus)" >
+         and PAYOUTSTATUS = #{payoutstatus,jdbcType=VARCHAR}
+      </if>
+       
+    </where>
+    <!-- <if test="sortType != null" >
+       order by ${sortType} 
+    </if> -->
+  </select>
+  <select id="selectIpByType" resultType="map">
+  	select ip from PROPERTY_ASSET_INFO where assettype='cabinet'
+  	
+  </select>
+  <!-- 关联device表查询资产状态，将坐标信息临时赋给cpuStatus,memoryStatus -->
+  <select id="getAllMapList" resultMap="BaseResultMap" >
+	  select ass.id,ass.deviceid,ass.assetcode,ass.assetname,ass.assetmodel,ass.assettype,ass.assetstatus,ass.guaranteetime,ass.purchasetime
+	,ass.manufacturer,ass.engineering,ass.installtime,ass.installplace,ass.serviceid,ass.ip,ass.refreshtime,ass.power_Status
+	,ass.net_Status,ass.data_Status,dev.mapx as cpu_Status,dev.mapy as memory_Status from 
+	PROPERTY_DEVICE_INFO dev , PROPERTY_ASSET_INFO ass
+	where dev.id = ass.deviceid and ass.assettype='device'
+  </select>
+  
+   <select id="getAllMapListByStatusAbnormal" resultMap="BaseResultMap">
+   select * 
+   from (select * 
+		   from PROPERTY_ASSET_INFO
+		   	<if test='assettype == "device"'>
+			 	where power_Status != '1' or power_Status is null or net_Status !='1' or net_Status is null or data_Status !='1' or data_Status is null
+			</if>
+			<if test='assettype == "server"'>
+				 where cpu_Status !='1' or cpu_Status is null or memory_Status !='1' or memory_Status is null or disk_Status !='1' or disk_Status is null
+			</if>
+			<if test='assettype == "database"'>
+				 where net_Status !='1' or net_Status is null or data_Status !='1' or data_Status is null
+			</if>
+			<if test='assettype == "ftp"'>
+				 where net_Status !='1' or net_Status is null or data_Status !='1' or data_Status is null
+			</if>
+			<if test='assettype == "project"'>
+				 where net_Status !='1' or net_Status is null or data_Status !='1' or data_Status is null
+			</if>
+			<if test='assettype == "cabinet"'>
+				 where cabinet_status > 0 or cabinet_status is null
+			</if>
+   		)
+   where PAYOUTSTATUS = '0'
+  </select> 
+  
+  <!-- 删除资产信息 -->
+  <delete id="deleteAssetByDeviceId" parameterType="java.lang.String" >
+    delete from PROPERTY_ASSET_INFO t where t.deviceid=#{deviceid,jdbcType=VARCHAR}
+  </delete>
+  <!-- 删除服务商分配信�?-->
+  <delete id="deleteFactoryContactByDeviceId" parameterType="java.lang.String" >
+    delete from SERGRADE_FACTORY_CONTACT t where t.deviceid=#{deviceid,jdbcType=VARCHAR}
+  </delete>
+  <!-- 删除历史信息（卡口设备） -->
+  <delete id="deleteDeviceHisByCode" parameterType="java.lang.String" >
+    delete from PROPERTY_DEVICE_INFO_HIS t where t.code=#{0}
+  </delete>
+  <!-- 删除历史信息（监控设备） -->
+  <delete id="deleteVideoHisByCode" parameterType="java.lang.String" >
+    delete from PROPERTY_VIDEO_INFO_HIS t where t.code=#{0}
+  </delete>
+  <!-- 删除历史信息（服务器设备�?-->
+  <delete id="deleteServerHisByCode" parameterType="java.lang.String" >
+    delete from PROPERTY_SERVER_INFO_HIS t where t.code=#{0}
+  </delete>
+  <!-- 删除更改记录 -->
+  <delete id="deleteModifyByCode" parameterType="java.lang.String" >
+    delete from (
+    	select * from SYS_MODIFY_RECORD t 
+    	left join PROPERTY_DEVICE_INFO_HIS t1 
+    	on t.modify_id=t1.id where t1.code=#{0}
+    )
+  </delete>
+  <!-- 删除告警日志记录 -->
+  <delete id="deleteDeviceLogByCode" parameterType="java.lang.String" >
+    delete from ALARM_DEVICE_LOG t where t.device_code=#{0}
+  </delete>
+  <!-- 删除工单日志记录 -->
+  <delete id="deleteWorkorderLogByWorkId" parameterType="java.lang.String" >
+    delete from ALARM_WORKORDER_LOG t where t.workid=#{0}
+  </delete>
+  <!-- 删除工单信息记录 -->
+  <delete id="deleteWorkorderByCode" parameterType="java.lang.String" >
+    delete from ALARM_WORKORDER_INFO t where t.devicecode=#{0}
+  </delete>
+  <!-- 删除工单评价记录 -->
+  <delete id="deleteWorkorderAppriseByWorkId" parameterType="java.lang.String" >
+    delete from ALARM_WORKORDER_APPRAISE t where t.workorderid=#{0}
+  </delete>
+  <!-- 删除工单上报记录 -->
+  <delete id="deleteWorkorderReportById" parameterType="java.lang.String" >
+    delete from ALARM_EXCEPTION_INFO t where t.id=#{0}
+  </delete>
+  
+  <select id="selectAllAsset"  resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.property.domain.AssetInfo">
+  
+  	<if test="assettype == 'ftp' || assettype == 'project'|| assettype == 'database'">
+	  	  	select t.* from PROPERTY_ASSET_INFO t
+	</if>
+  	<!-- <if test="assettype == 'project'">
+	  	  	select t.* from PROPERTY_ASSET_INFO t
+	  	
+	</if>
+  	
+  	<if test="assettype == 'database'">
+	  	  	select t.* from PROPERTY_ASSET_INFO t
+	  	
+	</if> -->
+	
+	<if test="assettype == 'device' || assettype == 'server'">
+	  	  	select t.*,t2.name as orgName from PROPERTY_ASSET_INFO t
+	</if>
+	
+	<!-- <if test="assettype == 'server'">
+	  	  	select t.*,t2.name as orgName from PROPERTY_ASSET_INFO t
+	  	
+	</if> -->
+  	
+	<if test="assettype == 'device'">
+	  	left join PROPERTY_DEVICE_INFO t1 on t.deviceid = t1.id
+	  	left join SYS_ORG t2 on t1.org_id = t2.id
+	</if>
+	
+	<if test="assettype == 'server'">
+	  	left join PROPERTY_SERVER_INFO t1 on t.deviceid = t1.id
+	  	left join SYS_ORG t2 on t1.org_id = t2.id
+	</if>
+
+	<where>
+	
+		<if test="@Ognl@isNotEmpty(assettype)" >
+			<if test="assettype == 'device' || assettype == 'server'" >
+				<if test="@Ognl@isNotEmpty(orgId)" >
+					and t2.id = #{orgId}
+				</if>
+			</if>
+			<!-- <if test="assettype == 'server'" >
+			
+				<if test="orgId != ''" >
+					and t2.id=#{orgId}
+				</if>
+
+			</if> -->
+	        and t.assettype=#{assettype}
+	    </if>
+	
+	    <if test="@Ognl@isNotEmpty(assetstatus)" >
+	        and t.assetstatus=#{assetstatus}
+	    </if>
+	    <if test="@Ognl@isNotEmpty(assetname)" >
+	        and t.assetname=#{assetname}
+	    </if>
+	</where>
+
+  </select>
+  
+  
+   <select id="countByType" resultMap="BaseResultMap" >
+	 select t.assettype,count(*) ASSETSTATUS from PROPERTY_ASSET_INFO t group by t.assettype
+  </select>
+  
+   <select id="getAssetInfoMaxCode" resultType="java.lang.String" >
+	 select max(assetcode) from PROPERTY_ASSET_INFO t
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+select * from property_asset_info order by case assettype when 'database' then 1 when 'ftp' then 2 when 'project' then 3 when 'server' then 4 when 'device' then 5 else 6 end
+  </select>
+	
+	
+</mapper>

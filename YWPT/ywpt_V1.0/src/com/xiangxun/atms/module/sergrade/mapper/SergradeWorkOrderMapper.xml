@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.sergrade.mapper.SergradeWorkOrderMapper">
+	<!-- 获取按时间段的服务概况统计 -->
+	<sql id="getDays">
+		SELECT
+		     a.factoryid as factoryid, 
+		     <foreach collection="days" item="day" index="k" separator="," >
+		     	sum(a.d${k+1})d${k+1},
+		     	sum(a.cd${k+1})cd${k+1},
+		     	sum(a.od${k+1})od${k+1}
+		     </foreach>
+	  	FROM (
+	          SELECT 
+	               t.factoryid,
+	                <foreach collection="days" item="day" index="k" separator="," >
+		               	NVL ((CASE t.assigntime WHEN '${day}' THEN t.counts END),0) d${k+1},
+		               	NVL ((CASE t.assigntime WHEN '${day}' THEN t.solve_counts END),0) cd${k+1},
+		               	NVL ((CASE t.assigntime WHEN '${day}' THEN t.nosolve_counts END),0) od${k+1}
+	       			</foreach>
+	          FROM (    
+                	select 
+					   	factoryid,
+                      	counts,
+                      	solve_counts,
+                      	nosolve_counts,
+                      	assigntime
+				 	from
+				 	(
+                		SELECT  
+                        	b1.factoryid,
+                           	count(b2.id) as counts, 
+                            count(b3.id) as solve_counts, 
+                            count(b4.id) as nosolve_counts, 
+                            to_char(b.assigntime,'yyyy-mm') as assigntime
+                   		FROM alarm_workorder_info b
+                        left join sergrade_contact_info b1 on b.contact = b1.userid
+                        left join sergrade_factory_info f on b1.factoryid = f.id
+                        left join alarm_workorder_info b2 on b.id = b2.id
+                        left join alarm_workorder_info b3 on b.id = b3.id and (b3.status = '6'or b3.status = '7')
+                        left join alarm_workorder_info b4 on b.id = b4.id and b4.status != '6' and b4.status !='7'
+	                   	<if test="@Ognl@isNotEmpty(factoryName)">
+							 where f.name like '%${factoryName}%'
+						</if>
+	                   	GROUP BY b1.factoryid, to_char(b.assigntime,'yyyy-mm')
+                 	)  
+                	WHERE TO_DATE (assigntime,'yyyy-mm') <![CDATA[>=]]> TO_DATE ('${startTime}', 'yyyy-mm')
+	                 	AND TO_DATE (assigntime,'yyyy-mm') <![CDATA[<=]]> TO_DATE ('${endTime}', 'yyyy-mm')
+                )t
+	        )a
+		 group by factoryid
+	</sql>
+	
+	<!-- 获取按时间段统计服务商概况 柱状图-->
+	<sql id="getChartDays">
+		SELECT
+		     a.factoryid as factoryid, 
+	     	 sum(a.counts) counts,
+	     	 sum(a.solve_counts) solve_counts,
+	     	 sum(a.nosolve_counts) nosolve_counts
+		  FROM (
+		          SELECT 
+		               t.factoryid,
+		               NVL (t.counts,0) counts,
+		               NVL (t.solve_counts,0) solve_counts,
+		               NVL (t.nosolve_counts,0) nosolve_counts
+		          FROM (    
+	                	select 
+						   	factoryid,
+	                      	counts,
+	                      	solve_counts,
+	                      	nosolve_counts,
+	                      	assigntime
+					 	from
+					 	(
+		                  	SELECT  
+	                        	b1.factoryid,
+	                           	count(b2.id) as counts, 
+	                            count(b3.id) as solve_counts, 
+	                            count(b4.id) as nosolve_counts, 
+	                            to_char(b.assigntime,'yyyy-mm') as assigntime
+	                   		FROM alarm_workorder_info b
+	                        left join sergrade_contact_info b1 on b.contact = b1.userid
+	                        left join sergrade_factory_info f on b1.factoryid = f.id
+	                        left join alarm_workorder_info b2 on b.id = b2.id
+	                        left join alarm_workorder_info b3 on b.id = b3.id and (b3.status = '6'or b3.status = '7')
+	                        left join alarm_workorder_info b4 on b.id = b4.id and b4.status != '6' and b4.status !='7'
+		                   	<if test="@Ognl@isNotEmpty(factoryName)">
+								 where f.name like '%${factoryName}%'
+							</if>
+		                   	GROUP BY b1.factoryid, to_char(b.assigntime,'yyyy-mm')
+		                 )  
+		                 WHERE TO_DATE (assigntime,'yyyy-mm') <![CDATA[>=]]> TO_DATE ('${startTime}', 'yyyy-mm')
+		                 	AND TO_DATE (assigntime,'yyyy-mm') <![CDATA[<=]]> TO_DATE ('${endTime}', 'yyyy-mm')
+		                
+                 	)t
+		                  
+        	)a
+		 group by factoryid
+	</sql>
+	
+	<!-- 获取按时间段统计服务商概况 -->	        
+	<select id="selectWorkOrder" resultType="map">
+		<include refid="getDays"/>
+		 order by  ${sortType} 
+	</select>
+	
+	<!-- 获取按时间段统计服务商概况 柱状图-->
+	<select id="selectChartWorkOrder" resultType="map">
+		<include refid="getChartDays"/>
+	</select>
+	
+	<!-- 获取按时间段统计服务商概况 合计栏数据-->
+	<select id="selectTotals" resultType="map">
+		select 
+		 <foreach collection="days" item="day" index="k" separator="," >
+			 sum(d${k+1}) as d${k+1},
+			 sum(cd${k+1}) as cd${k+1},
+			 sum(od${k+1}) as od${k+1}
+		 </foreach>
+		from(
+			<include refid="getDays"/>
+		)g
+	</select>
+	<!-- 获取按时间段统计服务商概况 总记录数-->
+	<select id="selectTotalWorkOrder" resultType="java.lang.Integer">
+		select count(*) from (
+			<include refid="getDays"/>
+		)g
+	</select>
+	
+</mapper>

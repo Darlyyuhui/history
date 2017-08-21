@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.geoServer.mapper.LayerBeanMapper">
+	<resultMap id="LayerBean" type="com.xiangxun.atms.module.gis.domain.LayerBean">
+		<result column="gid" property="id" jdbcType="INTEGER" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="road_id" property="roadId" jdbcType="VARCHAR" />
+		<result column="road_name" property="roadName" jdbcType="VARCHAR" />
+		<result column="geometrytext" property="geometry" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Example_Where_Clause" >
+	    <where >
+	      <foreach collection="search.oredCriteria" item="criteria" separator="or" >
+	        <if test="criteria.valid" >
+	          <trim prefix="(" suffix=")" prefixOverrides="and" >
+	            <foreach collection="criteria.criteria" item="criterion" >
+	              <choose >
+	                <when test="criterion.noValue" >
+	                  and ${criterion.condition}
+	                </when>
+	                <when test="criterion.singleValue" >
+	                  and ${criterion.condition} ${criterion.value}
+	                </when>
+	                <when test="criterion.betweenValue" >
+	                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+	                </when>
+	                <when test="criterion.listValue" >
+	                  and ${criterion.condition}
+	                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+	                    #{listItem}
+	                  </foreach>
+	                </when>
+	              </choose>
+	            </foreach>
+	          </trim>
+	        </if>
+	      </foreach>
+	    </where>
+  	</sql>
+  	
+  	<sql id="Update_By_Example_Where_Clause" >
+	    <where >
+	    	<if test="search.oredCriteria != null">
+		      <foreach collection="search.oredCriteria" item="criteria" separator="or" >
+		        <if test="criteria.valid" >
+		          <trim prefix="(" suffix=")" prefixOverrides="and" >
+		            <foreach collection="criteria.criteria" item="criterion" >
+		              <choose >
+		                <when test="criterion.noValue" >
+		                  and ${criterion.condition}
+		                </when>
+		                <when test="criterion.singleValue" >
+		                  and ${criterion.condition} ${criterion.value} 
+		                </when>
+		                <when test="criterion.betweenValue" >
+		                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+		                </when>
+		                <when test="criterion.listValue" >
+		                  and ${criterion.condition}
+		                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+		                    #{listItem}
+		                  </foreach>
+		                </when>
+		              </choose>
+		            </foreach>
+		          </trim>
+		        </if>
+		      </foreach>
+		     </if>
+	    </where>
+  	</sql>
+  	  	
+	<select id="selectByWhere" resultMap="LayerBean" parameterType="java.lang.String">
+	    select *, st_astext(geom) as geometrytext from ${tableName}
+	    where ${whereStr}
+	    <where>
+			1=1
+			<if test="@Ognl@isNotEmpty(whereStr)" >
+				and ${whereStr}
+			</if>
+		</where>
+  	</select>
+	<select id="selectByExample" resultMap="LayerBean" statementType="STATEMENT">
+	    select
+	    <if test="search != null and search.distinct" >
+	      #{search.distinct}
+	    </if>
+	    t.*, st_astext(geom) as geometrytext from ${tableName} t
+	    <if test="search != null" >
+	      <include refid="Example_Where_Clause" />
+	    </if>
+	    
+	    <if test="search != null and search.orderByClause != null" >
+	      order by ${search.orderByClause}
+	    </if>
+  	</select>
+  	
+	<update id="updateByExample">
+		update ${tableName}
+		<set>
+		<trim suffixOverrides=",">
+	      <if test="record.code != null" >
+	        code = #{record.code,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.name != null" >
+	        name = #{record.name,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.type != null" >
+	        type = #{record.type,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.roadId != null" >
+	        road_id = #{record.roadId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.roadName != null" >
+	        road_name = #{record.roadName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.geometry != null" >
+	        geom = st_geometryfromtext(#{record.geometry,jdbcType=VARCHAR}, 4326),
+	      </if>
+	      </trim>
+   		</set>
+	    <if test="search != null" >
+	      <include refid="Update_By_Example_Where_Clause" />
+	    </if>
+	</update>
+	
+	<update id="updateById">
+		update ${tableName}
+		<set>
+		<trim suffixOverrides=",">
+	      <if test="record.code != null" >
+	        code = #{record.code,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.name != null" >
+	        name = #{record.name,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.type != null" >
+	        type = #{record.type,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.roadId != null" >
+	        road_id = #{record.roadId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.roadName != null" >
+	        road_name = #{record.roadName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.geometry != null" >
+	        geom = st_geometryfromtext(#{record.geometry,jdbcType=VARCHAR}, 4326),
+	      </if>
+	      </trim>
+   		</set>
+		<where>
+			id = ${record.id}
+		</where>
+	</update>
+	
+	<insert id="add">
+		<foreach collection="records" item="record" separator=";">
+			insert into ${tableName} 
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<if test="@Ognl@isNotEmpty(record.name)" >
+					name,
+				</if>			
+				<if test="@Ognl@isNotEmpty(record.code)" >
+					code,
+				</if>
+				<if test="@Ognl@isNotEmpty(record.type)" >
+					type,
+				</if>
+				<if test="@Ognl@isNotEmpty(record.roadId)" >
+					road_id,
+				</if>
+				<if test="@Ognl@isNotEmpty(record.roadName)" >
+					road_name,
+				</if>
+				<if test="@Ognl@isNotEmpty(record.geometry)" >
+					geom,
+				</if>			
+				
+			</trim>
+	    	<trim prefix="values (" suffix=")" suffixOverrides="," >
+				<if test="@Ognl@isNotEmpty(record.name)" >
+					#{record.name,jdbcType=VARCHAR},
+				</if>			
+				<if test="@Ognl@isNotEmpty(record.code)" >
+					#{record.code,jdbcType=VARCHAR},
+				</if>
+				<if test="@Ognl@isNotEmpty(record.type)" >
+					#{record.type,jdbcType=VARCHAR},
+				</if>
+				<if test="@Ognl@isNotEmpty(record.roadId)" >
+					#{record.roadId,jdbcType=VARCHAR},
+				</if>
+				<if test="@Ognl@isNotEmpty(record.roadName)" >
+					#{record.roadName,jdbcType=VARCHAR},
+				</if>
+				<if test="@Ognl@isNotEmpty(record.geometry)" >
+					st_geometryfromtext(#{record.geometry,jdbcType=VARCHAR}, 4326),
+				</if>
+			</trim>
+		</foreach>
+	</insert>
+	
+	<sql id="Delete_Where_Clause" >
+	    <where >
+	      <foreach collection="search.oredCriteria" item="criteria" separator="or" >
+	        <if test="criteria.valid" >
+	          <trim prefix="(" suffix=")" prefixOverrides="and" >
+	            <foreach collection="criteria.criteria" item="criterion" >
+	              <choose >
+	                <when test="criterion.noValue" >
+	                  and ${criterion.condition}
+	                </when>
+	                <when test="criterion.singleValue" >
+	                  and ${criterion.condition} ${criterion.value}
+	                </when>
+	                <when test="criterion.betweenValue" >
+	                  and ${criterion.condition} '${criterion.value}' and '${criterion.secondValue}'
+	                </when>
+	                <when test="criterion.listValue" >
+	                  and ${criterion.condition}
+	                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+	                    #{listItem}
+	                  </foreach>
+	                </when>
+	              </choose>
+	            </foreach>
+	          </trim>
+	        </if>
+	      </foreach>
+	    </where>
+  	</sql>
+	
+	<delete id="delete" parameterType="com.xiangxun.atms.module.geoServer.vo.GeoserverSearch">
+		delete from ${tableName}
+		<if test="search != null" >
+	      <include refid="Delete_Where_Clause" />
+	    </if>	
+	</delete>
+	
+	<delete id="deleteByWhere" parameterType="string">
+		delete from ${tableName}
+		<where>
+			1=1
+			<if test="@Ognl@isNotEmpty(whereStr)" >
+				and ${whereStr}
+			</if>
+		</where>
+	</delete>
+	
+	<!-- 获取距离一点最近的道路上的投影点 -->
+	<select id="getClosedPointOnRoadLine" resultMap="LayerBean" parameterType="string">
+		select t.gid, t.distance, t.name,t.type,t.code,t.road_id,t.road_name, st_astext(public.st_closestpoint(t.geom,public.st_geometryfromtext(#{geometryText},4326))) as geometrytext from 
+			(select p.gid,  public.st_distance(p.geom ,public.st_geometryfromtext(#{geometryText},4326)) as distance, p.geom, p.name,p.type,p.code,p.road_id,p.road_name 
+			FROM public.road_line p order by distance asc limit  1) t
+	</select>
+ </mapper>

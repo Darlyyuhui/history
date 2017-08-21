@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.question.mapper.BreakdownInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.question.domain.BreakdownInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="DEVICE_CODE" property="deviceCode" jdbcType="VARCHAR" />
+    <result column="FACTORY_CODE" property="factoryCode" jdbcType="VARCHAR" />
+    <result column="BREAKDOWN_TIME" property="breakdownTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, NAME, TYPE, DEVICE_CODE, FACTORY_CODE, BREAKDOWN_TIME, REMARK
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.question.domain.BreakdownInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from QUESTION_BREAKDOWN_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from QUESTION_BREAKDOWN_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from QUESTION_BREAKDOWN_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.question.domain.BreakdownInfoSearch" >
+    delete from QUESTION_BREAKDOWN_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.question.domain.BreakdownInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into QUESTION_BREAKDOWN_INFO (NAME, TYPE, DEVICE_CODE, 
+      FACTORY_CODE, BREAKDOWN_TIME, REMARK
+      )
+    values (#{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{deviceCode,jdbcType=VARCHAR}, 
+      #{factoryCode,jdbcType=VARCHAR}, #{breakdownTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.question.domain.BreakdownInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into QUESTION_BREAKDOWN_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+        TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceCode)" >
+        DEVICE_CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryCode)" >
+        FACTORY_CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(breakdownTime)" >
+        BREAKDOWN_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(remark)" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceCode)" >
+        #{deviceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryCode)" >
+        #{factoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(breakdownTime)" >
+        #{breakdownTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(remark)" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.question.domain.BreakdownInfoSearch" resultType="java.lang.Integer" >
+    select count(*) from QUESTION_BREAKDOWN_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update QUESTION_BREAKDOWN_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.type)" >
+        TYPE = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.deviceCode)" >
+        DEVICE_CODE = #{record.deviceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.factoryCode)" >
+        FACTORY_CODE = #{record.factoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.breakdownTime)" >
+        BREAKDOWN_TIME = #{record.breakdownTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.remark)" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update QUESTION_BREAKDOWN_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=VARCHAR},
+      DEVICE_CODE = #{record.deviceCode,jdbcType=VARCHAR},
+      FACTORY_CODE = #{record.factoryCode,jdbcType=VARCHAR},
+      BREAKDOWN_TIME = #{record.breakdownTime,jdbcType=TIMESTAMP},
+      REMARK = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.question.domain.BreakdownInfo" >
+    update QUESTION_BREAKDOWN_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceCode)" >
+        DEVICE_CODE = #{deviceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryCode)" >
+        FACTORY_CODE = #{factoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(breakdownTime)" >
+        BREAKDOWN_TIME = #{breakdownTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(remark)" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.question.domain.BreakdownInfo" >
+    update QUESTION_BREAKDOWN_INFO
+    set NAME = #{name,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      DEVICE_CODE = #{deviceCode,jdbcType=VARCHAR},
+      FACTORY_CODE = #{factoryCode,jdbcType=VARCHAR},
+      BREAKDOWN_TIME = #{breakdownTime,jdbcType=TIMESTAMP},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from QUESTION_BREAKDOWN_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+         and TYPE = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceCode)" >
+         and DEVICE_CODE = #{deviceCode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryCode)" >
+         and FACTORY_CODE = #{factoryCode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(breakdownTime)" >
+         and BREAKDOWN_TIME = #{breakdownTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(remark)" >
+         and REMARK = #{remark,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from QUESTION_BREAKDOWN_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(type)" >
+         and TYPE = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceCode)" >
+         and DEVICE_CODE = #{deviceCode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryCode)" >
+         and FACTORY_CODE = #{factoryCode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(breakdownTime)" >
+         and BREAKDOWN_TIME = #{breakdownTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(remark)" >
+         and REMARK = #{remark,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

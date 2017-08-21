@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.question.mapper.FrequentlyCountMapper">
+	<!-- 获取按天、周、月、时间段 故障类型 统计故障数量 -->
+	<sql id="getDays">
+		SELECT   
+			a.factory_code as factory_code,
+		     <foreach collection="types" item="type" index="k" separator="," >
+		     	sum(a.a${k+1}) a${k+1}
+		     </foreach>
+		     
+	  	FROM (
+	          SELECT 
+	          		t.factory_code,
+                   	<foreach collection="types" item="type" index="k" separator="," >
+	               		NVL ((CASE t.type WHEN '${type}' THEN t.counts END),0) a${k+1}	              
+	       			</foreach>
+	          FROM (  
+       				SELECT 
+                    		p.factory_id as factory_code, b.event_type as type, count(b.id) as counts
+		          	FROM alarm_device_log b
+		          	left join property_asset_info p on b.device_code = p.deviceid 
+		          	WHERE b.alarm_time <![CDATA[>=]]> TO_DATE ('${startTime} 00:00:00', 'yyyy-mm-dd hh24:mi:ss')
+						AND b.alarm_time <![CDATA[<=]]> TO_DATE ('${endTime} 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+		            	and b.device_type !='device'
+                   	group by p.factory_id, b.event_type
+		                   
+                   	union all
+		                   
+                   	SELECT 
+                    		p.factory_id as factory_code, b.event_type as type, count(b.id) as counts
+		          	FROM alarm_device_log b
+		          	left join property_asset_info p on b.device_code = p.id 
+		          	WHERE b.alarm_time <![CDATA[>=]]> TO_DATE ('${startTime} 00:00:00', 'yyyy-mm-dd hh24:mi:ss')
+						AND b.alarm_time <![CDATA[<=]]> TO_DATE ('${endTime} 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+		            	and b.device_type ='device'
+                   	group by p.factory_id, b.event_type
+        	  )t
+       	)a
+		group by factory_code
+	</sql>
+	
+	<!-- 获取按天、周、月、时间段 统计厂商故障数 柱状图-->
+	<sql id="getChartDays">
+		SELECT   
+		     a.factory_code as factory_code, 
+		     sum(a.counts) as counts
+		  FROM (
+		          SELECT 
+		               t.factory_code,
+		               NVL (t.counts,0) counts	              
+		          FROM (    
+						SELECT 
+                     		p.factory_id as factory_code, count(b.id) as counts
+			          	FROM alarm_device_log b
+			          	left join property_asset_info p on b.device_code = p.deviceid 
+			          	WHERE b.alarm_time <![CDATA[>=]]> TO_DATE ('${startTime} 00:00:00', 'yyyy-mm-dd hh24:mi:ss')
+							AND b.alarm_time <![CDATA[<=]]> TO_DATE ('${endTime} 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+			            	and b.device_type !='device'
+	                   	group by p.factory_id
+			                   
+	                   	union all
+			                   
+	                   	SELECT 
+                     		p.factory_id as factory_code, count(b.id) as counts
+			          	FROM alarm_device_log b
+			          	left join property_asset_info p on b.device_code = p.id 
+			          	WHERE b.alarm_time <![CDATA[>=]]> TO_DATE ('${startTime} 00:00:00', 'yyyy-mm-dd hh24:mi:ss')
+							AND b.alarm_time <![CDATA[<=]]> TO_DATE ('${endTime} 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+			            	and b.device_type ='device'
+	                   	group by p.factory_id
+		               	         
+               	 	)t
+		        )a
+		 group by factory_code
+	</sql>
+	
+	<!-- 获取按天、周、月、时间段故障类型 统计故障数 饼状图-->
+	<sql id="getPieDays">
+		SELECT   
+		     <foreach collection="types" item="type" index="k" separator="," >
+		     	max(a.type${k+1}) type${k+1},
+		     	sum(a.a${k+1}) a${k+1}
+		     </foreach>
+		  FROM (
+		          SELECT 
+	                <foreach collection="types" item="type" index="k" separator="," >
+		               	NVL ((CASE t.type WHEN '${type}' THEN t.type END),'${type}') as type${k+1},
+		               	NVL ((CASE t.type WHEN '${type}' THEN t.counts END),0) a${k+1}	              
+	       			</foreach>
+		          FROM ( 
+		          		SELECT 
+                    		b.event_type as type, count(b.id) as counts
+			          	FROM alarm_device_log b
+			          	left join property_asset_info p on b.device_code = p.deviceid 
+			          	WHERE b.alarm_time <![CDATA[>=]]> TO_DATE ('${startTime} 00:00:00', 'yyyy-mm-dd hh24:mi:ss')
+							AND b.alarm_time <![CDATA[<=]]> TO_DATE ('${endTime} 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+			            	and b.device_type !='device'
+	                   	group by b.event_type
+			                   
+	                   	union all
+			                   
+	                   	SELECT 
+	                    		b.event_type as type, count(b.id) as counts
+			          	FROM alarm_device_log b
+			          	left join property_asset_info p on b.device_code = p.id 
+			          	WHERE b.alarm_time <![CDATA[>=]]> TO_DATE ('${startTime} 00:00:00', 'yyyy-mm-dd hh24:mi:ss')
+							AND b.alarm_time <![CDATA[<=]]> TO_DATE ('${endTime} 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+			            	and b.device_type ='device'
+	                   	group by b.event_type
+	                   	 
+	                 	)t
+		                  
+		        )a
+	</sql>
+	<!-- 获取按天、周、月、时间段 故障类型 统计故障数量 -->	        
+	<select id="selectFrequently" resultType="map">
+		<include refid="getDays"/>
+		<if test="@Ognl@isNotEmpty(sortType)" >
+	       order by ${sortType} 
+	    </if>
+	</select>
+	
+	<!-- 获取按天、周、月、时间段统计各类型故障数量 柱状图-->
+	<select id="selectChart" resultType="map">
+		<include refid="getChartDays"/>
+	</select>
+	
+	<!-- 获取按天、周、月、时间段 故障类型 统计故障数量 饼状图-->
+	<select id="selectPie" resultType="map">
+		<include refid="getPieDays"/>
+
+	</select>
+	
+	<!-- 获取按天、周、月、时间段 故障类型 统计故障数量 合计栏数据-->
+	<select id="selectTotals" resultType="map">
+		select 
+		 <foreach collection="types" item="type" index="k" separator="," >
+		 	sum(a${k+1}) as a${k+1}
+		 </foreach>
+		from(
+			<include refid="getDays"/>
+		)g
+	</select>
+	
+	<!-- 获取按天、周、月、时间段 故障类型 统计故障数量 记录总数-->
+	<select id="selectTotalFrequently" resultType="java.lang.Integer">
+		select count(*) from (
+			<include refid="getDays"/>
+		)g
+	</select>
+	
+</mapper>

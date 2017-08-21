@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.property.mapper.DatabaseInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.property.domain.DatabaseInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="DIALECT" property="dialect" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="PORT" property="port" jdbcType="VARCHAR" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="SID" property="sid" jdbcType="VARCHAR" />
+    <result column="FACTORY_ID" property="factoryId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, NAME, DIALECT, IP, PORT, USERNAME, PASSWORD, SID, FACTORY_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.property.domain.DatabaseInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PROPERTY_DATABASE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from PROPERTY_DATABASE_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from PROPERTY_DATABASE_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.property.domain.DatabaseInfoSearch" >
+    delete from PROPERTY_DATABASE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.property.domain.DatabaseInfo" >
+    insert into PROPERTY_DATABASE_INFO (ID, NAME, DIALECT, 
+      IP, PORT, USERNAME, 
+      PASSWORD, SID, FACTORY_ID
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{dialect,jdbcType=VARCHAR}, 
+      #{ip,jdbcType=VARCHAR}, #{port,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{sid,jdbcType=VARCHAR}, #{factoryId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.property.domain.DatabaseInfo" >
+    insert into PROPERTY_DATABASE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(dialect)" >
+        DIALECT,
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        IP,
+      </if>
+      <if test="@Ognl@isNotEmpty(port)" >
+        PORT,
+      </if>
+      <if test="@Ognl@isNotEmpty(username)" >
+        USERNAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(password)" >
+        PASSWORD,
+      </if>
+      <if test="@Ognl@isNotEmpty(sid)" >
+        SID,
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+        FACTORY_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(dialect)" >
+        #{dialect,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(port)" >
+        #{port,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(username)" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(password)" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(sid)" >
+        #{sid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+        #{factoryId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.property.domain.DatabaseInfoSearch" resultType="java.lang.Integer" >
+    select count(*) from PROPERTY_DATABASE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PROPERTY_DATABASE_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.dialect)" >
+        DIALECT = #{record.dialect,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.ip)" >
+        IP = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.port)" >
+        PORT = #{record.port,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.username)" >
+        USERNAME = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.password)" >
+        PASSWORD = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.sid)" >
+        SID = #{record.sid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.factoryId)" >
+        FACTORY_ID = #{record.factoryId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PROPERTY_DATABASE_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      DIALECT = #{record.dialect,jdbcType=VARCHAR},
+      IP = #{record.ip,jdbcType=VARCHAR},
+      PORT = #{record.port,jdbcType=VARCHAR},
+      USERNAME = #{record.username,jdbcType=VARCHAR},
+      PASSWORD = #{record.password,jdbcType=VARCHAR},
+      SID = #{record.sid,jdbcType=VARCHAR},
+      FACTORY_ID = #{record.factoryId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.property.domain.DatabaseInfo" >
+    update PROPERTY_DATABASE_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(dialect)" >
+        DIALECT = #{dialect,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(port)" >
+        PORT = #{port,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(username)" >
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(password)" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(sid)" >
+        SID = #{sid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+        FACTORY_ID = #{factoryId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.property.domain.DatabaseInfo" >
+    update PROPERTY_DATABASE_INFO
+    set NAME = #{name,jdbcType=VARCHAR},
+      DIALECT = #{dialect,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR},
+      PORT = #{port,jdbcType=VARCHAR},
+      USERNAME = #{username,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      SID = #{sid,jdbcType=VARCHAR},
+      FACTORY_ID = #{factoryId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from PROPERTY_DATABASE_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME LIKE '%${name}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(dialect)" >
+         and DIALECT LIKE '%${dialect}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+         and IP LIKE '%${ip}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(port)" >
+         and PORT = #{port,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(username)" >
+         and USERNAME = #{username,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(password)" >
+         and PASSWORD = #{password,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(sid)" >
+         and SID = #{sid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+         and FACTORY_ID = #{factoryId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="sortType != null" >
+       order by ${sortType} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from PROPERTY_DATABASE_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME LIKE '%${name}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(dialect)" >
+         and DIALECT LIKE '%${dialect}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+         and IP LIKE '%${ip}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(port)" >
+         and PORT = #{port,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(username)" >
+         and USERNAME = #{username,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(password)" >
+         and PASSWORD = #{password,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(sid)" >
+         and SID = #{sid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+         and FACTORY_ID = #{factoryId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="sortType != null" >
+       order by ${sortType} 
+    </if>
+  </select>
+</mapper>

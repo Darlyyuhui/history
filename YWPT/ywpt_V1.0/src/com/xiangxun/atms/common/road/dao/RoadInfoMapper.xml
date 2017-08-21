@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.common.road.dao.RoadInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.common.road.vo.RoadInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+    <result column="GROUP_ID" property="groupId" jdbcType="VARCHAR" />
+    <result column="PID" property="pid" jdbcType="VARCHAR" />
+    <result column="LEVELS" property="levels" jdbcType="SMALLINT" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="UPLOADCODE" property="uploadcode" jdbcType="VARCHAR" />
+    <result column="CODEROADTYPE" property="coderoadtype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, NAME, NOTE, GROUP_ID, PID, LEVELS, STATUS, UPLOADCODE, CODEROADTYPE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.common.road.vo.RoadInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_ROAD_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    order by nlssort(name,'NLS_SORT=SCHINESE_PINYIN_M')
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_ROAD_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_ROAD_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.common.road.vo.RoadInfoSearch" >
+    delete from SYS_ROAD_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.common.road.vo.RoadInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into SYS_ROAD_INFO (NAME, NOTE, GROUP_ID, 
+      PID, LEVELS, STATUS, 
+      UPLOADCODE, CODEROADTYPE)
+    values (#{name,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, #{groupId,jdbcType=VARCHAR}, 
+      #{pid,jdbcType=VARCHAR}, #{levels,jdbcType=SMALLINT}, #{status,jdbcType=VARCHAR}, 
+      #{uploadcode,jdbcType=VARCHAR}, #{coderoadtype,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.common.road.vo.RoadInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into SYS_ROAD_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE,
+      </if>
+      <if test="@Ognl@isNotEmpty(groupId)" >
+        GROUP_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+        PID,
+      </if>
+      <if test="@Ognl@isNotEmpty(levels)" >
+        LEVELS,
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(uploadcode)" >
+        UPLOADCODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(coderoadtype)" >
+        CODEROADTYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(groupId)" >
+        #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(levels)" >
+        #{levels,jdbcType=SMALLINT},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(uploadcode)" >
+        #{uploadcode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(coderoadtype)" >
+        #{coderoadtype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.common.road.vo.RoadInfoSearch" resultType="java.lang.Integer" >
+    select count(*) from SYS_ROAD_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SYS_ROAD_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.note)" >
+        NOTE = #{record.note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.groupId)" >
+        GROUP_ID = #{record.groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.pid)" >
+        PID = #{record.pid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.levels)" >
+        LEVELS = #{record.levels,jdbcType=SMALLINT},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.status)" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.uploadcode)" >
+        UPLOADCODE = #{record.uploadcode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.coderoadtype)" >
+        CODEROADTYPE = #{record.coderoadtype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SYS_ROAD_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      NOTE = #{record.note,jdbcType=VARCHAR},
+      GROUP_ID = #{record.groupId,jdbcType=VARCHAR},
+      PID = #{record.pid,jdbcType=VARCHAR},
+      LEVELS = #{record.levels,jdbcType=SMALLINT},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      UPLOADCODE = #{record.uploadcode,jdbcType=VARCHAR},
+      CODEROADTYPE = #{record.coderoadtype,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.common.road.vo.RoadInfo" >
+    update SYS_ROAD_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(groupId)" >
+        GROUP_ID = #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+        PID = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(levels)" >
+        LEVELS = #{levels,jdbcType=SMALLINT},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(uploadcode)" >
+        UPLOADCODE = #{uploadcode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(coderoadtype)" >
+        CODEROADTYPE = #{coderoadtype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.common.road.vo.RoadInfo" >
+    update SYS_ROAD_INFO
+    set NAME = #{name,jdbcType=VARCHAR},
+      NOTE = #{note,jdbcType=VARCHAR},
+      GROUP_ID = #{groupId,jdbcType=VARCHAR},
+      PID = #{pid,jdbcType=VARCHAR},
+      LEVELS = #{levels,jdbcType=SMALLINT},
+      STATUS = #{status,jdbcType=VARCHAR},
+      UPLOADCODE = #{uploadcode,jdbcType=VARCHAR},
+      CODEROADTYPE = #{coderoadtype,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from SYS_ROAD_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(groupId)" >
+         and GROUP_ID = #{groupId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+         and PID = #{pid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(levels)" >
+         and LEVELS = #{levels,jdbcType=SMALLINT}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(uploadcode)" >
+         and UPLOADCODE = #{uploadcode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(coderoadtype)" >
+         and CODEROADTYPE = #{coderoadtype,jdbcType=VARCHAR} 
+      </if>
+      order by nlssort(name,'NLS_SORT=SCHINESE_PINYIN_M')
+    </where>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from SYS_ROAD_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(groupId)" >
+         and GROUP_ID = #{groupId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(pid)" >
+         and PID = #{pid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(levels)" >
+         and LEVELS = #{levels,jdbcType=SMALLINT}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(uploadcode)" >
+         and UPLOADCODE = #{uploadcode,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(coderoadtype)" >
+         and CODEROADTYPE = #{coderoadtype,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  
+  <select id="getLeafNodeById" resultType="com.xiangxun.atms.common.road.vo.RoadInfo" parameterType="java.lang.String">
+  	 select  ID, PID, NAME , levels from SYS_ROAD_INFO where PID=#{pid} and status='0' order by nlssort(name,'NLS_SORT=SCHINESE_PINYIN_M')
+  </select>
+  
+  <select id="hasChild" resultType="java.lang.Integer" parameterType="java.lang.String">
+  	 select  count(id) from SYS_ROAD_INFO where PID=#{pid} and status='0'
+  </select>
+  
+</mapper>

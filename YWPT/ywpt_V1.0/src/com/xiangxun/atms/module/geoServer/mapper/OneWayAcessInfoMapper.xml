@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.geoServer.mapper.OneWayAcessInfoMapper">
+	<resultMap id="oneWayAcessInfo" type="com.xiangxun.atms.module.geoServer.domain.OneWayAcessInfo">
+		<result column="starttime" property="startTime" jdbcType="DATE" />
+		<result column="endtime" property="endtTme" jdbcType="DATE" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="geometryid" property="geometryId" jdbcType="VARCHAR" />
+		<result column="st_astext(geom)" property="geometryText" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 所有的单行道查询 -->
+	<select id="searchOneWayAcessInfo" resultMap="oneWayAcessInfo">
+	  SELECT  name as name, 
+			  type as type, 
+			  starttime as startTime, 
+			  endtime as endtTme, 
+			  geometryid as geometryId, 
+			  status as status, 
+	          st_astext(geom) as geometryText
+       FROM   public.dxd_polygon
+       where  name like '%${name}%'
+ 	  </select>
+     <insert id="addOneWayAcessInfo" parameterType="com.xiangxun.atms.module.geoServer.domain.OneWayAcessInfo">
+     INSERT INTO public.dxd_polygon(name,starttime,endtime,geom)
+      VALUES (#{name},to_date(#{starttime},'yyyy-mm-dd hh24:mi:ss'),to_date(#{endtime},'yyyy-mm-dd hh24:mi:ss'), st_geometryfromtext(#{geometryText},4326));    
+     </insert>  
+      <delete id="deleteOneWayAcess" parameterType="java.lang.Integer">
+           DELETE FROM public.dxd_polygon WHERE gid=#{gid};
+      </delete>
+      <update id="updateOneWayAcessInfo" parameterType="java.util.Map">
+            UPDATE public.dxd_polygon
+             SET  name=#{name},starttime=to_date(#{starttime},'yyyy-mm-dd hh24:mi:ss'),endtime=to_date(#{endtime},'yyyy-mm-dd hh24:mi:ss'),                  
+                   geom=st_geometryfromtext(#{geometryText},4326)
+              WHERE gid=#{gid};
+      
+      </update>
+      
+
+      
+</mapper>

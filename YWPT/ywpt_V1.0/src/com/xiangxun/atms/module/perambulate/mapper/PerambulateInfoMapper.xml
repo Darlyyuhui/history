@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.perambulate.mapper.PerambulateInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.perambulate.domain.PerambulateInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DEVICEID" property="deviceid" jdbcType="VARCHAR" />
+    <result column="INSERTTIME" property="inserttime" jdbcType="DATE" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="REASON" property="reason" jdbcType="VARCHAR" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+    <result column="DEVICENAME" property="devicename" jdbcType="VARCHAR" />
+    <result column="DEVICECODE" property="devicecode" jdbcType="VARCHAR" />
+    <result column="DEVICEIP" property="deviceip" jdbcType="VARCHAR" />
+    <result column="DEVICETYPE" property="devicetype" jdbcType="VARCHAR" />
+    <result column="POSITION" property="position" jdbcType="VARCHAR" />
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+    <result column="ORGID" property="orgid" jdbcType="VARCHAR" />
+    <result column="COMPANYID" property="companyid" jdbcType="VARCHAR" />
+ 	<association property="user" resultMap="BaseResultMap1"/>
+  </resultMap>
+   <resultMap id="BaseResultMap1" type="com.xiangxun.atms.common.user.vo.User" >
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xiangxun.atms.module.perambulate.domain.PerambulateInfoWithBLOBs" extends="BaseResultMap" >
+    <result column="PICTURE1" property="picture1" jdbcType="BLOB" />
+    <result column="PICTURE2" property="picture2" jdbcType="BLOB" />
+    <result column="PICTURE3" property="picture3" jdbcType="BLOB" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  
+  
+  <sql id="Base_Column_List" >
+    ID, DEVICEID, INSERTTIME, USERID, REASON, NOTE, DEVICENAME, DEVICECODE, DEVICEIP, 
+    DEVICETYPE, POSITION, TELEPHONE, ORGID, COMPANYID
+  </sql>
+  
+  
+  
+  <sql id="Blob_Column_List" >
+    PICTURE1, PICTURE2, PICTURE3
+  </sql>
+  
+  
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.xiangxun.atms.module.perambulate.domain.PerambulateInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ALARM_PERAMBULATE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.perambulate.domain.PerambulateInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ALARM_PERAMBULATE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ALARM_PERAMBULATE_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ALARM_PERAMBULATE_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.perambulate.domain.PerambulateInfoSearch" >
+    delete from ALARM_PERAMBULATE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.perambulate.domain.PerambulateInfoWithBLOBs" >
+    insert into ALARM_PERAMBULATE_INFO (ID, DEVICEID, INSERTTIME, 
+      USERID, REASON, NOTE, 
+      DEVICENAME, DEVICECODE, DEVICEIP, 
+      DEVICETYPE, POSITION, TELEPHONE, 
+      ORGID, COMPANYID, PICTURE1, 
+      PICTURE2, PICTURE3)
+    values (#{id,jdbcType=VARCHAR}, #{deviceid,jdbcType=VARCHAR}, #{inserttime,jdbcType=DATE}, 
+      #{userid,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, 
+      #{devicename,jdbcType=VARCHAR}, #{devicecode,jdbcType=VARCHAR}, #{deviceip,jdbcType=VARCHAR}, 
+      #{devicetype,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{orgid,jdbcType=VARCHAR}, #{companyid,jdbcType=VARCHAR}, #{picture1,jdbcType=BLOB}, 
+      #{picture2,jdbcType=BLOB}, #{picture3,jdbcType=BLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.perambulate.domain.PerambulateInfoWithBLOBs" >
+    insert into ALARM_PERAMBULATE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceid)" >
+        DEVICEID,
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        INSERTTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(userid)" >
+        USERID,
+      </if>
+      <if test="@Ognl@isNotEmpty(reason)" >
+        REASON,
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE,
+      </if>
+      <if test="@Ognl@isNotEmpty(devicename)" >
+        DEVICENAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(devicecode)" >
+        DEVICECODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceip)" >
+        DEVICEIP,
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetype)" >
+        DEVICETYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(position)" >
+        POSITION,
+      </if>
+      <if test="@Ognl@isNotEmpty(telephone)" >
+        TELEPHONE,
+      </if>
+      <if test="@Ognl@isNotEmpty(orgid)" >
+        ORGID,
+      </if>
+      <if test="@Ognl@isNotEmpty(companyid)" >
+        COMPANYID,
+      </if>
+      <if test="@Ognl@isNotEmpty(picture1)" >
+        PICTURE1,
+      </if>
+      <if test="@Ognl@isNotEmpty(picture2)" >
+        PICTURE2,
+      </if>
+      <if test="@Ognl@isNotEmpty(picture3)" >
+        PICTURE3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceid)" >
+        #{deviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        #{inserttime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(userid)" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(reason)" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicename)" >
+        #{devicename,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicecode)" >
+        #{devicecode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceip)" >
+        #{deviceip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetype)" >
+        #{devicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(position)" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(telephone)" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(orgid)" >
+        #{orgid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(companyid)" >
+        #{companyid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(picture1)" >
+        #{picture1,jdbcType=BLOB},
+      </if>
+      <if test="@Ognl@isNotEmpty(picture2)" >
+        #{picture2,jdbcType=BLOB},
+      </if>
+      <if test="@Ognl@isNotEmpty(picture3)" >
+        #{picture3,jdbcType=BLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.perambulate.domain.PerambulateInfoSearch" resultType="java.lang.Integer" >
+    select count(*) from ALARM_PERAMBULATE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ALARM_PERAMBULATE_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.deviceid)" >
+        DEVICEID = #{record.deviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.inserttime)" >
+        INSERTTIME = #{record.inserttime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.userid)" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.reason)" >
+        REASON = #{record.reason,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.note)" >
+        NOTE = #{record.note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.devicename)" >
+        DEVICENAME = #{record.devicename,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.devicecode)" >
+        DEVICECODE = #{record.devicecode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.deviceip)" >
+        DEVICEIP = #{record.deviceip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.devicetype)" >
+        DEVICETYPE = #{record.devicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.position)" >
+        POSITION = #{record.position,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.telephone)" >
+        TELEPHONE = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.orgid)" >
+        ORGID = #{record.orgid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.companyid)" >
+        COMPANYID = #{record.companyid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.picture1)" >
+        PICTURE1 = #{record.picture1,jdbcType=BLOB},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.picture2)" >
+        PICTURE2 = #{record.picture2,jdbcType=BLOB},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.picture3)" >
+        PICTURE3 = #{record.picture3,jdbcType=BLOB},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update ALARM_PERAMBULATE_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      DEVICEID = #{record.deviceid,jdbcType=VARCHAR},
+      INSERTTIME = #{record.inserttime,jdbcType=DATE},
+      USERID = #{record.userid,jdbcType=VARCHAR},
+      REASON = #{record.reason,jdbcType=VARCHAR},
+      NOTE = #{record.note,jdbcType=VARCHAR},
+      DEVICENAME = #{record.devicename,jdbcType=VARCHAR},
+      DEVICECODE = #{record.devicecode,jdbcType=VARCHAR},
+      DEVICEIP = #{record.deviceip,jdbcType=VARCHAR},
+      DEVICETYPE = #{record.devicetype,jdbcType=VARCHAR},
+      POSITION = #{record.position,jdbcType=VARCHAR},
+      TELEPHONE = #{record.telephone,jdbcType=VARCHAR},
+      ORGID = #{record.orgid,jdbcType=VARCHAR},
+      COMPANYID = #{record.companyid,jdbcType=VARCHAR},
+      PICTURE1 = #{record.picture1,jdbcType=BLOB},
+      PICTURE2 = #{record.picture2,jdbcType=BLOB},
+      PICTURE3 = #{record.picture3,jdbcType=BLOB}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ALARM_PERAMBULATE_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      DEVICEID = #{record.deviceid,jdbcType=VARCHAR},
+      INSERTTIME = #{record.inserttime,jdbcType=DATE},
+      USERID = #{record.userid,jdbcType=VARCHAR},
+      REASON = #{record.reason,jdbcType=VARCHAR},
+      NOTE = #{record.note,jdbcType=VARCHAR},
+      DEVICENAME = #{record.devicename,jdbcType=VARCHAR},
+      DEVICECODE = #{record.devicecode,jdbcType=VARCHAR},
+      DEVICEIP = #{record.deviceip,jdbcType=VARCHAR},
+      DEVICETYPE = #{record.devicetype,jdbcType=VARCHAR},
+      POSITION = #{record.position,jdbcType=VARCHAR},
+      TELEPHONE = #{record.telephone,jdbcType=VARCHAR},
+      ORGID = #{record.orgid,jdbcType=VARCHAR},
+      COMPANYID = #{record.companyid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.perambulate.domain.PerambulateInfoWithBLOBs" >
+    update ALARM_PERAMBULATE_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(deviceid)" >
+        DEVICEID = #{deviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        INSERTTIME = #{inserttime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(userid)" >
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(reason)" >
+        REASON = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicename)" >
+        DEVICENAME = #{devicename,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicecode)" >
+        DEVICECODE = #{devicecode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceip)" >
+        DEVICEIP = #{deviceip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetype)" >
+        DEVICETYPE = #{devicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(position)" >
+        POSITION = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(telephone)" >
+        TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(orgid)" >
+        ORGID = #{orgid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(companyid)" >
+        COMPANYID = #{companyid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(picture1)" >
+        PICTURE1 = #{picture1,jdbcType=BLOB},
+      </if>
+      <if test="@Ognl@isNotEmpty(picture2)" >
+        PICTURE2 = #{picture2,jdbcType=BLOB},
+      </if>
+      <if test="@Ognl@isNotEmpty(picture3)" >
+        PICTURE3 = #{picture3,jdbcType=BLOB},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xiangxun.atms.module.perambulate.domain.PerambulateInfoWithBLOBs" >
+    update ALARM_PERAMBULATE_INFO
+    set DEVICEID = #{deviceid,jdbcType=VARCHAR},
+      INSERTTIME = #{inserttime,jdbcType=DATE},
+      USERID = #{userid,jdbcType=VARCHAR},
+      REASON = #{reason,jdbcType=VARCHAR},
+      NOTE = #{note,jdbcType=VARCHAR},
+      DEVICENAME = #{devicename,jdbcType=VARCHAR},
+      DEVICECODE = #{devicecode,jdbcType=VARCHAR},
+      DEVICEIP = #{deviceip,jdbcType=VARCHAR},
+      DEVICETYPE = #{devicetype,jdbcType=VARCHAR},
+      POSITION = #{position,jdbcType=VARCHAR},
+      TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      ORGID = #{orgid,jdbcType=VARCHAR},
+      COMPANYID = #{companyid,jdbcType=VARCHAR},
+      PICTURE1 = #{picture1,jdbcType=BLOB},
+      PICTURE2 = #{picture2,jdbcType=BLOB},
+      PICTURE3 = #{picture3,jdbcType=BLOB}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.perambulate.domain.PerambulateInfo" >
+    update ALARM_PERAMBULATE_INFO
+    set DEVICEID = #{deviceid,jdbcType=VARCHAR},
+      INSERTTIME = #{inserttime,jdbcType=DATE},
+      USERID = #{userid,jdbcType=VARCHAR},
+      REASON = #{reason,jdbcType=VARCHAR},
+      NOTE = #{note,jdbcType=VARCHAR},
+      DEVICENAME = #{devicename,jdbcType=VARCHAR},
+      DEVICECODE = #{devicecode,jdbcType=VARCHAR},
+      DEVICEIP = #{deviceip,jdbcType=VARCHAR},
+      DEVICETYPE = #{devicetype,jdbcType=VARCHAR},
+      POSITION = #{position,jdbcType=VARCHAR},
+      TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      ORGID = #{orgid,jdbcType=VARCHAR},
+      COMPANYID = #{companyid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+  select t.id,t.DEVICEID,t.INSERTTIME,t.REASON,t.USERID,t.NOTE,t1.name,t.DEVICENAME,t.DEVICECODE,t.DEVICEIP,t.DEVICETYPE,t.POSITION,t.TELEPHONE,t.ORGID,t.COMPANYID from 
+  	(select 
+    ID, DEVICEID, INSERTTIME, USERID, REASON, NOTE, DEVICENAME, DEVICECODE, DEVICEIP, 
+    DEVICETYPE, POSITION, TELEPHONE, ORGID, COMPANYID
+     from ALARM_PERAMBULATE_INFO )t  left join sys_user t1  on t.userid=t1.id
+    <where >
+      <!-- <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if> -->
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceid)" >
+         and DEVICEID = #{deviceid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+         and INSERTTIME = #{inserttime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(userid)" >
+         and USERID = #{userid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(reason)" >
+         and REASON = #{reason,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(devicename)" >
+         and DEVICENAME LIKE '%${devicename}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(devicecode)" >
+         and DEVICECODE LIKE '%${devicecode}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceip)" >
+         and DEVICEIP LIKE '%${deviceip}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetype)" >
+         and DEVICETYPE = #{devicetype,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(position)" >
+         and POSITION = #{position,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(telephone)" >
+         and TELEPHONE = #{telephone,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(orgid)" >
+         and ORGID = #{orgid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(companyid)" >
+         and COMPANYID = #{companyid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(picture1)" >
+         and PICTURE1 = #{picture1,jdbcType=BLOB}
+      </if>
+      <if test="@Ognl@isNotEmpty(picture2)" >
+         and PICTURE2 = #{picture2,jdbcType=BLOB}
+      </if>
+      <if test="@Ognl@isNotEmpty(picture3)" >
+         and PICTURE3 = #{picture3,jdbcType=BLOB}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortType)" >
+       order by ${sortType} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from ALARM_PERAMBULATE_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceid)" >
+         and DEVICEID = #{deviceid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+         and INSERTTIME = #{inserttime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(userid)" >
+         and USERID = #{userid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(reason)" >
+         and REASON = #{reason,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(devicename)" >
+         and DEVICENAME LIKE '%${devicename}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(devicecode)" >
+         and DEVICECODE LIKE '%${devicecode}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceip)" >
+         and DEVICEIP LIKE '%${deviceip}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetype)" >
+         and DEVICETYPE = #{devicetype,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(position)" >
+         and POSITION = #{position,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(telephone)" >
+         and TELEPHONE = #{telephone,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(orgid)" >
+         and ORGID = #{orgid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(companyid)" >
+         and COMPANYID = #{companyid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(picture1)" >
+         and PICTURE1 = #{picture1,jdbcType=BLOB}
+      </if>
+      <if test="@Ognl@isNotEmpty(picture2)" >
+         and PICTURE2 = #{picture2,jdbcType=BLOB}
+      </if>
+      <if test="@Ognl@isNotEmpty(picture3)" >
+         and PICTURE3 = #{picture3,jdbcType=BLOB}
+      </if>
+    </where>
+     <if test="@Ognl@isNotEmpty(sortType)" >
+       order by ${sortType} 
+    </if>
+  </select>
+  <select id="getCountByDeviceType" resultType="map">
+  	select t.devicetype as devicetype,count(*) as countnum 
+  	from alarm_perambulate_info t 
+  	where 
+  	inserttime between to_date('${startday}','yyyy/MM/dd') 
+  	and to_date('${endday}','yyyy/MM/dd') 
+  	group by t.devicetype
+  </select>
+   <select id="getCountByUser" resultType="map">
+  	select t2.name as name,count(*) as countnum 
+  	from ( select t.id,t.DEVICEID,t.INSERTTIME,t.REASON,t.USERID,t.NOTE,t1.name,t.DEVICENAME,t.DEVICECODE,t.DEVICEIP,t.DEVICETYPE,t.POSITION,t.TELEPHONE,t.ORGID,t.COMPANYID from 
+  	(select ID, DEVICEID, INSERTTIME, USERID, REASON, NOTE, DEVICENAME, DEVICECODE, DEVICEIP,  DEVICETYPE, POSITION, TELEPHONE, ORGID, COMPANYID
+     from ALARM_PERAMBULATE_INFO )t  left join sys_user t1  on t.userid=t1.id) t2 
+  	where 
+  	inserttime between to_date('${startday}','yyyy/MM/dd') 
+  	and to_date('${endday}','yyyy/MM/dd') 
+  	group by t2.name
+  </select>
+</mapper>

@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.property.mapper.DeviceFtpInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.property.domain.DeviceFtpInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="FTPIP" property="ftpip" jdbcType="VARCHAR" />
+    <result column="FTPUSER" property="ftpuser" jdbcType="VARCHAR" />
+    <result column="FTPPASSWORD" property="ftppassword" jdbcType="VARCHAR" />
+    <result column="FTPPORT" property="ftpport" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="HTTPPORT" property="httpport" jdbcType="VARCHAR" />
+    <result column="DIRNAME" property="dirname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, FTPIP, FTPUSER, FTPPASSWORD, FTPPORT, NAME, HTTPPORT, DIRNAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.property.domain.DeviceFtpInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PROPERTY_DEVICEFTP_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from PROPERTY_DEVICEFTP_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from PROPERTY_DEVICEFTP_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.property.domain.DeviceFtpInfoSearch" >
+    delete from PROPERTY_DEVICEFTP_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.property.domain.DeviceFtpInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into PROPERTY_DEVICEFTP_INFO (FTPIP, FTPUSER, FTPPASSWORD, 
+      FTPPORT, NAME, HTTPPORT, 
+      DIRNAME)
+    values (#{ftpip,jdbcType=VARCHAR}, #{ftpuser,jdbcType=VARCHAR}, #{ftppassword,jdbcType=VARCHAR}, 
+      #{ftpport,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{httpport,jdbcType=VARCHAR}, 
+      #{dirname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.property.domain.DeviceFtpInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into PROPERTY_DEVICEFTP_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpip)" >
+        FTPIP,
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpuser)" >
+        FTPUSER,
+      </if>
+      <if test="@Ognl@isNotEmpty(ftppassword)" >
+        FTPPASSWORD,
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpport)" >
+        FTPPORT,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(httpport)" >
+        HTTPPORT,
+      </if>
+      <if test="@Ognl@isNotEmpty(dirname)" >
+        DIRNAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpip)" >
+        #{ftpip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpuser)" >
+        #{ftpuser,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ftppassword)" >
+        #{ftppassword,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpport)" >
+        #{ftpport,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(httpport)" >
+        #{httpport,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(dirname)" >
+        #{dirname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.property.domain.DeviceFtpInfoSearch" resultType="java.lang.Integer" >
+    select count(*) from PROPERTY_DEVICEFTP_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PROPERTY_DEVICEFTP_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.ftpip)" >
+        FTPIP = #{record.ftpip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.ftpuser)" >
+        FTPUSER = #{record.ftpuser,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.ftppassword)" >
+        FTPPASSWORD = #{record.ftppassword,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.ftpport)" >
+        FTPPORT = #{record.ftpport,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.httpport)" >
+        HTTPPORT = #{record.httpport,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.dirname)" >
+        DIRNAME = #{record.dirname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PROPERTY_DEVICEFTP_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      FTPIP = #{record.ftpip,jdbcType=VARCHAR},
+      FTPUSER = #{record.ftpuser,jdbcType=VARCHAR},
+      FTPPASSWORD = #{record.ftppassword,jdbcType=VARCHAR},
+      FTPPORT = #{record.ftpport,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      HTTPPORT = #{record.httpport,jdbcType=VARCHAR},
+      DIRNAME = #{record.dirname,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.property.domain.DeviceFtpInfo" >
+    update PROPERTY_DEVICEFTP_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(ftpip)" >
+        FTPIP = #{ftpip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpuser)" >
+        FTPUSER = #{ftpuser,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ftppassword)" >
+        FTPPASSWORD = #{ftppassword,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpport)" >
+        FTPPORT = #{ftpport,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+        HTTPPORT = #{httpport,jdbcType=VARCHAR},
+      <if test="@Ognl@isNotEmpty(dirname)" >
+        DIRNAME = #{dirname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.property.domain.DeviceFtpInfo" >
+    update PROPERTY_DEVICEFTP_INFO
+    set FTPIP = #{ftpip,jdbcType=VARCHAR},
+      FTPUSER = #{ftpuser,jdbcType=VARCHAR},
+      FTPPASSWORD = #{ftppassword,jdbcType=VARCHAR},
+      FTPPORT = #{ftpport,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      HTTPPORT = #{httpport,jdbcType=VARCHAR},
+      DIRNAME = #{dirname,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from PROPERTY_DEVICEFTP_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpip)" >
+         and FTPIP = #{ftpip,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpuser)" >
+         and FTPUSER = #{ftpuser,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ftppassword)" >
+         and FTPPASSWORD = #{ftppassword,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpport)" >
+         and FTPPORT = #{ftpport,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(httpport)" >
+         and HTTPPORT = #{httpport,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(dirname)" >
+         and DIRNAME = #{dirname,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from PROPERTY_DEVICEFTP_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpip)" >
+         and FTPIP = #{ftpip,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpuser)" >
+         and FTPUSER = #{ftpuser,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ftppassword)" >
+         and FTPPASSWORD = #{ftppassword,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ftpport)" >
+         and FTPPORT = #{ftpport,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(httpport)" >
+         and HTTPPORT = #{httpport,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(dirname)" >
+         and DIRNAME = #{dirname,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  
+  <select id="getFtpByDeviceCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM PROPERTY_DEVICEFTP_INFO
+    where ID =(SELECT FTP_ID from PROPERTY_DEVICE_INFO t where t.CODE=#{code})
+  </select>
+  
+</mapper>

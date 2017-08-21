@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.eventalarm.mapper.EventlevelInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.eventalarm.domain.EventlevelInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="RELATION_TYPE" property="relationType" jdbcType="VARCHAR" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+    <result column="COLOR" property="color" jdbcType="VARCHAR" />
+    <result column="HEALTHCOEFFICIENT" property="healthcoefficient" jdbcType="DECIMAL" />
+    <result column="GRADE" property="grade" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, NAME, RELATION_TYPE, NOTE, COLOR, HEALTHCOEFFICIENT, GRADE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.eventalarm.domain.EventlevelInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ALARM_EVENTLEVEL_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ALARM_EVENTLEVEL_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ALARM_EVENTLEVEL_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.eventalarm.domain.EventlevelInfoSearch" >
+    delete from ALARM_EVENTLEVEL_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.eventalarm.domain.EventlevelInfo" >
+    insert into ALARM_EVENTLEVEL_INFO (ID, NAME, RELATION_TYPE, 
+      NOTE, COLOR, HEALTHCOEFFICIENT, 
+      GRADE)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{relationType,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, #{healthcoefficient,jdbcType=DECIMAL}, 
+      #{grade,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.eventalarm.domain.EventlevelInfo" >
+    insert into ALARM_EVENTLEVEL_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(relationType)" >
+        RELATION_TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE,
+      </if>
+      <if test="@Ognl@isNotEmpty(color)" >
+        COLOR,
+      </if>
+      <if test="@Ognl@isNotEmpty(healthcoefficient)" >
+        HEALTHCOEFFICIENT,
+      </if>
+      <if test="@Ognl@isNotEmpty(grade)" >
+        GRADE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(relationType)" >
+        #{relationType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(color)" >
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(healthcoefficient)" >
+        #{healthcoefficient,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(grade)" >
+        #{grade,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.eventalarm.domain.EventlevelInfoSearch" resultType="java.lang.Integer" >
+    select count(*) from ALARM_EVENTLEVEL_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ALARM_EVENTLEVEL_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.relationType)" >
+        RELATION_TYPE = #{record.relationType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.note)" >
+        NOTE = #{record.note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.color)" >
+        COLOR = #{record.color,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.healthcoefficient)" >
+        HEALTHCOEFFICIENT = #{record.healthcoefficient,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.grade)" >
+        GRADE = #{record.grade,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ALARM_EVENTLEVEL_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      RELATION_TYPE = #{record.relationType,jdbcType=VARCHAR},
+      NOTE = #{record.note,jdbcType=VARCHAR},
+      COLOR = #{record.color,jdbcType=VARCHAR},
+       HEALTHCOEFFICIENT = #{record.healthcoefficient,jdbcType=DECIMAL},
+      GRADE = #{record.grade,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.eventalarm.domain.EventlevelInfo" >
+    update ALARM_EVENTLEVEL_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(relationType)" >
+        RELATION_TYPE = #{relationType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(color)" >
+        COLOR = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(healthcoefficient)" >
+        HEALTHCOEFFICIENT = #{healthcoefficient,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(grade)" >
+        GRADE = #{grade,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.eventalarm.domain.EventlevelInfo" >
+    update ALARM_EVENTLEVEL_INFO
+    set NAME = #{name,jdbcType=VARCHAR},
+      RELATION_TYPE = #{relationType,jdbcType=VARCHAR},
+      NOTE = #{note,jdbcType=VARCHAR},
+      COLOR = #{color,jdbcType=VARCHAR},
+      HEALTHCOEFFICIENT = #{healthcoefficient,jdbcType=DECIMAL},
+      GRADE = #{grade,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from ALARM_EVENTLEVEL_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME LIKE '%${name}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(relationType)" >
+         and RELATION_TYPE LIKE '%${relationType}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(color)" >
+         and COLOR = #{color,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(healthcoefficient)" >
+         and HEALTHCOEFFICIENT = #{healthcoefficient,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(grade)" >
+         and GRADE = #{grade,jdbcType=DECIMAL}
+      </if>
+    </where>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from ALARM_EVENTLEVEL_INFO
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME LIKE '%${name}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(relationType)" >
+         and RELATION_TYPE LIKE '%${relationType}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(color)" >
+         and COLOR = #{color,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(healthcoefficient)" >
+         and HEALTHCOEFFICIENT = #{healthcoefficient,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(grade)" >
+         and GRADE = #{grade,jdbcType=DECIMAL}
+      </if>
+    </where>
+  </select>
+</mapper>

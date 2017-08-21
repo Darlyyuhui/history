@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.property.mapper.DeviceTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.property.domain.DeviceType" >
+    <result column="DEVICE_ID" property="deviceId" jdbcType="VARCHAR" />
+    <result column="DEVICETYPE_ID" property="devicetypeId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DEVICE_ID, DEVICETYPE_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.property.domain.DeviceTypeSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PROPERTY_DEVICE_TYPE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.property.domain.DeviceTypeSearch" >
+    delete from PROPERTY_DEVICE_TYPE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.property.domain.DeviceType" >
+    insert into PROPERTY_DEVICE_TYPE (DEVICE_ID, DEVICETYPE_ID)
+    values (#{deviceId,jdbcType=VARCHAR}, #{devicetypeId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.property.domain.DeviceType" >
+    insert into PROPERTY_DEVICE_TYPE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deviceId != null" >
+        DEVICE_ID,
+      </if>
+      <if test="devicetypeId != null" >
+        DEVICETYPE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deviceId != null" >
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="devicetypeId != null" >
+        #{devicetypeId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.property.domain.DeviceTypeSearch" resultType="java.lang.Integer" >
+    select count(*) from PROPERTY_DEVICE_TYPE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PROPERTY_DEVICE_TYPE
+    <set >
+      <if test="record.deviceId != null" >
+        DEVICE_ID = #{record.deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.devicetypeId != null" >
+        DEVICETYPE_ID = #{record.devicetypeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PROPERTY_DEVICE_TYPE
+    set DEVICE_ID = #{record.deviceId,jdbcType=VARCHAR},
+      DEVICETYPE_ID = #{record.devicetypeId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  <select id="getDeviceByTypeId" resultType="com.xiangxun.atms.module.property.domain.DeviceInfo" parameterType="java.lang.String">
+  	select  *  from  PROPERTY_DEVICE_INFO t where t.ID in(
+    	select DEVICE_ID from  PROPERTY_DEVICE_TYPE u where U.DEVICETYPE_ID = #{devicetypeId} 
+	)
+  </select>
+  
+  
+   <select id="staticByType" resultType="map">
+      select name,count(*) from (select id,name from PROPERTY_DEVICETYPE_INFO where pid = '00') info , 
+                              (select dt.* from PROPERTY_DEVICE_TYPE dt, PROPERTY_DEVICE_INFO d where d.id = dt.device_id) dt
+                               where info.id = dt.devicetype_id
+                               group by name	
+  </select>
+  
+  
+  <select id="getTypeByDeviceId" resultType="com.xiangxun.atms.module.property.domain.DeviceTypeInfo" parameterType="java.lang.String">
+    select * from PROPERTY_DEVICETYPE_INFO t where T.ID in(
+        select DEVICETYPE_ID from PROPERTY_DEVICE_TYPE u where U.DEVICE_ID =#{deviceId}
+    )
+  </select>
+  
+  
+
+  
+  
+</mapper>

@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.eventalarm.mapper.ServerStatusMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.eventalarm.domain.ServerStatus" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="CPUINFO" property="cpuinfo" jdbcType="VARCHAR" />
+    <result column="MEMORYINFO" property="memoryinfo" jdbcType="VARCHAR" />
+    <result column="COMPUTERNAME" property="computername" jdbcType="VARCHAR" />
+    <result column="OSNAME" property="osname" jdbcType="VARCHAR" />
+    <result column="OSVERSION" property="osversion" jdbcType="VARCHAR" />
+    <result column="OSTYPE" property="ostype" jdbcType="VARCHAR" />
+    <result column="CPUNUMBER" property="cpunumber" jdbcType="VARCHAR" />
+    <result column="BIOSVERSION" property="biosversion" jdbcType="VARCHAR" />
+    <result column="SYSAREASET" property="sysareaset" jdbcType="VARCHAR" />
+    <result column="INPUTAREASET" property="inputareaset" jdbcType="VARCHAR" />
+    <result column="HYMEMORYALL" property="hymemoryall" jdbcType="VARCHAR" />
+    <result column="HYMEMORYFREE" property="hymemoryfree" jdbcType="VARCHAR" />
+    <result column="OSID" property="osid" jdbcType="VARCHAR" />
+    <result column="OSREGUSER" property="osreguser" jdbcType="VARCHAR" />
+    <result column="OSFACTORY" property="osfactory" jdbcType="VARCHAR" />
+    <result column="DISKINFO" property="diskinfo" jdbcType="VARCHAR" />
+    <result column="DISK_STATUS" property="diskStatus" jdbcType="VARCHAR" />
+    <result column="CPU_STATUS" property="cpuStatus" jdbcType="VARCHAR" />
+    <result column="MEMORY_STATUS" property="memoryStatus" jdbcType="VARCHAR" />
+    <result column="INSERTTIME" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="INSERTPC" property="insertpc" jdbcType="VARCHAR" />
+    <result column="ASSETID" property="assetid" jdbcType="VARCHAR" />
+    <result column="ASSETNAME" property="assetname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, IP, CPUINFO, MEMORYINFO, COMPUTERNAME, OSNAME, OSVERSION, OSTYPE, CPUNUMBER, 
+    BIOSVERSION, SYSAREASET, INPUTAREASET, HYMEMORYALL, HYMEMORYFREE, OSID, OSREGUSER, 
+    OSFACTORY, DISKINFO, DISK_STATUS, CPU_STATUS, MEMORY_STATUS, INSERTTIME, INSERTPC, 
+    ASSETID, ASSETNAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.eventalarm.domain.ServerStatusSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from STATUS_SERVER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from STATUS_SERVER
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from STATUS_SERVER
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.eventalarm.domain.ServerStatusSearch" >
+    delete from STATUS_SERVER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.eventalarm.domain.ServerStatus" useGeneratedKeys="true" keyProperty="id" >
+    insert into STATUS_SERVER (IP, CPUINFO, MEMORYINFO, 
+      COMPUTERNAME, OSNAME, OSVERSION, 
+      OSTYPE, CPUNUMBER, BIOSVERSION, 
+      SYSAREASET, INPUTAREASET, HYMEMORYALL, 
+      HYMEMORYFREE, OSID, OSREGUSER, 
+      OSFACTORY, DISKINFO, DISK_STATUS, 
+      CPU_STATUS, MEMORY_STATUS, INSERTTIME, 
+      INSERTPC, ASSETID, ASSETNAME
+      )
+    values (#{ip,jdbcType=VARCHAR}, #{cpuinfo,jdbcType=VARCHAR}, #{memoryinfo,jdbcType=VARCHAR}, 
+      #{computername,jdbcType=VARCHAR}, #{osname,jdbcType=VARCHAR}, #{osversion,jdbcType=VARCHAR}, 
+      #{ostype,jdbcType=VARCHAR}, #{cpunumber,jdbcType=VARCHAR}, #{biosversion,jdbcType=VARCHAR}, 
+      #{sysareaset,jdbcType=VARCHAR}, #{inputareaset,jdbcType=VARCHAR}, #{hymemoryall,jdbcType=VARCHAR}, 
+      #{hymemoryfree,jdbcType=VARCHAR}, #{osid,jdbcType=VARCHAR}, #{osreguser,jdbcType=VARCHAR}, 
+      #{osfactory,jdbcType=VARCHAR}, #{diskinfo,jdbcType=VARCHAR}, #{diskStatus,jdbcType=VARCHAR}, 
+      #{cpuStatus,jdbcType=VARCHAR}, #{memoryStatus,jdbcType=VARCHAR}, #{inserttime,jdbcType=TIMESTAMP}, 
+      #{insertpc,jdbcType=VARCHAR}, #{assetid,jdbcType=VARCHAR}, #{assetname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.eventalarm.domain.ServerStatus" useGeneratedKeys="true" keyProperty="id" >
+    insert into STATUS_SERVER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        IP,
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuinfo)" >
+        CPUINFO,
+      </if>
+      <if test="@Ognl@isNotEmpty(memoryinfo)" >
+        MEMORYINFO,
+      </if>
+      <if test="@Ognl@isNotEmpty(computername)" >
+        COMPUTERNAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(osname)" >
+        OSNAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(osversion)" >
+        OSVERSION,
+      </if>
+      <if test="@Ognl@isNotEmpty(ostype)" >
+        OSTYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(cpunumber)" >
+        CPUNUMBER,
+      </if>
+      <if test="@Ognl@isNotEmpty(biosversion)" >
+        BIOSVERSION,
+      </if>
+      <if test="@Ognl@isNotEmpty(sysareaset)" >
+        SYSAREASET,
+      </if>
+      <if test="@Ognl@isNotEmpty(inputareaset)" >
+        INPUTAREASET,
+      </if>
+      <if test="@Ognl@isNotEmpty(hymemoryall)" >
+        HYMEMORYALL,
+      </if>
+      <if test="@Ognl@isNotEmpty(hymemoryfree)" >
+        HYMEMORYFREE,
+      </if>
+      <if test="@Ognl@isNotEmpty(osid)" >
+        OSID,
+      </if>
+      <if test="@Ognl@isNotEmpty(osreguser)" >
+        OSREGUSER,
+      </if>
+      <if test="@Ognl@isNotEmpty(osfactory)" >
+        OSFACTORY,
+      </if>
+      <if test="@Ognl@isNotEmpty(diskinfo)" >
+        DISKINFO,
+      </if>
+      <if test="@Ognl@isNotEmpty(diskStatus)" >
+        DISK_STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuStatus)" >
+        CPU_STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(memoryStatus)" >
+        MEMORY_STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        INSERTTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(insertpc)" >
+        INSERTPC,
+      </if>
+      <if test="@Ognl@isNotEmpty(assetid)" >
+        ASSETID,
+      </if>
+      <if test="@Ognl@isNotEmpty(assetname)" >
+        ASSETNAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuinfo)" >
+        #{cpuinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(memoryinfo)" >
+        #{memoryinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(computername)" >
+        #{computername,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(osname)" >
+        #{osname,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(osversion)" >
+        #{osversion,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ostype)" >
+        #{ostype,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(cpunumber)" >
+        #{cpunumber,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(biosversion)" >
+        #{biosversion,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(sysareaset)" >
+        #{sysareaset,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inputareaset)" >
+        #{inputareaset,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(hymemoryall)" >
+        #{hymemoryall,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(hymemoryfree)" >
+        #{hymemoryfree,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(osid)" >
+        #{osid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(osreguser)" >
+        #{osreguser,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(osfactory)" >
+        #{osfactory,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(diskinfo)" >
+        #{diskinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(diskStatus)" >
+        #{diskStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuStatus)" >
+        #{cpuStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(memoryStatus)" >
+        #{memoryStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(insertpc)" >
+        #{insertpc,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assetid)" >
+        #{assetid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assetname)" >
+        #{assetname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.eventalarm.domain.ServerStatusSearch" resultType="java.lang.Integer" >
+    select count(*) from STATUS_SERVER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update STATUS_SERVER
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.ip)" >
+        IP = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.cpuinfo)" >
+        CPUINFO = #{record.cpuinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.memoryinfo)" >
+        MEMORYINFO = #{record.memoryinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.computername)" >
+        COMPUTERNAME = #{record.computername,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.osname)" >
+        OSNAME = #{record.osname,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.osversion)" >
+        OSVERSION = #{record.osversion,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.ostype)" >
+        OSTYPE = #{record.ostype,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.cpunumber)" >
+        CPUNUMBER = #{record.cpunumber,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.biosversion)" >
+        BIOSVERSION = #{record.biosversion,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.sysareaset)" >
+        SYSAREASET = #{record.sysareaset,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.inputareaset)" >
+        INPUTAREASET = #{record.inputareaset,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.hymemoryall)" >
+        HYMEMORYALL = #{record.hymemoryall,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.hymemoryfree)" >
+        HYMEMORYFREE = #{record.hymemoryfree,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.osid)" >
+        OSID = #{record.osid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.osreguser)" >
+        OSREGUSER = #{record.osreguser,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.osfactory)" >
+        OSFACTORY = #{record.osfactory,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.diskinfo)" >
+        DISKINFO = #{record.diskinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.diskStatus)" >
+        DISK_STATUS = #{record.diskStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.cpuStatus)" >
+        CPU_STATUS = #{record.cpuStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.memoryStatus)" >
+        MEMORY_STATUS = #{record.memoryStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.inserttime)" >
+        INSERTTIME = #{record.inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.insertpc)" >
+        INSERTPC = #{record.insertpc,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.assetid)" >
+        ASSETID = #{record.assetid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.assetname)" >
+        ASSETNAME = #{record.assetname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update STATUS_SERVER
+    set ID = #{record.id,jdbcType=VARCHAR},
+      IP = #{record.ip,jdbcType=VARCHAR},
+      CPUINFO = #{record.cpuinfo,jdbcType=VARCHAR},
+      MEMORYINFO = #{record.memoryinfo,jdbcType=VARCHAR},
+      COMPUTERNAME = #{record.computername,jdbcType=VARCHAR},
+      OSNAME = #{record.osname,jdbcType=VARCHAR},
+      OSVERSION = #{record.osversion,jdbcType=VARCHAR},
+      OSTYPE = #{record.ostype,jdbcType=VARCHAR},
+      CPUNUMBER = #{record.cpunumber,jdbcType=VARCHAR},
+      BIOSVERSION = #{record.biosversion,jdbcType=VARCHAR},
+      SYSAREASET = #{record.sysareaset,jdbcType=VARCHAR},
+      INPUTAREASET = #{record.inputareaset,jdbcType=VARCHAR},
+      HYMEMORYALL = #{record.hymemoryall,jdbcType=VARCHAR},
+      HYMEMORYFREE = #{record.hymemoryfree,jdbcType=VARCHAR},
+      OSID = #{record.osid,jdbcType=VARCHAR},
+      OSREGUSER = #{record.osreguser,jdbcType=VARCHAR},
+      OSFACTORY = #{record.osfactory,jdbcType=VARCHAR},
+      DISKINFO = #{record.diskinfo,jdbcType=VARCHAR},
+      DISK_STATUS = #{record.diskStatus,jdbcType=VARCHAR},
+      CPU_STATUS = #{record.cpuStatus,jdbcType=VARCHAR},
+      MEMORY_STATUS = #{record.memoryStatus,jdbcType=VARCHAR},
+      INSERTTIME = #{record.inserttime,jdbcType=TIMESTAMP},
+      INSERTPC = #{record.insertpc,jdbcType=VARCHAR},
+      ASSETID = #{record.assetid,jdbcType=VARCHAR},
+      ASSETNAME = #{record.assetname,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.eventalarm.domain.ServerStatus" >
+    update STATUS_SERVER
+    <set >
+      <if test="@Ognl@isNotEmpty(ip)" >
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuinfo)" >
+        CPUINFO = #{cpuinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(memoryinfo)" >
+        MEMORYINFO = #{memoryinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(computername)" >
+        COMPUTERNAME = #{computername,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(osname)" >
+        OSNAME = #{osname,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(osversion)" >
+        OSVERSION = #{osversion,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ostype)" >
+        OSTYPE = #{ostype,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(cpunumber)" >
+        CPUNUMBER = #{cpunumber,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(biosversion)" >
+        BIOSVERSION = #{biosversion,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(sysareaset)" >
+        SYSAREASET = #{sysareaset,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inputareaset)" >
+        INPUTAREASET = #{inputareaset,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(hymemoryall)" >
+        HYMEMORYALL = #{hymemoryall,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(hymemoryfree)" >
+        HYMEMORYFREE = #{hymemoryfree,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(osid)" >
+        OSID = #{osid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(osreguser)" >
+        OSREGUSER = #{osreguser,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(osfactory)" >
+        OSFACTORY = #{osfactory,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(diskinfo)" >
+        DISKINFO = #{diskinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(diskStatus)" >
+        DISK_STATUS = #{diskStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuStatus)" >
+        CPU_STATUS = #{cpuStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(memoryStatus)" >
+        MEMORY_STATUS = #{memoryStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+        INSERTTIME = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(insertpc)" >
+        INSERTPC = #{insertpc,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assetid)" >
+        ASSETID = #{assetid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assetname)" >
+        ASSETNAME = #{assetname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.eventalarm.domain.ServerStatus" >
+    update STATUS_SERVER
+    set IP = #{ip,jdbcType=VARCHAR},
+      CPUINFO = #{cpuinfo,jdbcType=VARCHAR},
+      MEMORYINFO = #{memoryinfo,jdbcType=VARCHAR},
+      COMPUTERNAME = #{computername,jdbcType=VARCHAR},
+      OSNAME = #{osname,jdbcType=VARCHAR},
+      OSVERSION = #{osversion,jdbcType=VARCHAR},
+      OSTYPE = #{ostype,jdbcType=VARCHAR},
+      CPUNUMBER = #{cpunumber,jdbcType=VARCHAR},
+      BIOSVERSION = #{biosversion,jdbcType=VARCHAR},
+      SYSAREASET = #{sysareaset,jdbcType=VARCHAR},
+      INPUTAREASET = #{inputareaset,jdbcType=VARCHAR},
+      HYMEMORYALL = #{hymemoryall,jdbcType=VARCHAR},
+      HYMEMORYFREE = #{hymemoryfree,jdbcType=VARCHAR},
+      OSID = #{osid,jdbcType=VARCHAR},
+      OSREGUSER = #{osreguser,jdbcType=VARCHAR},
+      OSFACTORY = #{osfactory,jdbcType=VARCHAR},
+      DISKINFO = #{diskinfo,jdbcType=VARCHAR},
+      DISK_STATUS = #{diskStatus,jdbcType=VARCHAR},
+      CPU_STATUS = #{cpuStatus,jdbcType=VARCHAR},
+      MEMORY_STATUS = #{memoryStatus,jdbcType=VARCHAR},
+      INSERTTIME = #{inserttime,jdbcType=TIMESTAMP},
+      INSERTPC = #{insertpc,jdbcType=VARCHAR},
+      ASSETID = #{assetid,jdbcType=VARCHAR},
+      ASSETNAME = #{assetname,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from STATUS_SERVER
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+         and IP = #{ip,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuinfo)" >
+         and CPUINFO = #{cpuinfo,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(memoryinfo)" >
+         and MEMORYINFO = #{memoryinfo,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(computername)" >
+         and COMPUTERNAME = #{computername,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(osname)" >
+         and OSNAME = #{osname,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(osversion)" >
+         and OSVERSION = #{osversion,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ostype)" >
+         and OSTYPE = #{ostype,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(cpunumber)" >
+         and CPUNUMBER = #{cpunumber,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(biosversion)" >
+         and BIOSVERSION = #{biosversion,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(sysareaset)" >
+         and SYSAREASET = #{sysareaset,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inputareaset)" >
+         and INPUTAREASET = #{inputareaset,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(hymemoryall)" >
+         and HYMEMORYALL = #{hymemoryall,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(hymemoryfree)" >
+         and HYMEMORYFREE = #{hymemoryfree,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(osid)" >
+         and OSID = #{osid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(osreguser)" >
+         and OSREGUSER = #{osreguser,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(osfactory)" >
+         and OSFACTORY = #{osfactory,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(diskinfo)" >
+         and DISKINFO = #{diskinfo,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(diskStatus)" >
+         and DISK_STATUS = #{diskStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuStatus)" >
+         and CPU_STATUS = #{cpuStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(memoryStatus)" >
+         and MEMORY_STATUS = #{memoryStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+         and INSERTTIME = #{inserttime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(insertpc)" >
+         and INSERTPC = #{insertpc,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(assetid)" >
+         and ASSETID = #{assetid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(assetname)" >
+         and ASSETNAME = #{assetname,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from STATUS_SERVER
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ip)" >
+         and IP = #{ip,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuinfo)" >
+         and CPUINFO = #{cpuinfo,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(memoryinfo)" >
+         and MEMORYINFO = #{memoryinfo,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(computername)" >
+         and COMPUTERNAME = #{computername,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(osname)" >
+         and OSNAME = #{osname,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(osversion)" >
+         and OSVERSION = #{osversion,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(ostype)" >
+         and OSTYPE = #{ostype,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(cpunumber)" >
+         and CPUNUMBER = #{cpunumber,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(biosversion)" >
+         and BIOSVERSION = #{biosversion,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(sysareaset)" >
+         and SYSAREASET = #{sysareaset,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inputareaset)" >
+         and INPUTAREASET = #{inputareaset,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(hymemoryall)" >
+         and HYMEMORYALL = #{hymemoryall,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(hymemoryfree)" >
+         and HYMEMORYFREE = #{hymemoryfree,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(osid)" >
+         and OSID = #{osid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(osreguser)" >
+         and OSREGUSER = #{osreguser,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(osfactory)" >
+         and OSFACTORY = #{osfactory,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(diskinfo)" >
+         and DISKINFO = #{diskinfo,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(diskStatus)" >
+         and DISK_STATUS = #{diskStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(cpuStatus)" >
+         and CPU_STATUS = #{cpuStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(memoryStatus)" >
+         and MEMORY_STATUS = #{memoryStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(inserttime)" >
+         and INSERTTIME = #{inserttime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(insertpc)" >
+         and INSERTPC = #{insertpc,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(assetid)" >
+         and ASSETID = #{assetid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(assetname)" >
+         and ASSETNAME = #{assetname,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+    <select id="selectServerStatusByIp" resultMap="BaseResultMap" parameterType="java.lang.String" >
+<![CDATA[
+    select * from (select * 
+          from STATUS_SERVER 
+         where IP = #{ip}
+         order by inserttime desc) c where rownum = 1
+]]>
+  </select>
+</mapper>

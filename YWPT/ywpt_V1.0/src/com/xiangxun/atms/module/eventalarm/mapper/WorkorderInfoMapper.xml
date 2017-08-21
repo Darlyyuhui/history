@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.eventalarm.mapper.WorkorderInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.eventalarm.domain.WorkorderInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DEVICENAME" property="devicename" jdbcType="VARCHAR" />
+    <result column="DEVICECODE" property="devicecode" jdbcType="VARCHAR" />
+    <result column="DEVICEIP" property="deviceip" jdbcType="VARCHAR" />
+    <result column="DEVICETYPE" property="devicetype" jdbcType="VARCHAR" />
+    <result column="ISOUTER" property="isouter" jdbcType="VARCHAR" />
+    <result column="POSITION" property="position" jdbcType="VARCHAR" />
+    <result column="COMPANYID" property="companyid" jdbcType="VARCHAR" />
+    <result column="CONTACT" property="contact" jdbcType="VARCHAR" />
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+    <result column="MESSAGES" property="messages" jdbcType="VARCHAR" />
+    <result column="ASSIGNACCOUNT" property="assignaccount" jdbcType="VARCHAR" />
+    <result column="ASSIGNTIME" property="assigntime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="ISREASSIGN" property="isreassign" jdbcType="VARCHAR" />
+    <result column="EXCEPTIONID" property="exceptionid" jdbcType="VARCHAR" />
+    <result column="OFFACCOUNT" property="offaccount" jdbcType="VARCHAR" />
+    <result column="OFFTIME" property="offtime" jdbcType="TIMESTAMP" />
+    <result column="ORGID" property="orgid" jdbcType="VARCHAR" />
+    <result column="ISLEAVE" property="isleave" jdbcType="VARCHAR" />
+    <result column="REASON" property="reason" jdbcType="VARCHAR" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+    <result column="ASSETID" property="assetid" jdbcType="VARCHAR" />
+    <result column="XUNGENG" property="xungeng" jdbcType="CHAR" />
+    <result column="XUNGENGTIME" property="xungengtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, DEVICENAME, DEVICECODE, DEVICEIP, DEVICETYPE, ISOUTER, POSITION, COMPANYID, CONTACT, 
+    TELEPHONE, MESSAGES, ASSIGNACCOUNT, ASSIGNTIME, STATUS, ISREASSIGN, EXCEPTIONID, 
+    OFFACCOUNT, OFFTIME, ORGID, ISLEAVE, REASON, NOTE, ASSETID, XUNGENG, XUNGENGTIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.eventalarm.domain.WorkorderInfoSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ALARM_WORKORDER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ALARM_WORKORDER_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ALARM_WORKORDER_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.eventalarm.domain.WorkorderInfoSearch" >
+    delete from ALARM_WORKORDER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.eventalarm.domain.WorkorderInfo" >
+    insert into ALARM_WORKORDER_INFO (ID, DEVICENAME, DEVICECODE, 
+      DEVICEIP, DEVICETYPE, ISOUTER, 
+      POSITION, COMPANYID, CONTACT, 
+      TELEPHONE, MESSAGES, ASSIGNACCOUNT, 
+      ASSIGNTIME, STATUS, ISREASSIGN, 
+      EXCEPTIONID, OFFACCOUNT, OFFTIME, 
+      ORGID, ISLEAVE, REASON, 
+      NOTE, ASSETID, XUNGENG, 
+      XUNGENGTIME)
+    values (#{id,jdbcType=VARCHAR}, #{devicename,jdbcType=VARCHAR}, #{devicecode,jdbcType=VARCHAR}, 
+      #{deviceip,jdbcType=VARCHAR}, #{devicetype,jdbcType=VARCHAR}, #{isouter,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR}, #{companyid,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{messages,jdbcType=VARCHAR}, #{assignaccount,jdbcType=VARCHAR}, 
+      #{assigntime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{isreassign,jdbcType=VARCHAR}, 
+      #{exceptionid,jdbcType=VARCHAR}, #{offaccount,jdbcType=VARCHAR}, #{offtime,jdbcType=TIMESTAMP}, 
+      #{orgid,jdbcType=VARCHAR}, #{isleave,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR}, #{assetid,jdbcType=VARCHAR}, #{xungeng,jdbcType=CHAR}, 
+      #{xungengtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.eventalarm.domain.WorkorderInfo" >
+    insert into ALARM_WORKORDER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(devicename)" >
+        DEVICENAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(devicecode)" >
+        DEVICECODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceip)" >
+        DEVICEIP,
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetype)" >
+        DEVICETYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(isouter)" >
+        ISOUTER,
+      </if>
+      <if test="@Ognl@isNotEmpty(position)" >
+        POSITION,
+      </if>
+      <if test="@Ognl@isNotEmpty(companyid)" >
+        COMPANYID,
+      </if>
+      <if test="@Ognl@isNotEmpty(contact)" >
+        CONTACT,
+      </if>
+      <if test="@Ognl@isNotEmpty(telephone)" >
+        TELEPHONE,
+      </if>
+      <if test="@Ognl@isNotEmpty(messages)" >
+        MESSAGES,
+      </if>
+      <if test="@Ognl@isNotEmpty(assignaccount)" >
+        ASSIGNACCOUNT,
+      </if>
+      <if test="@Ognl@isNotEmpty(assigntime)" >
+        ASSIGNTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(isreassign)" >
+        ISREASSIGN,
+      </if>
+      <if test="@Ognl@isNotEmpty(exceptionid)" >
+        EXCEPTIONID,
+      </if>
+      <if test="@Ognl@isNotEmpty(offaccount)" >
+        OFFACCOUNT,
+      </if>
+      <if test="@Ognl@isNotEmpty(offtime)" >
+        OFFTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(orgid)" >
+        ORGID,
+      </if>
+      <if test="@Ognl@isNotEmpty(isleave)" >
+        ISLEAVE,
+      </if>
+      <if test="@Ognl@isNotEmpty(reason)" >
+        REASON,
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE,
+      </if>
+      <if test="@Ognl@isNotEmpty(assetid)" >
+        ASSETID,
+      </if>
+      <if test="@Ognl@isNotEmpty(xungeng)" >
+        XUNGENG,
+      </if>
+      <if test="@Ognl@isNotEmpty(xungengtime)" >
+        XUNGENGTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicename)" >
+        #{devicename,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicecode)" >
+        #{devicecode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceip)" >
+        #{deviceip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetype)" >
+        #{devicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(isouter)" >
+        #{isouter,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(position)" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(companyid)" >
+        #{companyid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(contact)" >
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(telephone)" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(messages)" >
+        #{messages,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assignaccount)" >
+        #{assignaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assigntime)" >
+        #{assigntime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(isreassign)" >
+        #{isreassign,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(exceptionid)" >
+        #{exceptionid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(offaccount)" >
+        #{offaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(offtime)" >
+        #{offtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(orgid)" >
+        #{orgid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(isleave)" >
+        #{isleave,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(reason)" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assetid)" >
+        #{assetid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(xungeng)" >
+        #{xungeng,jdbcType=CHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(xungengtime)" >
+        #{xungengtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.eventalarm.domain.WorkorderInfoSearch" resultType="java.lang.Integer" >
+    select count(*) from ALARM_WORKORDER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ALARM_WORKORDER_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.devicename)" >
+        DEVICENAME = #{record.devicename,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.devicecode)" >
+        DEVICECODE = #{record.devicecode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.deviceip)" >
+        DEVICEIP = #{record.deviceip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.devicetype)" >
+        DEVICETYPE = #{record.devicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.isouter)" >
+        ISOUTER = #{record.isouter,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.position)" >
+        POSITION = #{record.position,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.companyid)" >
+        COMPANYID = #{record.companyid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.contact)" >
+        CONTACT = #{record.contact,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.telephone)" >
+        TELEPHONE = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.messages)" >
+        MESSAGES = #{record.messages,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.assignaccount)" >
+        ASSIGNACCOUNT = #{record.assignaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.assigntime)" >
+        ASSIGNTIME = #{record.assigntime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.status)" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.isreassign)" >
+        ISREASSIGN = #{record.isreassign,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.exceptionid)" >
+        EXCEPTIONID = #{record.exceptionid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.offaccount)" >
+        OFFACCOUNT = #{record.offaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.offtime)" >
+        OFFTIME = #{record.offtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.orgid)" >
+        ORGID = #{record.orgid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.isleave)" >
+        ISLEAVE = #{record.isleave,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.reason)" >
+        REASON = #{record.reason,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.note)" >
+        NOTE = #{record.note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.assetid)" >
+        ASSETID = #{record.assetid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.xungeng)" >
+        XUNGENG = #{record.xungeng,jdbcType=CHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.xungengtime)" >
+        XUNGENGTIME = #{record.xungengtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ALARM_WORKORDER_INFO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      DEVICENAME = #{record.devicename,jdbcType=VARCHAR},
+      DEVICECODE = #{record.devicecode,jdbcType=VARCHAR},
+      DEVICEIP = #{record.deviceip,jdbcType=VARCHAR},
+      DEVICETYPE = #{record.devicetype,jdbcType=VARCHAR},
+      ISOUTER = #{record.isouter,jdbcType=VARCHAR},
+      POSITION = #{record.position,jdbcType=VARCHAR},
+      COMPANYID = #{record.companyid,jdbcType=VARCHAR},
+      CONTACT = #{record.contact,jdbcType=VARCHAR},
+      TELEPHONE = #{record.telephone,jdbcType=VARCHAR},
+      MESSAGES = #{record.messages,jdbcType=VARCHAR},
+      ASSIGNACCOUNT = #{record.assignaccount,jdbcType=VARCHAR},
+      ASSIGNTIME = #{record.assigntime,jdbcType=TIMESTAMP},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      ISREASSIGN = #{record.isreassign,jdbcType=VARCHAR},
+      EXCEPTIONID = #{record.exceptionid,jdbcType=VARCHAR},
+      OFFACCOUNT = #{record.offaccount,jdbcType=VARCHAR},
+      OFFTIME = #{record.offtime,jdbcType=TIMESTAMP},
+      ORGID = #{record.orgid,jdbcType=VARCHAR},
+      ISLEAVE = #{record.isleave,jdbcType=VARCHAR},
+      REASON = #{record.reason,jdbcType=VARCHAR},
+      NOTE = #{record.note,jdbcType=VARCHAR},
+      ASSETID = #{record.assetid,jdbcType=VARCHAR},
+      XUNGENG = #{record.xungeng,jdbcType=CHAR},
+      XUNGENGTIME = #{record.xungengtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.eventalarm.domain.WorkorderInfo" >
+    update ALARM_WORKORDER_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(devicename)" >
+        DEVICENAME = #{devicename,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicecode)" >
+        DEVICECODE = #{devicecode,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceip)" >
+        DEVICEIP = #{deviceip,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetype)" >
+        DEVICETYPE = #{devicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(isouter)" >
+        ISOUTER = #{isouter,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(position)" >
+        POSITION = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(companyid)" >
+        COMPANYID = #{companyid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(contact)" >
+        CONTACT = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(telephone)" >
+        TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(messages)" >
+        MESSAGES = #{messages,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assignaccount)" >
+        ASSIGNACCOUNT = #{assignaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assigntime)" >
+        ASSIGNTIME = #{assigntime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(isreassign)" >
+        ISREASSIGN = #{isreassign,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(exceptionid)" >
+        EXCEPTIONID = #{exceptionid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(offaccount)" >
+        OFFACCOUNT = #{offaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(offtime)" >
+        OFFTIME = #{offtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(orgid)" >
+        ORGID = #{orgid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(isleave)" >
+        ISLEAVE = #{isleave,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(reason)" >
+        REASON = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(assetid)" >
+        ASSETID = #{assetid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(xungeng)" >
+        XUNGENG = #{xungeng,jdbcType=CHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(xungengtime)" >
+        XUNGENGTIME = #{xungengtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.eventalarm.domain.WorkorderInfo" >
+    update ALARM_WORKORDER_INFO
+    set DEVICENAME = #{devicename,jdbcType=VARCHAR},
+      DEVICECODE = #{devicecode,jdbcType=VARCHAR},
+      DEVICEIP = #{deviceip,jdbcType=VARCHAR},
+      DEVICETYPE = #{devicetype,jdbcType=VARCHAR},
+      ISOUTER = #{isouter,jdbcType=VARCHAR},
+      POSITION = #{position,jdbcType=VARCHAR},
+      COMPANYID = #{companyid,jdbcType=VARCHAR},
+      CONTACT = #{contact,jdbcType=VARCHAR},
+      TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      MESSAGES = #{messages,jdbcType=VARCHAR},
+      ASSIGNACCOUNT = #{assignaccount,jdbcType=VARCHAR},
+      ASSIGNTIME = #{assigntime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=VARCHAR},
+      ISREASSIGN = #{isreassign,jdbcType=VARCHAR},
+      EXCEPTIONID = #{exceptionid,jdbcType=VARCHAR},
+      OFFACCOUNT = #{offaccount,jdbcType=VARCHAR},
+      OFFTIME = #{offtime,jdbcType=TIMESTAMP},
+      ORGID = #{orgid,jdbcType=VARCHAR},
+      ISLEAVE = #{isleave,jdbcType=VARCHAR},
+      REASON = #{reason,jdbcType=VARCHAR},
+      NOTE = #{note,jdbcType=VARCHAR},
+      ASSETID = #{assetid,jdbcType=VARCHAR},
+      XUNGENG = #{xungeng,jdbcType=CHAR},
+      XUNGENGTIME = #{xungengtime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from ALARM_WORKORDER_INFO
+    <where >
+  
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(devicename)" >
+         and DEVICENAME LIKE '%${devicename}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(devicecode)" >
+         and DEVICECODE LIKE '%${devicecode}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceip)" >
+         and DEVICEIP LIKE '%${deviceip}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetype)" >
+         and DEVICETYPE = #{devicetype,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(isouter)" >
+         and ISOUTER = #{isouter,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(position)" >
+         and POSITION = #{position,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(companyid)" >
+         and COMPANYID = #{companyid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(contact)" >
+         and CONTACT = #{contact,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(telephone)" >
+         and TELEPHONE = #{telephone,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(messages)" >
+         and MESSAGES = #{messages,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(assignaccount)" >
+         and ASSIGNACCOUNT = #{assignaccount,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(assigntime)" >
+         and ASSIGNTIME = #{assigntime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(statusin)" >
+         and STATUS IN (${statusin})
+      </if>
+      <if test="@Ognl@isNotEmpty(isreassign)" >
+         and ISREASSIGN = #{isreassign,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(exceptionid)" >
+         and EXCEPTIONID = #{exceptionid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(offaccount)" >
+         and OFFACCOUNT = #{offaccount,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(offtime)" >
+         and OFFTIME = #{offtime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(orgid)" >
+         and ORGID = #{orgid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(isleave)" >
+         and ISLEAVE = #{isleave,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(reason)" >
+         and REASON = #{reason,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(assetid)" >
+         and ASSETID = #{assetid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(xungeng)" >
+         and XUNGENG = #{xungeng,jdbcType=CHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(xungengtime)" >
+         and XUNGENGTIME = #{xungengtime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+    <if test="sortType != null" >
+       order by ${sortType} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from ALARM_WORKORDER_INFO
+    <where >
+
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(devicename)" >
+         and DEVICENAME LIKE '%${devicename}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(devicecode)" >
+         and DEVICECODE LIKE '%${devicecode}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceip)" >
+         and DEVICEIP LIKE '%${deviceip}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(devicetype)" >
+         and DEVICETYPE = #{devicetype,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(isouter)" >
+         and ISOUTER = #{isouter,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(position)" >
+         and POSITION = #{position,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(companyid)" >
+         and COMPANYID = #{companyid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(contact)" >
+         and CONTACT = #{contact,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(telephone)" >
+         and TELEPHONE = #{telephone,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(messages)" >
+         and MESSAGES = #{messages,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(assignaccount)" >
+         and ASSIGNACCOUNT = #{assignaccount,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(assigntime)" >
+         and ASSIGNTIME = #{assigntime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(statusin)" >
+         and STATUS IN (${statusin})
+      </if>
+      <if test="@Ognl@isNotEmpty(isreassign)" >
+         and ISREASSIGN = #{isreassign,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(exceptionid)" >
+         and EXCEPTIONID = #{exceptionid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(offaccount)" >
+         and OFFACCOUNT = #{offaccount,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(offtime)" >
+         and OFFTIME = #{offtime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(orgid)" >
+         and ORGID = #{orgid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(isleave)" >
+         and ISLEAVE = #{isleave,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(reason)" >
+         and REASON = #{reason,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(note)" >
+         and NOTE = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(assetid)" >
+         and ASSETID = #{assetid,jdbcType=VARCHAR}
+      </if>
+       <if test="@Ognl@isNotEmpty(xungeng)" >
+         and XUNGENG = #{xungeng,jdbcType=CHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(xungengtime)" >
+         and XUNGENGTIME = #{xungengtime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+    <if test="sortType != null" >
+       order by ${sortType} 
+    </if>
+  </select>
+  
+  <select id="countByContact" resultType="java.lang.Integer" parameterType="java.lang.String">
+	  select count(*) from ALARM_WORKORDER_INFO t where t.status in ('0','1') and t.contact=#{0}
+  </select>
+  
+  <select id="getWorkorderCountByType" resultType="hashmap">
+  	select t.devicetype as devicetype,count(*) as countnum from alarm_workorder_info t group by t.devicetype
+  </select>
+  
+  <select id="getWorkorderCountByStatus" resultType="hashmap">
+  	select t.status as status,count(*) as countnum from alarm_workorder_info t group by t.status
+  </select>
+</mapper>

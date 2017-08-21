@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.sergrade.mapper.FactoryContactMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.sergrade.domain.FactoryContact" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DEVICEID" property="deviceid" jdbcType="VARCHAR" />
+    <result column="CONTACTID" property="contactid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, DEVICEID, CONTACTID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.sergrade.domain.FactoryContactSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SERGRADE_FACTORY_CONTACT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SERGRADE_FACTORY_CONTACT
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SERGRADE_FACTORY_CONTACT
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.sergrade.domain.FactoryContactSearch" >
+    delete from SERGRADE_FACTORY_CONTACT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.sergrade.domain.FactoryContact" >
+    insert into SERGRADE_FACTORY_CONTACT (ID, DEVICEID, CONTACTID
+      )
+    values (#{id,jdbcType=VARCHAR}, #{deviceid,jdbcType=VARCHAR}, #{contactid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.sergrade.domain.FactoryContact" >
+    insert into SERGRADE_FACTORY_CONTACT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceid)" >
+        DEVICEID,
+      </if>
+      <if test="@Ognl@isNotEmpty(contactid)" >
+        CONTACTID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceid)" >
+        #{deviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(contactid)" >
+        #{contactid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.sergrade.domain.FactoryContactSearch" resultType="java.lang.Integer" >
+    select count(*) from SERGRADE_FACTORY_CONTACT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SERGRADE_FACTORY_CONTACT
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.deviceid)" >
+        DEVICEID = #{record.deviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.contactid)" >
+        CONTACTID = #{record.contactid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SERGRADE_FACTORY_CONTACT
+    set ID = #{record.id,jdbcType=VARCHAR},
+      DEVICEID = #{record.deviceid,jdbcType=VARCHAR},
+      CONTACTID = #{record.contactid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.sergrade.domain.FactoryContact" >
+    update SERGRADE_FACTORY_CONTACT
+    <set >
+      <if test="@Ognl@isNotEmpty(deviceid)" >
+        DEVICEID = #{deviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(contactid)" >
+        CONTACTID = #{contactid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.sergrade.domain.FactoryContact" >
+    update SERGRADE_FACTORY_CONTACT
+    set DEVICEID = #{deviceid,jdbcType=VARCHAR},
+      CONTACTID = #{contactid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from SERGRADE_FACTORY_CONTACT
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceid)" >
+         and DEVICEID = #{deviceid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(contactid)" >
+         and CONTACTID = #{contactid,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from SERGRADE_FACTORY_CONTACT
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceid)" >
+         and DEVICEID = #{deviceid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(contactid)" >
+         and CONTACTID = #{contactid,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  
+  <select id="selectList" resultMap="BaseResultMap">
+    select t.ID, t.DEVICEID, t.CONTACTID from sergrade_factory_contact t
+	left join sergrade_contact_info t1 on t. contactid = t1.id
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(deviceid)" >
+         and t.deviceid = #{deviceid,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(factoryId)" >
+         and t1.factoryid = #{factoryId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(userId)" >
+         and t1.userid = #{userId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

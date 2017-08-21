@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.sms.dao.SentRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.sms.vo.SentRecord" >
+    <result column="MSGID" property="msgid" jdbcType="DECIMAL" />
+    <result column="SPLITINDEX" property="splitindex" jdbcType="DECIMAL" />
+    <result column="DESTTEL" property="desttel" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="SENTSTATUS" property="sentstatus" jdbcType="DECIMAL" />
+    <result column="SENTTIME" property="senttime" jdbcType="DATE" />
+    <result column="COMMPORT" property="commport" jdbcType="DECIMAL" />
+    <result column="BATCHID" property="batchid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    MSGID, SPLITINDEX, DESTTEL, CONTENT, SENTSTATUS, SENTTIME, COMMPORT, BATCHID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.sms.vo.SentRecordSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_SENTRECORD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.sms.vo.SentRecordSearch" >
+    delete from T_SENTRECORD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.sms.vo.SentRecord" >
+    insert into T_SENTRECORD (MSGID, SPLITINDEX, DESTTEL, 
+      CONTENT, SENTSTATUS, SENTTIME, 
+      COMMPORT, BATCHID)
+    values (#{msgid,jdbcType=DECIMAL}, #{splitindex,jdbcType=DECIMAL}, #{desttel,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{sentstatus,jdbcType=DECIMAL}, #{senttime,jdbcType=DATE}, 
+      #{commport,jdbcType=DECIMAL}, #{batchid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.sms.vo.SentRecord" >
+    insert into T_SENTRECORD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(msgid)" >
+        MSGID,
+      </if>
+      <if test="@Ognl@isNotEmpty(splitindex)" >
+        SPLITINDEX,
+      </if>
+      <if test="@Ognl@isNotEmpty(desttel)" >
+        DESTTEL,
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+        CONTENT,
+      </if>
+      <if test="@Ognl@isNotEmpty(sentstatus)" >
+        SENTSTATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(senttime)" >
+        SENTTIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(commport)" >
+        COMMPORT,
+      </if>
+      <if test="@Ognl@isNotEmpty(batchid)" >
+        BATCHID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(msgid)" >
+        #{msgid,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(splitindex)" >
+        #{splitindex,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(desttel)" >
+        #{desttel,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(sentstatus)" >
+        #{sentstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(senttime)" >
+        #{senttime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(commport)" >
+        #{commport,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(batchid)" >
+        #{batchid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.sms.vo.SentRecordSearch" resultType="java.lang.Integer" >
+    select count(*) from T_SENTRECORD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_SENTRECORD
+    <set >
+      <if test="@Ognl@isNotEmpty(record.msgid)" >
+        MSGID = #{record.msgid,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.splitindex)" >
+        SPLITINDEX = #{record.splitindex,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.desttel)" >
+        DESTTEL = #{record.desttel,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.content)" >
+        CONTENT = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.sentstatus)" >
+        SENTSTATUS = #{record.sentstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.senttime)" >
+        SENTTIME = #{record.senttime,jdbcType=DATE},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.commport)" >
+        COMMPORT = #{record.commport,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.batchid)" >
+        BATCHID = #{record.batchid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_SENTRECORD
+    set MSGID = #{record.msgid,jdbcType=DECIMAL},
+      SPLITINDEX = #{record.splitindex,jdbcType=DECIMAL},
+      DESTTEL = #{record.desttel,jdbcType=VARCHAR},
+      CONTENT = #{record.content,jdbcType=VARCHAR},
+      SENTSTATUS = #{record.sentstatus,jdbcType=DECIMAL},
+      SENTTIME = #{record.senttime,jdbcType=DATE},
+      COMMPORT = #{record.commport,jdbcType=DECIMAL},
+      BATCHID = #{record.batchid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from T_SENTRECORD
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(msgid)" >
+         and MSGID = #{msgid,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(splitindex)" >
+         and SPLITINDEX = #{splitindex,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(desttel)" >
+         and DESTTEL = #{desttel,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+         and CONTENT = #{content,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(sentstatus)" >
+         and SENTSTATUS = #{sentstatus,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(senttime)" >
+         and SENTTIME = #{senttime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(commport)" >
+         and COMMPORT = #{commport,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(batchid)" >
+         and BATCHID = #{batchid,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from T_SENTRECORD
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(msgid)" >
+         and MSGID = #{msgid,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(splitindex)" >
+         and SPLITINDEX = #{splitindex,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(desttel)" >
+         and DESTTEL = #{desttel,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(content)" >
+         and CONTENT = #{content,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(sentstatus)" >
+         and SENTSTATUS = #{sentstatus,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(senttime)" >
+         and SENTTIME = #{senttime,jdbcType=DATE}
+      </if>
+      <if test="@Ognl@isNotEmpty(commport)" >
+         and COMMPORT = #{commport,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(batchid)" >
+         and BATCHID = #{batchid,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

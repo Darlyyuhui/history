@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.question.mapper.TrendCountMapper">
+	<resultMap type="com.xiangxun.atms.module.question.domain.DayReport" id="dayReport" >
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="h01" property="h01" jdbcType="BIGINT" />
+		<result column="h02" property="h02" jdbcType="BIGINT" />
+		<result column="h03" property="h03" jdbcType="BIGINT" />
+		<result column="h04" property="h04" jdbcType="BIGINT" />
+		<result column="h05" property="h05" jdbcType="BIGINT" />
+		<result column="h06" property="h06" jdbcType="BIGINT" />
+		<result column="h07" property="h07" jdbcType="BIGINT" />
+		<result column="h08" property="h08" jdbcType="BIGINT" />
+		<result column="h09" property="h09" jdbcType="BIGINT" />
+		<result column="h10" property="h10" jdbcType="BIGINT" />
+		<result column="h11" property="h11" jdbcType="BIGINT" />
+		<result column="h12" property="h12" jdbcType="BIGINT" />
+		<result column="h13" property="h13" jdbcType="BIGINT" />
+		<result column="h14" property="h14" jdbcType="BIGINT" />
+		<result column="h15" property="h15" jdbcType="BIGINT" />
+		<result column="h16" property="h16" jdbcType="BIGINT" />
+		<result column="h17" property="h17" jdbcType="BIGINT" />
+		<result column="h18" property="h18" jdbcType="BIGINT" />
+		<result column="h19" property="h19" jdbcType="BIGINT" />
+		<result column="h20" property="h20" jdbcType="BIGINT" />
+		<result column="h21" property="h21" jdbcType="BIGINT" />
+		<result column="h22" property="h22" jdbcType="BIGINT" />
+		<result column="h23" property="h23" jdbcType="BIGINT" />
+		<result column="h24" property="h24" jdbcType="BIGINT" />
+		<result column="counts" property="counts" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="com.xiangxun.atms.module.question.domain.WeekReport" id="weekReport" >
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="d01" property="d01" jdbcType="BIGINT" />
+		<result column="d02" property="d02" jdbcType="BIGINT" />
+		<result column="d03" property="d03" jdbcType="BIGINT" />
+		<result column="d04" property="d04" jdbcType="BIGINT" />
+		<result column="d05" property="d05" jdbcType="BIGINT" />
+		<result column="d06" property="d06" jdbcType="BIGINT" />
+		<result column="d07" property="d07" jdbcType="BIGINT" />
+	</resultMap>
+	<!-- 获取按天故障类型趋势 统计故障数量 -->
+	<sql id="getHours">
+		   
+		select a.type,
+			nvl(sum(case a.hours when to_date('${day} 01:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h01,
+		    nvl(sum(case a.hours when to_date('${day} 02:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h02,
+		    nvl(sum(case a.hours when to_date('${day} 03:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h03,
+		    nvl(sum(case a.hours when to_date('${day} 04:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h04,
+		    nvl(sum(case a.hours when to_date('${day} 05:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h05,
+		    nvl(sum(case a.hours when to_date('${day} 06:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h06,
+		    nvl(sum(case a.hours when to_date('${day} 07:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h07,
+		    nvl(sum(case a.hours when to_date('${day} 08:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h08,
+		    nvl(sum(case a.hours when to_date('${day} 09:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h09,
+		    nvl(sum(case a.hours when to_date('${day} 10:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h10,
+		    nvl(sum(case a.hours when to_date('${day} 11:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h11,
+		    nvl(sum(case a.hours when to_date('${day} 12:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h12,
+		    nvl(sum(case a.hours when to_date('${day} 13:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h13,
+		    nvl(sum(case a.hours when to_date('${day} 14:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h14,
+		    nvl(sum(case a.hours when to_date('${day} 15:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h15,
+		    nvl(sum(case a.hours when to_date('${day} 16:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h16,
+		    nvl(sum(case a.hours when to_date('${day} 17:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h17,
+		    nvl(sum(case a.hours when to_date('${day} 18:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h18,
+		    nvl(sum(case a.hours when to_date('${day} 19:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h19,
+		    nvl(sum(case a.hours when to_date('${day} 20:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h20,
+		    nvl(sum(case a.hours when to_date('${day} 21:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h21,
+		    nvl(sum(case a.hours when to_date('${day} 22:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h22,
+		    nvl(sum(case a.hours when to_date('${day} 23:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h23,
+		    nvl(sum(case a.hours when to_date('${nextDay} 00:00:00', 'yyyy-mm-dd hh24:mi:ss') then a.counts end),0)h24
+		from (
+		   <foreach collection="hours" item="hour" index="k" separator="union all" >
+		   <if test="@Ognl@le(k,23)">
+		   		SELECT 
+                   		b.event_type as type, 
+                   		TO_DATE ('${day} ${hours[k+1]}:00:00', 'yyyy-mm-dd hh24:mi:ss') as hours, 
+                   		count(b.id) as counts
+	          	FROM alarm_device_log b
+	          	left join property_asset_info p on b.device_code = p.deviceid 
+	          	WHERE b.alarm_time <![CDATA[>=]]> TO_DATE ('${day} ${hour}:00:00', 'yyyy-mm-dd hh24:mi:ss')
+					AND b.alarm_time <![CDATA[<]]> TO_DATE ('${day} ${hours[k+1]}:00:00', 'yyyy-mm-dd hh24:mi:ss')
+	            	and b.device_type !='device'
+                  	group by b.event_type
+	                   
+                  	union all
+	                   
+                  	SELECT 
+                   		b.event_type as type, 
+                   		TO_DATE ('${day} ${hours[k+1]}:00:00', 'yyyy-mm-dd hh24:mi:ss') as hours, 
+                   		count(b.id) as counts
+	          	FROM alarm_device_log b
+	          	left join property_asset_info p on b.device_code = p.id 
+	          	WHERE b.alarm_time <![CDATA[>=]]> TO_DATE ('${day} ${hour}:00:00', 'yyyy-mm-dd hh24:mi:ss')
+					AND b.alarm_time <![CDATA[<]]> TO_DATE ('${day} ${hours[k+1]}:00:00', 'yyyy-mm-dd hh24:mi:ss')
+	            	and b.device_type ='device'
+                  	group by b.event_type
+		    </if> 	
+		   </foreach>    
+     			union all
+     			
+     			SELECT 
+                   		b.event_type as type, 
+                   		TO_DATE ('${nextDay} 00:00:00', 'yyyy-mm-dd hh24:mi:ss') as hours, 
+                   		count(b.id) as counts
+	          	FROM alarm_device_log b
+	          	left join property_asset_info p on b.device_code = p.deviceid 
+	          	WHERE b.alarm_time <![CDATA[>=]]> TO_DATE ('${day} 23:00:00', 'yyyy-mm-dd hh24:mi:ss') 
+					AND b.alarm_time <![CDATA[<=]]> TO_DATE ('${nextDay} 00:00:00', 'yyyy-mm-dd hh24:mi:ss') 
+	            	and b.device_type !='device'
+                  	group by b.event_type
+	                   
+                  	union all
+	                   
+                  	SELECT 
+                   		b.event_type as type, 
+                   		TO_DATE ('${nextDay} 00:00:00', 'yyyy-mm-dd hh24:mi:ss') as hours, 
+                   		count(b.id) as counts
+	          	FROM alarm_device_log b
+	          	left join property_asset_info p on b.device_code = p.id 
+	          	WHERE b.alarm_time <![CDATA[>=]]> TO_DATE ('${day} 23:00:00', 'yyyy-mm-dd hh24:mi:ss') 
+					AND b.alarm_time <![CDATA[<=]]> TO_DATE ('${nextDay} 00:00:00', 'yyyy-mm-dd hh24:mi:ss') 
+	            	and b.device_type ='device'
+                  	group by b.event_type
+      
+		 )a
+		 group by a.type
+		
+	</sql>
+	
+	<!-- 获取按天 故障类型趋势 统计故障数量 -->	        
+	<select id="selectTrendDays" resultType="dayReport">
+		<include refid="getHours"/>
+		<if test="@Ognl@isNotEmpty(sortType)" >
+	       order by ${sortType} 
+	    </if>
+	</select>
+	
+	<!-- 获取按天 故障类型趋势 统计故障数量  曲线图-->
+	<select id="selectLineTrendDays" resultMap="dayReport">
+		<include refid="getHours"/>
+	</select>
+	
+	
+	<!-- 获取按天 故障类型趋势趋势 统计故障数量 合计栏数据-->
+	<select id="selectTotalsDays" resultType="map">
+		select 
+		 sum(h01) as h01,
+		 sum(h02) as h02,
+		 sum(h03) as h03,
+		 sum(h04) as h04,
+		 sum(h05) as h05,
+		 sum(h06) as h06,
+		 sum(h07) as h07,
+		 sum(h08) as h08,
+		 sum(h09) as h09,
+		 sum(h10) as h10,
+		 sum(h11) as h11,
+		 sum(h12) as h12,
+		 sum(h13) as h13,
+		 sum(h14) as h14,
+		 sum(h15) as h15,
+		 sum(h16) as h16,
+		 sum(h17) as h17,
+		 sum(h18) as h18,
+		 sum(h19) as h19,
+		 sum(h20) as h20,
+		 sum(h21) as h21,
+		 sum(h22) as h22,
+		 sum(h23) as h23,
+		 sum(h24) as h24
+		from(
+			<include refid="getHours"/>
+		)g
+	</select>
+	
+	<!-- 获取按天故障类型趋势 统计故障数量 记录总数-->
+	<select id="selectTotalTrendDays" resultType="java.lang.Integer">
+		select count(*) from (
+			<include refid="getHours"/>
+		)g
+	</select>
+	
+	
+	<!-- 获取按周故障类型趋势 统计故障数量 -->
+	<sql id="getWeeks">
+		SELECT
+		     a.type, 
+		     sum(a.d01)d01,
+		     sum(a.d02)d02,
+		     sum(a.d03)d03,
+		     sum(a.d04)d04,
+		     sum(a.d05)d05,
+		     sum(a.d06)d06, 
+		     sum(a.d07)d07
+		  FROM (
+		          SELECT 
+		               t.type,
+		                <foreach collection="days" item="day" index="k" separator="," >
+		               	NVL ((CASE t.daytime WHEN '${day}' THEN t.counts END),0) d0${k+1}
+		       			</foreach>
+		          FROM (    
+		                SELECT 
+	                    		b.event_type as type, 
+	                    		to_char(b.alarm_time,'yyyy-MM-dd') as daytime,
+	                    		count(b.id) as counts
+			          	FROM alarm_device_log b
+			          	left join property_asset_info p on b.device_code = p.deviceid 
+			          	WHERE b.alarm_time <![CDATA[>=]]> TO_DATE ('${startTime} 00:00:00', 'yyyy-mm-dd hh24:mi:ss')
+							AND b.alarm_time <![CDATA[<=]]> TO_DATE ('${endTime} 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+			            	and b.device_type !='device'
+	                   	group by b.event_type, to_char(b.alarm_time,'yyyy-MM-dd')
+			                   
+	                   	union all
+			                   
+	                   	SELECT 
+	                    		b.event_type as type, 
+	                    		to_char(b.alarm_time,'yyyy-MM-dd') as daytime,
+	                    		count(b.id) as counts
+			          	FROM alarm_device_log b
+			          	left join property_asset_info p on b.device_code = p.id 
+			          	WHERE b.alarm_time <![CDATA[>=]]> TO_DATE ('${startTime} 00:00:00', 'yyyy-mm-dd hh24:mi:ss')
+							AND b.alarm_time <![CDATA[<=]]> TO_DATE ('${endTime} 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+			            	and b.device_type ='device'
+	                   	group by b.event_type, to_char(b.alarm_time,'yyyy-MM-dd')
+		                
+	                 )t
+		        )a
+		 group by type
+	</sql>
+	
+	<!-- 获取按周故障类型趋势 统计故障数量-->	        
+	<select id="selectTrendWeek" resultMap="weekReport">
+		<include refid="getWeeks"/>
+		 <if test="@Ognl@isNotEmpty(sortType)" >
+	       order by ${sortType} 
+	    </if>
+	</select>
+	<!-- 获取按周故障类型趋势 统计故障数量 趋势图-->
+	<select id="selectLineTrendWeek" resultMap="weekReport">
+		<include refid="getWeeks"/>
+
+	</select>
+	<!-- 获取按周故障类型趋势 统计故障数量 合计栏数据-->
+	<select id="selectTotalsWeek" resultType="map">
+		select 
+		 sum(d01) as d01,
+		 sum(d02) as d02,
+		 sum(d03) as d03,
+		 sum(d04) as d04,
+		 sum(d05) as d05,
+		 sum(d06) as d06,
+		 sum(d07) as d07
+		from(
+			<include refid="getWeeks"/>
+		)g
+	</select>
+	<!-- 获取按周故障类型趋势 统计故障数量 总记录数-->
+	<select id="selectTotalTrendWeek" resultType="java.lang.Integer">
+		select count(*) from (
+			<include refid="getWeeks"/>
+		)g
+	</select>
+	
+	<!-- 获取按月、时间段统计故障数 -->
+	<sql id="getDays">
+		SELECT
+		     a.type as type, 
+		     <foreach collection="days" item="day" index="k" separator="," >
+		     	sum(a.d${k+1})d${k+1}
+		     </foreach>
+		     
+		  FROM (
+          		SELECT 
+		               t.type,
+		                <foreach collection="days" item="day" index="k" separator="," >
+		               	NVL ((CASE t.daytime WHEN '${day}' THEN t.counts END),0) d${k+1}
+		       			</foreach>
+	          	FROM (    
+	                SELECT 
+                    		b.event_type as type, 
+                    		to_char(b.alarm_time,'yyyy-MM-dd') as daytime,
+                    		count(distinct b.device_code) as counts
+		          	FROM alarm_device_log b
+		          	left join property_asset_info p on b.device_code = p.deviceid 
+		          	WHERE b.alarm_time <![CDATA[>=]]> TO_DATE ('${startTime} 00:00:00', 'yyyy-mm-dd hh24:mi:ss')
+						AND b.alarm_time <![CDATA[<=]]> TO_DATE ('${endTime} 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+		            	and b.device_type !='device'
+                   	group by b.event_type, to_char(b.alarm_time,'yyyy-MM-dd')
+		                   
+                   	union all
+		                   
+                   	SELECT 
+                    		b.event_type as type, 
+                    		to_char(b.alarm_time,'yyyy-MM-dd') as daytime,
+                    		count(distinct b.device_code) as counts
+		          	FROM alarm_device_log b
+		          	left join property_asset_info p on b.device_code = p.id 
+		          	WHERE b.alarm_time <![CDATA[>=]]> TO_DATE ('${startTime} 00:00:00', 'yyyy-mm-dd hh24:mi:ss')
+						AND b.alarm_time <![CDATA[<=]]> TO_DATE ('${endTime} 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+		            	and b.device_type ='device'
+                   	group by b.event_type, to_char(b.alarm_time,'yyyy-MM-dd')
+	            )t
+		                  
+		   )a
+		 group by type
+	</sql>
+	
+	<!-- 获取按月、时间段统计故障数 -->	        
+	<select id="selectTrendMonth" resultType="map">
+		<include refid="getDays"/>
+		 <if test="@Ognl@isNotEmpty(sortType)" >
+	       order by ${sortType} 
+	    </if>
+	</select>
+
+	<!-- 获取按月、时间段统计故障数 曲线图-->
+	<select id="selectLineTrendMonth" resultType="map">
+		<include refid="getDays"/>
+
+	</select>
+	<!-- 获取按月、时间段统计故障数 合计栏数据-->
+	<select id="selectTotalsMonth" resultType="map">
+		select 
+		 <foreach collection="days" item="day" index="k" separator="," >
+		 sum(d${k+1}) as d${k+1}
+		 </foreach>
+		from(
+			<include refid="getDays"/>
+		)g
+	</select>
+	<!-- 获取按月、时间段统计故障数 总记录数-->
+	<select id="selectTotalTrendMonth" resultType="java.lang.Integer">
+		select count(*) from (
+			<include refid="getDays"/>
+		)g
+	</select>
+	
+</mapper>

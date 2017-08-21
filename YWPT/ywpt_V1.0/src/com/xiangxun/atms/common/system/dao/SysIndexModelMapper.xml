@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.common.system.dao.SysIndexModelMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.common.system.vo.SysIndexModel" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="HTMLSRC" property="htmlsrc" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="ROWCOUNT" property="rowcount" jdbcType="DECIMAL" />
+    <result column="LAYOUT" property="layout" jdbcType="VARCHAR" />
+    <result column="ISSHOW" property="isshow" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, CODE, HTMLSRC, NAME, ROWCOUNT, LAYOUT, ISSHOW
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.common.system.vo.SysIndexModelSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_INDEX_MODEL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_INDEX_MODEL
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_INDEX_MODEL
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.common.system.vo.SysIndexModelSearch" >
+    delete from SYS_INDEX_MODEL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.common.system.vo.SysIndexModel" useGeneratedKeys="true" keyProperty="id" >
+    insert into SYS_INDEX_MODEL (CODE, HTMLSRC, NAME, 
+      ROWCOUNT, LAYOUT, ISSHOW
+      )
+    values (#{code,jdbcType=VARCHAR}, #{htmlsrc,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{rowcount,jdbcType=DECIMAL}, #{layout,jdbcType=VARCHAR}, #{isshow,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.common.system.vo.SysIndexModel" useGeneratedKeys="true" keyProperty="id" >
+    insert into SYS_INDEX_MODEL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(htmlsrc)" >
+        HTMLSRC,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(rowcount)" >
+        ROWCOUNT,
+      </if>
+      <if test="@Ognl@isNotEmpty(layout)" >
+        LAYOUT,
+      </if>
+      <if test="@Ognl@isNotEmpty(isshow)" >
+        ISSHOW,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(htmlsrc)" >
+        #{htmlsrc,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(rowcount)" >
+        #{rowcount,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(layout)" >
+        #{layout,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(isshow)" >
+        #{isshow,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.common.system.vo.SysIndexModelSearch" resultType="java.lang.Integer" >
+    select count(*) from SYS_INDEX_MODEL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SYS_INDEX_MODEL
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.code)" >
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.htmlsrc)" >
+        HTMLSRC = #{record.htmlsrc,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.rowcount)" >
+        ROWCOUNT = #{record.rowcount,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.layout)" >
+        LAYOUT = #{record.layout,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.isshow)" >
+        ISSHOW = #{record.isshow,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SYS_INDEX_MODEL
+    set ID = #{record.id,jdbcType=VARCHAR},
+      CODE = #{record.code,jdbcType=VARCHAR},
+      HTMLSRC = #{record.htmlsrc,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      ROWCOUNT = #{record.rowcount,jdbcType=DECIMAL},
+      LAYOUT = #{record.layout,jdbcType=VARCHAR},
+      ISSHOW = #{record.isshow,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.common.system.vo.SysIndexModel" >
+    update SYS_INDEX_MODEL
+    <set >
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(htmlsrc)" >
+        HTMLSRC = #{htmlsrc,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(rowcount)" >
+        ROWCOUNT = #{rowcount,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(layout)" >
+        LAYOUT = #{layout,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(isshow)" >
+        ISSHOW = #{isshow,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.common.system.vo.SysIndexModel" >
+    update SYS_INDEX_MODEL
+    set CODE = #{code,jdbcType=VARCHAR},
+      HTMLSRC = #{htmlsrc,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      ROWCOUNT = #{rowcount,jdbcType=DECIMAL},
+      LAYOUT = #{layout,jdbcType=VARCHAR},
+      ISSHOW = #{isshow,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from SYS_INDEX_MODEL
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(htmlsrc)" >
+         and HTMLSRC = #{htmlsrc,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(rowcount)" >
+         and ROWCOUNT = #{rowcount,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(layout)" >
+         and LAYOUT = #{layout,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(isshow)" >
+         and ISSHOW = #{isshow,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from SYS_INDEX_MODEL
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(htmlsrc)" >
+         and HTMLSRC = #{htmlsrc,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(rowcount)" >
+         and ROWCOUNT = #{rowcount,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(layout)" >
+         and LAYOUT = #{layout,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(isshow)" >
+         and ISSHOW = #{isshow,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  
+  <select id="selectByIsShow" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_INDEX_MODEL 
+    where ISSHOW = #{isshow,jdbcType=VARCHAR} 
+  </select>
+  
+  <select id="getByCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_INDEX_MODEL 
+    where CODE = #{code,jdbcType=VARCHAR} 
+  </select>
+  
+  
+</mapper>

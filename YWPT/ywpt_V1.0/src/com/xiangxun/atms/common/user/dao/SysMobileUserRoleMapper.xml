@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.common.user.dao.SysMobileUserRoleMapper">
+	<resultMap id="SystemResource" type="com.xiangxun.atms.common.system.vo.SystemResource">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+	    <result column="NAME" property="name" jdbcType="VARCHAR" />
+	    <result column="LEAF" property="leaf" jdbcType="DECIMAL" />
+	    <result column="DISABLED" property="disabled" jdbcType="DECIMAL" />
+	    <result column="CODE" property="code" jdbcType="VARCHAR" />
+	    <result column="ICON" property="icon" jdbcType="VARCHAR" />
+	    <result column="SORT_ORDER" property="sortOrder" jdbcType="DECIMAL" />
+	    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+	    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+	    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+	    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+	    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+	    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+	    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+	    <result column="PARENTID" property="parentid" jdbcType="VARCHAR" />
+	    <result column="MODULE_CODE" property="moduleCode" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="getResourceByUserId" parameterType="java.lang.String" resultMap="SystemResource">
+		SELECT T.ID,T.NAME,T.CONTENT,T.PARENTID,T.TYPE
+		    FROM SYS_RESOURCE T
+		    WHERE EXISTS(SELECT 1 FROM SYS_ROLE_RESOURCES RR
+		    WHERE RR.RESOURCE_ID = T.ID AND EXISTS(SELECT 1 FROM SYS_USER_ROLE UR
+		    WHERE UR.ROLEID = RR.ROLE_ID AND UR.USERID =#{userId,jdbcType=VARCHAR}))
+		    ORDER BY T.SORT_ORDER,T.CREATE_DATE
+	</select>
+
+</mapper>
