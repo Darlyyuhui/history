@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.epms.mobile.business.dao.AirPointMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.epms.mobile.business.domain.AirPoint" >
+    
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="CODE" property="code" jdbcType="NVARCHAR" />
+    <result column="NAME" property="name" jdbcType="NVARCHAR" />
+    <result column="LONGITUDE" property="longitude" jdbcType="DECIMAL" />
+    <result column="LATITUDE" property="latitude" jdbcType="DECIMAL" />
+    <result column="REGION_ID" property="regionId" jdbcType="NVARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="NVARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="REGIO_NNAME" property="regionName" jdbcType="NVARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+  
+    ID, CODE, NAME, LONGITUDE, LATITUDE, REGION_ID 
+    
+  </sql>
+  <select id="countNUmber"  resultType="java.lang.Integer" >
+  select count(id) from  T_AIR_POINT
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" >
+   
+    select
+     a.ID, A.CODE, A.NAME, A.LONGITUDE, A.LATITUDE, A.REGION_ID ,r.name regionName 
+    from T_AIR_POINT a  left join T_REGION  r on  a.REGION_ID = r.id
+    
+      order by UPDATE_TIME desc, CREATE_TIME desc
+    
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+     ID, CODE, NAME, LONGITUDE, LATITUDE, REGION_ID ,r.name REGIO_NNAME
+    from T_AIR_POINT a  left join T_REGION  r on  a.REGION_ID = r.id
+    
+    where ID = #{id,jdbcType=NVARCHAR}
+  </select>
+  
+</mapper>

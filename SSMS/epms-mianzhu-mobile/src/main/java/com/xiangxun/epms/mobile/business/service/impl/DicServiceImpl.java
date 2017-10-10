@@ -44,5 +44,29 @@ public class DicServiceImpl implements DicService {
 		}
 		return obj.toString();
 	}
+
+	@Override
+	public String getWater(String sampleName) {
+		return dicMapper.getWater(sampleName);
+	}
+
+	@Override
+	public List<Dic> getDicList(String type) {
+		return dicMapper.getDicList(type);
+	}
+     
+	@Override
+	public List<String> typeList() {
+		
+		return dicMapper.typeList();
+	}
+	
+	public void simplyType(){
+		List<String> list=typeList();
+		for(String it:list){
+			List<Dic> diclist =getDicList(it);
+			DicCache.DIC_SIMPMAP.put(it, diclist);
+		}
+	}
 	
 }

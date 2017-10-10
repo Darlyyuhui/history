@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.epms.mobile.business.dao.NewestCodeMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.epms.mobile.business.domain.NewestCode" >
+    <id column="CODE" property="code" jdbcType="NVARCHAR" />
+  </resultMap>
+
+  <select id ="newwestCode"  resultType="java.lang.String"  >
+     select  top 1  code  from  ${tableName} 
+     <where>
+        <if test="@Ognl@isNotEmpty(conttion)"  >
+            <if test="@Ognl@isNotEmpty(value)"  >
+            #{conttion} =#{value}    
+		  </if>
+		</if>
+     </where>  
+     order by create_time desc 
+  </select>
+</mapper>

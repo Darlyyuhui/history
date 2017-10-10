@@ -188,7 +188,7 @@ public class BaseCtl {
 	 * @param request
 	 * @return
 	 */
-	protected SessionData getLoginData(HttpServletRequest request) {
+	public SessionData getLoginData(HttpServletRequest request) {
 //		HttpSession session = request.getSession();
 //		Object user = session.getAttribute(Session.SESSION_KEY);
 		Object user = Session.SESSION_MAP.get(Session.makeSessionKey(request));
@@ -211,7 +211,7 @@ public class BaseCtl {
 	 * @param request
 	 * @return
 	 */
-	protected String getLoginId(HttpServletRequest request) {
+	public String getLoginId(HttpServletRequest request) {
 		SessionData sd = this.getLoginData(request);
 		return sd.getId();
 	}

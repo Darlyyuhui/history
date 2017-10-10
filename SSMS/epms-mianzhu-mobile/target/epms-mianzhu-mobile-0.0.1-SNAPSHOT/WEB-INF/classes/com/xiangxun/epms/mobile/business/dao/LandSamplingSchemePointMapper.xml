@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.epms.mobile.business.dao.LandSamplingSchemePointMapper">
+	<resultMap id="BaseMap" type="com.xiangxun.epms.mobile.business.domain.LandSamplingSchemePoint">
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="SCHEME_ID" property="schemeId" jdbcType="VARCHAR" />
+	    <result column="CODE" property="code" jdbcType="VARCHAR" />
+	    <result column="LONGITUDE" property="longitude" jdbcType="DECIMAL" />
+	    <result column="LATITUDE" property="latitude" jdbcType="DECIMAL" />
+	    <result column="RANGE_X" property="rangeX" jdbcType="VARCHAR" />
+		<result column="RANGE_Y" property="rangeY" jdbcType="VARCHAR" />
+		<result column="AREA_CODE" property="areaCode" jdbcType="VARCHAR" />
+		<result column="IS_SAMPLING_POINT" property="isSamplingPoint" jdbcType="INTEGER" />
+	    <result column="CHECK_STATUS" property="checkStatus" jdbcType="INTEGER" />
+	    <result column="IS_RELEASE" property="isRelease" jdbcType="INTEGER" />
+		<result column="IS_SAMPLING" property="isSampling" jdbcType="INTEGER" />
+	    <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<select id="getLandSamplingSchemePointByPlanId"   resultMap="BaseMap">
+		SELECT A.ID,A.CODE,A.SCHEME_ID,A.LONGITUDE,A.LATITUDE,A.IS_SAMPLING  FROM  T_LAND_SAMPLING_SCHEME_POINT A
+		 WHERE  A.SCHEME_ID = #{schemeId}  And A.IS_SAMPLING=0 and  A.CHECK_STATUS=1 and A.IS_RELEASE=1  
+		<if test="@Ognl@isNotEmpty(resTime)"  >
+		   AND  (A.UPDATE_TIME <![CDATA[>=]]>cast(#{resTime} as datetime )
+		    or A.CREATE_TIME  <![CDATA[>=]]> cast(#{resTime} as datetime ))
+		</if>
+		ORDER BY  A.CREATE_TIME DESC ,A.UPDATE_TIME DESC  
+	</select>
+	<select id="findByPlanIdSamplin"   resultMap="BaseMap">
+		SELECT A.ID,A.SCHEME_ID,A.CODE,A.LONGITUDE,A.LATITUDE,A.IS_SAMPLING FROM (SELECT P.*  FROM T_LAND_SAMPLING_SCHEME_POINT P 
+		WHERE P.SCHEME_ID = #{schemeId}  And IS_SAMPLING=1 and  A.CHECK_STATUS=1 and A.IS_RELEASE=1 ) A   ORDER BY  A.CREATE_TIME DESC ,A.UPDATE_TIME DESC  
+	</select>
+	<select id="getLandSamplingSchemePointById"  resultMap="BaseMap" parameterType="java.lang.String">
+	   SELECT ID,SCHEME_ID,CODE,LONGITUDE,LATITUDE,IS_SAMPLING FROM  T_LAND_SAMPLING_SCHEME_POINT WHERE ID =#{id} 
+	</select>
+	<select id="contlist" parameterType="java.lang.String"  resultType="java.lang.Integer" >
+	  SELECT count(id) FROM  T_LAND_SAMPLING_SCHEME_POINT WHERE SCHEME_ID =#{schemeId} and IS_SAMPLING=0 and  CHECK_STATUS=1 and IS_RELEASE=1  
+	</select>
+	<update id="updateLandSamplingSchemePointById"  parameterType="com.xiangxun.epms.mobile.business.domain.LandSamplingSchemePoint" >
+		 update T_LAND_SAMPLING_SCHEME_POINT
+    <set >
+      <if test="@Ognl@isNotEmpty(schemeId)" >
+        SCHEME_ID = #{schemeId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE = #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(longitude)" >
+        LONGITUDE = #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(latitude)" >
+        LATITUDE = #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(rangeX)" >
+        RANGE_X = #{rangeX,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(rangeY)" >
+        RANGE_Y = #{rangeY,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(areaCode)" >
+        AREA_CODE = #{areaCode,jdbcType=NVARCHAR},
+      </if>
+     <!--  <if test="@Ognl@isNotEmpty(isSamplingPoint)" >
+        IS_SAMPLING_POINT = #{isSamplingPoint,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkStatus)" >
+        CHECK_STATUS = #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(isRelease)" >
+        IS_RELEASE = #{isRelease,jdbcType=INTEGER},
+      </if> -->
+      <if test="@Ognl@isNotEmpty(isSampling)" >
+        IS_SAMPLING = #{isSampling,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+	<insert id="insertSelective" parameterType="com.xiangxun.epms.mobile.business.domain.LandSamplingSchemePoint" useGeneratedKeys="true" keyProperty="id" >
+	    insert into T_LAND_SAMPLING_SCHEME_POINT
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="@Ognl@isNotEmpty(id)" >
+	        ID,
+	      </if>
+	      <if test="@Ognl@isNotEmpty(schemeId)" >
+	        SCHEME_ID,
+	      </if>
+	      <if test="@Ognl@isNotEmpty(code)" >
+	        CODE,
+	      </if>
+	      <if test="@Ognl@isNotEmpty(longitude)" >
+	        LONGITUDE,
+	      </if>
+	      <if test="@Ognl@isNotEmpty(latitude)" >
+	        LATITUDE,
+	      </if>
+	      <if test="@Ognl@isNotEmpty(rangeX)" >
+	        RANGE_X,
+	      </if>
+	      <if test="@Ognl@isNotEmpty(rangeY)" >
+	        RANGE_Y,
+	      </if>
+	      <if test="@Ognl@isNotEmpty(areaCode)" >
+	        AREA_CODE,
+	      </if>
+	      <if test="@Ognl@isNotEmpty(isSamplingPoint)" >
+	        IS_SAMPLING_POINT,
+	      </if>
+	      <if test="@Ognl@isNotEmpty(isSampling)" >
+	        IS_SAMPLING,
+	      </if>
+	      <if test="@Ognl@isNotEmpty(checkStatus)" >
+	        CHECK_STATUS,
+	      </if>
+	      <if test="@Ognl@isNotEmpty(isRelease)" >
+	        IS_RELEASE,
+	      </if>
+	      <if test="@Ognl@isNotEmpty(createId)" >
+	        CREATE_ID,
+	      </if>
+	      <if test="@Ognl@isNotEmpty(createTime)" >
+	        CREATE_TIME,
+	      </if>
+	      <if test="@Ognl@isNotEmpty(updateId)" >
+	        UPDATE_ID,
+	      </if>
+	      <if test="@Ognl@isNotEmpty(updateTime)" >
+	        UPDATE_TIME,
+	      </if>
+	     
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="@Ognl@isNotEmpty(id)" >
+	        #{id,jdbcType=NVARCHAR},
+	      </if>
+	      <if test="@Ognl@isNotEmpty(schemeId)" >
+	        #{schemeId,jdbcType=NVARCHAR},
+	      </if>
+	      <if test="@Ognl@isNotEmpty(code)" >
+	        #{code,jdbcType=NVARCHAR},
+	      </if>
+	      <if test="@Ognl@isNotEmpty(longitude)" >
+	        #{longitude,jdbcType=DECIMAL},
+	      </if>
+	      <if test="@Ognl@isNotEmpty(latitude)" >
+	        #{latitude,jdbcType=DECIMAL},
+	      </if>
+	      <if test="@Ognl@isNotEmpty(rangeX)" >
+	        #{rangeX,jdbcType=NVARCHAR},
+	      </if>
+	      <if test="@Ognl@isNotEmpty(rangeY)" >
+	        #{rangeY,jdbcType=NVARCHAR},
+	      </if>
+	      <if test="@Ognl@isNotEmpty(areaCode)" >
+	        #{areaCode,jdbcType=NVARCHAR},
+	      </if>
+	      <if test="@Ognl@isNotEmpty(isSamplingPoint)" >
+	        #{isSamplingPoint,jdbcType=INTEGER},
+	      </if>
+	      <if test="@Ognl@isNotEmpty(isSampling)" >
+	        #{isSampling,jdbcType=INTEGER},
+	      </if>
+	      <if test="@Ognl@isNotEmpty(checkStatus)" >
+	         #{ checkStatus,jdbcType=INTEGER},
+	      </if>
+	      <if test="@Ognl@isNotEmpty(isRelease)" >
+	         #{isRelease,jdbcType=INTEGER},
+	      </if>
+	      <if test="@Ognl@isNotEmpty(createId)" >
+	        #{createId,jdbcType=NVARCHAR},
+	      </if>
+	      <if test="@Ognl@isNotEmpty(createTime)" >
+	        #{createTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="@Ognl@isNotEmpty(updateId)" >
+	        #{updateId,jdbcType=NVARCHAR},
+	      </if>
+	      <if test="@Ognl@isNotEmpty(updateTime)" >
+	        #{updateTime,jdbcType=TIMESTAMP},
+	      </if>
+	     
+	    </trim>
+  </insert>
+    <insert id="addLandSamplingSchemePoint">
+    </insert>
+</mapper>

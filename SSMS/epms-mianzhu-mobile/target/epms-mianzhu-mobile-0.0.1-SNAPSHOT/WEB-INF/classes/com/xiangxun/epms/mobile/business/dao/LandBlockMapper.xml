@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.epms.mobile.business.dao.LandBlockMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.epms.mobile.business.domain.LandBlock" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jul 20 15:09:32 CST 2017.
+    -->
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="CODE" property="code" jdbcType="NVARCHAR" />
+    <result column="NAME" property="name" jdbcType="NVARCHAR" />
+    <result column="TYPE_CODE" property="typeCode" jdbcType="NVARCHAR" />
+    <result column="LONGITUDE" property="longitude" jdbcType="DECIMAL" />
+    <result column="LATITUDE" property="latitude" jdbcType="DECIMAL" />
+    <result column="REGION_ID" property="regionId" jdbcType="NVARCHAR" />
+    <result column="AREA" property="area" jdbcType="DECIMAL" />
+    <result column="SOIL_TYPE" property="soilType" jdbcType="NVARCHAR" />
+    <result column="POLLUTE_TYPE" property="polluteType" jdbcType="NVARCHAR" />
+    <result column="OWNER_ID" property="ownerId" jdbcType="NVARCHAR" />
+    <result column="IS_ERROR" property="isError" jdbcType="INTEGER" />
+    <result column="REPAIR_STATUS" property="repairStatus" jdbcType="NVARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="NVARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+   ID,CODE, NAME, TYPE_CODE, LONGITUDE, LATITUDE, REGION_ID, AREA, SOIL_TYPE, POLLUTE_TYPE, 
+    OWNER_ID
+  </sql>
+  <select id="findAll" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from T_LAND_BLOCK
+  </select>
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from T_LAND_BLOCK  where ID =#{id,jdbcType=NVARCHAR}
+  </select>
+  
+</mapper>

@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.xiangxun.epms.mobile.business.cache.RegBusinessTypeCache;
 import com.xiangxun.epms.mobile.business.dao.FilesMapper;
 import com.xiangxun.epms.mobile.business.domain.Files;
 import com.xiangxun.epms.mobile.business.service.FilesService;
@@ -98,16 +99,16 @@ public class FilesServiceImpl implements FilesService {
 		if (fileRequest == null) {
 			return Failedlist;
 		}
-		if (StringUtils.isEmpty(businessType)) {
+		/*if (StringUtils.isEmpty(businessType)) {
 			return Failedlist;
-		}
+		}*/
 		File newFile;
 		Files fs;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		MultiValueMap<String, MultipartFile> fileMap = fileRequest.getMultiFileMap();
 		if (fileMap != null && fileMap.size() > 0) {
 			Date date = new Date();
-			String filePath = "upload/files/" + businessType + "/" + sdf.format(date);
+			String filePath = "upload/files/" + "reg"+ "/" + sdf.format(date);
 			// 上传文件保存目录
 			String mkdir = custom.getFileRootPath() + File.separator + filePath;
 			UploadFileUtils.mkDirectory(mkdir);
@@ -122,13 +123,19 @@ public class FilesServiceImpl implements FilesService {
 					fs.setId(UuidGenerateUtil.getUUIDLong());
 					String nameid=file.getOriginalFilename();
 					int i=nameid.indexOf("@");
+					
 					if(i==-1){
 						continue;
 					}
 					String businessId=nameid.substring(0, i);
-					String fiNmae= nameid.substring(i+1, nameid.length());
+					int n= nameid.indexOf("@", i+1);
+					if(n<1){
+						continue;
+					}
+					String type=RegBusinessTypeCache.BUSINESSTYPE.get(nameid.substring(i+1, n));
+					String fiNmae= nameid.substring(n+1, nameid.length());
 					fs.setBusinessId(businessId);
-					fs.setBusinessType(isUseInputName ? this.makeBusinessType(businessType, file.getName()) : businessType);
+					fs.setBusinessType(isUseInputName ? this.makeBusinessType(type, file.getName()) : type);
 					fs.setFileName(fiNmae);
 					fs.setFileSize(file.getSize());
 					fs.setFileType(this.getFileType(fs.getFileName()));
@@ -192,5 +199,4 @@ public class FilesServiceImpl implements FilesService {
 	public void saveFile(Files info) {
 		filesMapper.saveInfo(info);
 	}
-	
 }

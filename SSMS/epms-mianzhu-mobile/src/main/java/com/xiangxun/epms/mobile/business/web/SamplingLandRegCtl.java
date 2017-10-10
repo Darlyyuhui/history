@@ -17,6 +17,7 @@ import com.xiangxun.epms.mobile.business.domain.LandBlock;
 import com.xiangxun.epms.mobile.business.domain.LandSamplingSchemePoint;
 import com.xiangxun.epms.mobile.business.domain.LandSamplingSheme;
 import com.xiangxun.epms.mobile.business.domain.SamplingLandReg;
+import com.xiangxun.epms.mobile.business.domain.SamplingReg;
 import com.xiangxun.epms.mobile.business.service.LandBlockService;
 import com.xiangxun.epms.mobile.business.service.LandSampingSchemePointService;
 import com.xiangxun.epms.mobile.business.service.LandSamplingShemeService;
@@ -38,8 +39,9 @@ public class SamplingLandRegCtl extends BaseCtl {
 	@Resource
 	LandBlockService LandBlockService;
 
+
 	@RequestMapping(value = "collect", method = RequestMethod.POST)
-	public void add(SamplingLandReg info,String soil_type, HttpServletRequest request, HttpServletResponse response) {
+	public void add(SamplingLandReg info,String samplingType, HttpServletRequest request, HttpServletResponse response) {
 		if (!super.validateAdd(info, request, response)) {
 			return;
 		}
@@ -50,7 +52,7 @@ public class SamplingLandRegCtl extends BaseCtl {
 			info.setCreateId(super.getLoginId(request));
 			info.setCreateTime(new Date());
 			info.setSamplingSource("2");
-			info.setSoilType(soil_type);
+			info.setSamplingType(samplingType);
 			info.setSamplingTime(new Date());
 			info.setSamplingUser(super.getLoginData(request).getName());
 			samplingLandRegService.insertSelective(info);
@@ -58,7 +60,7 @@ public class SamplingLandRegCtl extends BaseCtl {
 			point.setId(info.getPointId());
 			point.setIsSampling(1);
 			landSampingSchemePointService.updateLandSamplingSchemePointById(point);
-			List<SamplingLandReg> list = samplingLandRegService.selectByPrimaryKey(id);
+			List<SamplingReg> list = samplingLandRegService.selectByPrimaryKey(id);
 			super.dataResult("1000", "添加成功", list, request, response);
 			logger.info("table T_Sampling_land_reg add success");
 		} catch (Exception e) {
@@ -67,7 +69,7 @@ public class SamplingLandRegCtl extends BaseCtl {
 			logger.error("table T_Sampling_land_reg add failed", e.getMessage());
 		}
 	}
-
+  
 	@RequestMapping(value = "uploud", method = RequestMethod.POST)
 	public void uploud(HttpServletRequest request, HttpServletResponse response, MultipartHttpServletRequest file) {
 
@@ -88,10 +90,10 @@ public class SamplingLandRegCtl extends BaseCtl {
 		try {
 			List<Map<String, Object>> list = samplingLandRegService.selectByMissionId(missionId);
 			super.dataResult("1000", "查询成功", list, request, response);
-			logger.info("table T_Sampling_land_reg query by missionId  successs");
+			logger.info(" reg query by missionId  successs");
 		} catch (Exception e) {
 			super.simpleResult("1001", "查询失败", request, response);
-			logger.error("table T_Sampling_land_reg query by missionId  failed" + e.getMessage());
+			logger.error(" reg query by missionId  failed" + e.getMessage());
 		}
 
 	}
@@ -100,8 +102,8 @@ public class SamplingLandRegCtl extends BaseCtl {
 	public void view(SamplingLandReg it, HttpServletRequest request, HttpServletResponse response) {
 
 		try {
-			List<SamplingLandReg> list = samplingLandRegService.particular(it);
-			SamplingLandReg info = new SamplingLandReg();
+			List<SamplingReg> list = samplingLandRegService.particular(it);
+			SamplingReg info = new SamplingReg();
 			if (list != null && list.size() > 0) {
 				info = list.get(0);
 			}
@@ -118,8 +120,8 @@ public class SamplingLandRegCtl extends BaseCtl {
 				info.setRegionName("");
 				info.setSampleName("");
 			}
-			if (info.getSoilName() == null) {
-				info.setSoilName("");
+			if (info.getSampleName() == null) {
+				info.setSampleName("");
 			}
 
 			super.dataResult("1000", "查询成功", info, request, response);
@@ -130,5 +132,6 @@ public class SamplingLandRegCtl extends BaseCtl {
 		}
 
 	}
+	  
 
 }

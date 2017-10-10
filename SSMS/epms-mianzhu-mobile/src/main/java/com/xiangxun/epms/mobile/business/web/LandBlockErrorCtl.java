@@ -33,6 +33,7 @@ public class LandBlockErrorCtl extends BaseCtl {
      public void query(LandBlockError it,HttpServletRequest request,HttpServletResponse response){
     	try{
     	  super.pageParams(request);
+    	//当返回regionId时通过regionId做查询条件，当没有regionId是通过参数regionName获取regionId
     	  String regionId = request.getParameter("regionId");
 			if (regionId == null || "".equals(regionId)) {
 				String regionName = request.getParameter("regionName");

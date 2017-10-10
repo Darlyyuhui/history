@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.epms.mobile.business.dao.SamplingAirRegMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.epms.mobile.business.domain.SamplingReg" >
+    
+   <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="CODE" property="code" jdbcType="NVARCHAR" />
+    <result column="NAME" property="name" jdbcType="NVARCHAR" />
+    <result column="DEPTH" property="depth" jdbcType="NVARCHAR" />
+    <result column="SOIL_TYPE" property="soilType" jdbcType="NVARCHAR" />
+    <result column="SOIL_NAME" property="soilName" jdbcType="NVARCHAR" />
+    <result column="LONGITUDE" property="longitude" jdbcType="DECIMAL" />
+    <result column="LATITUDE" property="latitude" jdbcType="DECIMAL" />
+    <result column="SAMPLING_TIME" property="samplingTime" jdbcType="TIMESTAMP" />
+    <result column="SAMPLING_USER" property="samplingUser" jdbcType="NVARCHAR" />
+    <result column="RECEIVE_USER" property="receiveUser" jdbcType="NVARCHAR" />
+    <result column="SEND_USER" property="sendUser" jdbcType="NVARCHAR" />
+    <result column="SAMPLING_SOURCE" property="samplingSource" jdbcType="NVARCHAR" />
+    <result column="CHECK_STATUS" property="checkStatus" jdbcType="INTEGER" />
+    <result column="CHECK_USER" property="checkUser" jdbcType="NVARCHAR" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="NVARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="MISSION_ID" property="missionId" jdbcType="NVARCHAR" />
+    <result column="TABLE_NAME" property="tableName" jdbcType="NVARCHAR" />
+    <!-- 水采样不同属性  typeCode背景土壤采样采样也有 SAMPLING_TYPE土壤和农作物也有-->
+    <result column="TYPE_CODE" property="typeCode" jdbcType="NVARCHAR" />
+    <result column="SAMPLING_TYPE" property="samplingType" jdbcType="NVARCHAR" />
+    <result column="RIVERS_NAME" property="riversName" jdbcType="NVARCHAR" />
+    <result column="MUD_LONGITUDE" property="mudLongitude" jdbcType="DECIMAL" />
+    <result column="MUD_LATITUDE" property="mudLatitude" jdbcType="DECIMAL" />
+    <!-- 农产品采样不同属性 -->
+    <result column="POSITION" property="position" jdbcType="NVARCHAR" />
+    <!-- 背景土壤采样不同属性  typeCode与水采样都有 -->
+    <result column="AMBIENT" property="ambient" jdbcType="NVARCHAR" />
+    <result column="YEARS" property="years" jdbcType="NVARCHAR" />
+    <result column="WALL_SOURCE" property="wallSource" jdbcType="NVARCHAR" />
+    <!-- 肥料采样特有属性 -->
+    <result column="SHOP_NAME" property="shopName" jdbcType="NVARCHAR" />
+    <result column="SHOPKEEPER" property="shopkeeper" jdbcType="NVARCHAR" />
+    <result column="TEL" property="tel" jdbcType="NVARCHAR" />
+    <result column="DEAL_MANURE" property="dealManure" jdbcType="NVARCHAR" />
+    <!-- 大气采样特有属性 -->
+    <result column="CONTAINER_VOLUME" property="containerVolume" jdbcType="NVARCHAR" />
+    <result column="COLLECT_VOLUME" property="collectVolume" jdbcType="NVARCHAR" />
+    <result column="POINT_ID" property="pointId" jdbcType="NVARCHAR" />
+    <result column="othersamplyName" property="othersamplyName" jdbcType="NVARCHAR" />
+    <result column="typesamplyName" property="typesamplyName" jdbcType="NVARCHAR" />
+  </resultMap>
+  <select id="findById"  resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select A.ID, A.CODE, case when A.CONTAINER_VOLUME is null then  ' ' else A.CONTAINER_VOLUME end CONTAINER_VOLUME ,
+    case when A. COLLECT_VOLUME is null then ' ' else A. COLLECT_VOLUME end COLLECT_VOLUME ,case when P.NAME IS NULL then ' '
+     ELSE P.NAME END  othersamplyName , A.MISSION_ID  
+    from T_SAMPLING_AIR_REG  A 
+    LEFT JOIN T_AIR_POINT  P  ON  A.POINT_ID = P.ID  
+     where A.id=#{id}  
+  </select>
+  <select id="findPointIdByMissionId" resultType="java.lang.String" parameterType="java.lang.String"> 
+      Select  POINT_ID from T_SAMPLING_AIR_REG where MISSION_ID =#{id,jdbcType=NVARCHAR }
+  </select>
+  <insert id="insertSelective" parameterType="com.xiangxun.epms.mobile.business.domain.SamplingReg" useGeneratedKeys="true" keyProperty="id" >
+    
+    insert into T_SAMPLING_AIR_REG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(containerVolume)" >
+        CONTAINER_VOLUME,
+      </if>
+      <if test="@Ognl@isNotEmpty(collectVolume)" >
+        COLLECT_VOLUME,
+      </if>
+      <if test="@Ognl@isNotEmpty(pointId)" >
+        POINT_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingTime)" >
+        SAMPLING_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingUser)" >
+        SAMPLING_USER,
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingSource)" >
+        SAMPLING_SOURCE,
+      </if>
+      <if test="@Ognl@isNotEmpty(checkStatus)" >
+        CHECK_STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(checkUser)" >
+        CHECK_USER,
+      </if>
+      <if test="@Ognl@isNotEmpty(checkTime)" >
+        CHECK_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(missionId)" >
+        MISSION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(containerVolume)" >
+        #{containerVolume,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(collectVolume)" >
+        #{collectVolume,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(pointId)" >
+        #{pointId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingTime)" >
+        #{samplingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingUser)" >
+        #{samplingUser,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingSource)" >
+        #{samplingSource,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkStatus)" >
+        #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkUser)" >
+        #{checkUser,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkTime)" >
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(missionId)" >
+        #{missionId,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+ 
+ 
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.epms.mobile.business.domain.SamplingReg" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Aug 30 08:31:11 CST 2017.
+    -->
+    update T_SAMPLING_AIR_REG
+    <set >
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE = #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(containerVolume)" >
+        CONTAINER_VOLUME = #{containerVolume,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(collectVolume)" >
+        COLLECT_VOLUME = #{collectVolume,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(pointId)" >
+        POINT_ID = #{pointId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingTime)" >
+        SAMPLING_TIME = #{samplingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingUser)" >
+        SAMPLING_USER = #{samplingUser,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingSource)" >
+        SAMPLING_SOURCE = #{samplingSource,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkStatus)" >
+        CHECK_STATUS = #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkUser)" >
+        CHECK_USER = #{checkUser,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkTime)" >
+        CHECK_TIME = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(missionId)" >
+        MISSION_ID = #{missionId,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Aug 30 08:31:11 CST 2017.
+    -->
+    select 
+    ID, CODE, CONTAINER_VOLUME, COLLECT_VOLUME, POINT_ID, SAMPLING_TIME, SAMPLING_USER,
+     SAMPLING_SOURCE, CHECK_STATUS, 
+    CHECK_USER, CHECK_TIME, CREATE_ID, CREATE_TIME, UPDATE_ID, UPDATE_TIME, STATUS, MISSION_ID  
+     from T_SAMPLING_AIR_REG
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE = #{code,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(containerVolume)" >
+         and CONTAINER_VOLUME = #{containerVolume,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(collectVolume)" >
+         and COLLECT_VOLUME = #{collectVolume,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(pointId)" >
+         and POINT_ID = #{pointId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingTime)" >
+         and SAMPLING_TIME = #{samplingTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingUser)" >
+         and SAMPLING_USER = #{samplingUser,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingSource)" >
+         and SAMPLING_SOURCE = #{samplingSource,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(checkStatus)" >
+         and CHECK_STATUS = #{checkStatus,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(checkUser)" >
+         and CHECK_USER = #{checkUser,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(checkTime)" >
+         and CHECK_TIME = #{checkTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+         and CREATE_ID = #{createId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+         and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+         and UPDATE_ID = #{updateId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+         and UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(missionId)" >
+         and MISSION_ID = #{missionId,jdbcType=NVARCHAR}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Aug 30 08:31:11 CST 2017.
+    -->
+    select count(*) from T_SAMPLING_AIR_REG
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE = #{code,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(containerVolume)" >
+         and CONTAINER_VOLUME = #{containerVolume,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(collectVolume)" >
+         and COLLECT_VOLUME = #{collectVolume,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(pointId)" >
+         and POINT_ID = #{pointId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingTime)" >
+         and SAMPLING_TIME = #{samplingTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingUser)" >
+         and SAMPLING_USER = #{samplingUser,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingSource)" >
+         and SAMPLING_SOURCE = #{samplingSource,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(checkStatus)" >
+         and CHECK_STATUS = #{checkStatus,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(checkUser)" >
+         and CHECK_USER = #{checkUser,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(checkTime)" >
+         and CHECK_TIME = #{checkTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+         and CREATE_ID = #{createId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+         and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+         and UPDATE_ID = #{updateId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+         and UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(missionId)" >
+         and MISSION_ID = #{missionId,jdbcType=NVARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

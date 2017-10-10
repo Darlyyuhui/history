@@ -50,6 +50,7 @@ public class LandSamplingShemeCtl extends BaseCtl {
 	public void query(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			super.pageParams(request);
+			//当返回regionId时通过regionId做查询条件，当没有regionId是通过参数regionName获取regionId
 			String regionId = request.getParameter("regionId");
 			if (regionId == null || "".equals(regionId)) {
 				String regionName = request.getParameter("regionName");
@@ -65,11 +66,30 @@ public class LandSamplingShemeCtl extends BaseCtl {
 			if(missionName!=null&&!"".equals(missionName)){
 				landSamplingSheme.setMissionName(missionName.trim());
 			}
-			Page page = landSamplingShemeService.queryList(landSamplingSheme, pageSize, pageNo);
+			String sampleCode=request.getParameter("sampleCode");
+			if(sampleCode!=null&&!"".equals(sampleCode)){
+				landSamplingSheme.setSampleCode(sampleCode.trim());
+			}
+			Page page = landSamplingShemeService.historysheme(landSamplingSheme, pageSize, pageNo);
+					//queryList(landSamplingSheme, pageSize, pageNo);
 
-			super.pageResult("1000", "查询成功", regionId==null?"":regionId, page, request, response);
+			super.pageResult("1000", "查询成功",regionId==null?"":regionId, page, request, response);
+			logger.info("history list query success");
 		} catch (Exception e) {
 			super.simpleResult("1001", "查询失败", request, response);
+			logger.info("history list query failed ");
+		}
+	}
+	
+	@RequestMapping(value = "scene")
+	public void scene(HttpServletRequest request, HttpServletResponse response) {
+		
+		try {
+			List<Map<String,Object>> list=landSamplingShemeService.findAllByFinshAndRegType();
+			super.dataResult("1000", "查询成功",list, request, response);			logger.info("table T_Land_Sampling_Sheme list query success");
+		} catch (Exception e) {
+			super.simpleResult("1001", "查询失败", request, response);
+			logger.error("table T_Land_Sampling_Sheme list query failed:" + e.getMessage());
 		}
 	}
 }

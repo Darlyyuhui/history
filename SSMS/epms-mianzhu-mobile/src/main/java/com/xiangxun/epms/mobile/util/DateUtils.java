@@ -2,6 +2,7 @@ package com.xiangxun.epms.mobile.util;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -46,5 +47,13 @@ public final class DateUtils {
 		Timestamp ts = Timestamp.valueOf(srtTime);
 		return ts;
 	}
-	  
+	public static String getDateStr(){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(calendar.getTime());
+		StringBuffer u1 = new StringBuffer(calendar.get(Calendar.YEAR));
+		u1.append(calendar.get(Calendar.MONTH) + 1);
+		String str =u1.toString();
+		return str;
+	}
+	
 }

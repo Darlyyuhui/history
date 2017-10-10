@@ -18,7 +18,7 @@ import com.xiangxun.epms.mobile.business.service.DicService;
 public class DicCache implements CommandLineRunner {
 
 	public static Map<String, List<Dic>> DIC_MAP = new HashMap<>();
-	
+	public static Map<String, List<Dic>> DIC_SIMPMAP = new HashMap<String, List<Dic>>();
 	private static final Logger logger = LoggerFactory.getLogger(DicCache.class);
 
 	@Resource
@@ -28,6 +28,7 @@ public class DicCache implements CommandLineRunner {
 	public void run(String... arg0) throws Exception {
 		logger.info("loading all data dic...");
 		dicService.initDic();
+		dicService.simplyType();
 		logger.info("load all data dic success.");
 	}
 	

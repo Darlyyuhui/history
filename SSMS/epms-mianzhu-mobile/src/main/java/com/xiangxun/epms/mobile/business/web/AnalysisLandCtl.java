@@ -21,6 +21,7 @@ public class AnalysisLandCtl extends BaseCtl {
       AnalysisLandService analysisLandService;
       @RequestMapping(value="query" ,method = RequestMethod.POST)
       public void query(HttpServletRequest request, HttpServletResponse response){
+    	  //当返回regionId时通过regionId做查询条件，当没有regionId是通过参数regionName获取regionId
     	  AnalysisLand analysisLand =new AnalysisLand();
     	  String regionId=request.getParameter("regionId");
     	  if(StringUtils.isEmpty(regionId)) {

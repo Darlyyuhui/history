@@ -48,10 +48,10 @@ public class AnalysisLandServiceImpl implements AnalysisLandService {
 		if(resultList!=null&&resultList.size()>0){
 			totalCount = resultList.size();
 		}
-     
-		return Page.getPage(totalCount, resultList, pageNo, pageSize);
+		List<?> subList= Page.sublist(pageNo, pageSize, totalCount, resultList);
+		return Page.getPage(totalCount, subList, pageNo, pageSize);
 	}
-
+     //行转列处理
 	private List<AnalysisLand> subsection(List<AnalysisLand> list,String temple) {
 		List<AnalysisLand> resultList = new ArrayList< AnalysisLand>();
 		for (AnalysisLand info : list) {
@@ -80,7 +80,7 @@ public class AnalysisLandServiceImpl implements AnalysisLandService {
 		   }else if("ph".equals(temple)){
 			    AnalysisLand ph = new AnalysisLand();
 				ph.setId(info.getId());
-				ph.type_name =info.getName()==null?"":info.getName();
+				ph.type_name=info.getName()==null?"":info.getName();
 				ph.analy_name = "ph值";
 				ph.analy_value = info.getPh()==null?new BigDecimal(0): info.getPh();
 				ph.setIsOver(info.getIsOver()==null?0:info.getIsOver());
@@ -104,5 +104,24 @@ public class AnalysisLandServiceImpl implements AnalysisLandService {
 		   }
 		}
 		return resultList;
+	}
+	
+	public List<AnalysisLand>  sublist(int pageNo,int pageSize,int totalCount,List<AnalysisLand> list){
+		List<AnalysisLand> resultList = new ArrayList<AnalysisLand>();
+		if(list==null)
+		{
+			return null;
+		}
+		if((pageNo-1)*pageSize>=totalCount){
+			return null;
+		}else{
+			if(pageNo*pageSize<=totalCount){
+				 resultList = list.subList((pageNo-1)*pageSize, pageNo*pageSize);
+		    }else {
+		    	 resultList = list.subList((pageNo-1)*pageSize, totalCount);
+		    }
+			return resultList;
+		}
+		
 	}
 }

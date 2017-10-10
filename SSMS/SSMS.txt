@@ -2,3 +2,7 @@
  平台端
  手机端
  接口端 
+
+epms-mianzhu-android 手机端Android平台展示效果，进行版本二次更新。并明确每个采样功能模块。
+epms-mianzhu 平台端电脑展示效果，进行平台Gis效果修改，以及一些逻辑
+epms-mianzhu-mobile  手机端和平台端接口展示效果。对应手机端进行接口更新和数据更新。

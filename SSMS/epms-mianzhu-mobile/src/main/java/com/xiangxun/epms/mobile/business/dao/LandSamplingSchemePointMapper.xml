@@ -29,6 +29,9 @@
 		</if>
 		ORDER BY  A.CREATE_TIME DESC ,A.UPDATE_TIME DESC  
 	</select>
+	<select id="findByCode" parameterType="java.lang.String" resultType="com.xiangxun.epms.mobile.business.domain.LandSamplingSchemePoint">
+	  select code from T_LAND_SAMPLING_SCHEME_POINT where  code=#{code} 
+	</select>
 	<select id="findByPlanIdSamplin"   resultMap="BaseMap">
 		SELECT A.ID,A.SCHEME_ID,A.CODE,A.LONGITUDE,A.LATITUDE,A.IS_SAMPLING FROM (SELECT P.*  FROM T_LAND_SAMPLING_SCHEME_POINT P 
 		WHERE P.SCHEME_ID = #{schemeId}  And IS_SAMPLING=1 and  A.CHECK_STATUS=1 and A.IS_RELEASE=1 ) A   ORDER BY  A.CREATE_TIME DESC ,A.UPDATE_TIME DESC  

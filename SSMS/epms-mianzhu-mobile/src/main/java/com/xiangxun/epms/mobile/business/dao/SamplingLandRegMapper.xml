@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xiangxun.epms.mobile.business.dao.SamplingLandRegMapper" >
-  <resultMap id="BaseResultMap" type="com.xiangxun.epms.mobile.business.domain.SamplingLandReg" >
+<resultMap id="BaseResultMap" type="com.xiangxun.epms.mobile.business.domain.SamplingReg" >
     <id column="ID" property="id" jdbcType="NVARCHAR" />
     <result column="CODE" property="code" jdbcType="NVARCHAR" />
     <result column="NAME" property="name" jdbcType="NVARCHAR" />
@@ -24,7 +24,31 @@
     <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="STATUS" property="status" jdbcType="INTEGER" />
     <result column="MISSION_ID" property="missionId" jdbcType="NVARCHAR" />
-    <result column="FILE_URL" property="fileUrl" jdbcType="NVARCHAR" />
+    <result column="TABLE_NAME" property="tableName" jdbcType="NVARCHAR" />
+    <!-- 水采样不同属性  typeCode背景土壤采样采样也有 SAMPLING_TYPE土壤和农作物也有-->
+    <result column="TYPE_CODE" property="typeCode" jdbcType="NVARCHAR" />
+    <result column="SAMPLING_TYPE" property="samplingType" jdbcType="NVARCHAR" />
+    <result column="RIVERS_NAME" property="riversName" jdbcType="NVARCHAR" />
+    <result column="MUD_LONGITUDE" property="mudLongitude" jdbcType="DECIMAL" />
+    <result column="MUD_LATITUDE" property="mudLatitude" jdbcType="DECIMAL" />
+    <!-- 农产品采样不同属性 -->
+    <result column="POSITION" property="position" jdbcType="NVARCHAR" />
+    <!-- 背景土壤采样不同属性  typeCode与水采样都有 -->
+    <result column="AMBIENT" property="ambient" jdbcType="NVARCHAR" />
+    <result column="YEARS" property="years" jdbcType="NVARCHAR" />
+    <result column="WALL_SOURCE" property="wallSource" jdbcType="NVARCHAR" />
+    <!-- 肥料采样特有属性 -->
+    <result column="SHOP_NAME" property="shopName" jdbcType="NVARCHAR" />
+    <result column="SHOPKEEPER" property="shopkeeper" jdbcType="NVARCHAR" />
+    <result column="TEL" property="tel" jdbcType="NVARCHAR" />
+    <result column="DEAL_MANURE" property="dealManure" jdbcType="NVARCHAR" />
+    <!-- 大气采样特有属性 -->
+    <result column="CONTAINER_VOLUME" property="containerVolume" jdbcType="NVARCHAR" />
+    <result column="COLLECT_VOLUME" property="collectVolume" jdbcType="NVARCHAR" />
+    <result column="POINT_ID" property="pointId" jdbcType="NVARCHAR" />
+    
+    <result column="othersamplyName" property="othersamplyName" jdbcType="NVARCHAR" />
+    <result column="typesamplyName" property="typesamplyName" jdbcType="NVARCHAR" />
   </resultMap>
   
   
@@ -34,17 +58,21 @@
     CHECK_USER, CHECK_TIME, CREATE_ID, CREATE_TIME, UPDATE_ID, UPDATE_TIME, STATUS, MISSION_ID
   </sql>
   <select id="selectByMissionId" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select A.ID,A.NAME,A.CODE, A.DEPTH,A.LONGITUDE, A.LATITUDE, A.SAMPLING_TIME,A.MISSION_ID, L.NAME SOIL_NAME from ( select 
-     ID, CODE, NAME, DEPTH, SOIL_TYPE, LONGITUDE, LATITUDE,  SAMPLING_TIME , MISSION_ID ,CREATE_TIME,UPDATE_TIME 
+    select A.ID,A.NAME,A.CODE, A.DEPTH,A.LONGITUDE, A.LATITUDE, A.SAMPLING_TIME,A.MISSION_ID, L.NAME SAMPLING_NAME from ( select 
+     ID, CODE, NAME, DEPTH, SAMPLING_TYPE, LONGITUDE, LATITUDE,  SAMPLING_TIME , MISSION_ID ,CREATE_TIME,UPDATE_TIME 
     from T_SAMPLING_LAND_REG
-   ) A  LEFT JOIN  T_LAND_TYPE L on  A.SOIL_TYPE=L.CODE     where A.MISSION_ID = #{missionId,jdbcType=NVARCHAR}  ORDER BY A.CREATE_TIME DESC,UPDATE_TIME DESC  
+   ) A  LEFT JOIN  (select * from sys_dic where type='SAMPLING_LAND_TYPE' ) L on  A.SAMPLING_TYPE=L.CODE     where A.MISSION_ID = #{missionId,jdbcType=NVARCHAR}  ORDER BY A.CREATE_TIME DESC,UPDATE_TIME DESC  
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-     select A.ID,A.NAME, A.DEPTH,A.LONGITUDE, A.LATITUDE, A.SAMPLING_TIME,A.MISSION_ID, L.NAME SOIL_NAME from ( select 
-     ID, CODE, NAME, DEPTH, SOIL_TYPE, LONGITUDE, LATITUDE,  SAMPLING_TIME , MISSION_ID 
+     select A.ID,A.CODE,A.NAME,case when  A.DEPTH is null then ' ' else A.DEPTH end DEPTH ,A.LONGITUDE, A.LATITUDE, 
+     case when  L.NAME is null then ' ' else  L.NAME end typesamplyName ,A.MISSION_ID from ( select 
+     ID, CODE, NAME, DEPTH, SAMPLING_TYPE, LONGITUDE, LATITUDE,  SAMPLING_TIME , MISSION_ID 
     from T_SAMPLING_LAND_REG
-   ) A  LEFT JOIN  T_LAND_TYPE L on  A.SOIL_TYPE=L.CODE 
+   ) A  LEFT JOIN  (select * from sys_dic where type='SAMPLING_LAND_TYPE' ) L on  A.SAMPLING_TYPE=L.CODE 
     where A.ID = #{id,jdbcType=NVARCHAR}
+  </select>
+  <select id="findByCode"   parameterType="java.lang.String"  resultType="com.xiangxun.epms.mobile.business.domain.SamplingReg">
+    select code from  T_SAMPLING_LAND_REG where code =#{code} 
   </select>
   <insert id="insertcollection"  parameterType="java.util.List">  
       <foreach  item="info" collection="list">
@@ -61,8 +89,8 @@
 	      <if test="@Ognl@isNotEmpty(info.depth)" >
 	        DEPTH,
 	      </if>
-	      <if test="@Ognl@isNotEmpty(info.soilType)" >
-	        SOIL_TYPE,
+	      <if test="@Ognl@isNotEmpty(info.samplingType)" >
+	        SAMPLING_TYPE,
 	      </if>
 	      <if test="@Ognl@isNotEmpty(info.longitude)" >
 	        LONGITUDE,
@@ -126,8 +154,8 @@
 	      <if test="@Ognl@isNotEmpty(info.depth)" >
 	        #{info.depth,jdbcType=NVARCHAR},
 	      </if>
-	      <if test="@Ognl@isNotEmpty(info.soilType)" >
-	        #{info.soilType,jdbcType=NVARCHAR},
+	      <if test="@Ognl@isNotEmpty(info.samplingType)" >
+	        #{info.samplingType,jdbcType=NVARCHAR},
 	      </if>
 	      <if test="@Ognl@isNotEmpty(info.longitude)" >
 	        #{info.longitude,jdbcType=DECIMAL},
@@ -180,7 +208,7 @@
 	    </trim>  
       </foreach>
   </insert>
-  <insert id="insertSelective" parameterType="com.xiangxun.epms.mobile.business.domain.SamplingLandReg" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insertSelective" parameterType="com.xiangxun.epms.mobile.business.domain.SamplingReg" useGeneratedKeys="true" keyProperty="id" >
     insert into T_SAMPLING_LAND_REG   
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="@Ognl@isNotEmpty(id)" >
@@ -195,8 +223,8 @@
       <if test="@Ognl@isNotEmpty(depth)" >
         DEPTH,
       </if>
-      <if test="@Ognl@isNotEmpty(soilType)" >
-        SOIL_TYPE,
+      <if test="@Ognl@isNotEmpty(samplingType)" >
+        SAMPLING_TYPE,
       </if>
       <if test="@Ognl@isNotEmpty(longitude)" >
         LONGITUDE,
@@ -257,7 +285,7 @@
       <if test="@Ognl@isNotEmpty(depth)" >
         #{depth,jdbcType=NVARCHAR},
       </if>
-      <if test="@Ognl@isNotEmpty(soilType)" >
+      <if test="@Ognl@isNotEmpty(samplingType)" >
         #{soilType,jdbcType=NVARCHAR},
       </if>
       <if test="@Ognl@isNotEmpty(longitude)" >
@@ -308,7 +336,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.epms.mobile.business.domain.SamplingLandReg" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.epms.mobile.business.domain.SamplingReg" >
     update T_SAMPLING_LAND_REG
     <set >
       <if test="@Ognl@isNotEmpty(code)" >
@@ -320,8 +348,8 @@
       <if test="@Ognl@isNotEmpty(depth)" >
         DEPTH = #{depth,jdbcType=NVARCHAR},
       </if>
-      <if test="@Ognl@isNotEmpty(soilType)" >
-        SOIL_TYPE = #{soilType,jdbcType=NVARCHAR},
+      <if test="@Ognl@isNotEmpty(samplingType)" >
+        SAMPLING_TYPE = #{samplingType,jdbcType=NVARCHAR},
       </if>
       <if test="@Ognl@isNotEmpty(longitude)" >
         LONGITUDE = #{longitude,jdbcType=DECIMAL},
@@ -374,11 +402,5 @@
     </set>
     where ID = #{id,jdbcType=NVARCHAR}
   </update>
-  <select id="getListByCondition" resultMap="BaseResultMap" >
-    SELECT T.ID, T.REG_ID, T.CODE, T.PH, T.CADMIUM, T.AVAILABLE_CADMIUM, T.STATUS, T.IS_OVER, T.OVER_ITEM, T.DEPT
-    , R.NAME, R.LONGITUDE, R.LATITUDE, V.REGION_ID, R.SAMPLING_TIME
-     FROM T_ANALYSIS_LAND T
-     INNER JOIN T_SAMPLING_LAND_REG R ON R.ID = T.REG_ID
-	 LEFT JOIN V_SCHEME_MISSION V ON V.MISSION_ID = R.MISSION_ID
-  </select>
+  
 </mapper>

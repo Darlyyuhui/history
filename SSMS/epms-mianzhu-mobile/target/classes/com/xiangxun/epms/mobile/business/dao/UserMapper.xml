@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.epms.mobile.business.dao.UserMapper">
+	  <resultMap id="BaseResultMap" type="com.xiangxun.epms.mobile.business.domain.User" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jul 13 13:44:15 CST 2017.
+    -->
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="NVARCHAR" />
+    <result column="PWD" property="pwd" jdbcType="NVARCHAR" />
+    <result column="NAME" property="name" jdbcType="NVARCHAR" />
+    <result column="DISABLED" property="disabled" jdbcType="NVARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="NVARCHAR" />
+    <result column="DEPTID" property="deptId" jdbcType="NVARCHAR" />
+    <result column="DEPTNAME" property="deptName" jdbcType="NVARCHAR" />
+    <result column="MEMO" property="memo" jdbcType="NVARCHAR" />
+    <result column="SKIN" property="skin" jdbcType="NVARCHAR" />
+    <result column="IPRULE" property="iprule" jdbcType="NVARCHAR" />
+    <result column="CREATEBY" property="createby" jdbcType="NVARCHAR" />
+  </resultMap>
+
+	<select id="getUserByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT T.ID, T.ACCOUNT, T.PWD, T.NAME, T.DEPTID,T.MOBILE, O.NAME DEPTNAME 
+		FROM SYS_USER T 
+		LEFT JOIN SYS_ORG O ON O.ID = T.DEPTID
+		WHERE T.ACCOUNT = #{account,jdbcType=NVARCHAR}
+	</select>
+	
+	<update id="updatePwdByAccount"  >
+		UPDATE SYS_USER 
+		SET PWD = #{pwd,jdbcType=NVARCHAR}
+		WHERE ACCOUNT = #{account,jdbcType=NVARCHAR}
+	</update>
+
+</mapper>

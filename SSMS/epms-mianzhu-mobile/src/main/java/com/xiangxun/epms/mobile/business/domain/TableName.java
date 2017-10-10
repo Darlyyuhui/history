@@ -1,0 +1,11 @@
+package com.xiangxun.epms.mobile.business.domain;
+
+public enum TableName {
+	T_LAND_SAMPLING_SCHEME_POINT,
+	T_SAMPLING_AIR_REG,
+	T_SAMPLING_BACK_REG,
+	T_SAMPLING_MANURE_REG,
+	T_SAMPLING_WATER_REG,
+	T_SAMPLING_LAND_REG,
+	T_SAMPLING_FARM_REG,
+}

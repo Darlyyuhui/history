@@ -30,10 +30,12 @@ public class RegionServiceImpl implements RegionService {
 		
 		return regionMapper.getAllRegionByName(name);
 	}
+	//缓存行政区域
 	@Override
 	public void initRegion() {
 		List<Region> list=this.getAllRegion();
 		for(Region info:list){
+			//只要镇一级的
 			if(!"0".equals(info.getId())){
 			  RegionCache.NAME_ID.put(info.getName(), info.getId());
 			}

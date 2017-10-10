@@ -22,9 +22,10 @@ public class LandBlockCtl extends BaseCtl {
 		try{
 			List<LandBlock> list=landBlockService.findAll();
 			super.dataResult( "1000", "查询成功",list, request, response);
+			logger.info("landBlock query success");
 		}catch(Exception e){
 			super.simpleResult("1001", "查询失败", request, response);
-			logger.error(e.getMessage());
+			logger.info("landBlock query failed");
 		}
 	}
 

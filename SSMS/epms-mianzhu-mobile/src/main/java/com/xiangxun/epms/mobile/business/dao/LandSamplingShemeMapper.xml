@@ -25,6 +25,9 @@
     <result column="QUANTITY" property="quantity" jdbcType="INTEGER" />
     <result column="MISSION_ID" property="missionId" jdbcType="NVARCHAR" />
     <result column="MISSION_NAME" property="missionName" jdbcType="NVARCHAR" />
+    <result column="SUB_TYPE" property="subtype"  />
+    <result column="regNum" property="regNum"  jdbcType="INTEGER"  />
+    
   </resultMap>
   <select id="findAll"  resultMap="BaseResultMap">
    SELECT A.*, REG.NAME SAMPLE_NAME  FROM
@@ -38,7 +41,7 @@
      WHERE  B.ID IN (select SCHEME_ID from  T_LAND_MISSION m where m.MISSION_STATUS=1 and m.STATUS=0 ) and B.ID=#{id}
   </select>
    <select id="findAllByFinsh"  resultMap="BaseResultMap" >
-   Select C.ID ,C.SAMPLE_NAME,C.NAME ,DEPT,C.MISSION_NAME,C.MISSION_ID, R.NAME REGION_NAME from
+   Select C.ID ,C.SAMPLE_CODE,C.SAMPLE_NAME,C.NAME ,DEPT,C.MISSION_NAME,C.MISSION_ID, R.NAME REGION_NAME from
    ( SELECt B.* ,T_LAND_MISSION.ID  MISSION_ID,T_LAND_MISSION.NAME MISSION_NAME FROM ( SELECT A.*,REG.NAME SAMPLE_NAME  FROM T_LAND_SAMPLING_SCHEME A LEFT JOIN  SYS_DIC  REG   ON A.SAMPLE_CODE = REG.CODE and REG.type='SAMPLING_TYPES') B   left JOIN T_LAND_MISSION ON B.id = T_LAND_MISSION.SCHEME_ID )
     C LEFT JOIN  T_REGION  R ON C.REGION_ID = R.ID  
      WHERE C.PLAN_ID IN ( SELECT PP.ID FROM      
@@ -49,38 +52,61 @@
 		</if>
 		ORDER BY  C.CREATE_TIME DESC ,C.UPDATE_TIME DESC  
   </select>
-  <select id="findAllBySelective"  resultMap="BaseResultMap">
-     Select C.ID ,C.SAMPLE_NAME,C.NAME ,C.DEPT,C.MISSION_NAME,C.MISSION_ID,C.REGION_ID, R.NAME REGION_NAME from
-     ( SELECt B.*, T_LAND_MISSION.ID  MISSION_ID,T_LAND_MISSION.NAME MISSION_NAME FROM ( SELECT A.*,REG.NAME SAMPLE_NAME  FROM T_LAND_SAMPLING_SCHEME A LEFT JOIN  SYS_DIC  REG   ON A.SAMPLE_CODE = REG.CODE and REG.type='SAMPLING_TYPES') B   left JOIN T_LAND_MISSION ON B.id = T_LAND_MISSION.SCHEME_ID ) 
-     C LEFT JOIN  T_REGION  R ON C.REGION_ID = R.ID   
-     WHERE  C.ID IN (select SCHEME_ID from  T_LAND_MISSION m  )  
-   
-      <if test="@Ognl@isNotEmpty(name)" >  
-         AND C.NAME  LIKE '%${name}%'  
-      </if>
-      <if test="@Ognl@isNotEmpty(regionId)" >  
-         AND C.REGION_ID  = '${regionId}'  
-      </if>
-      <if test="@Ognl@isNotEmpty(missionName)" >  
-         AND C.MISSION_NAME  LIKE  '%${missionName}%'  
-      </if>
-        ORDER BY  C.CREATE_TIME DESC ,C.UPDATE_TIME DESC    
-     
+    <select id="findAllByFinshAndRegType"  resultMap="BaseResultMap" >
+      select A.id,A.code, 
+     CASE WHEN  A.SAMPLE_CODE='DXS' OR A.SAMPLE_CODE='DBS' OR A.SAMPLE_CODE='DN' THEN 'WATER' 
+          ELSE  A.SAMPLE_CODE 
+     END SAMPLE_CODE,
+     A.NAME,R.name region_Name,TM.ID MISSION_ID,TM.NAME MISSION_NAME,REG.NAME SAMPLE_NAME,
+     CASE WHEN A.SAMPLE_CODE = 'DQ' THEN 'N' 
+          else 'Y' 
+     end SUB_TYPE ,
+     CASE WHEN A.SAMPLE_CODE ='DQ' THEN (SELECT COUNT(*) FROM T_AIR_POINT) 
+        ELSE  (SELECT COUNT(*) FROM T_LAND_SAMPLING_SCHEME_POINT LANDPOINT WHERE LANDPOINT.SCHEME_ID = A.ID )
+     END  QUANTITY,
+     CASE WHEN A.SAMPLE_CODE='DXS' OR A.SAMPLE_CODE='DBS' OR A.SAMPLE_CODE='DN'  THEN (SELECT COUNT(*) FROM T_SAMPLING_WATER_REG WATER WHERE WATER.MISSION_ID = TM.ID)
+       WHEN A.SAMPLE_CODE='DQ' THEN (SELECT COUNT(*) FROM T_SAMPLING_AIR_REG AIR WHERE AIR.MISSION_ID =TM.ID)
+       WHEN A.SAMPLE_CODE='BJTR' THEN (SELECT COUNT(*) FROM  T_SAMPLING_BACK_REG BACK WHERE BACK.MISSION_ID =TM.ID)
+       WHEN A.SAMPLE_CODE='SD' THEN  (SELECT COUNT(*)  FROM  T_SAMPLING_FARM_REG FARM WHERE FARM.MISSION_ID =TM.ID)
+       WHEN A.SAMPLE_CODE='NTTR' THEN (SELECT COUNT(*) FROM  T_SAMPLING_LAND_REG LAND WHERE LAND.MISSION_ID =TM.ID)
+       WHEN A.SAMPLE_CODE='FL' THEN (SELECT COUNT(*) FROM T_SAMPLING_MANURE_REG  MANURE WHERE  MANURE.MISSION_ID =TM.ID)
+     END regNum 
+     from  T_LAND_SAMPLING_SCHEME A LEFT JOIN  SYS_DIC REG   ON A.SAMPLE_CODE = REG.CODE and REG.type='SAMPLING_TYPES' 
+      LEFT JOIN T_LAND_MISSION  TM ON A.ID =TM.SCHEME_ID
+     LEFT JOIN T_REGION  R ON A.REGION_ID = R.ID 
+     WHERE A.PLAN_ID IN ( SELECT PP.ID FROM      
+     T_LAND_SAMPLING_PLAN PP  WHERE PP.IS_FINISH =0 ) and A.ID IN (select SCHEME_ID from  T_LAND_MISSION m where m.MISSION_STATUS=1 and m.STATUS=0 )
+     ORDER BY  A.CREATE_TIME DESC ,A.UPDATE_TIME DESC  
   </select>
-  <select id="countlist"  resultType="java.lang.Integer">
-   SELECT count(*)  FROM ( SELECt B.*, T_LAND_MISSION.ID  MISSION_ID,T_LAND_MISSION.NAME MISSION_NAME FROM ( SELECT A.*,REG.NAME SAMPLE_NAME  FROM T_LAND_SAMPLING_SCHEME A LEFT JOIN  SYS_DIC  REG   ON A.SAMPLE_CODE = REG.CODE and REG.type='SAMPLING_TYPES') B   left JOIN T_LAND_MISSION ON B.id = T_LAND_MISSION.SCHEME_ID ) 
-     C LEFT JOIN  T_REGION  R ON C.REGION_ID = R.ID   
-     WHERE  C.ID IN (select SCHEME_ID from  T_LAND_MISSION m  )  
-   
-      <if test="@Ognl@isNotEmpty(name)" >  
-         AND C.NAME  LIKE '%${name}%'  
-      </if>
-      <if test="@Ognl@isNotEmpty(name)" >  
-         AND C.REGION_ID  = '${regionId}'  
-      </if>
+  <select id="getIdbyMissionId"  resultType="java.lang.String"  parameterType="java.lang.String">
+    select scheme_id from T_LAND_MISSION where id= #{id}
+  </select>
+  
+  <select id ="historysheme"  resultMap="BaseResultMap" >
+     select  S.ID,
+     CASE WHEN  S.SAMPLE_CODE='DXS' OR S.SAMPLE_CODE='DBS' OR S.SAMPLE_CODE='DN' THEN 'WATER'  
+          ELSE  S.SAMPLE_CODE  END SAMPLE_CODE,D.NAME SAMPLE_NAME ,m.id MISSION_ID, R.NAME  REGION_NAME, M.NAME MISSION_NAME  from T_LAND_SAMPLING_SCHEME S  
+     LEFT JOIN SYS_DIC D ON S.SAMPLE_CODE = D.CODE AND D.type='SAMPLING_TYPES' 
+     LEFT  JOIN  T_REGION  R ON S.REGION_ID = R.ID 
+    INNER JOIN T_LAND_MISSION m ON S.ID=M.SCHEME_ID AND m.MISSION_STATUS=1
+    <where>
      <if test="@Ognl@isNotEmpty(missionName)" >  
-         AND C.MISSION_NAME  like '%${missionName}%'  
+         AND M.NAME  like '%${missionName}%'  
       </if>
-   
+       <if test="@Ognl@isNotEmpty(regionId)" >  
+         AND S.REGION_ID  = #{regionId}  
+      </if>
+      <if test="@Ognl@isNotEmpty(sampleCode)" >  
+       <choose>
+          <when test="sampleCode=='WATER'">
+          AND (S.SAMPLE_CODE='DXS' OR S.SAMPLE_CODE='DBS' S.SAMPLE_CODE='DN')
+          </when>
+           <otherwise>  
+             AND  S.SAMPLE_CODE=#{sampleCode}  
+            </otherwise> 
+       </choose>
+      </if>
+     </where>
+      ORDER BY  m.UPDATE_TIME DESC ,m.CREATE_TIME DESC 
   </select>
 </mapper>

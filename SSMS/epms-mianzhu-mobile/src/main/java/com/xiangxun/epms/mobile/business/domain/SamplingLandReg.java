@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-public class SamplingLandReg {
+public class SamplingLandReg  {
 
 	    private String id;
 
@@ -14,7 +14,7 @@ public class SamplingLandReg {
 
 	    private String depth;
 
-	    private String soilType;
+	   // private String soilType;
 
 	    private BigDecimal longitude;
 
@@ -62,9 +62,11 @@ public class SamplingLandReg {
 	    
 	    private String  regionName;
 	    
+	   private String samplingType;
+	    
 	    private String sampleName;
 	    
-	    private String soilName;
+	    //private String soilName;
 
 	    /**
 	     * @return the value of ID
@@ -133,18 +135,18 @@ public class SamplingLandReg {
 	    /**
 	     * @return the value of SOIL_TYPE
 	     */
-	    public String getSoilType() {
+	   /* public String getSoilType() {
 	        return soilType;
 	    }
 
-	    /**
+	    *//**
 	    
 	     *
 	     * @param soilType the value for SOIL_TYPE
-	     */
+	     *//*
 	    public void setSoilType(String soilType) {
 	        this.soilType = soilType == null ? null : soilType.trim();
-	    }
+	    }*/
 
 	    /**
 	     * @return the value of LONGITUDE
@@ -447,13 +449,13 @@ public class SamplingLandReg {
 		public void setSampleName(String sampleName) {
 			this.sampleName = sampleName==null?"":sampleName;
 		}
-		public String getSoilName() {
+		/*public String getSoilName() {
 			return soilName;
 		}
 
 		public void setSoilName(String soilName) {
 			this.soilName = soilName;
-		}
+		}*/
 	    /**
 	    
 	     */
@@ -467,7 +469,7 @@ public class SamplingLandReg {
 	        sb.append(", code=").append(code);
 	        sb.append(", name=").append(name);
 	        sb.append(", depth=").append(depth);
-	        sb.append(", soilType=").append(soilType);
+	       /* sb.append(", soilType=").append(soilType);*/
 	        sb.append(", longitude=").append(longitude);
 	        sb.append(", latitude=").append(latitude);
 	        sb.append(", samplingTime=").append(samplingTime);
@@ -487,6 +489,14 @@ public class SamplingLandReg {
 	        sb.append("]");
 	        return sb.toString();
 	    }
+
+		public String getSamplingType() {
+			return samplingType;
+		}
+
+		public void setSamplingType(String samplingType) {
+			this.samplingType = samplingType;
+		}
 
 	}
 	

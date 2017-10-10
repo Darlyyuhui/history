@@ -5,5 +5,14 @@
 	<select id="getAllDic" resultType="map">
 		SELECT T.TYPE, T.CODE, T.NAME FROM SYS_DIC T ORDER BY T.CODE
 	</select>
+	<select id="getWater"  parameterType="java.lang.String" resultType="java.lang.String"> 
+	   SELECT  T.CODE  FROM SYS_DIC T WHERE NAME=#{sampleName} and (type='SAMPLING_WATER_TYPE1' or type='SAMPLING_WATER_TYPE2')
+	</select>
+	<select id="getDicList"  parameterType="java.lang.String" resultType="com.xiangxun.epms.mobile.business.domain.Dic"> 
+	   SELECT  CODE,name  FROM SYS_DIC where type=#{type}
+	</select>
 	
+	<select id ="typeList"  resultType="java.lang.String" >
+	   select type  from sys_dic GROUP BY type
+	</select>
 </mapper>

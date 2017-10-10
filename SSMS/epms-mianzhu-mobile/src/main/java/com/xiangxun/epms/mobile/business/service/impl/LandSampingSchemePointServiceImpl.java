@@ -7,15 +7,30 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.xiangxun.epms.mobile.business.dao.LandSamplingSchemePointMapper;
 import com.xiangxun.epms.mobile.business.domain.LandSamplingSchemePoint;
+import com.xiangxun.epms.mobile.business.domain.NewestCode;
 import com.xiangxun.epms.mobile.business.service.LandSampingSchemePointService;
+import com.xiangxun.epms.mobile.business.service.NewestCodeService;
+import com.xiangxun.epms.mobile.business.util.CodeUtil;
 
 @Service
 public class LandSampingSchemePointServiceImpl implements  LandSampingSchemePointService{
 	@Resource
     LandSamplingSchemePointMapper landSampingSchemePointMapper;
+	@Resource
+	NewestCodeService newestCodeservice;
+	protected Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final String  FRONT="TR";
+	private final Integer DIGIT=4;
+	private final String TABLENAME="T_LAND_SAMPLING_SCHEME_POINT";
+	private final String CONTTION="SCHEME_ID";
 	@Override
 	public List<LandSamplingSchemePoint> getLandSamplingSchemePointByPlanId(Map<String,Object> args) {
 		return landSampingSchemePointMapper.getLandSamplingSchemePointByPlanId(args);
@@ -68,6 +83,32 @@ public class LandSampingSchemePointServiceImpl implements  LandSampingSchemePoin
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public LandSamplingSchemePoint findByCode(String code) {
+		return landSampingSchemePointMapper.findByCode(code);
+	}
+
+	@Override
+	public String getNewestCode(String value) {
+		String code="";
+		String resulltCode=null;
+		try{
+		
+		if(StringUtils.isEmpty(TABLENAME)){
+			logger.info("deficiency tableName");
+			return null;
+		}
+		 NewestCode newestCode= new NewestCode(TABLENAME,CONTTION,value);
+		 code=newestCodeservice.newwestCode(newestCode);
+		 resulltCode= CodeUtil.setCode(code, DIGIT);
+		 resulltCode=FRONT+resulltCode;
+		}catch(Exception e){
+			logger.error("create"+TABLENAME+" newestCode error:"+e.getMessage());
+		}
+		return resulltCode;
+	
 	}
 
 }

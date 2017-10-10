@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.epms.mobile.business.dao.SamplingRegMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.epms.mobile.business.domain.SamplingReg" >
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="CODE" property="code" jdbcType="NVARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="DEPTH" property="depth" jdbcType="NVARCHAR" />
+    <result column="SOIL_TYPE" property="soilType" jdbcType="NVARCHAR" />
+    <result column="SOIL_NAME" property="soilName" jdbcType="NVARCHAR" />
+    <result column="LONGITUDE" property="longitude" jdbcType="DECIMAL" />
+    <result column="LATITUDE" property="latitude" jdbcType="DECIMAL" />
+    <result column="SAMPLING_TIME" property="samplingTime" jdbcType="TIMESTAMP" />
+    <result column="SAMPLING_USER" property="samplingUser" jdbcType="NVARCHAR" />
+    <result column="RECEIVE_USER" property="receiveUser" jdbcType="NVARCHAR" />
+    <result column="SEND_USER" property="sendUser" jdbcType="NVARCHAR" />
+    <result column="SAMPLING_SOURCE" property="samplingSource" jdbcType="VARCHAR" />
+    <result column="CHECK_STATUS" property="checkStatus" jdbcType="INTEGER" />
+    <result column="CHECK_USER" property="checkUser" jdbcType="NVARCHAR" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="NVARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="MISSION_ID" property="missionId" jdbcType="NVARCHAR" />
+    <result column="TABLE_NAME" property="tableName" jdbcType="VARCHAR" />
+     <result column="Sample_Name" property="SampleName" jdbcType="VARCHAR" />
+    <result column="SAMPLING_CODE" property="samplingCode" jdbcType="NVARCHAR" />
+    <!-- 水采样不同属性  typeCode背景土壤采样采样也有 SAMPLING_TYPE土壤和农作物也有-->
+    <result column="TYPE_CODE" property="typeCode" jdbcType="NVARCHAR" />
+    <result column="SAMPLING_TYPE" property="samplingType" jdbcType="NVARCHAR" />
+    <result column="RIVERS_NAME" property="riversName" jdbcType="NVARCHAR" />
+    <result column="MUD_LONGITUDE" property="mudLongitude" jdbcType="DECIMAL" />
+    <result column="MUD_LATITUDE" property="mudLatitude" jdbcType="DECIMAL" />
+    <!-- 农产品采样不同属性 -->
+    <result column="POSITION" property="position" jdbcType="NVARCHAR" />
+    <!-- 背景土壤采样不同属性  typeCode与水采样都有 -->
+    <result column="AMBIENT" property="ambient" jdbcType="NVARCHAR" />
+    <result column="YEARS" property="years" jdbcType="NVARCHAR" />
+    <result column="WALL_SOURCE" property="wallSource" jdbcType="NVARCHAR" />
+    <!-- 肥料采样特有属性 -->
+    <result column="SHOP_NAME" property="shopName" jdbcType="NVARCHAR" />
+    <result column="SHOPKEEPER" property="shopkeeper" jdbcType="NVARCHAR" />
+    <result column="TEL" property="tel" jdbcType="NVARCHAR" />
+    <result column="DEAL_MANURE" property="dealManure" jdbcType="NVARCHAR" />
+    <!-- 大气采样特有属性 -->
+    <result column="CONTAINER_VOLUME" property="containerVolume" jdbcType="NVARCHAR" />
+    <result column="COLLECT_VOLUME" property="collectVolume" jdbcType="NVARCHAR" />
+    <result column="POINT_ID" property="pointId" jdbcType="NVARCHAR" />
+  </resultMap>
+  <insert id="insertSelective"   >
+    insert into ${tableName}  
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(depth)" >
+        DEPTH,
+      </if>
+      
+      <if test="@Ognl@isNotEmpty(longitude)" >
+        LONGITUDE,
+      </if>
+      <if test="@Ognl@isNotEmpty(latitude)" >
+        LATITUDE,
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingTime)" >
+        SAMPLING_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingUser)" >
+        SAMPLING_USER,
+      </if>
+      <if test="@Ognl@isNotEmpty(receiveUser)" >
+        RECEIVE_USER,
+      </if>
+      <if test="@Ognl@isNotEmpty(sendUser)" >
+        SEND_USER,
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingSource)" >
+        SAMPLING_SOURCE,
+      </if>
+      <if test="@Ognl@isNotEmpty(checkStatus)" >
+        CHECK_STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(checkUser)" >
+        CHECK_USER,
+      </if>
+      <if test="@Ognl@isNotEmpty(checkTime)" >
+        CHECK_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(missionId)" >
+        MISSION_ID ,
+      </if>
+      <if test="@Ognl@isNotEmpty(typeCode)" >
+        TYPE_CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingType)" >
+        SAMPLING_TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(riversName)" >
+        RIVERS_NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(mudLongitude)" >
+        MUD_LONGITUDE,
+      </if>
+      <if test="@Ognl@isNotEmpty(mudLatitude)" >
+        MUD_LATITUDE,
+      </if>
+      <if test="@Ognl@isNotEmpty(position)" >
+        POSITION,
+      </if>
+    
+      <if test="@Ognl@isNotEmpty(ambient)" >
+        AMBIENT,
+      </if>
+      <if test="@Ognl@isNotEmpty(years)" >
+        YEARS, 
+      </if>
+      <if test="@Ognl@isNotEmpty(wallSource)" >
+        WALL_SOURCE, 
+      </if>
+     <if test="@Ognl@isNotEmpty(shopName)" >
+        SHOP_NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(shopkeeper)" >
+        SHOPKEEPER, 
+      </if>
+      <if test="@Ognl@isNotEmpty(tel)" >
+        TEL, 
+      </if>
+      <if test="@Ognl@isNotEmpty(dealManure)" >
+        DEAL_MANURE, 
+      </if>
+    <if test="@Ognl@isNotEmpty(containerVolume)" >
+        CONTAINER_VOLUME, 
+      </if>
+      <if test="@Ognl@isNotEmpty(collectVolume)" >
+        COLLECT_VOLUME, 
+      </if>
+      <if test="@Ognl@isNotEmpty(pointId)" >
+        POINT_ID ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        [dbo].getAutoCode('${code}'),
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(depth)" >
+        #{depth,jdbcType=NVARCHAR},
+      </if>
+      
+      <if test="@Ognl@isNotEmpty(longitude)" >
+        #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(latitude)" >
+        #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingTime)" >
+        #{samplingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingUser)" >
+        #{samplingUser,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(receiveUser)" >
+        #{receiveUser,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(sendUser)" >
+        #{sendUser,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingSource)" >
+        #{samplingSource,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkStatus)" >
+        #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkUser)" >
+        #{checkUser,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkTime)" >
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(missionId)" >
+        #{missionId,jdbcType=NVARCHAR}, 
+      </if>
+      <if test="@Ognl@isNotEmpty(typeCode)" >
+         #{typeCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingType)" >
+         #{samplingType,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(riversName)" >
+         #{riversName,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(mudLongitude)" >
+        #{mudLongitude,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(mudLatitude)" >
+         #{mudLatitude,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(position)" >
+         #{position,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(ambient)" >
+        #{ambient,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(years)" >
+         #{years,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(wallSource)" >
+         #{wallSource,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(shopName)" >
+         #{shopName,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(shopkeeper)" >
+        #{shopkeeper,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(tel)" >
+         #{tel,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(dealManure)" >
+         #{dealManure,jdbcType=NVARCHAR},
+      </if>
+	  <if test="@Ognl@isNotEmpty(containerVolume)" >
+	        #{containerVolume,jdbcType=DECIMAL},
+	   </if>
+	     <if test="@Ognl@isNotEmpty(collectVolume)" >
+	         #{collectVolume,jdbcType=DECIMAL},
+	    </if>
+	    <if test="@Ognl@isNotEmpty(pointId)" >
+	         #{pointId,jdbcType=NVARCHAR},
+	    </if>
+     </trim>
+  </insert>
+  <select id="selectFindById"  resultMap="BaseResultMap"> 
+  
+    select 
+    <trim  suffixOverrides="," > 
+    ID ,CODE,SAMPLING_USEr, MISSION_ID,
+    <choose>
+        <when test="tableName=='T_SAMPLING_LAND_REG'">
+           LONGITUDE,LATITUDE, DEPTH,NAME 
+        </when>
+        <when test="tableName=='T_SAMPLING_WATER_REG'">
+            LONGITUDE,LATITUDE,TYPE_CODE,SAMPLING_TYPE,RIVERS_NAME,MUD_LONGITUDE,MUD_LATITUDE 
+        </when>
+        <when test="tableName=='T_SAMPLING_FARM_REG'">
+           LONGITUDE,LATITUDE, position,name
+        </when>
+        <when test="tableName=='T_SAMPLING_BACK_REG'">
+            LONGITUDE,LATITUDE,ambient,years,wall_Source
+        </when>
+        <when test="tableName=='T_SAMPLING_MANURE_REG'">
+           LONGITUDE,LATITUDE, SHOP_NAME,SHOPKEEPER,TEL,DEAL_MANURE
+        </when>
+        <when test="tableName=='T_SAMPLING_AIR_REG'">
+            CONTAINER_VOLUME,COLLECT_VOLUME,POINT_ID
+        </when>
+    </choose>
+    </trim>
+    from  ${tableName}  
+    where ID=#{id};
+  </select>
+  <select id="selectFindByMissionId"  resultMap="BaseResultMap"  >
+  SELECT 
+  <trim  suffixOverrides="," > 
+     A.ID ,A.CODE,A.SAMPLING_USEr,case when A.SAMPLING_SOURCE='1' then '平台录入' when A.SAMPLING_SOURCE='2' then '移动端' else '未知源' end SAMPLING_SOURCE,A.MISSION_ID,
+  <choose>
+        <when test="tableName=='T_SAMPLING_LAND_REG'">
+          '农田土壤' AS Sample_Name, 'T_SAMPLING_LAND_REG' AS TABLE_NAME,A.LONGITUDE,A.LATITUDE 
+        </when>
+        <when test="tableName=='T_SAMPLING_WATER_REG'">
+           '水样底泥' AS Sample_Name, 'T_SAMPLING_WATER_REG' AS TABLE_NAME,A.LONGITUDE,A.LATITUDE 
+        </when>
+        <when test="tableName=='T_SAMPLING_FARM_REG'">
+          '农作物' AS  Sample_Name, 'T_SAMPLING_FARM_REG' AS TABLE_NAME,A.LONGITUDE,A.LATITUDE 
+        </when>
+        <when test="tableName=='T_SAMPLING_BACK_REG'">
+           '背景土壤' AS Sample_Name, 'T_SAMPLING_BACK_REG' AS TABLE_NAME,A.LONGITUDE,A.LATITUDE 
+        </when>
+        <when test="tableName=='T_SAMPLING_MANURE_REG'">
+          '肥料' AS  Sample_Name, 'T_SAMPLING_MANURE_REG' AS TABLE_NAME,A.LONGITUDE,A.LATITUDE 
+        </when>
+        <when test="tableName=='T_SAMPLING_AIR_REG'">
+           '大气沉降' AS  Sample_Name,'T_SAMPLING_AIR_REG' AS TABLE_NAME ,P.LONGITUDE,P.LATITUDE  
+        </when>
+    </choose>
+    </trim>
+    FROM ${tableName}  A  
+    <if test="tableName=='T_SAMPLING_AIR_REG'">
+        left join T_AIR_POINT P ON A.POINT_ID = P.ID
+    </if>
+    WHERE   MISSION_ID = #{missionId} 
+    <if test="@Ognl@isNotEmpty(code)">
+    and A.code like '%${code}%' 
+    </if> 
+    ORDER BY A.CREATE_TIME DESC ,A.UPDATE_TIME DESC 
+  </select>
+  </mapper>

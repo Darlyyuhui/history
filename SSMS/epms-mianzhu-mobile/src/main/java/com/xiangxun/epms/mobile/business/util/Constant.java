@@ -9,5 +9,5 @@ public class Constant {
 	/**
 	 * 允许上传的大小
 	 */
-	public static final Long UPLOAD_FILE_SIZE = 250L;
+	public static final Long UPLOAD_FILE_SIZE = 50L;
 }

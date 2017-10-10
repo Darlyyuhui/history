@@ -1,6 +1,7 @@
 package com.xiangxun.epms.mobile.business.web;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.xiangxun.epms.mobile.business.domain.LandType;
 import com.xiangxun.epms.mobile.business.service.LandTypeService;
 
 @Controller
@@ -20,7 +20,7 @@ public class LandTypeCtl extends BaseCtl {
 	@RequestMapping(value="queryAll")
 	public void query(HttpServletRequest request,HttpServletResponse response){
 		try{
-			List<LandType> list = landTypeService.findAll();
+			List<Map<String,Object>> list = landTypeService.findAll();
 			logger.info("LandType query success ");
 			super.dataResult("1000", "查询成功", list, request, response);
 		}catch(Exception e){

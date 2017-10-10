@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.epms.mobile.business.dao.AnalysisLandMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.epms.mobile.business.domain.AnalysisLand" >
+  <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="REG_ID" property="regId" jdbcType="NVARCHAR" />
+    <result column="CODE" property="code" jdbcType="NVARCHAR" />
+    <result column="PH" property="ph" jdbcType="DECIMAL" />
+    <result column="CADMIUM" property="cadmium" jdbcType="DECIMAL" />
+    <result column="AVAILABLE_CADMIUM" property="availableCadmium" jdbcType="DECIMAL" />
+    <result column="SAMPLE_STATUS" property="sampleStatus" jdbcType="NVARCHAR" />
+    <result column="IS_OVER" property="isOver" jdbcType="INTEGER" />
+    <result column="OVER_ITEM" property="overItem" jdbcType="NVARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="NVARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="DEPT" property="dept" jdbcType="NVARCHAR" />
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="LONGITUDE" property="longitude" jdbcType="VARCHAR" />
+    <result column="LATITUDE" property="latitude" jdbcType="VARCHAR" />
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+    <result column="SAMPLING_TIME" property="samplingTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    ID, REG_ID, CODE, PH, CADMIUM, AVAILABLE_CADMIUM, SAMPLE_STATUS, IS_OVER, OVER_ITEM, 
+    
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_ANALYSIS_LAND
+    where ID = #{id,jdbcType=NVARCHAR}
+  </select>
+ 
+  <select id="getListByCondition" resultMap="BaseResultMap"  parameterType="com.xiangxun.epms.mobile.business.domain.AnalysisLand">
+    SELECT A.ID,A.NAME, A.REGION_ID, A.PH, A.CADMIUM, A.AVAILABLE_CADMIUM, A.IS_OVER  FROM ( SELECT T.ID,T.CREATE_TIME,T.UPDATE_TIME T.REG_ID, T.CODE, T.PH, T.CADMIUM, T.AVAILABLE_CADMIUM, T.STATUS, T.IS_OVER, T.OVER_ITEM, 
+     R.NAME, R.LONGITUDE, R.LATITUDE, V.REGION_ID, R.SAMPLING_TIME
+     FROM T_ANALYSIS_LAND T
+     INNER JOIN T_SAMPLING_LAND_REG R ON R.ID = T.REG_ID
+	 LEFT JOIN V_SCHEME_MISSION V ON V.MISSION_ID = R.MISSION_ID  ) A
+     <where>
+      <if test="@Ognl@isNotEmpty(regionId)">
+         and A.REGION_ID =#{regionId}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)">
+         and A.name LIKE '%${name}%'
+      </if>
+      <choose>
+        <when test="isOver==1">
+            and A.isOver= #{isOver} 
+        </when>
+        <otherwise>
+            and （ A.isOver=0 OR A.isOver IS NULL）
+        </otherwise>
+    </choose>
+  </where>
+    ORDER BY  A.CREATE_TIME DESC ,A.UPDATE_TIME DESC  
+  </select>
+  
+   <select id="selectByCondition" resultMap="BaseResultMap"   parameterType="com.xiangxun.epms.mobile.business.domain.AnalysisLand">
+    SELECT A.ID,A.NAME, A.REGION_ID, A.PH, A.CADMIUM, A.AVAILABLE_CADMIUM,  A.IS_OVER FROM ( SELECT T.ID, T.REG_ID, T.CODE, T.PH, T.CADMIUM, T.AVAILABLE_CADMIUM, T.STATUS, T.IS_OVER, T.OVER_ITEM, 
+     R.NAME, R.LONGITUDE, R.LATITUDE, V.REGION_ID, R.SAMPLING_TIME 
+     FROM T_ANALYSIS_LAND T
+     INNER JOIN T_SAMPLING_LAND_REG R ON R.ID = T.REG_ID
+	 LEFT JOIN V_SCHEME_MISSION V ON V.MISSION_ID = R.MISSION_ID  ) A
+  <where>
+      <if test="@Ognl@isNotEmpty(regionId)">
+         and A.REGION_ID =#{regionId}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)">
+         and A.name LIKE '%${name}%'  
+      </if>
+       
+        
+        <choose>
+          <when test="isOver==1">
+            and A.is_Over= #{isOver} 
+         </when>
+         <when test="isOver==0 or isOver==null">
+            and (A.is_Over=0 OR A.is_Over IS NULL ) 
+         </when>
+      </choose>
+    
+  </where>
+  </select>
+  
+</mapper>

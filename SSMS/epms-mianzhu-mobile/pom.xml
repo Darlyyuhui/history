@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.xiangxun.atms</groupId>
 	<artifactId>epms-mianzhu-mobile</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.12-SNAPSHOT</version>
 	
 	<name>epms-mianzhu-mobile</name>
 	<description>绵竹环保移动端后台服务</description>
@@ -137,11 +137,8 @@
 		
 		<outputDirectory>target/classes</outputDirectory>
 		<testOutputDirectory>target/classes</testOutputDirectory>
+				
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.5.1</version>

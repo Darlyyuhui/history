@@ -44,8 +44,8 @@ public class LandBlockErrorServiceImpl implements LandBlockErrorService {
 		if(list!=null&&list.size()>0){
 			totalCount = list.size();
 		}
-     
-		return Page.getPage(totalCount, list, pageNo, pageSize);
+		List<?> subList= Page.sublist(pageNo, pageSize, totalCount, list);
+		return Page.getPage(totalCount, subList, pageNo, pageSize);
 	}
 
 	@Override

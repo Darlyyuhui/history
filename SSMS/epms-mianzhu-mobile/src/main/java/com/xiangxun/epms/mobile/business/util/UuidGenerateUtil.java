@@ -53,6 +53,19 @@ public class UuidGenerateUtil
 		u1.append(formatNumber(calendar.get(Calendar.MILLISECOND), 3, '0'));
 		return u1.toString() ;
 	}
+	
+	/**
+	 * 产生一个4位的值
+	 * 
+	 * 
+	 */
+	public static synchronized String getFOURUUCODE()
+	{
+		String u1 = UUID.randomUUID().toString();
+		u1 = u1.replaceAll("-", "");
+	    u1=u1.substring(0,4);
+		return u1.toString() ;
+	}
 
 	/**
 	 * 产生一个全局唯一的序列标  32位（适用于数据量密集插入的主键生成，非人工产生数据都用这个方法）
@@ -103,8 +116,5 @@ public class UuidGenerateUtil
 		}
 		return newString.toString();
 	}
-	
-	
-
 }
 

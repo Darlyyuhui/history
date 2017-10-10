@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 
+import com.xiangxun.epms.mobile.business.domain.AnalysisLand;
+
 /**
  * 分页对象.
  * 用于包含数据及分页信息的对象，Page类实现了用于显示分页信息的基本方法，
@@ -71,15 +73,8 @@ public class Page implements java.io.Serializable {
         this.pageSize = pageSize;
         this.start = start;
         this.totalSize = totalSize;
-        if(start>totalSize){
-        	this.data=null;
-        }else{
-        	if(start+pageSize>=totalSize){
-            	this.data = data.subList(start, totalSize);
-            }else{
-            	this.data = data.subList(start, start+pageSize);
-            }
-        }
+        this.data = data;
+
         this.currentPageNo = (start - 1) / pageSize + 1;
         this.totalPageCount = (totalSize + pageSize - 1) / pageSize;
         if (totalSize == 0 && avaCount == 0) {
@@ -158,8 +153,8 @@ public class Page implements java.io.Serializable {
      * 获取任一页第一条数据在数据库中的位置
      */
     public static int getStartOfAnyPage(int pageNo, int pageSize) {
-        int startIndex = (pageNo - 1) * pageSize ;
-        if (startIndex < 1) startIndex = 0;
+        int startIndex = (pageNo - 1) * pageSize + 1;
+        if (startIndex < 1) startIndex = 1;
         return startIndex;
     }
 
@@ -218,5 +213,22 @@ public class Page implements java.io.Serializable {
     public int getTotalPageCount() {
         return this.totalPageCount;
 	}
-	
+    public static List<?>  sublist(int pageNo,int pageSize,int totalCount,List<?> list){
+		List<?> resultList = new ArrayList<AnalysisLand>();
+		if(list==null)
+		{
+			return null;
+		}
+		if((pageNo-1)*pageSize>=totalCount){
+			return null;
+		}else{
+			if(pageNo*pageSize<=totalCount){
+				 resultList = list.subList((pageNo-1)*pageSize, pageNo*pageSize);
+		    }else {
+		    	 resultList = list.subList((pageNo-1)*pageSize, totalCount);
+		    }
+			return resultList;
+		}
+		
+	}
 }

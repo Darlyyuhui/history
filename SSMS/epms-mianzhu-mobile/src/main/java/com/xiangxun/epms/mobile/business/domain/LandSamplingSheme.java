@@ -43,8 +43,20 @@ public class LandSamplingSheme {
     private String missionId;
     
     private String missionName;
+    
+    private String subtype;
+    
+    private Integer regNum;
 
-    /**
+    public String getSubtype() {
+		return subtype;
+	}
+
+	public void setSubtype(String subtype) {
+		this.subtype = subtype;
+	}
+
+	/**
      * @return the value of ID
      */
     public String getId() {
@@ -348,6 +360,14 @@ public class LandSamplingSheme {
         sb.append("]");
         return sb.toString();
     }
+
+	public Integer getRegNum() {
+		return regNum;
+	}
+
+	public void setRegNum(Integer regNum) {
+		this.regNum = regNum;
+	}
 
 
 

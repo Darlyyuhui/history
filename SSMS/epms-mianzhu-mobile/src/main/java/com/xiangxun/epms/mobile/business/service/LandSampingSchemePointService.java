@@ -32,4 +32,12 @@ public interface LandSampingSchemePointService {
 	 * 根据方案Id获取已经采样的点位信息
 	 */
 	List<LandSamplingSchemePoint> findByPlanIdSamplin(String schemeId);
+	/**
+	 * 根据code值查询code是否存在
+	 */
+	LandSamplingSchemePoint  findByCode(String code);
+	/**
+	 * 获取最新code值
+	 */
+	String  getNewestCode(String value);
 }

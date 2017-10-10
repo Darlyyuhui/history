@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.epms.mobile.business.dao.FilesMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.epms.mobile.business.domain.Files" >
+    <result column="BUSINESS_TYPE" property="businessType" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <insert id="saveInfo" parameterType="com.xiangxun.epms.mobile.business.domain.Files"  >
+    INSERT INTO T_FILES
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(businessId)" >
+        BUSINESS_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(businessType)" >
+        BUSINESS_TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(fileName)" >
+        FILE_NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(fileType)" >
+        FILE_TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(filePath)" >
+        FILE_PATH,
+      </if>
+      <if test="@Ognl@isNotEmpty(viewPath)" >
+        VIEW_PATH,
+      </if>
+      <if test="@Ognl@isNotEmpty(fileSize)" >
+        FILE_SIZE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(businessId)" >
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(businessType)" >
+        #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(fileName)" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(fileType)" >
+        #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(filePath)" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(viewPath)" >
+        #{viewPath,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(fileSize)" >
+        #{fileSize,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="queryByBusinessId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT T.BUSINESS_TYPE, T.FILE_NAME, T.FILE_PATH
+    FROM T_FILES T
+	WHERE T.BUSINESS_ID = #{businessId,jdbcType=VARCHAR}
+  </select>
+</mapper>

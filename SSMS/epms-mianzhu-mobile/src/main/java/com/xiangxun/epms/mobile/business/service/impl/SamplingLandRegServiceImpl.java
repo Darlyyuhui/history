@@ -11,15 +11,31 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.xiangxun.epms.mobile.business.dao.SamplingAirRegMapper;
+import com.xiangxun.epms.mobile.business.dao.SamplingBackRegMapper;
+import com.xiangxun.epms.mobile.business.dao.SamplingFarmRegMapper;
 import com.xiangxun.epms.mobile.business.dao.SamplingLandRegMapper;
+import com.xiangxun.epms.mobile.business.dao.SamplingManureRegMapper;
+import com.xiangxun.epms.mobile.business.dao.SamplingWaterRegMapper;
 import com.xiangxun.epms.mobile.business.domain.Files;
 import com.xiangxun.epms.mobile.business.domain.LandSamplingSchemePoint;
 import com.xiangxun.epms.mobile.business.domain.SamplingLandReg;
+import com.xiangxun.epms.mobile.business.domain.SamplingReg;
 import com.xiangxun.epms.mobile.business.service.FilesService;
 import com.xiangxun.epms.mobile.business.service.SamplingLandRegService;
 import com.xiangxun.epms.mobile.business.util.Constant;
 @Service
 public class SamplingLandRegServiceImpl  implements SamplingLandRegService {
+    @Resource
+    private SamplingFarmRegMapper samplingFarmRegMapper;
+    @Resource
+    private SamplingManureRegMapper samplingManureRegMapper;
+    @Resource
+    private SamplingAirRegMapper samplingAirRegMapper;
+    @Resource
+    private SamplingWaterRegMapper samplingWaterRegMapper;
+    @Resource
+    private SamplingBackRegMapper samplingBackRegMapper;
     @Resource
     private SamplingLandRegMapper samplingLandRegMapper;
     @Resource
@@ -71,15 +87,15 @@ public class SamplingLandRegServiceImpl  implements SamplingLandRegService {
 	}
 
 	@Override
-	public List<SamplingLandReg> selectByPrimaryKey(String id) {
+	public List<SamplingReg> selectByPrimaryKey(String id) {
 		
 		return samplingLandRegMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
-	public List<SamplingLandReg> particular(SamplingLandReg it) {
-		List<SamplingLandReg> list=samplingLandRegMapper.selectByPrimaryKey(it.getId());
-		for(SamplingLandReg info :list){
+	public List<SamplingReg> particular(SamplingLandReg it) {
+		List<SamplingReg> list=samplingLandRegMapper.selectByPrimaryKey(it.getId());
+		for(SamplingReg info :list){
 			List<Files> fList=filesService.queryByBusinessId(info.getId());
 			info.setFile(fList);
 			if(info.getLatitude()==null){
@@ -88,10 +104,13 @@ public class SamplingLandRegServiceImpl  implements SamplingLandRegService {
 			if(info.getLongitude()==null){
 				info.setLongitude(new BigDecimal(0));
 			}
-			
 		}
-		
 		return list;
+	}
+
+	@Override
+	public SamplingLandReg findByCode(String code) {
+		return samplingLandRegMapper.findByCode(code);
 	}
 
 }

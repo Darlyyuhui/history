@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.epms.mobile.business.dao.SamplingManureRegMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.epms.mobile.business.domain.SamplingReg" >
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="CODE" property="code" jdbcType="NVARCHAR" />
+    <result column="NAME" property="name" jdbcType="NVARCHAR" />
+    <result column="DEPTH" property="depth" jdbcType="NVARCHAR" />
+    <result column="SOIL_TYPE" property="soilType" jdbcType="NVARCHAR" />
+    <result column="SOIL_NAME" property="soilName" jdbcType="NVARCHAR" />
+    <result column="LONGITUDE" property="longitude" jdbcType="DECIMAL" />
+    <result column="LATITUDE" property="latitude" jdbcType="DECIMAL" />
+    <result column="SAMPLING_TIME" property="samplingTime" jdbcType="TIMESTAMP" />
+    <result column="SAMPLING_USER" property="samplingUser" jdbcType="NVARCHAR" />
+    <result column="RECEIVE_USER" property="receiveUser" jdbcType="NVARCHAR" />
+    <result column="SEND_USER" property="sendUser" jdbcType="NVARCHAR" />
+    <result column="SAMPLING_SOURCE" property="samplingSource" jdbcType="NVARCHAR" />
+    <result column="CHECK_STATUS" property="checkStatus" jdbcType="INTEGER" />
+    <result column="CHECK_USER" property="checkUser" jdbcType="NVARCHAR" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="NVARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="MISSION_ID" property="missionId" jdbcType="NVARCHAR" />
+    <result column="TABLE_NAME" property="tableName" jdbcType="NVARCHAR" />
+    <!-- 水采样不同属性  typeCode背景土壤采样采样也有 SAMPLING_TYPE土壤和农作物也有-->
+    <result column="TYPE_CODE" property="typeCode" jdbcType="NVARCHAR" />
+    <result column="SAMPLING_TYPE" property="samplingType" jdbcType="NVARCHAR" />
+    <result column="RIVERS_NAME" property="riversName" jdbcType="NVARCHAR" />
+    <result column="MUD_LONGITUDE" property="mudLongitude" jdbcType="DECIMAL" />
+    <result column="MUD_LATITUDE" property="mudLatitude" jdbcType="DECIMAL" />
+    <!-- 农产品采样不同属性 -->
+    <result column="POSITION" property="position" jdbcType="NVARCHAR" />
+    <!-- 背景土壤采样不同属性  typeCode与水采样都有 -->
+    <result column="AMBIENT" property="ambient" jdbcType="NVARCHAR" />
+    <result column="YEARS" property="years" jdbcType="NVARCHAR" />
+    <result column="WALL_SOURCE" property="wallSource" jdbcType="NVARCHAR" />
+    <!-- 肥料采样特有属性 -->
+    <result column="SHOP_NAME" property="shopName" jdbcType="NVARCHAR" />
+    <result column="SHOPKEEPER" property="shopkeeper" jdbcType="NVARCHAR" />
+    <result column="TEL" property="tel" jdbcType="NVARCHAR" />
+    <result column="DEAL_MANURE" property="dealManure" jdbcType="NVARCHAR" />
+    <!-- 大气采样特有属性 -->
+    <result column="CONTAINER_VOLUME" property="containerVolume" jdbcType="NVARCHAR" />
+    <result column="COLLECT_VOLUME" property="collectVolume" jdbcType="NVARCHAR" />
+    <result column="POINT_ID" property="pointId" jdbcType="NVARCHAR" />
+    
+    <result column="othersamplyName" property="othersamplyName" jdbcType="NVARCHAR" />
+    <result column="typesamplyName" property="typesamplyName" jdbcType="NVARCHAR" />
+  </resultMap>
+  <select id="findById" parameterType="java.lang.String"  resultMap="BaseResultMap">
+     select id,code,LONGITUDE,LATITUDE,case when SHOP_NAME is null THEN ' ' else SHOP_NAME end SHOP_NAME,
+     case when SHOPKEEPER is null then ' ' else SHOPKEEPER end SHOPKEEPER,
+     case when TEL is null then ' ' else TEL end TEL,
+     case when DEAL_MANURE is null then ' ' else DEAL_MANURE end DEAL_MANURE ,SAMPLING_TIME,SAMPLING_USER,SAMPLING_SOURCE ,MISSION_ID
+     from T_SAMPLING_MANURE_REG  where id=#{id} 
+  </select>
+  <insert id="insertSelective" parameterType="com.xiangxun.epms.mobile.business.domain.SamplingReg" useGeneratedKeys="true" keyProperty="id" >
+    insert into T_SAMPLING_MANURE_REG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(longitude)" >
+        LONGITUDE,
+      </if>
+      <if test="@Ognl@isNotEmpty(latitude)" >
+        LATITUDE,
+      </if>
+      <if test="@Ognl@isNotEmpty(shopName)" >
+        SHOP_NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(shopkeeper)" >
+        SHOPKEEPER,
+      </if>
+      <if test="@Ognl@isNotEmpty(tel)" >
+        TEL,
+      </if>
+      <if test="@Ognl@isNotEmpty(dealManure)" >
+        DEAL_MANURE,
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingTime)" >
+        SAMPLING_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingUser)" >
+        SAMPLING_USER,
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingSource)" >
+        SAMPLING_SOURCE,
+      </if>
+      <if test="@Ognl@isNotEmpty(checkStatus)" >
+        CHECK_STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(checkUser)" >
+        CHECK_USER,
+      </if>
+      <if test="@Ognl@isNotEmpty(checkTime)" >
+        CHECK_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(missionId)" >
+        MISSION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(longitude)" >
+        #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(latitude)" >
+        #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(shopName)" >
+        #{shopName,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(shopkeeper)" >
+        #{shopkeeper,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(tel)" >
+        #{tel,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(dealManure)" >
+        #{dealManure,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingTime)" >
+        #{samplingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingUser)" >
+        #{samplingUser,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingSource)" >
+        #{samplingSource,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkStatus)" >
+        #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkUser)" >
+        #{checkUser,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkTime)" >
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(missionId)" >
+        #{missionId,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+</mapper>

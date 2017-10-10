@@ -13,4 +13,5 @@ public interface LandSamplingSchemePointMapper {
 	List<LandSamplingSchemePoint> getLandSamplingSchemePointById(String id);
 	int contlist(String id);
 	List<LandSamplingSchemePoint> findByPlanIdSamplin(String schemeId);
+	LandSamplingSchemePoint findByCode(String code);
 }
