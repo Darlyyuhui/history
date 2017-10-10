@@ -16,6 +16,52 @@
     <result column="ACD" property="acd" jdbcType="DECIMAL" />
   </resultMap>
   
+  <resultMap id="LandPhMap" type="com.xiangxun.atms.module.statistics.vo.LandPh" >
+    <result column="PH_TOTAL" property="phTotal" jdbcType="BIGINT" />
+    <result column="PH_1" property="ph1" jdbcType="BIGINT" />
+	<result column="PH_2" property="ph2" jdbcType="BIGINT" />
+	<result column="PH_3" property="ph3" jdbcType="BIGINT" />
+	<result column="PH_4" property="ph4" jdbcType="BIGINT" />
+	<result column="PH_5" property="ph5" jdbcType="BIGINT" />
+	<result column="PH_6" property="ph6" jdbcType="BIGINT" />
+	<result column="PH_7" property="ph7" jdbcType="BIGINT" />
+	<result column="PH_8" property="ph8" jdbcType="BIGINT" />
+	<result column="PH_9" property="ph9" jdbcType="BIGINT" />
+	<result column="PH_10" property="ph10" jdbcType="BIGINT" />
+	<result column="PH_11" property="ph11" jdbcType="BIGINT" />
+	<result column="PH_12" property="ph12" jdbcType="BIGINT" />
+	<result column="PH_13" property="ph13" jdbcType="BIGINT" />
+	<result column="PH_14" property="ph14" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <resultMap id="LandCdMap" type="com.xiangxun.atms.module.statistics.vo.LandCd" >
+    <result column="CD_TOTAL" property="cdTotal" jdbcType="BIGINT" />
+    <result column="CD_1" property="cd1" jdbcType="BIGINT" />
+	<result column="CD_2" property="cd2" jdbcType="BIGINT" />
+	<result column="CD_3" property="cd3" jdbcType="BIGINT" />
+	<result column="CD_4" property="cd4" jdbcType="BIGINT" />
+	<result column="CD_5" property="cd5" jdbcType="BIGINT" />
+	<result column="CD_6" property="cd6" jdbcType="BIGINT" />
+	<result column="CD_7" property="cd7" jdbcType="BIGINT" />
+	<result column="CD_8" property="cd8" jdbcType="BIGINT" />
+	<result column="CD_9" property="cd9" jdbcType="BIGINT" />
+	<result column="CD_10" property="cd10" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <resultMap id="LandACdMap" type="com.xiangxun.atms.module.statistics.vo.LandACd" >
+    <result column="ACD_TOTAL" property="acdTotal" jdbcType="BIGINT" />
+    <result column="ACD_1" property="acd1" jdbcType="BIGINT" />
+	<result column="ACD_2" property="acd2" jdbcType="BIGINT" />
+	<result column="ACD_3" property="acd3" jdbcType="BIGINT" />
+	<result column="ACD_4" property="acd4" jdbcType="BIGINT" />
+	<result column="ACD_5" property="acd5" jdbcType="BIGINT" />
+	<result column="ACD_6" property="acd6" jdbcType="BIGINT" />
+	<result column="ACD_7" property="acd7" jdbcType="BIGINT" />
+	<result column="ACD_8" property="acd8" jdbcType="BIGINT" />
+	<result column="ACD_9" property="acd9" jdbcType="BIGINT" />
+	<result column="ACD_10" property="acd10" jdbcType="BIGINT" />
+  </resultMap>
+  
   <select id="getPieData" statementType="CALLABLE" resultMap="PieMap" >
     {CALL getLandPercByRegionId(
     	#{regionId,mode=IN,jdbcType=VARCHAR}
@@ -39,22 +85,53 @@
 		, CAST(ROUND(AVG(T.CADMIUM),2) AS NUMERIC(10,2)) AS AVG_CD
 		, CAST(ROUND(AVG(T.AVAILABLE_CADMIUM),2) AS NUMERIC(10,2)) AS AVG_ACD
 		FROM V_ANALYSIS_LAND T
-		<where>
-		  <if test="@Ognl@isNotEmpty(regionId)" >
-	         AND T.REGION_ID = #{regionId,jdbcType=VARCHAR}
-	      </if>
-	      <if test="@Ognl@isNotEmpty(beginTime)" >
-	         AND T.SAMPLING_TIME <![CDATA[>=]]> #{beginTime,jdbcType=VARCHAR}
-	      </if>
-	      <if test="@Ognl@isNotEmpty(endTime)" >
-	         AND T.SAMPLING_TIME <![CDATA[<=]]> #{endTime,jdbcType=VARCHAR}
-	      </if>
-		</where>
+		<include refid="BaseWhere"/>
 		GROUP BY T.REGION_ID
 	) TT 
 	LEFT JOIN T_REGION R ON TT.REGION_ID = R.ID
 	ORDER BY TT.REGION_ID
   </select>
   
+  <sql id="BaseWhere">
+  	<where>
+	  <if test="@Ognl@isNotEmpty(regionId)" >
+         AND T.REGION_ID = #{regionId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(beginTime)" >
+         AND T.SAMPLING_TIME <![CDATA[>=]]> #{beginTime,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(endTime)" >
+         AND T.SAMPLING_TIME <![CDATA[<=]]> #{endTime,jdbcType=VARCHAR}
+      </if>
+      AND T.DC_STATUS <![CDATA[<>]]> 3
+	</where>
+  </sql>
+  
+  <select id="getPhData" resultMap="LandPhMap">
+  	SELECT SUM(CASE WHEN T.PH_LV IS NOT NULL THEN 1 ELSE 0 END) PH_TOTAL
+  	<foreach collection="smLevels" item="lev" index="k">
+  	, SUM(CASE WHEN T.PH_LV = '${lev}' THEN 1 ELSE 0 END) PH_${k+1}
+  	</foreach>
+	FROM V_ANALYSIS_LAND T
+	<include refid="BaseWhere"/>
+  </select>
+  
+  <select id="getCdData" resultMap="LandCdMap">
+  	SELECT SUM(CASE WHEN T.C_LV IS NOT NULL THEN 1 ELSE 0 END) CD_TOTAL
+  	<foreach collection="smLevels" item="lev" index="k">
+  	, SUM(CASE WHEN T.C_LV = '${lev}' THEN 1 ELSE 0 END) CD_${k+1}
+  	</foreach>
+	FROM V_ANALYSIS_LAND T
+	<include refid="BaseWhere"/>
+  </select>
+  
+  <select id="getACdData" resultMap="LandACdMap">
+  	SELECT SUM(CASE WHEN T.AC_LV IS NOT NULL THEN 1 ELSE 0 END) ACD_TOTAL
+  	<foreach collection="smLevels" item="lev" index="k">
+  	, SUM(CASE WHEN T.AC_LV = '${lev}' THEN 1 ELSE 0 END) ACD_${k+1}
+  	</foreach>
+	FROM V_ANALYSIS_LAND T
+	<include refid="BaseWhere"/>
+  </select>
   
 </mapper>

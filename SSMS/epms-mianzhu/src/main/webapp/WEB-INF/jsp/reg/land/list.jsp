@@ -78,8 +78,8 @@
                 </th>
                 <th>样品编号</th>
                 <th>样品名称</th>
+                <th>样品类型</th>
                 <th>采样深度</th>
-                <th>土壤类型</th>
                 <th>采样地点</th>
                 <th>采样地块</th>
                 <th>采样时间</th>
@@ -97,14 +97,14 @@
             <c:forEach items="${pageList.result}" var="item">
                 <tr>
                 	<td >
-                	<c:if test="${item.status eq '0' }">
+                	<c:if test="${item.status eq '0' && item.checkStatus eq '0' }">
                 	<input type="checkbox" value="${item.id}" name="select-chk"/>
                 	</c:if>
                     </td>
                     <td>${item.code }</td>
                     <td>${item.name }</td>
+                    <td><tags:xiangxuncache keyName="Dic" typeCode="SAMPLING_LAND_TYPE" id="${item.samplingType }"/></td>
                     <td>${item.depth }</td>
-                    <td><tags:xiangxuncache keyName="LANDTYPE_NAME" id="${item.soilType }"/></td>
                     <td><tags:xiangxuncache keyName="TREGION_FULL_NAME" id="${item.regionId }"/></td>
 	                <td>${item.blockIds }</td>
 	                <td><fmt:formatDate value="${item.samplingTime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
@@ -115,6 +115,7 @@
 	                <td>
 	                	<c:if test="${item.samplingSource eq '1'}">原始录入</c:if>
 	                	<c:if test="${item.samplingSource eq '2'}">移动APP</c:if>
+	                	<c:if test="${item.samplingSource eq '3'}">批量导入</c:if>
 	                </td>
 	                <td><tags:xiangxuncache keyName="LANDMISSION_ID_NAME" id="${item.missionId }"/></td>
 	                <td>
@@ -128,7 +129,7 @@
                                     <i class="ace-icon fa fa-eye bigger-120"></i>
                                 </button>
                             </btn:authorBtn>
-                            <c:if test="${item.status eq '0' }">
+                            <c:if test="${item.status eq '0' && item.checkStatus eq '0' }">
                             <btn:authorBtn menuid="${menuid}" text="修改">
                                 <button class="btn btn-xs btn-info" onclick="updateById('${item.id}')">
                                     <i class="ace-icon fa fa-pencil bigger-120"></i>

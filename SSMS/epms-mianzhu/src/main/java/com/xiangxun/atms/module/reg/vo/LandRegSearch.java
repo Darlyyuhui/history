@@ -430,73 +430,73 @@ public class LandRegSearch {
             return (Criteria) this;
         }
 
-        public Criteria andSoilTypeIsNull() {
-            addCriterion("SOIL_TYPE is null");
+        public Criteria andSamplingTypeIsNull() {
+            addCriterion("SAMPLING_TYPE is null");
             return (Criteria) this;
         }
 
-        public Criteria andSoilTypeIsNotNull() {
-            addCriterion("SOIL_TYPE is not null");
+        public Criteria andSamplingTypeIsNotNull() {
+            addCriterion("SAMPLING_TYPE is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSoilTypeEqualTo(String value) {
-            addCriterion("SOIL_TYPE =", value, "soilType");
+        public Criteria andSamplingTypeEqualTo(String value) {
+            addCriterion("SAMPLING_TYPE =", value, "samplingType");
             return (Criteria) this;
         }
 
-        public Criteria andSoilTypeNotEqualTo(String value) {
-            addCriterion("SOIL_TYPE <>", value, "soilType");
+        public Criteria andSamplingTypeNotEqualTo(String value) {
+            addCriterion("SAMPLING_TYPE <>", value, "samplingType");
             return (Criteria) this;
         }
 
-        public Criteria andSoilTypeGreaterThan(String value) {
-            addCriterion("SOIL_TYPE >", value, "soilType");
+        public Criteria andSamplingTypeGreaterThan(String value) {
+            addCriterion("SAMPLING_TYPE >", value, "samplingType");
             return (Criteria) this;
         }
 
-        public Criteria andSoilTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("SOIL_TYPE >=", value, "soilType");
+        public Criteria andSamplingTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("SAMPLING_TYPE >=", value, "samplingType");
             return (Criteria) this;
         }
 
-        public Criteria andSoilTypeLessThan(String value) {
-            addCriterion("SOIL_TYPE <", value, "soilType");
+        public Criteria andSamplingTypeLessThan(String value) {
+            addCriterion("SAMPLING_TYPE <", value, "samplingType");
             return (Criteria) this;
         }
 
-        public Criteria andSoilTypeLessThanOrEqualTo(String value) {
-            addCriterion("SOIL_TYPE <=", value, "soilType");
+        public Criteria andSamplingTypeLessThanOrEqualTo(String value) {
+            addCriterion("SAMPLING_TYPE <=", value, "samplingType");
             return (Criteria) this;
         }
 
-        public Criteria andSoilTypeLike(String value) {
-            addCriterion("SOIL_TYPE like", value, "soilType");
+        public Criteria andSamplingTypeLike(String value) {
+            addCriterion("SAMPLING_TYPE like", value, "samplingType");
             return (Criteria) this;
         }
 
-        public Criteria andSoilTypeNotLike(String value) {
-            addCriterion("SOIL_TYPE not like", value, "soilType");
+        public Criteria andSamplingTypeNotLike(String value) {
+            addCriterion("SAMPLING_TYPE not like", value, "samplingType");
             return (Criteria) this;
         }
 
-        public Criteria andSoilTypeIn(List<String> values) {
-            addCriterion("SOIL_TYPE in", values, "soilType");
+        public Criteria andSamplingTypeIn(List<String> values) {
+            addCriterion("SAMPLING_TYPE in", values, "samplingType");
             return (Criteria) this;
         }
 
-        public Criteria andSoilTypeNotIn(List<String> values) {
-            addCriterion("SOIL_TYPE not in", values, "soilType");
+        public Criteria andSamplingTypeNotIn(List<String> values) {
+            addCriterion("SAMPLING_TYPE not in", values, "samplingType");
             return (Criteria) this;
         }
 
-        public Criteria andSoilTypeBetween(String value1, String value2) {
-            addCriterion("SOIL_TYPE between", value1, value2, "soilType");
+        public Criteria andSamplingTypeBetween(String value1, String value2) {
+            addCriterion("SAMPLING_TYPE between", value1, value2, "samplingType");
             return (Criteria) this;
         }
 
-        public Criteria andSoilTypeNotBetween(String value1, String value2) {
-            addCriterion("SOIL_TYPE not between", value1, value2, "soilType");
+        public Criteria andSamplingTypeNotBetween(String value1, String value2) {
+            addCriterion("SAMPLING_TYPE not between", value1, value2, "samplingType");
             return (Criteria) this;
         }
 

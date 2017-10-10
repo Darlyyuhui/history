@@ -6,7 +6,7 @@
        土壤分析数据登记
         <small>
             <i class="ace-icon fa fa-angle-double-right"></i>
-            修改信息
+            查看信息
         </small>
     </h1>
 </div>

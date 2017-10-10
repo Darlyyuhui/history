@@ -215,7 +215,7 @@
         #{regId,jdbcType=NVARCHAR},
       </if>
       <if test="@Ognl@isNotEmpty(code)" >
-        #{code,jdbcType=NVARCHAR},
+        [dbo].getAutoCode('${code}'),
       </if>
       <if test="@Ognl@isNotEmpty(cadmium)" >
         #{cadmium,jdbcType=DECIMAL},

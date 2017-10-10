@@ -279,7 +279,7 @@
     		"${root}/bs/region/getLocation/"+regionId+"/",
     		function(data) {
     			if(data){
-    			_map.centerAt(data.longitude,data.latitude,6);
+    			_map.centerAt(data.longitude,data.latitude,4);
     			}
     		}
     	);

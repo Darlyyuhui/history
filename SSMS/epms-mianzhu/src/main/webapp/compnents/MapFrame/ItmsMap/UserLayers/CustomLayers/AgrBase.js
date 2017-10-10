@@ -32,6 +32,9 @@ MapFactory.Define("ItmsMap/UserLayers/CustomLayers/AgrBase*",[
 			if(data.lcpjdLyrPoint.isOpen)lcpjdLyrPoint.show();
 			else lcpjdLyrPoint.hide();
 		}
+		function drawRegionByTimeChange(){
+			
+		}
 		/*
 		 * 移除单个点
 		 */

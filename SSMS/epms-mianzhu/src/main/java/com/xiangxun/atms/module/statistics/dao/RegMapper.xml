@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.statistics.dao.RegMapper" >
+
+  <resultMap id="BaseMap" type="com.xiangxun.atms.module.statistics.vo.RegInfo" >
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+    <result column="LAND_NUM" property="landNum" jdbcType="BIGINT" />
+    <result column="DBS_NUM" property="dbsNum" jdbcType="BIGINT" />
+    <result column="DXS_NUM" property="dxsNum" jdbcType="BIGINT" />
+    <result column="DN_NUM" property="dnNum" jdbcType="BIGINT" />
+    <result column="DQ_NUM" property="dqNum" jdbcType="BIGINT" />
+    <result column="BJ_NUM" property="bjNum" jdbcType="BIGINT" />
+    <result column="NCP_NUM" property="ncpNum" jdbcType="BIGINT" />
+    <result column="FL_NUM" property="flNum" jdbcType="BIGINT" />
+  </resultMap>
+  
+  
+  <select id="getList" resultType="map" >
+  	SELECT TT.REGION_ID
+  	<foreach collection="landDics" item="land">
+		, SUM(TT.LAND_${land.remark}_NUM) AS LAND_${land.remark}_NUM
+	</foreach>
+	<foreach collection="waterDics" item="water">
+		, SUM(TT.WATER_${water.remark}_NUM) AS WATER_${water.remark}_NUM
+	</foreach>
+	<foreach collection="farmDics" item="farm">
+		, SUM(TT.FARM_${farm.remark}_NUM) AS FARM_${farm.remark}_NUM
+	</foreach>
+	, SUM(TT.DQ_NUM) AS DQ_NUM, SUM(TT.BJ_NUM) AS BJ_NUM, SUM(TT.FL_NUM) AS FL_NUM
+	FROM (
+		SELECT V.REGION_ID
+		<foreach collection="landDics" item="land">
+			, SUM(CASE WHEN T.SAMPLING_TYPE = '${land.code}' THEN 1 ELSE 0 END) AS LAND_${land.remark}_NUM
+		</foreach>
+		<foreach collection="waterDics" item="water">
+			, 0 AS WATER_${water.remark}_NUM
+		</foreach>
+		<foreach collection="farmDics" item="farm">
+			, 0 AS FARM_${farm.remark}_NUM
+		</foreach>
+		, 0 AS DQ_NUM, 0 AS BJ_NUM, 0 AS FL_NUM
+		FROM T_SAMPLING_LAND_REG T
+		INNER JOIN V_SCHEME_MISSION V ON V.MISSION_ID = T.MISSION_ID
+		<include refid="ListWhere"/>
+		GROUP BY V.REGION_ID
+	
+		UNION ALL
+	
+		SELECT V.REGION_ID
+		<foreach collection="landDics" item="land">
+			, 0 AS LAND_${land.remark}_NUM
+		</foreach>
+		<foreach collection="waterDics" item="water">
+			, SUM(CASE WHEN T.SAMPLING_TYPE = '${water.code}' THEN 1 ELSE 0 END) AS WATER_${water.remark}_NUM
+		</foreach>
+		<foreach collection="farmDics" item="farm">
+			, 0 AS FARM_${farm.remark}_NUM
+		</foreach>
+		, 0 AS DQ_NUM, 0 AS BJ_NUM, 0 AS FL_NUM
+		FROM T_SAMPLING_WATER_REG T
+		INNER JOIN V_SCHEME_MISSION V ON V.MISSION_ID = T.MISSION_ID
+		<include refid="ListWhere"/>
+		GROUP BY V.REGION_ID
+	
+		UNION ALL
+	
+		SELECT AP.REGION_ID
+		<include refid="ZeroSql"/>
+		, COUNT(T.ID) AS DQ_NUM
+		, 0 AS BJ_NUM, 0 AS FL_NUM
+		FROM T_SAMPLING_AIR_REG T
+		INNER JOIN T_AIR_POINT AP ON AP.ID = T.POINT_ID
+		<include refid="ListWhere"/>
+		GROUP BY AP.REGION_ID
+	
+		UNION ALL
+	
+		SELECT V.REGION_ID
+		<include refid="ZeroSql"/>
+		, 0 AS DQ_NUM
+		, COUNT(T.ID) AS BJ_NUM
+		, 0 AS FL_NUM
+		FROM T_SAMPLING_BACK_REG T
+		INNER JOIN V_SCHEME_MISSION V ON V.MISSION_ID = T.MISSION_ID
+		<include refid="ListWhere"/>
+		GROUP BY V.REGION_ID
+	
+		UNION ALL
+	
+		SELECT V.REGION_ID
+		<include refid="ZeroSql"/>
+		, 0 AS DQ_NUM, 0 AS BJ_NUM
+		, COUNT(T.ID) AS FL_NUM
+		FROM T_SAMPLING_MANURE_REG T
+		INNER JOIN V_SCHEME_MISSION V ON V.MISSION_ID = T.MISSION_ID
+		<include refid="ListWhere"/>
+		GROUP BY V.REGION_ID
+	
+		UNION ALL
+	
+		SELECT V.REGION_ID
+		<foreach collection="landDics" item="land">
+			, 0 AS LAND_${land.remark}_NUM
+		</foreach>
+		<foreach collection="waterDics" item="water">
+			, 0 AS WATER_${water.remark}_NUM
+		</foreach>
+		<foreach collection="farmDics" item="farm">
+			, SUM(CASE WHEN T.SAMPLING_TYPE = '${farm.code}' THEN 1 ELSE 0 END) AS FARM_${farm.remark}_NUM
+		</foreach>
+		, 0 AS DQ_NUM, 0 AS BJ_NUM, 0 AS FL_NUM
+		FROM T_SAMPLING_FARM_REG T
+		INNER JOIN V_SCHEME_MISSION V ON V.MISSION_ID = T.MISSION_ID
+		<include refid="ListWhere"/>
+		GROUP BY V.REGION_ID
+	) TT
+	<where>
+  	  <if test="@Ognl@isNotEmpty(regionId)" >
+	     AND TT.REGION_ID = #{regionId,jdbcType=VARCHAR}
+      </if>
+  	</where>
+	GROUP BY TT.REGION_ID
+  </select>
+  
+  <sql id="ListWhere">
+  	<where>
+  	  <if test="@Ognl@isNotEmpty(beginTime)" >
+	     AND T.SAMPLING_TIME <![CDATA[>=]]> #{beginTime,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(endTime)" >
+         AND T.SAMPLING_TIME <![CDATA[<=]]> #{endTime,jdbcType=VARCHAR}
+      </if>
+  	</where>
+  </sql>
+  
+  <sql id="ZeroSql">
+  	<foreach collection="landDics" item="land">
+		, 0 AS LAND_${land.remark}_NUM
+	</foreach>
+	<foreach collection="waterDics" item="water">
+		, 0 AS WATER_${water.remark}_NUM
+	</foreach>
+	<foreach collection="farmDics" item="farm">
+		, 0 AS FARM_${farm.remark}_NUM
+	</foreach>
+  </sql>
+  
+  
+</mapper>

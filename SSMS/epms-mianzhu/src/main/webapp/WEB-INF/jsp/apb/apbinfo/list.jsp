@@ -34,8 +34,8 @@
         <div class="row">
             <div class="col-xs-12 col-sm-8">
                 <div class="input-group">
-                    <input type="text" class="form-control search-query" value="${apbinfo.name}"
-                           id="lampb_search_name" name="search_name" placeholder="名称"/>
+                    <input type="text" class="form-control search-query" value="${name}"
+                           id="lampb_search_name" name="search_name" placeholder="名称"/  maxlength="20">
                     <span class="input-group-btn">
                            <button type="submit" class="btn btn-purple btn-sm" style="margin-left:1px;">
                                查询
@@ -105,7 +105,7 @@
                         <td>${info.describe}</td>
                         <td>${info.ambient}</td>
                         <td>
-                           <tags:cache keyName="${SOILE_TYPE }" id="${info.soilType }"></tags:cache>
+                           <tags:xiangxuncache keyName="LANDTYPE_NAME" id="${info.soilType }"/>
                         </td>
                         <td>${info.polluteDesc}</td>
                         
@@ -170,20 +170,20 @@
                             </label>
 
                             <div class="col-sm-9">
-                                <input type="text" id="van-search-code" name="search_code" value="${apbInfo.code}"
+                                <input type="text" id="van-search-code" name="search_code" value="${code}"   maxlength="20"
                                        placeholder="编号" style="width:300px" class="input-large"/>
                             </div>
                         </div>
                        
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right"
+                            <label class="col-sm-3 control-label no-padding-right"  
                                    for="van-search-name">
                                 名称
                             </label>
 
                             <div class="col-sm-9">
-                                <input type="text" id="van-search-name" name="search_name"
-                                       value="${ apbInfo.name}"
+                                <input type="text" id="van-search-name" name="search_name"   maxlength="20"
+                                       value="${ name}"
                                        placeholder="名称" style="width:300px" class="input-large"/>
                             </div>
                         </div>
@@ -194,9 +194,13 @@
                             </label>
 
                             <div class="col-sm-9">
-                                <input type="text" id="van-search-mainProduct" name="search_mainProduct"
+                               <%--  <input type="text" id="van-search-mainProduct" name="search_mainProduct"
                                        value="${ apbInfo.mainProduct}"
-                                       placeholder="名称" style="width:300px" class="input-large"/>
+                                       placeholder="名称" style="width:300px" class="input-large"/> --%>
+                                       
+                                     <select id="search_mainProduct" name="search_mainProduct" style="min-width:120px; width: 300px;" class="input-large" >
+                                   <tags:dicothercache typeCode="${APBPRODUCTTYPE }" defaultValue="${ mainProduct}"/>
+                                </select>
                             </div>
                         </div>
                         <%-- <div class="form-group">

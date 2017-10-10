@@ -85,7 +85,7 @@ public class VideoDeviceCtl extends BaseCtl<VideoDevice, VideoDeviceSearch> {
 	@RequestMapping(value = "doUpdate/{menuid}/",method = RequestMethod.POST)
 	@LogAspect(desc="修改【视频监控】")
 	public String doUpdate(@PathVariable String menuid, String page, @ModelAttribute("info")VideoDevice info, RedirectAttributes attr) {
-		videoDeviceService.updateById(info);
+		videoDeviceService.updateByIdSelective(info);
 		attr.addFlashAttribute("message", "修改成功");
 		return "redirect:/bs/video/list/"+menuid+"/?isgetsession=1&page="+page;
 	}

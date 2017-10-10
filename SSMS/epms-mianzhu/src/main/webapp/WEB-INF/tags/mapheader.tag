@@ -10,6 +10,13 @@
     String path = request.getContextPath();
     String encoding=request.getCharacterEncoding();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    
+    String serverUrl = request.getServerName();
+    if ("223.85.191.240".equals(serverUrl)) {
+    	serverUrl = "http://223.85.191.240:8090/iserver";
+    } else {
+    	serverUrl = "http://10.10.15.201:8090/iserver";
+    }
 %>
 <style type="text/css">
 
@@ -74,7 +81,7 @@
 
     .map-tools{z-index:2000;position:absolute;height:34px;top:20px;right:20px;-webkit-transition:-webkit-transform .3s ease-out;transition:transform .3s ease-out}
     .map-tools-bg{border-bottom:1px solid #ccc;box-shadow:1px 2px 1px rgba(0,0,0,.15);height:34px;overflow:hidden;background-color:#0a3a5c;z-index:10}
-    .map-type-list{z-index:2000;position:absolute;width:100px;top:35px;left:0;background:#fff;box-shadow:1px 2px 1px rgba(0,0,0,.15);}
+    .map-type-list{z-index:2000;position:absolute;width:100px;top:35px;left:320px;background:#fff;box-shadow:1px 2px 1px rgba(0,0,0,.15);}
 
     .map-xyinfo{z-index:2000;position:absolute;left:20px;bottom:30px;height:24px;}
     .map-operate{z-index:2000;position:absolute;width:56px;height:84px;right:20px;bottom:10px;-webkit-transition:-webkit-transform .3s ease-out;transition:transform .3s ease-out}
@@ -110,7 +117,7 @@
     var path = "<%=path%>",
             basePath = "<%=basePath%>",
             geoserverbaseurl = "http://193.169.100.111:8085/geowebcache/",
-            supermapbaseurl = "http://10.10.15.201:8090/iserver",
+            supermapbaseurl = "<%=serverUrl%>",
             map_center_zoom = "104.12445,31.42520,1",
             map_max_extent = "103.902907838671, 31.1530368831954, 104.344413677999, 31.7032817292694",
             map_init_extent = "103.902907838671, 31.1530368831954, 104.344413677999, 31.7032817292694",
@@ -134,11 +141,20 @@
     if(geoserver_resolutions) {
         geoserverResolutions = strListToNumberList(geoserver_resolutions.split(","));
     }
+    
+    function zbxqClickHandle(){
+		 MapFactory.Require(["ItmsMap/UserLayers/ZBXQInfoWin*"],function(ZBXQInfoWin){
+	    		var infoWin=ZBXQInfoWin();
+	    		infoWin.init();
+		 });
+	}
    
 </script>
 <script src="${root}/compnents/MapFrame/MapFactory.js" type="text/javascript"></script>
-
+<script src="${root}/compnents/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
 <script type="text/javascript">
+
+
 var path = "${root}";
 var menuid = "17062015184602618351fc2ff9bba239";
 var mapTag = (function() {
@@ -166,6 +182,8 @@ var mapTag = (function() {
                 mapDiv = "map";
             }
             if(!mapDiv)mapDiv = "map";
+            
+            
             MapFactory.Init({
                 engine : _engine,
                 callback : function(){
@@ -176,7 +194,7 @@ var mapTag = (function() {
                     	"ItmsMap/Util/Navigation*",
 						"ItmsMap/Util/ViewSwitch*",
 						"MapFactory/Util/ZoomSlider*",
-						"ItmsMap/SymbolConfig*"
+						"ItmsMap/SymbolConfig*"				
                     ],function(mapConfig,mapManager,IframeMap,navigation,viewSwitch,zoomSlider,SymbolConfig){
                         var _mapConfig = mapConfig,
                                 _userLayer,
@@ -199,13 +217,13 @@ var mapTag = (function() {
 								/**
 								 * 初始化视图切换按钮
 								 */
-								new viewSwitch({
+								 new viewSwitch({
 									src : "mapViewSwitcher"
 								});
 								/**
 								 * 初始化地图缩放条
 								 */
-								var _zoomBarHeight = zoomSlider({
+								 var _zoomBarHeight = zoomSlider({
 									src : "mapZoomSlider",
 									levels : 7,
 									levelStart :0,
@@ -246,6 +264,49 @@ var mapTag = (function() {
                         */                    
                         var _toolsBGDiv = $("<div>").appendTo(_toolsDiv).addClass("map-tools-bg");
                         var _toolsCenterDiv = $("<div>").appendTo(_toolsBGDiv).css("padding","7px 0 8px");
+                        //起始时间div
+                        var start = $("<a>").appendTo(_toolsCenterDiv).addClass("map-toolbox_item");
+                        $("<span>").appendTo(start).html("起始时间&nbsp&nbsp").css("color","#FFF");
+                        var beginTime=$("<input>").appendTo(start);
+                        beginTime.attr({"readonly":"true","id":"startTime"});
+                        beginTime.css({"width":"80px","height":"20px","outline": "none",
+                            "border": "1px solid gray","border-radius":"2px","text-align":"center","color":"#000"});
+                        beginTime.focus(function(){
+                        	WdatePicker({dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,isShowClear:false,onpicked:resetWdatePickerTime});
+                        });
+                        
+                      //结束时间div
+                        var end = $("<a>").appendTo(_toolsCenterDiv).addClass("map-toolbox_item");
+                        $("<span>").appendTo(end).html("结束时间&nbsp&nbsp").css("color","#FFF");
+                        var endTime=$("<input>").appendTo(end);
+                        endTime.attr({"readonly":"true","id":"endTime"});
+                        endTime.css({"width":"80px","height":"20px","outline": "none",
+                            "border": "1px solid gray","border-radius":"2px","text-align":"center","color":"#000"});
+                        endTime.focus(function(){
+                        	WdatePicker({dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,isShowClear:false,onpicked:resetWdatePickerTime});
+                        });
+                       
+                        function resetWdatePickerTime(){
+                        	//获取起始时间  结束时间 触发所有数据绘制处理
+                        	MapFactory.Require(["ItmsMap/UserLayers/DataController*"],function(DataController){
+                        		var btime=beginTime.val();
+                        		var etime=endTime.val();
+                        		DataController().settimeSpace({beginDate:btime,endDate:etime});
+                        		if(_userLayer){
+                        			_userLayer.loadDataByTimeChange();
+                            	}
+                            });
+                        }
+                        
+                        MapFactory.Require(["ItmsMap/Util/DateFormat*"],function(DateFormat){
+                        	var begin=new Date();
+                            var end=new Date();
+                            new Date(begin.setMonth((new Date().getMonth()-6)));
+                        	endTime.val(DateFormat.format(end,"yyyy-MM-dd"));
+                        	beginTime.val(DateFormat.format(begin,"yyyy-MM-dd"));
+                        	//存储系统设置时间区间
+                        	resetWdatePickerTime();
+                        });
                         // 地图类型切换
                         var _mapType = $("<a>").appendTo(_toolsCenterDiv).addClass("map-toolbox_item").css("border-left","0");
                         $("<i>").appendTo(_mapType).addClass("ace-icon fa fa-star bigger-120").css("color","#FFF");
@@ -255,7 +316,9 @@ var mapTag = (function() {
                         var _ul = $("<ul>").appendTo(_mapTypeList).css("list-style-type","none");
                         var _li = $("<li>").appendTo(_ul).addClass("map-type-list-item").attr("type","base").html("电子地图").css("color","#FFF");
                         var _li2 = $("<li>").appendTo(_ul).addClass("map-type-list-item").attr("type","image").html("卫星地图").css("color","#FFF");
-
+						
+                        
+                        
                         var onoff = true;
                         _mapType.click(function(){
                             if(onoff){
@@ -357,17 +420,16 @@ var mapTag = (function() {
                                 _bookMarks.show();
                             });
                         });
+                        var _userLayer;
                         if(!isMark || isMark == "false") {
-                            var _userLayer;
                             var _userLayerDiv = $("<a>").appendTo(_toolsCenterDiv).addClass("map-toolbox_item");
                             $("<i>").appendTo(_userLayerDiv).addClass("ace-icon fa fa-star bigger-120").css("color","#FFF");
                             $("<span>").appendTo(_userLayerDiv).html("用户图层").css("color","#FFF");
-                            
-                            MapFactory.Require(["ItmsMap/Compents/LeftController*"], function (LeftController){
+                            MapFactory.Require(["ItmsMap/LeftController/compnents/LeftController*"], function (LeftController){
                             	var leftConf = {
                                         mapDiv: mapDiv,
-                                        top: 20,
-                                        left: 80
+                                        bottom: 14,
+                                        left: 10
                                        
                                     };
                      
@@ -380,11 +442,10 @@ var mapTag = (function() {
                                 $(".map-type-list").hide();
                                 $(".map-drop-em").css({backgroundPosition:"-13px -17px"});
                                 onoff = true;
-                               
                                 MapFactory.Require(["ItmsMap/Compents/SimpleLegend*"], function (SimpleLegend){
                                 	var legendConf = {
                                             mapDiv: mapDiv,
-                                            left: 10,
+                                            right: 10,
                                             bottom: 12
                                         };
                          
@@ -398,7 +459,7 @@ var mapTag = (function() {
                                         return;
                                     }
                                     var userConf = {
-                                        moduleIds: ["161008142052010e9846b2dcf8d2418d","1608171435130687a6b2366128327610","1609080954079330a1a8bf482f118d34","1609080954360965b862d8fdeb97f0b9","1609080954360965b862d8fdeb97f0b7"],
+                                        moduleIds: ["161008142052010e9846b2dcf8d24186" ,"161008142052010e9846b2dcf8d2418d","1608171435130687a6b2366128327610","1609080954079330a1a8bf482f118d34","1609080954360965b862d8fdeb97f0b9","1609080954360965b862d8fdeb97f0b6","1609080954360965b862d8fdeb97f0b7"],
                                         mapDiv: mapDiv,
                                         right: 20,
                                         top: 60

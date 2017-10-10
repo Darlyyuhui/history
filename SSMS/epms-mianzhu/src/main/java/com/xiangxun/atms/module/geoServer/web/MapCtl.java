@@ -1,5 +1,8 @@
 package com.xiangxun.atms.module.geoServer.web;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,6 +30,7 @@ import com.xiangxun.atms.common.deptment.service.DepartmentService;
 import com.xiangxun.atms.common.dictionary.service.DicService;
 import com.xiangxun.atms.common.dictionary.type.DicType;
 import com.xiangxun.atms.common.dictionary.vo.Dic;
+import com.xiangxun.atms.common.dictionary.vo.DicSearch;
 import com.xiangxun.atms.common.system.service.ResourceService;
 import com.xiangxun.atms.common.system.vo.SystemResource;
 import com.xiangxun.atms.common.user.type.MenuType;
@@ -65,11 +69,17 @@ import com.xiangxun.atms.module.geoServer.domain.LayerBean;
 import com.xiangxun.atms.module.geoServer.domain.LayerEnum;
 import com.xiangxun.atms.module.geoServer.domain.Module;
 import com.xiangxun.atms.module.geoServer.service.IMapOperation;
+import com.xiangxun.atms.module.geoServer.util.FaceUrlConfig;
 import com.xiangxun.atms.module.land.service.LandBlockService;
 import com.xiangxun.atms.module.land.vo.LandBlock;
 import com.xiangxun.atms.module.land.vo.LandBlockSearch;
 import com.xiangxun.atms.module.map.service.MapDataService;
+import com.xiangxun.atms.module.map.vo.AreaCount;
+import com.xiangxun.atms.module.map.vo.LandAnalysisCount;
 import com.xiangxun.atms.module.map.vo.RegAnalysis;
+import com.xiangxun.atms.module.map.vo.RepairProject;
+import com.xiangxun.atms.module.pollute.service.PolluteCompanyService;
+import com.xiangxun.atms.module.pollute.vo.PolluteCompany;
 import com.xiangxun.atms.module.reg.service.AirRegService;
 import com.xiangxun.atms.module.reg.service.BackRegService;
 import com.xiangxun.atms.module.reg.service.FarmRegService;
@@ -87,6 +97,15 @@ import com.xiangxun.atms.module.reg.vo.ManureReg;
 import com.xiangxun.atms.module.reg.vo.ManureRegSearch;
 import com.xiangxun.atms.module.reg.vo.WaterReg;
 import com.xiangxun.atms.module.reg.vo.WaterRegSearch;
+import com.xiangxun.atms.module.statistics.service.LandService;
+import com.xiangxun.atms.module.statistics.vo.LandACd;
+import com.xiangxun.atms.module.statistics.vo.LandCd;
+import com.xiangxun.atms.module.statistics.vo.LandPh;
+import com.xiangxun.atms.module.util.FtlJsonUtil;
+import com.xiangxun.atms.module.video.util.VideoConfig;
+
+import net.sf.json.JSONObject;
+
 @Controller
 @RequestMapping(value = "map")
 public class MapCtl extends BaseCtl {
@@ -189,7 +208,13 @@ public class MapCtl extends BaseCtl {
      */
     @Resource
     AirAnalysisService airAnalysisService;
-
+    /**
+     * 污染企业
+     */
+    @Resource
+    protected PolluteCompanyService polluteCompanyService;
+    @Resource
+	LandService landService;
 
 	/**
 	 * GIS首页根据menuid获取当前用户的地图菜单权限
@@ -205,7 +230,7 @@ public class MapCtl extends BaseCtl {
      * 行政区污染详细信息
      * */
     @RequestMapping(value="pollute/region/info/{regionid}/")
-    public String regionPolluteInfo(@PathVariable String regionid, ModelMap model,HttpServletRequest request){
+    public String regionPolluteInfo(@PathVariable String regionid, String beginDate, String endDate, ModelMap model,HttpServletRequest request){
         // 行政区信息
         model.addAttribute("region", regionService.getById(regionid));
         // 行政区地块信息
@@ -214,14 +239,14 @@ public class MapCtl extends BaseCtl {
         criteria.andRegionIdEqualTo(regionid);
         model.addAttribute("lands", landBlockService.selectByExample(search));
         // 行政区污染信息和指标信息
-        model.addAttribute("pollute", this.makeData(regionid));
+        model.addAttribute("pollute", this.makeData(regionid, this.makeQueryDateStr(beginDate, true), this.makeQueryDateStr(endDate, false)));
         return "iframe/pollute/regioninfo";
     }
     
-    private RegAnalysis makeData(String regionId) {
+    private RegAnalysis makeData(String regionId, String beginTime, String endTime) {
     	RegAnalysis ra = new RegAnalysis();
     	
-    	Table<String, String, Float> table = mapDataService.getDataByMap(regionId, null, null);
+    	Table<String, String, Float> table = mapDataService.getDataByMap(regionId, beginTime, endTime);
     	//无污染
     	ra.setPolluteNull(this.getLvNum("无污染", table));
     	//轻微污染
@@ -278,7 +303,8 @@ public class MapCtl extends BaseCtl {
      * */
     @RequestMapping(value="apb/info/{apbid}/")
     public String apbInfo(@PathVariable String apbid, ModelMap model,HttpServletRequest request){
-        model.addAttribute("bpb", apbInfoService.getById(apbid));
+    	ApbInfo apb=apbInfoService.getById(apbid);
+        model.addAttribute("bpb", apb);
         return "iframe/apb/info";
     }
 
@@ -300,6 +326,13 @@ public class MapCtl extends BaseCtl {
     	//System.out.println(obj.toString());
     	return "iframe/point/pointinfo";
     }
+    @RequestMapping(value="comp/info/")
+    public String compPollute(ModelMap model,HttpServletRequest request){
+    	//String id = request.getParameter("id");
+    	
+    	//System.out.println(obj.toString());
+    	return "iframe/comp/info";
+    }
 
     /**
      * 普查采样点最新数据
@@ -314,10 +347,22 @@ public class MapCtl extends BaseCtl {
      * */
     @RequestMapping(value="getall/points/")
     @ResponseBody
-    public Map<String, Object> getAllPoints() {
+    public Map<String, Object> getAllPoints(String beginDate, String endDate) {
+    	return getAllPointsByTime(beginDate,endDate);
+    }
+    
+    /**
+     * 获取时间段内的采样点信息
+     */
+    private Map<String, Object> getAllPointsByTime(String beginDate, String endDate){
     	@SuppressWarnings("unchecked")
 		Table<String, String, String> table = (Table<String, String, String>)cache.get(TRegionCache.ID_NAME);
     	Map<String, String> cacheMap = table.column(TRegionCache.ID_NAME);
+    	
+    	//底泥类型缓存
+    	@SuppressWarnings("unchecked")
+    	Table<String, String, String> table1 = (Table<String, String, String>)cache.get("Dic");
+    	Map<String, String> map = table1.column("SAMPLING_WATER_TYPE1");
     	
     	//附件集合
     	Map<String, List<Files>> filesMap = this.getFilesMap();
@@ -326,12 +371,29 @@ public class MapCtl extends BaseCtl {
         //{"dxs","dbs","dn","dqcj","bjtr","nttr","nzw","fl"};
         //{"地下水监测点","地表灌溉水监测点","底泥监测点","大气沉降采样点","背景土壤监测点","农田土壤监测点","农作物监测点","肥料采集点"};
         WaterRegSearch wrs = new WaterRegSearch();
-        wrs.createCriteria().andCheckStatusEqualTo(1);
+        //水采样数据查询
+        WaterRegSearch.Criteria wc = wrs.createCriteria();
+        wc.andCheckStatusEqualTo(1);
+        if (StringUtils.isNotEmpty(beginDate) && StringUtils.isNotEmpty(endDate)) {
+        	wc.andSamplingTimeGreaterThanOrEqualTo(this.makeQueryDate(beginDate, true));
+        	wc.andSamplingTimeLessThanOrEqualTo(this.makeQueryDate(endDate, false));
+        }
+        else if (StringUtils.isNotEmpty(beginDate) && StringUtils.isEmpty(endDate)) {
+        	wc.andSamplingTimeGreaterThanOrEqualTo(this.makeQueryDate(beginDate, true));
+        }
+        else if (StringUtils.isEmpty(beginDate) && StringUtils.isNotEmpty(endDate)) {
+        	wc.andSamplingTimeLessThanOrEqualTo(this.makeQueryDate(endDate, false));
+        }
+        
         List<WaterReg> list = waterRegService.selectByExample(wrs);
         List<WaterReg> listDXS = new ArrayList<WaterReg>();
         List<WaterReg> listDBS = new ArrayList<WaterReg>();
         List<WaterReg> listDN = new ArrayList<WaterReg>();
-        List<Dic> dics = dicService.getDicByType(DicType.SAMPLING_WATER_TYPE1);
+        
+        DicSearch dicSearch = new DicSearch();
+        dicSearch.createCriteria().andTypeEqualTo(DicType.SAMPLING_WATER_TYPE2.getValue());
+        List<Dic> dics = dicService.selectByExample(dicSearch);
+        
         Map<String, String> dicMap = new HashMap<String, String>();
         for(Dic dic : dics) {
             dicMap.put(dic.getCode(), dic.getRemark());
@@ -340,7 +402,9 @@ public class MapCtl extends BaseCtl {
         for(WaterReg reg : list) {
         	this.queryFiles(reg.getId(), reg, filesMap);
         	reg.setRegionId(this.getRegionNameByCache(reg.getRegionId(), cacheMap));
-            type = dicMap.get(reg.getTypeCode());//获取类型
+        	String str = map.get(reg.getTypeCode())==null?"":map.get(reg.getTypeCode())+"";
+        	reg.setTypeCode(str);
+            type = dicMap.get(reg.getSamplingType());//获取类型
             if("dxs".equals(type)) {
                 listDXS.add(reg);
             }
@@ -354,7 +418,7 @@ public class MapCtl extends BaseCtl {
         result.put("dxs", listDXS);
         result.put("dbs", listDBS);
         result.put("dn", listDN);
-        List<AirReg> alist = mapDataService.getAirReg();
+        List<AirReg> alist = mapDataService.getAirReg(this.makeQueryDateStr(beginDate, true), this.makeQueryDateStr(endDate, false));
         for (AirReg reg : alist) {
         	reg.setRegionId(this.getRegionNameByCache(reg.getRegionId(), cacheMap));
         	this.queryFiles(reg.getId(), reg, filesMap);
@@ -362,7 +426,20 @@ public class MapCtl extends BaseCtl {
         result.put("dqcj", alist);
         
         BackRegSearch brs = new BackRegSearch();
-        brs.createCriteria().andCheckStatusEqualTo(1);
+        //背景采样数据查询
+        BackRegSearch.Criteria bc = brs.createCriteria();
+        bc.andCheckStatusEqualTo(1);
+        if (StringUtils.isNotEmpty(beginDate) && StringUtils.isNotEmpty(endDate)) {
+        	bc.andSamplingTimeGreaterThanOrEqualTo(this.makeQueryDate(beginDate, true));
+        	bc.andSamplingTimeLessThanOrEqualTo(this.makeQueryDate(endDate, false));
+        }
+        else if (StringUtils.isNotEmpty(beginDate) && StringUtils.isEmpty(endDate)) {
+        	bc.andSamplingTimeGreaterThanOrEqualTo(this.makeQueryDate(beginDate, true));
+        }
+        else if (StringUtils.isEmpty(beginDate) && StringUtils.isNotEmpty(endDate)) {
+        	bc.andSamplingTimeLessThanOrEqualTo(this.makeQueryDate(endDate, false));
+        }
+        
         List<BackReg> blist = backRegService.selectByExample(brs);
         for (BackReg reg : blist) {
         	reg.setRegionId(this.getRegionNameByCache(reg.getRegionId(), cacheMap));
@@ -370,7 +447,7 @@ public class MapCtl extends BaseCtl {
         }
         result.put("bjtr", blist);
         
-        List<LandReg> llist = mapDataService.getLandReg();
+        List<LandReg> llist = mapDataService.getLandReg(this.makeQueryDateStr(beginDate, true), this.makeQueryDateStr(endDate, false));
         for (LandReg reg : llist) {
         	reg.setRegionId(this.getRegionNameByCache(reg.getRegionId(), cacheMap));
         	this.queryFiles(reg.getId(), reg, filesMap);
@@ -378,7 +455,18 @@ public class MapCtl extends BaseCtl {
         result.put("nttr", llist);
         
         FarmRegSearch frs = new FarmRegSearch();
-        frs.createCriteria().andCheckStatusEqualTo(1);
+        FarmRegSearch.Criteria fc = frs.createCriteria();
+        fc.andCheckStatusEqualTo(1);
+        if (StringUtils.isNotEmpty(beginDate) && StringUtils.isNotEmpty(endDate)) {
+        	fc.andSamplingTimeGreaterThanOrEqualTo(this.makeQueryDate(beginDate, true));
+        	fc.andSamplingTimeLessThanOrEqualTo(this.makeQueryDate(endDate, false));
+        }
+        else if (StringUtils.isNotEmpty(beginDate) && StringUtils.isEmpty(endDate)) {
+        	fc.andSamplingTimeGreaterThanOrEqualTo(this.makeQueryDate(beginDate, true));
+        }
+        else if (StringUtils.isEmpty(beginDate) && StringUtils.isNotEmpty(endDate)) {
+        	fc.andSamplingTimeLessThanOrEqualTo(this.makeQueryDate(endDate, false));
+        }
         List<FarmReg> flist = farmRegService.selectByExample(frs);
         for (FarmReg reg : flist) {
         	reg.setRegionId(this.getRegionNameByCache(reg.getRegionId(), cacheMap));
@@ -387,7 +475,19 @@ public class MapCtl extends BaseCtl {
         result.put("nzw", flist);
         
         ManureRegSearch mrs = new ManureRegSearch();
-        mrs.createCriteria().andCheckStatusEqualTo(1);
+        ManureRegSearch.Criteria mc = mrs.createCriteria();
+        mc.andCheckStatusEqualTo(1);
+        if (StringUtils.isNotEmpty(beginDate) && StringUtils.isNotEmpty(endDate)) {
+        	mc.andSamplingTimeGreaterThanOrEqualTo(this.makeQueryDate(beginDate, true));
+        	mc.andSamplingTimeLessThanOrEqualTo(this.makeQueryDate(endDate, false));
+        }
+        else if (StringUtils.isNotEmpty(beginDate) && StringUtils.isEmpty(endDate)) {
+        	mc.andSamplingTimeGreaterThanOrEqualTo(this.makeQueryDate(beginDate, true));
+        }
+        else if (StringUtils.isEmpty(beginDate) && StringUtils.isNotEmpty(endDate)) {
+        	mc.andSamplingTimeLessThanOrEqualTo(this.makeQueryDate(endDate, false));
+        }
+        
         List<ManureReg> mlist = manureRegService.selectByExample(mrs);
         for (ManureReg reg : mlist) {
         	reg.setRegionId(this.getRegionNameByCache(reg.getRegionId(), cacheMap));
@@ -395,6 +495,36 @@ public class MapCtl extends BaseCtl {
         }
         result.put("fl", mlist);
         return result;
+    }
+    /**
+     * 日期字符串增加时分秒
+     * @param date
+     * @param isBegin
+     * @return
+     */
+    private String makeQueryDateStr(String date, boolean isBegin) {
+    	if (date == null) {
+    		return null;
+    	}
+    	return isBegin ? date + " 00:00:00" : date + " 23:59:59";
+    }
+    
+    /**
+     * 日期字符串增加时分秒，并转成Date
+     * @param date
+     * @param isBegin
+     * @return
+     */
+    private Date makeQueryDate(String date, boolean isBegin) {
+    	if (date == null) {
+    		return null;
+    	}
+    	String d = this.makeQueryDateStr(date, isBegin);
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	try {
+    		return sdf.parse(d);
+    	}catch (Exception e) {}
+    	return new Date();
     }
     
     /**
@@ -449,7 +579,8 @@ public class MapCtl extends BaseCtl {
      * */
     @RequestMapping(value="getpoint/analysis/{pointId}/{type}/")
     @ResponseBody
-    public Map<String, Object> getPointAnalysis(@PathVariable("pointId") String pointId, @PathVariable("pointId") String type) {
+    public Map<String, Object> getPointAnalysis(@PathVariable("pointId") String pointId
+    		, @PathVariable("pointId") String type) {
     	//{"dxs","dbs","dn","dqcj","bjtr","nttr","nzw","fl"};
         //{"地下水监测点","地表灌溉水监测点","底泥监测点","大气沉降采样点","背景土壤监测点","农田土壤监测点","农作物监测点","肥料采集点"};
     	Map<String, Object> result = new HashMap<String, Object>();
@@ -497,9 +628,11 @@ public class MapCtl extends BaseCtl {
      * */
     @RequestMapping(value="video/info/{videoid}/")
     public String videoInfo(@PathVariable String videoid, ModelMap model,HttpServletRequest request){
-        model.addAttribute("video", videoDeviceService.getById(videoid));
-        model.addAttribute("videoId", videoid);
-        model.addAttribute("video_service_ip", "193.169.100.31:9021");
+    	VideoDevice video = videoDeviceService.getById(videoid);
+        model.addAttribute("video", video);
+        model.addAttribute("videoId", video.getInCode());
+        VideoConfig.readConfig();
+        model.addAttribute("video_service_ip", VideoConfig.PROP_MAP.get("video_service_ip"));
         return "iframe/video/info";
     }
 
@@ -508,7 +641,8 @@ public class MapCtl extends BaseCtl {
      * */
     @RequestMapping(value="pollute/region/")
     @ResponseBody
-    public Map<String, RegAnalysis> regionPollute(ModelMap model,HttpServletRequest request){
+    public Map<String, RegAnalysis> regionPollute(String beginDate, String endDate
+    		, ModelMap model,HttpServletRequest request){
         Map<String, RegAnalysis> result = new HashMap<String, RegAnalysis>();
         List<LayerBean> regions = mapOperation.getAll(LayerEnum.REGION_POLYGON);
         List<LayerBean> regionCenters = mapOperation.getAll(LayerEnum.REGION_POINT);
@@ -516,10 +650,14 @@ public class MapCtl extends BaseCtl {
         RegionSearch.Criteria criteria =  search.createCriteria();
         criteria.andPidEqualTo("0");// 查询绵竹市下的所有镇
         List<Region> list = regionService.selectByExample(search);
+        
+        String beginTime = this.makeQueryDateStr(beginDate, true);
+        String endTime = this.makeQueryDateStr(endDate, false);
+        
         for(Region info : list) {
             RegAnalysis reg = new RegAnalysis();
             //查询所有类型的统计数
-            this.makeRegTypeCount(info.getId(), reg);
+            this.makeRegTypeCount(info.getId(), reg, beginTime, endTime);
             for(LayerBean layer : regions) {
                 if(info.getName().equals(layer.getName())) {
                     reg.setGeo(layer.getGeometry());
@@ -535,8 +673,8 @@ public class MapCtl extends BaseCtl {
         return result;
     }
     
-    private void makeRegTypeCount(String regionId, RegAnalysis ra) {
-    	Map<String, Integer> map = mapDataService.getRegTypeDataByMap(regionId, null, null);
+    private void makeRegTypeCount(String regionId, RegAnalysis ra, String beginTime, String endTime) {
+    	Map<String, Integer> map = mapDataService.getRegTypeDataByMap(regionId, beginTime, endTime);
     	ra.setAirNum(map.get("AIR"));
     	ra.setBackNum(map.get("BACK"));
     	ra.setLandNum(map.get("LAND"));
@@ -685,19 +823,22 @@ public class MapCtl extends BaseCtl {
         List<Module> module = new ArrayList<Module>();
         Module subModule = new Module();
         subModule.setId(UuidGenerateUtil.getUUID());
+        subModule.setUrl("001");
         subModule.setName("土壤PH值梯度分布");
         Module subModule2 = new Module();
         subModule2.setId(UuidGenerateUtil.getUUID());
-        subModule2.setName("土壤总铬梯度分布");
+        subModule2.setUrl("002");
+        subModule2.setName("土壤总镉梯度分布");
         Module subModule3 = new Module();
         subModule3.setId(UuidGenerateUtil.getUUID());
-        subModule3.setName("土壤有效态铬分布");
-        Module subModule4 = new Module();
-        subModule4.setId(UuidGenerateUtil.getUUID());
-        subModule4.setName("大米总铬分布");
-        Module subModule5 = new Module();
-        subModule5.setId(UuidGenerateUtil.getUUID());
-        subModule5.setName("修复对比专题");
+        subModule3.setUrl("003");
+        subModule3.setName("土壤有效态镉分布");
+//        Module subModule4 = new Module();
+//        subModule4.setId(UuidGenerateUtil.getUUID());
+//        subModule4.setName("大米总铬分布");
+//        Module subModule5 = new Module();
+//        subModule5.setId(UuidGenerateUtil.getUUID());
+//        subModule5.setName("修复对比专题");
         module.add(subModule);
         module.add(subModule2);
         module.add(subModule3);
@@ -800,4 +941,258 @@ public class MapCtl extends BaseCtl {
 		return list;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "getAreaCount/")
+	public AreaCount getAreaCount() {
+		AreaCount ac = mapDataService.getMapIndexLandAreaCount();
+		return ac;
+	}
+	//等值面生成
+	@ResponseBody
+	@RequestMapping(value = "mapgeo/equreface/{dataType}/{dataInterval}/")
+    public String getGenerateFace(@PathVariable String dataType,@PathVariable String dataInterval){
+    	 FaceUrlConfig.readConfig();
+         String faceServerUrl=FaceUrlConfig.PROP_MAP.get("face_dir");
+         Map<String, Object> map=new HashMap<String, Object>();
+         map.put("dataInterval", dataInterval);
+         Map<String, Object> points=getAllPointsByTime("2017-01-01", "2018-01-01");
+         String trainDataS="";
+         for (String key : points.keySet()) {
+			@SuppressWarnings("rawtypes")
+			List value = (List) points.get(key);
+        	  if(value==null){
+        		  continue;
+        	  }
+        	  for(Object object : value){
+        		  BigDecimal wValue=new BigDecimal(0);
+        		  if(object instanceof WaterReg){
+        			  WaterReg wr=(WaterReg)object;
+        			  if(dataType.equalsIgnoreCase("001")){
+        				  wValue=wr.getPh();
+        			  }else if(dataType.equalsIgnoreCase("002")){
+        				  wValue=wr.getCadmium();
+        			  }else if(dataType.equalsIgnoreCase("003")){
+        				  wValue=wr.getAvailableCadmium();
+        			  }
+        			  if(wr.getLongitude()==null || wr.getLatitude()==null || wValue==null){
+        				  continue;
+        			  }
+        			  trainDataS=trainDataS+wr.getLongitude()+","+wr.getLatitude()+","+wValue+";";
+        		  }else if(object instanceof AirReg){
+        			  AirReg ar=(AirReg)object;
+        			  if(dataType.equalsIgnoreCase("001")){
+        				  wValue=ar.getPh();
+        			  }else if(dataType.equalsIgnoreCase("002")){
+        				  wValue=ar.getCadmium();
+        			  }else if(dataType.equalsIgnoreCase("003")){
+        				  wValue=ar.getAvailableCadmium();
+        			  }
+        			  if(ar.getLongitude()==null || ar.getLatitude()==null || wValue==null){
+        				  continue;
+        			  }
+        			  trainDataS=trainDataS+ar.getLongitude()+","+ar.getLatitude()+","+wValue+";";
+        		  }else if(object instanceof BackReg){
+        			  BackReg br=(BackReg)object;
+        			  if(dataType.equalsIgnoreCase("001")){
+        				  wValue=br.getPh();
+        			  }else if(dataType.equalsIgnoreCase("002")){
+        				  wValue=br.getCadmium();
+        			  }else if(dataType.equalsIgnoreCase("003")){
+        				  wValue=br.getAvailableCadmium();
+        			  }
+        			  if(br.getLongitude()==null || br.getLatitude()==null || wValue==null){
+        				  continue;
+        			  }
+        			  trainDataS=trainDataS+br.getLongitude()+","+br.getLatitude()+","+wValue+";";
+        		  }else if(object instanceof LandReg){
+        			  LandReg lr=(LandReg)object;
+        			  if(dataType.equalsIgnoreCase("001")){
+        				  wValue=lr.getPh();
+        			  }else if(dataType.equalsIgnoreCase("002")){
+        				  wValue=lr.getCadmium();
+        			  }else if(dataType.equalsIgnoreCase("003")){
+        				  wValue=lr.getAvailableCadmium();
+        			  }
+        			  if(lr.getLongitude()==null || lr.getLatitude()==null || wValue==null){
+        				  continue;
+        			  }
+        			  trainDataS=trainDataS+lr.getLongitude()+","+lr.getLatitude()+","+wValue+";";
+        		  }else if(object instanceof FarmReg){
+        			  FarmReg fr=(FarmReg)object;
+        			  if(dataType.equalsIgnoreCase("001")){
+        				  wValue=fr.getPh();
+        			  }else if(dataType.equalsIgnoreCase("002")){
+        				  wValue=fr.getCadmium();
+        			  }else if(dataType.equalsIgnoreCase("003")){
+        				  wValue=fr.getAvailableCadmium();
+        			  }
+        			  if(fr.getLongitude()==null || fr.getLatitude()==null || wValue==null){
+        				  continue;
+        			  }
+        			  trainDataS=trainDataS+fr.getLongitude()+","+fr.getLatitude()+","+wValue+";";
+        		  }else if(object instanceof ManureReg){
+        			  ManureReg mr=(ManureReg)object;
+        			  if(dataType.equalsIgnoreCase("001")){
+        				  wValue=mr.getPh();
+        			  }else if(dataType.equalsIgnoreCase("002")){
+        				  wValue=mr.getCadmium();
+        			  }else if(dataType.equalsIgnoreCase("003")){
+        				  wValue=mr.getAvailableCadmium();
+        			  }
+        			  if(mr.getLongitude()==null || mr.getLatitude()==null || wValue==null){
+        				  continue;
+        			  }
+        			  trainDataS=trainDataS+mr.getLongitude()+","+mr.getLatitude()+","+wValue+";";
+        		  }
+        	  }
+         }
+         if("".equals(trainDataS)){
+        	 return "";
+         }
+         trainDataS = trainDataS.substring(0,trainDataS.length() - 1);
+         map.put("trainData", trainDataS);
+         try {
+        	HttpClientUtil.updateTimeout(60000);
+			String geoTemp = HttpClientUtil.httpPost(faceServerUrl, map);
+			geoTemp=geoTemp.replaceAll("\\]\\]\\],\\[\\[\\[", "|");
+			geoTemp=geoTemp.replaceAll("\\],\\[", ",");
+			geoTemp=geoTemp.replaceAll("\\]\\]\\]\\]", "\"");
+			geoTemp=geoTemp.replaceAll("\\[\\[\\[\\[", "\"");
+			geoTemp=geoTemp.replaceAll("coordinates", "points");
+			geoTemp=geoTemp.replaceAll("MultiPolygon", "multipolygon");
+			return geoTemp;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+         return "";
+    }
+	
+	@RequestMapping(value="getPolluteCompany")
+	@ResponseBody
+	public List<PolluteCompany> getPolluteCompany(ModelMap model, 
+     HttpServletRequest request,HttpServletResponse response){
+		List<PolluteCompany> list=polluteCompanyService. selectByExample(null);
+		for(PolluteCompany info:list){
+			info.setFilesList(filesService.queryByBusinessId(info.getId()));
+			
+		}
+		return list;
+	}
+	@RequestMapping(value="getStaticList")
+	@ResponseBody
+	public Map<String, Object> query(HttpServletRequest requet, Model model) {
+		Map<String, Object> staticList=new HashMap<String, Object>();
+		String beginTime="";
+		String endTime="";
+		String regionId="";
+		LandPh ph = landService.getPhData(regionId, beginTime, endTime);
+		LandCd cd = landService.getCdData(regionId, beginTime, endTime);
+		LandACd acd = landService.getACdData(regionId, beginTime, endTime);
+		
+		staticList.put("phOpt", this.makePhLineJson(ph));
+		staticList.put("cdOpt", this.makeCdLineJson(cd));
+		staticList.put("acdOpt", this.makeACdLineJson(acd));
+		return staticList;
+	}
+	private JSONObject makePhLineJson(LandPh ph) {
+		List<String[]> names = landService.getStandMByDicTypeCode("001"); 
+		List<String> xNames = new ArrayList<String>();
+		
+		List<String> datas1 = new ArrayList<String>();
+		List<String> datas2 = new ArrayList<String>();
+		int i = 1;
+		long total = ph.getPhTotal();
+		long num;
+		for (String[] strs : names) {
+			xNames.add(strs[0] + "\\n" + strs[1]);
+			num = ph.getValByNum(i);
+			datas1.add(num+"");
+			datas2.add(this.makePerc(total, num));
+			i++;
+		}
+		return this.makeJson(xNames, datas1, datas2);
+	}
+	
+	private JSONObject makeCdLineJson(LandCd cd) {
+		List<String[]> names = landService.getStandMByDicTypeCode("002"); 
+		List<String> xNames = new ArrayList<String>();
+		
+		List<String> datas1 = new ArrayList<String>();
+		List<String> datas2 = new ArrayList<String>();
+		int i = 1;
+		long total = cd.getCdTotal();
+		long num;
+		for (String[] strs : names) {
+			xNames.add(strs[1]);
+			num = cd.getValByNum(i);
+			datas1.add(num+"");
+			datas2.add(this.makePerc(total, num));
+			i++;
+		}
+		return this.makeJson(xNames, datas1, datas2);
+	}
+	
+	private JSONObject makeACdLineJson(LandACd acd) {
+		List<String[]> names = landService.getStandMByDicTypeCode("003"); 
+		List<String> xNames = new ArrayList<String>();
+		
+		List<String> datas1 = new ArrayList<String>();
+		List<String> datas2 = new ArrayList<String>();
+		int i = 1;
+		long total = acd.getAcdTotal();
+		long num;
+		for (String[] strs : names) {
+			xNames.add(strs[0]);
+			num = acd.getValByNum(i);
+			datas1.add(num+"");
+			datas2.add(this.makePerc(total, num));
+			i++;
+		}
+		return this.makeJson(xNames, datas1, datas2);
+	}
+	/**
+	 * 计算占比
+	 * @param total
+	 * @param num
+	 * @return
+	 */
+	private String makePerc(Long total, Long num) {
+		if (total == null || total == 0L) {
+			return "0";
+		}
+		DecimalFormat df = new DecimalFormat("#0.00");
+		double n = (double)num/total*100;
+		return df.format(n);
+	}
+	/**
+	 * 计算占比
+	 * @param total
+	 * @param num
+	 * @return
+	 */
+	private JSONObject makeJson(List<String> xNames, List<String> datas1, List<String> datas2) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("xNames", xNames);
+		map.put("datas1", datas1);
+		map.put("datas2", datas2);
+		
+		FtlJsonUtil t = new FtlJsonUtil("land", "threeYLine.ftl");
+		String str = t.process(map);
+		return JSONObject.fromObject(str);
+	}
+	@RequestMapping(value = "homeStatic/show/")
+	public String getLandListByIndexMap(ModelMap model){
+		String startTime="";
+		String endTime="";
+		LandAnalysisCount lc=mapDataService.getLandListByIndexMap(startTime,endTime);
+		model.addAttribute("lc", lc);
+		return "iframe/zbxq/info";
+	}
+	@RequestMapping(value = "repaire/list/")
+	public String getRepairProjects(ModelMap model){
+		List<RepairProject> rp=mapDataService.getRepairProjects(2);
+		model.addAttribute("rp", rp);
+		return "iframe/repaire/info";
+	}
 }

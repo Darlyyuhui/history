@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.pollute.dao.PolluteCompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.pollute.vo.PolluteCompany" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Sep 26 10:53:47 CST 2017.
+    -->
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="NAME" property="name" jdbcType="NVARCHAR" />
+    <result column="LONGITUDE" property="longitude" jdbcType="DECIMAL" />
+    <result column="LATITUDE" property="latitude" jdbcType="DECIMAL" />
+    <result column="CORPORATION" property="corporation" jdbcType="NVARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="NVARCHAR" />
+    <result column="LINK_MAN" property="linkMan" jdbcType="NVARCHAR" />
+    <result column="LINK_TEL" property="linkTel" jdbcType="NVARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="NVARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="FEATURES" property="features" jdbcType="NVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Sep 26 10:53:47 CST 2017.
+    -->
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Sep 26 10:53:47 CST 2017.
+    -->
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Sep 26 10:53:47 CST 2017.
+    -->
+    ID, NAME, LONGITUDE, LATITUDE, CORPORATION, ADDRESS, LINK_MAN, LINK_TEL, STATUS, 
+    CREATE_ID, CREATE_TIME, UPDATE_ID, UPDATE_TIME, FEATURES
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.pollute.vo.PolluteCompanySearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Sep 26 10:53:47 CST 2017.
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_POLLUTE_COMPANY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Sep 26 10:53:47 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_POLLUTE_COMPANY
+    where ID = #{id,jdbcType=NVARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Sep 26 10:53:47 CST 2017.
+    -->
+    delete from T_POLLUTE_COMPANY
+    where ID = #{id,jdbcType=NVARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.pollute.vo.PolluteCompanySearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Sep 26 10:53:47 CST 2017.
+    -->
+    delete from T_POLLUTE_COMPANY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.pollute.vo.PolluteCompany" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Sep 26 10:53:47 CST 2017.
+    -->
+    insert into T_POLLUTE_COMPANY (NAME, LONGITUDE, LATITUDE, 
+      CORPORATION, ADDRESS, LINK_MAN, 
+      LINK_TEL, STATUS, CREATE_ID, 
+      CREATE_TIME, UPDATE_ID, UPDATE_TIME, 
+      FEATURES)
+    values (#{name,jdbcType=NVARCHAR}, #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL}, 
+      #{corporation,jdbcType=NVARCHAR}, #{address,jdbcType=NVARCHAR}, #{linkMan,jdbcType=NVARCHAR}, 
+      #{linkTel,jdbcType=NVARCHAR}, #{status,jdbcType=INTEGER}, #{createId,jdbcType=NVARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=NVARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{features,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.pollute.vo.PolluteCompany" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Sep 26 10:53:47 CST 2017.
+    -->
+    insert into T_POLLUTE_COMPANY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(longitude)" >
+        LONGITUDE,
+      </if>
+      <if test="@Ognl@isNotEmpty(latitude)" >
+        LATITUDE,
+      </if>
+      <if test="@Ognl@isNotEmpty(corporation)" >
+        CORPORATION,
+      </if>
+      <if test="@Ognl@isNotEmpty(address)" >
+        ADDRESS,
+      </if>
+      <if test="@Ognl@isNotEmpty(linkMan)" >
+        LINK_MAN,
+      </if>
+      <if test="@Ognl@isNotEmpty(linkTel)" >
+        LINK_TEL,
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(features)" >
+        FEATURES,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(longitude)" >
+        #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(latitude)" >
+        #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(corporation)" >
+        #{corporation,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(address)" >
+        #{address,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(linkMan)" >
+        #{linkMan,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(linkTel)" >
+        #{linkTel,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(features)" >
+        #{features,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.pollute.vo.PolluteCompanySearch" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Sep 26 10:53:47 CST 2017.
+    -->
+    select count(*) from T_POLLUTE_COMPANY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Sep 26 10:53:47 CST 2017.
+    -->
+    update T_POLLUTE_COMPANY
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.longitude)" >
+        LONGITUDE = #{record.longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.latitude)" >
+        LATITUDE = #{record.latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.corporation)" >
+        CORPORATION = #{record.corporation,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.address)" >
+        ADDRESS = #{record.address,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.linkMan)" >
+        LINK_MAN = #{record.linkMan,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.linkTel)" >
+        LINK_TEL = #{record.linkTel,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.status)" >
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createId)" >
+        CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createTime)" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateId)" >
+        UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateTime)" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.features)" >
+        FEATURES = #{record.features,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Sep 26 10:53:47 CST 2017.
+    -->
+    update T_POLLUTE_COMPANY
+    set ID = #{record.id,jdbcType=NVARCHAR},
+      NAME = #{record.name,jdbcType=NVARCHAR},
+      LONGITUDE = #{record.longitude,jdbcType=DECIMAL},
+      LATITUDE = #{record.latitude,jdbcType=DECIMAL},
+      CORPORATION = #{record.corporation,jdbcType=NVARCHAR},
+      ADDRESS = #{record.address,jdbcType=NVARCHAR},
+      LINK_MAN = #{record.linkMan,jdbcType=NVARCHAR},
+      LINK_TEL = #{record.linkTel,jdbcType=NVARCHAR},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      FEATURES = #{record.features,jdbcType=NVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.pollute.vo.PolluteCompany" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Sep 26 10:53:47 CST 2017.
+    -->
+    update T_POLLUTE_COMPANY
+    <set >
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME = #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(longitude)" >
+        LONGITUDE = #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(latitude)" >
+        LATITUDE = #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(corporation)" >
+        CORPORATION = #{corporation,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(address)" >
+        ADDRESS = #{address,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(linkMan)" >
+        LINK_MAN = #{linkMan,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(linkTel)" >
+        LINK_TEL = #{linkTel,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(features)" >
+        FEATURES = #{features,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.pollute.vo.PolluteCompany" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Sep 26 10:53:47 CST 2017.
+    -->
+    update T_POLLUTE_COMPANY
+    set NAME = #{name,jdbcType=NVARCHAR},
+      LONGITUDE = #{longitude,jdbcType=DECIMAL},
+      LATITUDE = #{latitude,jdbcType=DECIMAL},
+      CORPORATION = #{corporation,jdbcType=NVARCHAR},
+      ADDRESS = #{address,jdbcType=NVARCHAR},
+      LINK_MAN = #{linkMan,jdbcType=NVARCHAR},
+      LINK_TEL = #{linkTel,jdbcType=NVARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      FEATURES = #{features,jdbcType=NVARCHAR}
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Sep 26 10:53:47 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+     from T_POLLUTE_COMPANY
+    <include refid="Base_Where"/>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <sql id="Base_Where">
+  	<where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME LIKE '%${name}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(longitude)" >
+         and LONGITUDE = #{longitude,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(latitude)" >
+         and LATITUDE = #{latitude,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(corporation)" >
+         and CORPORATION = #{corporation,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(address)" >
+         and ADDRESS = #{address,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(linkMan)" >
+         and LINK_MAN = #{linkMan,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(linkTel)" >
+         and LINK_TEL = #{linkTel,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+         and CREATE_ID = #{createId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+         and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+         and UPDATE_ID = #{updateId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+         and UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(features)" >
+         and FEATURES = #{features,jdbcType=NVARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from T_POLLUTE_COMPANY
+    <include refid="Base_Where"/>
+  </select>
+</mapper>

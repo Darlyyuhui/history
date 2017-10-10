@@ -49,6 +49,10 @@
     <bean id="owener" class="com.xiangxun.atms.module.bs.cache.OwnerCahe" />
     <!-- 监测指标缓存 -->
     <bean id="standardMonitorCahe" class="com.xiangxun.atms.module.bs.cache.StandardMonitorCahe" />
+    <!-- 校验规则缓存 -->
+    <bean id="dataCheckRuleCache" class="com.xiangxun.atms.module.check.cache.DataCheckRuleCache" />
+    <!-- 土壤修复阶段 -->
+    <bean id="repairStageCache" class="com.xiangxun.atms.module.bs.cache.RepairStageCache" />
     
 	<bean name="cacheFactory" class="com.xiangxun.atms.framework.cache.CacheFactory">
 		<property name="items">
@@ -70,6 +74,8 @@
                 <ref local="airPointCache"/>
                 <ref local="owener"/>
                 <ref local="standardMonitorCahe"/>
+                <ref local="dataCheckRuleCache"/>
+                <ref local="repairStageCache"/>
 			</list>
 		</property>
 	</bean>

@@ -76,13 +76,13 @@
 			<div class="profile-info-row">
 				<div class="profile-info-name">评价等级</div>
 				<div class="profile-info-value">
-                	<input type="text" id="remark" name="level" maxlength="50"
+                	<input type="text" id="remark" name="level" maxlength="20"
 						style="min-width:120px; width: 350px;" class="input-large"/>
             	</div>
 				
 				<div class="profile-info-name">描述</div>
 				<div class="profile-info-value">
-                	<input type="text" id="describe" name="describe" maxlength="200"
+                	<input type="text" id="describe" name="describe" maxlength="100"
 						style="min-width:120px; width: 350px;" class="input-large"/>
 				</div>
 			</div>

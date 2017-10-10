@@ -48,6 +48,7 @@ import com.xiangxun.atms.module.analysis.vo.AirAnalysisSearch;
 import com.xiangxun.atms.module.base.web.BaseCtl;
 import com.xiangxun.atms.module.bs.cache.AirPointCache;
 import com.xiangxun.atms.module.bs.cache.TRegionCache;
+import com.xiangxun.atms.module.bs.constant.AutoCode;
 import com.xiangxun.atms.module.bs.vo.AirPoint;
 import com.xiangxun.atms.module.reg.service.AirRegService;
 import com.xiangxun.atms.module.reg.vo.AirReg;
@@ -138,6 +139,7 @@ public class AirAnalysisCtl extends BaseCtl<AirAnalysis, AirAnalysisSearch> {
 	public String doAdd(@PathVariable String menuid, AirAnalysis info
 			, RedirectAttributes attr, HttpServletRequest request) {
 		info.setId(UuidGenerateUtil.getUUIDLong());
+		info.setCode(AutoCode.ANALYSIS_AIR);
 		info.setCreateId(getCurrentUserId());
 		info.setCreateTime(new Date());
 		this.getPolluteFlux(info);

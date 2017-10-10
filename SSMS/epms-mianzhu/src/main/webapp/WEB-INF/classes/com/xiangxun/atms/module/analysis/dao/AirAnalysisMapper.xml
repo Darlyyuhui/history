@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.analysis.dao.AirAnalysisMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.analysis.vo.AirAnalysis" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jul 20 18:22:55 CST 2017.
+    -->
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="REG_ID" property="regId" jdbcType="NVARCHAR" />
+    <result column="CODE" property="code" jdbcType="NVARCHAR" />
+    <result column="CADMIUM" property="cadmium" jdbcType="DECIMAL" />
+    <result column="IS_OVER" property="isOver" jdbcType="INTEGER" />
+    <result column="POLLUTE_FLUX" property="polluteFlux" jdbcType="NVARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="NVARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="NVARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="DEPT" property="dept" jdbcType="NVARCHAR" />
+    
+    <result column="SAMPLING_TIME" property="samplingTime" jdbcType="TIMESTAMP" />
+    <result column="COLLECT_VOLUME" property="collectVolume" jdbcType="VARCHAR" />
+    <result column="POINT_ID" property="pointId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jul 20 18:22:55 CST 2017.
+    -->
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jul 20 18:22:55 CST 2017.
+    -->
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jul 20 18:22:55 CST 2017.
+    -->
+    ID, REG_ID, CODE, CADMIUM, IS_OVER, POLLUTE_FLUX, REMARK, CREATE_ID, CREATE_TIME, 
+    UPDATE_ID, UPDATE_TIME, STATUS, DEPT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.analysis.vo.AirAnalysisSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jul 20 18:22:55 CST 2017.
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_ANALYSIS_AIR
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jul 20 18:22:55 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_ANALYSIS_AIR
+    where ID = #{id,jdbcType=NVARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jul 20 18:22:55 CST 2017.
+    -->
+    delete from T_ANALYSIS_AIR
+    where ID = #{id,jdbcType=NVARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.analysis.vo.AirAnalysisSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jul 20 18:22:55 CST 2017.
+    -->
+    delete from T_ANALYSIS_AIR
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.analysis.vo.AirAnalysis" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jul 20 18:22:55 CST 2017.
+    -->
+    insert into T_ANALYSIS_AIR (REG_ID, CODE, CADMIUM, 
+      IS_OVER, POLLUTE_FLUX, REMARK, 
+      CREATE_ID, CREATE_TIME, UPDATE_ID, 
+      UPDATE_TIME, STATUS, DEPT
+      )
+    values (#{regId,jdbcType=NVARCHAR}, #{code,jdbcType=NVARCHAR}, #{cadmium,jdbcType=DECIMAL}, 
+      #{isOver,jdbcType=INTEGER}, #{polluteFlux,jdbcType=NVARCHAR}, #{remark,jdbcType=NVARCHAR}, 
+      #{createId,jdbcType=NVARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=NVARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{dept,jdbcType=NVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.analysis.vo.AirAnalysis" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jul 20 18:22:55 CST 2017.
+    -->
+    insert into T_ANALYSIS_AIR
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(regId)" >
+        REG_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(cadmium)" >
+        CADMIUM,
+      </if>
+      <if test="@Ognl@isNotEmpty(isOver)" >
+        IS_OVER,
+      </if>
+      <if test="@Ognl@isNotEmpty(polluteFlux)" >
+        POLLUTE_FLUX,
+      </if>
+      <if test="@Ognl@isNotEmpty(remark)" >
+        REMARK,
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(dept)" >
+        DEPT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(regId)" >
+        #{regId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(cadmium)" >
+        #{cadmium,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(isOver)" >
+        #{isOver,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(polluteFlux)" >
+        #{polluteFlux,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(remark)" >
+        #{remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(dept)" >
+        #{dept,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.analysis.vo.AirAnalysisSearch" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jul 20 18:22:55 CST 2017.
+    -->
+    select count(*) from T_ANALYSIS_AIR
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jul 20 18:22:55 CST 2017.
+    -->
+    update T_ANALYSIS_AIR
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.regId)" >
+        REG_ID = #{record.regId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.code)" >
+        CODE = #{record.code,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.cadmium)" >
+        CADMIUM = #{record.cadmium,jdbcType=DECIMAL},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.isOver)" >
+        IS_OVER = #{record.isOver,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.polluteFlux)" >
+        POLLUTE_FLUX = #{record.polluteFlux,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.remark)" >
+        REMARK = #{record.remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createId)" >
+        CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createTime)" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateId)" >
+        UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateTime)" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.status)" >
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.dept)" >
+        DEPT = #{record.dept,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jul 20 18:22:55 CST 2017.
+    -->
+    update T_ANALYSIS_AIR
+    set ID = #{record.id,jdbcType=NVARCHAR},
+      REG_ID = #{record.regId,jdbcType=NVARCHAR},
+      CODE = #{record.code,jdbcType=NVARCHAR},
+      CADMIUM = #{record.cadmium,jdbcType=DECIMAL},
+      IS_OVER = #{record.isOver,jdbcType=INTEGER},
+      POLLUTE_FLUX = #{record.polluteFlux,jdbcType=NVARCHAR},
+      REMARK = #{record.remark,jdbcType=NVARCHAR},
+      CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      DEPT = #{record.dept,jdbcType=NVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.analysis.vo.AirAnalysis" >
+    update T_ANALYSIS_AIR
+    <set >
+      <if test="regId != null" >
+        REG_ID = #{regId,jdbcType=NVARCHAR},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="cadmium != null" >
+        CADMIUM = #{cadmium,jdbcType=DECIMAL},
+      </if>
+      <if test="isOver != null" >
+        IS_OVER = #{isOver,jdbcType=INTEGER},
+      </if>
+      <if test="polluteFlux != null" >
+        POLLUTE_FLUX = #{polluteFlux,jdbcType=NVARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dept != null" >
+        DEPT = #{dept,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.analysis.vo.AirAnalysis" >
+    update T_ANALYSIS_AIR
+    set REG_ID = #{regId,jdbcType=NVARCHAR},
+      CODE = #{code,jdbcType=NVARCHAR},
+      CADMIUM = #{cadmium,jdbcType=DECIMAL},
+      IS_OVER = #{isOver,jdbcType=INTEGER},
+      POLLUTE_FLUX = #{polluteFlux,jdbcType=NVARCHAR},
+      REMARK = #{remark,jdbcType=NVARCHAR},
+      CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    SELECT T.ID, T.REG_ID, T.CODE, T.CADMIUM, T.IS_OVER, T.POLLUTE_FLUX, T.REMARK, T.STATUS, T.DEPT
+    	, R.SAMPLING_TIME, R.COLLECT_VOLUME, R.POINT_ID
+    FROM T_ANALYSIS_AIR T
+    LEFT JOIN T_SAMPLING_AIR_REG R ON R.ID = T.REG_ID
+    <include refid="Base_Where"/>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <sql id="Base_Where">
+  	<where >
+      <if test="@Ognl@isNotEmpty(code)" >
+         and T.CODE LIKE '%${code}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(cadmium)" >
+         and T.CADMIUM = #{cadmium,jdbcType=DECIMAL}
+      </if>
+      <if test="@Ognl@isNotEmpty(isOver)" >
+         and T.IS_OVER = #{isOver,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(polluteFlux)" >
+         and T.POLLUTE_FLUX = #{polluteFlux,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(dept)" >
+         and T.DEPT LIKE '%${dept}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(beginTime)" >
+         AND R.SAMPLING_TIME <![CDATA[>=]]> #{beginTime,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(endTime)" >
+         AND R.SAMPLING_TIME <![CDATA[<=]]> #{endTime,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="countList" resultType="java.lang.Integer" >
+    SELECT COUNT(T.ID) FROM T_ANALYSIS_AIR T
+    LEFT JOIN T_SAMPLING_AIR_REG R ON R.ID = T.REG_ID
+    <include refid="Base_Where"/>
+  </select>
+</mapper>

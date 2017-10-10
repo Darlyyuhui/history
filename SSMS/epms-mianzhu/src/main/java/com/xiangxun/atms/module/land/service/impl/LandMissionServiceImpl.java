@@ -84,15 +84,18 @@ public class LandMissionServiceImpl extends AbstractBaseService<LandMission, Lan
 		Table<String, String, String> table1 = HashBasedTable.create();
 		Table<String, String, String> table2 = HashBasedTable.create();
 		Table<String, String, String> table3 = HashBasedTable.create();
+		Table<String, String, String> table4 = HashBasedTable.create();
 		
 		for (LandMission m : list) {
 			table1.put(m.getId(), LandMissionCache.LM_ID_NAMECODE, m.getName()+"【"+m.getCode()+"】");
 			table2.put(m.getId(), LandMissionCache.LM_ID_NAME, m.getName());
 			table3.put(m.getId(), LandMissionCache.LM_ID_CODE, m.getCode());
+			table4.put(m.getCode(), LandMissionCache.LM_CODE_ID, m.getId());
 		}
 		cache.put(LandMissionCache.LM_ID_NAMECODE, table1);
         cache.put(LandMissionCache.LM_ID_NAME, table2);
         cache.put(LandMissionCache.LM_ID_CODE, table3);
+        cache.put(LandMissionCache.LM_CODE_ID, table4);
 	}
 
 	@Override

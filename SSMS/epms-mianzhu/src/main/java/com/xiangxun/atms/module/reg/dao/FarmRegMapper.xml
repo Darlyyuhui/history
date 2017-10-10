@@ -26,6 +26,7 @@
     <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="STATUS" property="status" jdbcType="INTEGER" />
     <result column="MISSION_ID" property="missionId" jdbcType="NVARCHAR" />
+    <result column="SAMPLING_TYPE" property="samplingType" jdbcType="NVARCHAR" />
     
     <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
     <result column="TEST_ITEMS" property="testItems" jdbcType="NVARCHAR" />
@@ -103,7 +104,7 @@
     -->
     ID, CODE, NAME, POSITION, LONGITUDE, LATITUDE, SAMPLING_TIME, SAMPLING_USER, SAMPLING_SOURCE, 
     RECEIVE_USER, SEND_USER, CHECK_STATUS, CHECK_USER, CHECK_TIME, CREATE_ID, CREATE_TIME, 
-    UPDATE_ID, UPDATE_TIME, STATUS, MISSION_ID, [dbo].getRegionIdByMissionId(MISSION_ID) AS REGION_ID
+    UPDATE_ID, UPDATE_TIME, STATUS, MISSION_ID, SAMPLING_TYPE, [dbo].getRegionIdByMissionId(MISSION_ID) AS REGION_ID
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.reg.vo.FarmRegSearch" >
     <!--
@@ -162,14 +163,14 @@
       SEND_USER, CHECK_STATUS, CHECK_USER, 
       CHECK_TIME, CREATE_ID, CREATE_TIME, 
       UPDATE_ID, UPDATE_TIME, STATUS, 
-      MISSION_ID)
+      MISSION_ID, SAMPLING_TYPE)
     values (#{code,jdbcType=NVARCHAR}, #{name,jdbcType=NVARCHAR}, #{position,jdbcType=NVARCHAR}, 
       #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL}, #{samplingTime,jdbcType=TIMESTAMP}, 
       #{samplingUser,jdbcType=NVARCHAR}, #{samplingSource,jdbcType=NVARCHAR}, #{receiveUser,jdbcType=NVARCHAR}, 
       #{sendUser,jdbcType=NVARCHAR}, #{checkStatus,jdbcType=INTEGER}, #{checkUser,jdbcType=NVARCHAR}, 
       #{checkTime,jdbcType=TIMESTAMP}, #{createId,jdbcType=NVARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateId,jdbcType=NVARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
-      #{missionId,jdbcType=NVARCHAR})
+      #{missionId,jdbcType=NVARCHAR}, #{samplingType,jdbcType=NVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.xiangxun.atms.module.reg.vo.FarmReg" useGeneratedKeys="true" keyProperty="id" >
     <!--
@@ -238,13 +239,16 @@
       <if test="@Ognl@isNotEmpty(missionId)" >
         MISSION_ID,
       </if>
+      <if test="@Ognl@isNotEmpty(samplingType)" >
+        SAMPLING_TYPE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="@Ognl@isNotEmpty(id)" >
         #{id,jdbcType=NVARCHAR},
       </if>
       <if test="@Ognl@isNotEmpty(code)" >
-        #{code,jdbcType=NVARCHAR},
+        [dbo].getAutoCode('${code}'),
       </if>
       <if test="@Ognl@isNotEmpty(name)" >
         #{name,jdbcType=NVARCHAR},
@@ -299,6 +303,9 @@
       </if>
       <if test="@Ognl@isNotEmpty(missionId)" >
         #{missionId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingType)" >
+        #{samplingType,jdbcType=NVARCHAR},
       </if>
     </trim>
   </insert>
@@ -379,6 +386,9 @@
       <if test="@Ognl@isNotEmpty(record.missionId)" >
         MISSION_ID = #{record.missionId,jdbcType=NVARCHAR},
       </if>
+      <if test="@Ognl@isNotEmpty(record.samplingType)" >
+        SAMPLING_TYPE = #{record.samplingType,jdbcType=NVARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -409,7 +419,8 @@
       UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
       UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
       STATUS = #{record.status,jdbcType=INTEGER},
-      MISSION_ID = #{record.missionId,jdbcType=NVARCHAR}
+      MISSION_ID = #{record.missionId,jdbcType=NVARCHAR},
+      SAMPLING_TYPE = #{record.samplingType,jdbcType=NVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -478,6 +489,9 @@
       <if test="missionId != null" >
         MISSION_ID = #{missionId,jdbcType=NVARCHAR},
       </if>
+      <if test="samplingType != null" >
+        SAMPLING_TYPE = #{samplingType,jdbcType=NVARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=NVARCHAR}
   </update>
@@ -505,7 +519,8 @@
       UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       STATUS = #{status,jdbcType=INTEGER},
-      MISSION_ID = #{missionId,jdbcType=NVARCHAR}
+      MISSION_ID = #{missionId,jdbcType=NVARCHAR},
+      SAMPLING_TYPE = #{samplingType,jdbcType=NVARCHAR}
     where ID = #{id,jdbcType=NVARCHAR}
   </update>
   <select id="getListByCondition" resultMap="BaseResultMap" >
@@ -516,7 +531,7 @@
     SELECT 
     T.ID, T.CODE, T.NAME, T.POSITION, T.LONGITUDE, T.LATITUDE, T.SAMPLING_TIME, T.SAMPLING_USER, T.SAMPLING_SOURCE
     , T.RECEIVE_USER, T.SEND_USER, T.CHECK_STATUS, T.CHECK_USER, T.CHECK_TIME, T.STATUS
-    , V.REGION_ID, V.TEST_ITEMS, T.MISSION_ID
+    , V.REGION_ID, V.TEST_ITEMS, T.MISSION_ID, T.SAMPLING_TYPE
      FROM T_SAMPLING_FARM_REG T
      LEFT JOIN V_SCHEME_MISSION V ON V.MISSION_ID = T.MISSION_ID
     <include refid="Base_Where"/>
@@ -549,6 +564,9 @@
       </if>
       <if test="@Ognl@isNotEmpty(status)" >
          AND T.STATUS = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingType)" >
+         AND T.SAMPLING_TYPE = #{samplingType,jdbcType=NVARCHAR}
       </if>
       <if test="@Ognl@isNotEmpty(missionName)" >
          and V.MISSION_NAME LIKE '%${missionName}%'

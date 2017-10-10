@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-8">
                 <div class="input-group">
-                    <input type="text" class="form-control search-query" value="${apbProduct.name}"
+                    <input type="text" class="form-control search-query" value="${apbProduct.name}"   maxlength="50"
                            id="lampb_search_name" name="search_name" placeholder="名称"/>
                     <span class="input-group-btn">
                            <button type="submit" class="btn btn-purple btn-sm" style="margin-left:1px;">
@@ -144,8 +144,8 @@
                     </div>
                 </div>
                 <div class="modal-body no-padding">
-                    <form class="form-horizontal" id="advanForm" role="form" class="form-search"
-                          action="${root}/apb/apbProduct/list/${menuid}/" method="post">
+                    <form class="form-horizontal" id="advanForm"  class="form-search"
+                          action="${root}/apb/apbproduct/list/${menuid}/"  method="post">
                         <!-- #section:elements.form -->
                         <div class="form-group" style="margin-top:10px;">
                             <label class="col-sm-3 control-label no-padding-right"
@@ -154,7 +154,7 @@
                             </label>
 
                             <div class="col-sm-9">
-                                <input type="text" id="van-search-code" name="search_code" value="${apbProduct.code}"
+                                <input type="text" id="van-search-code" name="search_code" value="${apbProduct.code}"  maxlength="20"
                                        placeholder="编号" style="width:300px" class="input-large"/>
                             </div>
                         </div>
@@ -165,8 +165,8 @@
                             </label>
 
                             <div class="col-sm-9">
-                                <select id="typeCode" name="typeCode" style="min-width:120px; width: 300px;" class="input-large required">
-                                   <tags:dicothercache typeCode="${CODE_NAME }" ></tags:dicothercache>
+                                <select id="typeCode" name="search_typeCode" style="min-width:120px; width: 300px;" class="input-large required">
+                                   <tags:dicothercache typeCode="${CODE_NAME }"  defaultValue="${apbProduct.typeCode}"></tags:dicothercache>
                                 </select>
                             </div>
                         </div>
@@ -177,7 +177,7 @@
                             </label>
 
                             <div class="col-sm-9">
-                                <input type="text" id="van-search-name" name="search_name"
+                                <input type="text" id="van-search-name" name="search_name"   maxlength="50"
                                        value="${ apbProduct.name}"
                                        placeholder="名称" style="width:300px" class="input-large"/>
                             </div>

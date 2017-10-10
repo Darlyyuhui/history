@@ -25,18 +25,14 @@
         <div class="profile-user-info profile-user-info-striped">
             <div class="profile-info-row">
                 <div class="profile-info-name">采样计划</div>
-                <div class="profile-info-value">
-               		<c:forEach items="${plans }" var="item">
-               			<c:if test="${info.planId eq item.id}">${item.name }【${item.code }】</c:if>
-               		</c:forEach>
+                <div class="profile-info-value" style="width: 500px;">
+               		${planInfo.name }【${planInfo.code }】
 				</div>
 				
-				<div class="profile-info-name">采样地块</div>
+				<div class="profile-info-name">采样选址</div>
                 <div class="profile-info-value">
-                	<c:forEach items="${blocks }" var="item">
-               			<c:if test="${info.blockId eq item.id}">${item.name }【${item.code }】</c:if>
-               		</c:forEach>
-                </div>
+					<tags:xiangxuncache keyName="TREGION_FULL_NAME" id="${info.regionId }"/>
+				</div>
             </div>
             
             <div class="profile-info-row">
@@ -57,9 +53,9 @@
                 	<tags:xiangxuncache keyName="Dic" typeCode="SAMPLING_TYPES" id="${info.sampleCode }"/>
                 </div>
             	
-                <div class="profile-info-name">采样选址</div>
+                <div class="profile-info-name">制定单位</div>
                 <div class="profile-info-value">
-					<tags:xiangxuncache keyName="TREGION_FULL_NAME" id="${info.regionId }"/>
+					${info.dept }
 				</div>
             </div>
             
@@ -69,12 +65,25 @@
 					${info.testItems }
 				</div>
 				
-				<div class="profile-info-name">制定单位</div>
-                <div class="profile-info-value">
-					${info.dept }
-				</div>
+				<div class="profile-info-name"></div>
+                <div class="profile-info-value"></div>
             </div>
             
+        </div>
+        <div id="blockDiv" class="profile-user-info profile-user-info-striped" style="border-top-style: none; display: none;">
+        	<div class="profile-info-row">
+				<div class="profile-info-name">采样地块</div>
+                <div class="profile-info-value" style="width: 500px;">
+                	<c:forEach items="${blocks }" var="item">
+               			<c:if test="${info.blockId eq item.id}">${item.name }【${item.code }】</c:if>
+               		</c:forEach>
+                </div>
+                
+                <div class="profile-info-name">修复进度</div>
+                <div class="profile-info-value">
+                    <tags:xiangxuncache keyName="Dic" typeCode="LAND_REPAIR_SCHEDULE" id="${info.repairSchedule }"></tags:xiangxuncache>
+                </div>
+            </div>
         </div>
         <div class="profile-user-info profile-user-info-striped" style="border-top-style: none;">
         	<div class="profile-info-row" >
@@ -92,5 +101,18 @@
             </div>
         </div>
 </div>
-
+<script type="text/javascript">
+function ckbSample(val) {
+	if (val == "NTTR") {
+		$("#blockDiv").css("display", "block");
+	} else {
+		$("#blockDiv").css("display", "none");
+		$("#blockId").val("");
+		$("#repairSchedule").val("");
+	}
+}
+$(function() {
+	ckbSample("${info.sampleCode}");
+});
+</script>
 <%@ include file="/WEB-INF/jsp/common/fooltertags.jspf" %>

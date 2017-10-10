@@ -31,14 +31,6 @@
         <div class="profile-user-info profile-user-info-striped">
         
             <div class="profile-info-row">
-                <div class="profile-info-name">分析编号</div>
-                <div class="profile-info-value" style="width: 500px;">
-                	<input type="text" id="code" name="code" maxlength="20"
-						style="min-width:120px; width: 350px;" class="input-large required"/>
-					<span style="color: red">*</span>
-					<span id="checkCodeSpan" style="color: red"></span>
-				</div>
-				
 				<div class="profile-info-name">采样编号</div>
                 <div class="profile-info-value">
                 	<select id="regId" name="regId" style="min-width:120px; width: 350px;" class="required" onchange="getRegDetail(this.value)">
@@ -69,7 +61,7 @@
             <div class="profile-info-row">
                 <div class="profile-info-name">镉含量</div>
                 <div class="profile-info-value">
-					<input type="text" id="cadmium" name="cadmium" maxlength="6"
+					<input type="text" id="cadmium" name="cadmium" maxlength="4"
 						style="min-width:120px; width: 350px;" class="input-large number"/>
 				</div>
 				
@@ -80,20 +72,14 @@
 					<input type="hidden" id="isOver" name="isOver" />
 				</div>
             </div>
-            
             <div class="profile-info-row">
-				<div class="profile-info-name">备注</div>
+            	<div class="profile-info-name">分析单位</div>
                 <div class="profile-info-value">
-					<input type="text" id="remark" name="remark" maxlength="200"
-						style="min-width:120px; width: 350px;" class="input-large"/>
+					<input type="text" id="dept" name="dept" maxlength="20" 
+						style="min-width:120px; width: 350px;" class="input-large required"/>
+					<span style="color: red">*</span>
 				</div>
 				
-				<div class="profile-info-name"></div>
-                <div class="profile-info-value"></div>
-            </div>
-        </div>
-        <div class="profile-user-info profile-user-info-striped" style="border-top: none;">
-        	<div class="profile-info-row">
 				<div class="profile-info-name">备注</div>
                 <div class="profile-info-value">
 					<input type="text" id="remark" name="remark" maxlength="200"
@@ -130,6 +116,7 @@
         $("#code").focus();
     });
     function checkForm() {
+        var index1 = 0;
     	checkCode();
     	$("#isOver").val($("input[name='rdo_isOver']:checked").val());
     	if (v.checkForm() && isCheck) {

@@ -22,7 +22,7 @@
         <div class="profile-user-info profile-user-info-striped">
             <div class="profile-info-row">
                 <div class="profile-info-name">采样计划</div>
-                <div class="profile-info-value">
+                <div class="profile-info-value" style="width: 500px;">
                 	<select id="planId" name="planId" class="required" style="min-width:120px; width: 350px;" onchange="getSamplingTypes(this.value)">
                 		<option value="">请选择</option>
                 		<c:forEach items="${plans }" var="item">
@@ -32,15 +32,13 @@
                 	<span style="color: red">*</span>
 				</div>
 				
-				<div class="profile-info-name">采样地块</div>
+				<div class="profile-info-name">采样选址</div>
                 <div class="profile-info-value">
-                	<select id="blockId" name="blockId" style="min-width:120px; width: 350px;">
-                		<option value="">请选择</option>
-                		<c:forEach items="${blocks }" var="item">
-                			<option value="${item.id }" ${info.blockId eq item.id ? 'selected' : '' }>${item.name }【${item.code }】</option>
-                		</c:forEach>
-                	</select>
-                </div>
+					<input type="text" id="regionName" readonly="readonly" value='<tags:xiangxuncache keyName="TREGION_NAME" id="${info.regionId }"/>'
+						style="min-width:120px; width: 350px;" class="input-large required" />
+					<input type="hidden" id="regionId" name="regionId" value="${info.regionId }" />
+					<span style="color: red">*</span>
+				</div>
             </div>
             
             <div class="profile-info-row">
@@ -66,12 +64,10 @@
                 	<div style="color: red; float: left;">*</div>
                 </div>
             	
-                <div class="profile-info-name">采样选址</div>
+                <div class="profile-info-name">制定单位</div>
                 <div class="profile-info-value">
-					<input type="text" id="regionName" readonly="readonly" value='<tags:xiangxuncache keyName="TREGION_NAME" id="${info.regionId }"/>'
-						style="min-width:120px; width: 350px;" class="input-large required" />
-					<input type="hidden" id="regionId" name="regionId" value="${info.regionId }" />
-					<span style="color: red">*</span>
+					<input type="text" id="dept" name="dept" maxlength="50" value="${info.dept }"
+						style="min-width:120px; width: 350px;" class="input-large"/>
 				</div>
             </div>
             
@@ -83,11 +79,29 @@
 					<span style="color: red">*</span>
 				</div>
 				
-				<div class="profile-info-name">制定单位</div>
+				<div class="profile-info-name"></div>
+                <div class="profile-info-value"></div>
+            </div>
+        </div>
+        
+        <div id="blockDiv" class="profile-user-info profile-user-info-striped" style="border-top-style: none; display: none;">
+        	<div class="profile-info-row">
+				<div class="profile-info-name">采样地块</div>
+                <div class="profile-info-value" style="width: 500px;">
+                	<select id="blockId" name="blockId" style="min-width:120px; width: 350px;">
+                		<option value="">请选择</option>
+                		<c:forEach items="${blocks }" var="item">
+                			<option value="${item.id }" ${info.blockId eq item.id ? 'selected' : '' }>${item.name }【${item.code }】</option>
+                		</c:forEach>
+                	</select>
+                </div>
+                
+                <div class="profile-info-name">修复进度</div>
                 <div class="profile-info-value">
-					<input type="text" id="dept" name="dept" maxlength="50" value="${info.dept }"
-						style="min-width:120px; width: 350px;" class="input-large"/>
-				</div>
+                    <select id="repairSchedule" name="repairSchedule" style="min-width:120px; width: 350px;">
+                        <tags:diccache typeCode="LAND_REPAIR_SCHEDULE" defaultValue="${info.repairSchedule }" />
+                    </select>
+                </div>
             </div>
         </div>
         <div class="profile-user-info profile-user-info-striped" style="border-top-style: none;">
@@ -120,6 +134,7 @@
         v = $("#inputForm").validate();
         $("#code").focus();
         getSamplingTypes("${info.planId}");
+        ckbSample("${info.sampleCode}");
     });
     function checkForm() {
     	if (v.checkForm()) {
@@ -130,7 +145,6 @@
     			} else {
     				$("#inputForm").submit();
     			}
-    			$("#inputForm").submit();
     		} else {
     			showMessage("请选择采样品种");
     		}
@@ -161,6 +175,15 @@
     				$("#samplingTypeDiv").html(data);
     			}
     		);
+    	}
+    }
+    function ckbSample(val) {
+    	if (val == "NTTR") {
+    		$("#blockDiv").css("display", "block");
+    	} else {
+    		$("#blockDiv").css("display", "none");
+    		$("#blockId").val("");
+    		$("#repairSchedule").val("");
     	}
     }
 </script>

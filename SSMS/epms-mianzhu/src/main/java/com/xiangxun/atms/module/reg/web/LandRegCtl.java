@@ -29,6 +29,7 @@ import com.xiangxun.atms.framework.util.Servlets;
 import com.xiangxun.atms.framework.util.StringUtils;
 import com.xiangxun.atms.framework.util.UuidGenerateUtil;
 import com.xiangxun.atms.framework.validator.ResponseEntity;
+import com.xiangxun.atms.module.bs.constant.AutoCode;
 import com.xiangxun.atms.module.land.cache.LandBlockCache;
 import com.xiangxun.atms.module.land.service.LandMissionService;
 import com.xiangxun.atms.module.land.vo.LandBlock;
@@ -106,6 +107,7 @@ public class LandRegCtl extends RegBaseCtl<LandReg, LandRegSearch> {
 	public String doAdd(@PathVariable String menuid, LandReg info
 			, RedirectAttributes attr, MultipartHttpServletRequest fileRequest) {
 		info.setId(UuidGenerateUtil.getUUIDLong());
+		info.setCode(AutoCode.SAMPLING_LAND_REG);
 		info.setCreateId(getCurrentUserId());
 		info.setCreateTime(new Date());
 		//采样来源

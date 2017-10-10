@@ -35,6 +35,8 @@ import com.xiangxun.atms.framework.util.StringUtils;
 import com.xiangxun.atms.framework.util.UuidGenerateUtil;
 import com.xiangxun.atms.framework.validator.ResponseEntity;
 import com.xiangxun.atms.module.base.web.BaseCtl;
+import com.xiangxun.atms.module.bs.constant.AutoCode;
+import com.xiangxun.atms.module.check.service.DataCheckInfoService;
 import com.xiangxun.atms.module.land.service.LandSamplingPlanService;
 import com.xiangxun.atms.module.land.vo.LandSamplingPlan;
 import com.xiangxun.atms.module.land.vo.LandSamplingPlanSearch;
@@ -46,6 +48,8 @@ public class LandSamplingPlanCtl extends BaseCtl<LandSamplingPlan, LandSamplingP
 
 	@Resource
 	LandSamplingPlanService landSamplingPlanService;
+	@Resource
+	DataCheckInfoService dataCheckInfoService;
 	@Resource
 	DicService dicService;
 	@Resource
@@ -160,6 +164,7 @@ public class LandSamplingPlanCtl extends BaseCtl<LandSamplingPlan, LandSamplingP
 			, String page, RedirectAttributes redirectAttributes
 			, HttpServletRequest request) {
 		info.setId(UuidGenerateUtil.getUUIDLong());
+		info.setCode(AutoCode.LAND_SAMPLING_PLAN);
 		info.setCreateId(getCurrentUserId());
 		info.setCreateTime(new Date());
 		landSamplingPlanService.save(info);
@@ -191,7 +196,7 @@ public class LandSamplingPlanCtl extends BaseCtl<LandSamplingPlan, LandSamplingP
 			String page, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		info.setUpdateId(this.getCurrentUserId());
 		info.setUpdateTime(new Date());
-		landSamplingPlanService.updateById(info);
+		landSamplingPlanService.updateByIdSelective(info);
 		redirectAttributes.addFlashAttribute("message", "修改成功");
 		return "redirect:/land/sampling/plan/list/" + menuid + "/?isgetsession=1&page=" + page;
 	}
@@ -250,6 +255,7 @@ public class LandSamplingPlanCtl extends BaseCtl<LandSamplingPlan, LandSamplingP
 			String[] idArray = ids.split(",");
 			for (String planId : idArray) {
 				landSamplingPlanService.doFinish(planId);
+				dataCheckInfoService.saveInfoByPlanId(planId);
 			}
 			re.setResult("ok");
 		}catch (Exception e) {

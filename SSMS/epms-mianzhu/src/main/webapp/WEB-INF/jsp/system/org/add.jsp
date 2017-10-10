@@ -36,7 +36,9 @@
 						机构名称
 					</label>
 					<div class="profile-info-value">
-						<span class="input-icon input-icon-right"> <input type="text" id="org-name" placeholder="机构名称" specialcharfilter="true" name="name" maxlength="20" class="input-large required" chinese="true" /> <i class="ace-icon fa fa-asterisk red"></i> </span>
+						<input type="text" id="org-name" placeholder="机构名称" specialcharfilter="true"
+						 name="name" maxlength="20" class="input-large required" chinese="true" />
+						 <span style="color: red">*</span>
 					</div>
 				</div>
 				<div class="profile-info-row">
@@ -44,7 +46,9 @@
 						责任人
 					</label>
 					<div class="profile-info-value">
-						<span class="input-icon input-icon-right"> <input type="text" id="org-principal" placeholder="责任人" maxlength="10" name="principalname" class="input-large required" chinese="true" /> <i class="ace-icon fa fa-asterisk red"></i> </span>
+						<input type="text" id="org-principal" placeholder="责任人" maxlength="10" 
+						name="principalname" class="input-large required" chinese="true" />
+						<span style="color: red">*</span>
 					</div>
 				</div>
 				<div class="profile-info-row">
@@ -52,8 +56,9 @@
 						联系电话
 					</label>
 					<div class="profile-info-value">
-						<span class="input-icon input-icon-right"> <input type="text" id="org-mobile" maxlength="13" teletest="true"  name="mobile"
-							class="input-large required" /> <i class="ace-icon fa fa-asterisk red"></i> </span>
+						<input type="text" id="org-mobile" maxlength="13" teletest="true"  name="mobile"
+							class="input-large required" />
+						<span style="color: red">*</span>
 					</div>
 				</div>
 				<div class="profile-info-row">

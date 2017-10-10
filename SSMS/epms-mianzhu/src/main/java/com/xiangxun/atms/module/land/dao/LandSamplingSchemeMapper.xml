@@ -21,6 +21,7 @@
     <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="STATUS" property="status" jdbcType="INTEGER" />
     <result column="TEST_ITEMS" property="testItems" jdbcType="NVARCHAR" />
+    <result column="REPAIR_SCHEDULE" property="repairSchedule" jdbcType="NVARCHAR" />
     
     <result column="PLAN_CODE" property="planCode" jdbcType="VARCHAR" />
     <result column="PLAN_NAME" property="planName" jdbcType="VARCHAR" />
@@ -99,7 +100,7 @@
       This element was generated on Wed Jun 21 15:31:36 CST 2017.
     -->
     ID, PLAN_ID, BLOCK_ID, SAMPLE_CODE, CODE, NAME, DESCRIBE, REGION_ID, DEPT, CREATE_ID, 
-    CREATE_TIME, UPDATE_ID, UPDATE_TIME, TEST_ITEMS
+    CREATE_TIME, UPDATE_ID, UPDATE_TIME, TEST_ITEMS, REPAIR_SCHEDULE
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.land.vo.LandSamplingSchemeSearch" >
     <!--
@@ -155,12 +156,14 @@
     insert into T_LAND_SAMPLING_SCHEME (PLAN_ID, BLOCK_ID, SAMPLE_CODE, 
       CODE, NAME, DESCRIBE, 
       REGION_ID, DEPT, CREATE_ID, 
-      CREATE_TIME, UPDATE_ID, UPDATE_TIME, TEST_ITEMS
+      CREATE_TIME, UPDATE_ID, UPDATE_TIME, 
+      STATUS, TEST_ITEMS, REPAIR_SCHEDULE
       )
     values (#{planId,jdbcType=NVARCHAR}, #{blockId,jdbcType=NVARCHAR}, #{sampleCode,jdbcType=NVARCHAR}, 
       #{code,jdbcType=NVARCHAR}, #{name,jdbcType=NVARCHAR}, #{describe,jdbcType=NVARCHAR}, 
       #{regionId,jdbcType=NVARCHAR}, #{dept,jdbcType=NVARCHAR}, #{createId,jdbcType=NVARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=NVARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{testItems,jdbcType=NVARCHAR}
+      #{createTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=NVARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{testItems,jdbcType=NVARCHAR}, #{repairSchedule,jdbcType=NVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.xiangxun.atms.module.land.vo.LandSamplingScheme" useGeneratedKeys="true" keyProperty="id" >
@@ -209,8 +212,14 @@
       <if test="@Ognl@isNotEmpty(updateTime)" >
         UPDATE_TIME,
       </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS,
+      </if>
       <if test="@Ognl@isNotEmpty(testItems)" >
         TEST_ITEMS,
+      </if>
+      <if test="@Ognl@isNotEmpty(repairSchedule)" >
+        REPAIR_SCHEDULE,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -227,7 +236,7 @@
         #{sampleCode,jdbcType=NVARCHAR},
       </if>
       <if test="@Ognl@isNotEmpty(code)" >
-        #{code,jdbcType=NVARCHAR},
+        [dbo].getAutoCode('${code}'),
       </if>
       <if test="@Ognl@isNotEmpty(name)" >
         #{name,jdbcType=NVARCHAR},
@@ -253,8 +262,14 @@
       <if test="@Ognl@isNotEmpty(updateTime)" >
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        #{status,jdbcType=INTEGER},
+      </if>
       <if test="@Ognl@isNotEmpty(testItems)" >
         #{testItems,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(repairSchedule)" >
+        #{repairSchedule,jdbcType=NVARCHAR},
       </if>
     </trim>
   </insert>
@@ -388,6 +403,9 @@
       <if test="testItems != null" >
         TEST_ITEMS = #{testItems,jdbcType=NVARCHAR},
       </if>
+      <if test="repairSchedule != null" >
+        REPAIR_SCHEDULE = #{repairSchedule,jdbcType=NVARCHAR}
+      </if>
     </set>
     where ID = #{id,jdbcType=NVARCHAR}
   </update>
@@ -409,13 +427,14 @@
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      TEST_ITEMS = #{testItems,jdbcType=NVARCHAR}
+      TEST_ITEMS = #{testItems,jdbcType=NVARCHAR},
+      REPAIR_SCHEDULE = #{repairSchedule,jdbcType=NVARCHAR}
     where ID = #{id,jdbcType=NVARCHAR}
   </update>
   <select id="getListByCondition" resultMap="BaseResultMap" >
     SELECT T.ID, T.PLAN_ID, P.CODE PLAN_CODE, P.NAME PLAN_NAME
 	, T.BLOCK_ID, LB.CODE BLOCK_CODE, LB.NAME BLOCK_NAME, T.SAMPLE_CODE
-	, T.CODE, T.NAME, T.DESCRIBE, T.REGION_ID, T.DEPT, T.STATUS, T.TEST_ITEMS
+	, T.CODE, T.NAME, T.DESCRIBE, T.REGION_ID, T.DEPT, T.STATUS, T.TEST_ITEMS, T.REPAIR_SCHEDULE
 	FROM T_LAND_SAMPLING_SCHEME T
 	LEFT JOIN T_LAND_BLOCK LB ON LB.ID = T.BLOCK_ID
 	LEFT JOIN T_LAND_SAMPLING_PLAN P ON P.ID = T.PLAN_ID
@@ -451,19 +470,13 @@
          and T.REGION_ID = #{regionId,jdbcType=NVARCHAR}
       </if>
       <if test="@Ognl@isNotEmpty(dept)" >
-         and T.DEPT = #{dept,jdbcType=NVARCHAR}
+         and T.DEPT LIKE '%${dept}%'
       </if>
-      <if test="@Ognl@isNotEmpty(createId)" >
-         and T.CREATE_ID = #{createId,jdbcType=NVARCHAR}
+      <if test="@Ognl@isNotEmpty(testItems)" >
+         and T.TEST_ITEMS LIKE '%${testItems}%'
       </if>
-      <if test="@Ognl@isNotEmpty(createTime)" >
-         and T.CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
-      </if>
-      <if test="@Ognl@isNotEmpty(updateId)" >
-         and T.UPDATE_ID = #{updateId,jdbcType=NVARCHAR}
-      </if>
-      <if test="@Ognl@isNotEmpty(updateTime)" >
-         and T.UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      <if test="@Ognl@isNotEmpty(repairSchedule)" >
+         and T.REPAIR_SCHEDULE = #{repairSchedule,jdbcType=NVARCHAR}
       </if>
     </where>
   </sql>

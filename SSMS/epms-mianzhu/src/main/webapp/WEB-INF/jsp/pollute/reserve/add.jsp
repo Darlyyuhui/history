@@ -17,14 +17,6 @@
           style="margin-bottom:0;padding:0;" enctype="multipart/form-data">
         <div class="profile-user-info profile-user-info-striped">
             <div class="profile-info-row">
-                <div class="profile-info-name" style="min-width: 80px; width: 100px;">预案编号</div>
-                <div class="profile-info-value">
-                	<input type="text" id="code" name="code" maxlength="20"
-						style="min-width:120px; width: 350px;" class="input-large required"/>
-					<span style="color: red">*</span>
-					<span id="checkCodeSpan" style="color: red"></span>
-				</div>
-				
 				<div class="profile-info-name" style="min-width: 80px; width: 100px;">预案名称</div>
                 <div class="profile-info-value">
 					<input type="text" id="name" name="name" maxlength="50"
@@ -40,7 +32,8 @@
 							class="input-large required" readonly="readonly" style="min-width:120px; width: 350px;"
 							onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true})" />
 				</div>
-				
+			</div>
+			<div class="profile-info-row">	
 				<div class="profile-info-name">事故类型</div>
                 <div class="profile-info-value">
 					<select id="accidentType" name="accidentType" style="min-width:120px; width: 350px;">
@@ -55,13 +48,8 @@
 					<input type="text" id="dept" name="dept" maxlength="30"
 						style="min-width:120px; width: 350px;" class="input-large"/>
 				</div>
-				
-				<div class="profile-info-name"></div>
-                <div class="profile-info-value">
-				</div>
             </div>
-        </div>
-        <div class="profile-user-info profile-user-info-striped" style="border-top-style: none;">
+            
             <div class="profile-info-row">
                 <div class="profile-info-name" style="min-width: 80px; width: 110px;">附件</div>
 				<div class="profile-info-value">
@@ -83,39 +71,18 @@
 </div>
 
 <script>
-	var isCheck = false;
 	var v;
     $(document).ready(function () {
         //聚焦第一个输入框
         //为inputForm注册validate函数
         v = $("#inputForm").validate();
-        $("#code").focus();
+        $("#name").focus();
     });
     function checkForm() {
-    	checkCode();
-    	if (v.checkForm() && isCheck) {
+    	if (v.checkForm()) {
     		$("#inputForm").submit();
     	}else{
     		v.showErrors();
-    	}
-    }
-    function checkCode() {
-    	var codeObj = $("#code");
-    	if (codeObj.val() != "") {
-    		$.ajax({
-    			async:false,
-    			type:"post",
-    			url:"${root}/pollute/reserve/checkCode/"+codeObj.val()+"/",
-    			data:"tName=T_POLLUTE_RESERVE_PLAN&cName=CODE",
-    			success:function(data) {
-    				if (data.result == "ok") {
-    					isCheck = true;
-    					$("#checkCodeSpan").empty();
-    				}else {
-    					$("#checkCodeSpan").empty().html(data.message);
-    				}
-    			}
-    		});
     	}
     }
 </script>

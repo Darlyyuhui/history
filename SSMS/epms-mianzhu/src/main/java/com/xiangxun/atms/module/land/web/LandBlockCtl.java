@@ -1,6 +1,7 @@
 package com.xiangxun.atms.module.land.web;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,18 +19,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.xiangxun.atms.framework.cache.Cache;
+import com.google.common.collect.Table;
 import com.xiangxun.atms.core.service.BaseService;
 import com.xiangxun.atms.framework.base.Page;
+import com.xiangxun.atms.framework.cache.Cache;
 import com.xiangxun.atms.framework.log.anotation.LogAspect;
 import com.xiangxun.atms.framework.util.Servlets;
+import com.xiangxun.atms.framework.util.StringUtils;
 import com.xiangxun.atms.framework.util.UuidGenerateUtil;
 import com.xiangxun.atms.framework.validator.ResponseEntity;
 import com.xiangxun.atms.module.base.web.BaseCtl;
 import com.xiangxun.atms.module.bs.cache.OwnerCahe;
+import com.xiangxun.atms.module.bs.constant.AutoCode;
 import com.xiangxun.atms.module.geoServer.domain.LayerBean;
 import com.xiangxun.atms.module.geoServer.domain.LayerEnum;
 import com.xiangxun.atms.module.geoServer.service.IMapOperation;
+import com.xiangxun.atms.module.land.cache.LandBlockCache;
 import com.xiangxun.atms.module.land.service.LandBlockService;
 import com.xiangxun.atms.module.land.vo.LandBlock;
 import com.xiangxun.atms.module.land.vo.LandBlockSearch;
@@ -85,6 +90,7 @@ public class LandBlockCtl extends BaseCtl<LandBlock, LandBlockSearch>  {
 	public String doAdd(@PathVariable String menuid, LandBlock info, String isContinue, RedirectAttributes attr) {
 		String id=UuidGenerateUtil.getUUIDLong();
 		info.setId(id);
+		info.setCode(AutoCode.LAND_BLOCK);
 		info.setCreateId(getCurrentUserId());
 		info.setCreateTime(new Date());
 		LayerBean layerBean=new LayerBean();
@@ -126,7 +132,7 @@ public class LandBlockCtl extends BaseCtl<LandBlock, LandBlockSearch>  {
 			layerBean.setName(info.getName());
 			iMapOperation.save(LayerEnum.LAND, layerBean);
 		}
-		landBlockService.updateById(info);
+		landBlockService.updateByIdSelective(info);
 		attr.addFlashAttribute("message", "修改成功");
 		return "redirect:/land/block/list/"+menuid+"/?isgetsession=1&page="+page;
 	}
@@ -166,5 +172,26 @@ public class LandBlockCtl extends BaseCtl<LandBlock, LandBlockSearch>  {
 		
 		return "land/block/info/view";
 	}
+    
+    @ResponseBody
+    @RequestMapping(value = "getLocation/{blockId}/")
+    public Map<String, Object> getLocation(@PathVariable String blockId) {
+    	@SuppressWarnings("unchecked")
+		Table<String, String, String> table = (Table<String, String, String>)cache.get(LandBlockCache.ID_LOCATION);
+    	if (table != null) {
+    		Map<String, String> map = table.column(LandBlockCache.ID_LOCATION);
+    		if (map != null) {
+    			String location = map.get(blockId);
+    			if (StringUtils.isNotEmpty(location)) {
+    				String[] ss = location.split(",");
+    				Map<String, Object> m = new HashMap<String, Object>();
+        			m.put("longitude", ss[0]);
+        			m.put("latitude", ss[1]);
+        			return m;
+    			}
+    		}
+    	}
+    	return null;
+    }
 
 }

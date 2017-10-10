@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.land.dao.LandSamplingSchemePointMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.land.vo.LandSamplingSchemePoint" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Jun 21 15:31:36 CST 2017.
+    -->
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="SCHEME_ID" property="schemeId" jdbcType="NVARCHAR" />
+    <result column="CODE" property="code" jdbcType="NVARCHAR" />
+    <result column="LONGITUDE" property="longitude" jdbcType="DECIMAL" />
+    <result column="LATITUDE" property="latitude" jdbcType="DECIMAL" />
+    <result column="RANGE_X" property="rangeX" jdbcType="NVARCHAR" />
+    <result column="RANGE_Y" property="rangeY" jdbcType="NVARCHAR" />
+    <result column="AREA_CODE" property="areaCode" jdbcType="NVARCHAR" />
+    <result column="IS_SAMPLING_POINT" property="isSamplingPoint" jdbcType="INTEGER" />
+    <result column="CHECK_STATUS" property="checkStatus" jdbcType="INTEGER" />
+    <result column="IS_RELEASE" property="isRelease" jdbcType="INTEGER" />
+    <result column="IS_SAMPLING" property="isSampling" jdbcType="INTEGER" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="NVARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    
+    <result column="BLOCK_ID" property="blockId" jdbcType="VARCHAR" />
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Jun 21 15:31:36 CST 2017.
+    -->
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Jun 21 15:31:36 CST 2017.
+    -->
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Jun 21 15:31:36 CST 2017.
+    -->
+    ID, SCHEME_ID, CODE, LONGITUDE, LATITUDE, RANGE_X, RANGE_Y, AREA_CODE, IS_SAMPLING_POINT, 
+    CHECK_STATUS, IS_RELEASE, IS_SAMPLING, CREATE_ID, CREATE_TIME, UPDATE_ID, UPDATE_TIME, STATUS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.land.vo.LandSamplingSchemePointSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Jun 21 15:31:36 CST 2017.
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_LAND_SAMPLING_SCHEME_POINT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Jun 21 15:31:36 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_LAND_SAMPLING_SCHEME_POINT
+    where ID = #{id,jdbcType=NVARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Jun 21 15:31:36 CST 2017.
+    -->
+    delete from T_LAND_SAMPLING_SCHEME_POINT
+    where ID = #{id,jdbcType=NVARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.land.vo.LandSamplingSchemePointSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Jun 21 15:31:36 CST 2017.
+    -->
+    delete from T_LAND_SAMPLING_SCHEME_POINT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.land.vo.LandSamplingSchemePoint" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Jun 21 15:31:36 CST 2017.
+    -->
+    insert into T_LAND_SAMPLING_SCHEME_POINT (SCHEME_ID, CODE, LONGITUDE, 
+      LATITUDE, RANGE_X, RANGE_Y, 
+      AREA_CODE, IS_SAMPLING_POINT, CHECK_STATUS, 
+      IS_RELEASE, IS_SAMPLING, CREATE_ID, 
+      CREATE_TIME, UPDATE_ID, UPDATE_TIME
+      )
+    values (#{schemeId,jdbcType=NVARCHAR}, #{code,jdbcType=NVARCHAR}, #{longitude,jdbcType=NVARCHAR}, 
+      #{latitude,jdbcType=NVARCHAR}, #{rangeX,jdbcType=NVARCHAR}, #{rangeY,jdbcType=NVARCHAR}, 
+      #{areaCode,jdbcType=NVARCHAR}, #{isSamplingPoint,jdbcType=INTEGER}, #{checkStatus,jdbcType=INTEGER}, 
+      #{isRelease,jdbcType=INTEGER}, #{isSampling,jdbcType=INTEGER}, #{createId,jdbcType=NVARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=NVARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.land.vo.LandSamplingSchemePoint" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Jun 21 15:31:36 CST 2017.
+    -->
+    insert into T_LAND_SAMPLING_SCHEME_POINT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeId)" >
+        SCHEME_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(longitude)" >
+        LONGITUDE,
+      </if>
+      <if test="@Ognl@isNotEmpty(latitude)" >
+        LATITUDE,
+      </if>
+      <if test="@Ognl@isNotEmpty(rangeX)" >
+        RANGE_X,
+      </if>
+      <if test="@Ognl@isNotEmpty(rangeY)" >
+        RANGE_Y,
+      </if>
+      <if test="@Ognl@isNotEmpty(areaCode)" >
+        AREA_CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(isSamplingPoint)" >
+        IS_SAMPLING_POINT,
+      </if>
+      <if test="@Ognl@isNotEmpty(checkStatus)" >
+        CHECK_STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(isRelease)" >
+        IS_RELEASE,
+      </if>
+      <if test="@Ognl@isNotEmpty(isSampling)" >
+        IS_SAMPLING,
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeId)" >
+        #{schemeId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(longitude)" >
+        #{longitude,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(latitude)" >
+        #{latitude,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(rangeX)" >
+        #{rangeX,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(rangeY)" >
+        #{rangeY,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(areaCode)" >
+        #{areaCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(isSamplingPoint)" >
+        #{isSamplingPoint,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkStatus)" >
+        #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(isRelease)" >
+        #{isRelease,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(isSampling)" >
+        #{isSampling,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.land.vo.LandSamplingSchemePointSearch" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Jun 21 15:31:36 CST 2017.
+    -->
+    select count(*) from T_LAND_SAMPLING_SCHEME_POINT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Jun 21 15:31:36 CST 2017.
+    -->
+    update T_LAND_SAMPLING_SCHEME_POINT
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.schemeId)" >
+        SCHEME_ID = #{record.schemeId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.code)" >
+        CODE = #{record.code,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.longitude)" >
+        LONGITUDE = #{record.longitude,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.latitude)" >
+        LATITUDE = #{record.latitude,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.rangeX)" >
+        RANGE_X = #{record.rangeX,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.rangeY)" >
+        RANGE_Y = #{record.rangeY,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.areaCode)" >
+        AREA_CODE = #{record.areaCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.isSamplingPoint)" >
+        IS_SAMPLING_POINT = #{record.isSamplingPoint,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.checkStatus)" >
+        CHECK_STATUS = #{record.checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.isRelease)" >
+        IS_RELEASE = #{record.isRelease,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.isSampling)" >
+        IS_SAMPLING = #{record.isSampling,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createId)" >
+        CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createTime)" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateId)" >
+        UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateTime)" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Jun 21 15:31:36 CST 2017.
+    -->
+    update T_LAND_SAMPLING_SCHEME_POINT
+    set ID = #{record.id,jdbcType=NVARCHAR},
+      SCHEME_ID = #{record.schemeId,jdbcType=NVARCHAR},
+      CODE = #{record.code,jdbcType=NVARCHAR},
+      LONGITUDE = #{record.longitude,jdbcType=NVARCHAR},
+      LATITUDE = #{record.latitude,jdbcType=NVARCHAR},
+      RANGE_X = #{record.rangeX,jdbcType=NVARCHAR},
+      RANGE_Y = #{record.rangeY,jdbcType=NVARCHAR},
+      AREA_CODE = #{record.areaCode,jdbcType=NVARCHAR},
+      IS_SAMPLING_POINT = #{record.isSamplingPoint,jdbcType=INTEGER},
+      CHECK_STATUS = #{record.checkStatus,jdbcType=INTEGER},
+      IS_RELEASE = #{record.isRelease,jdbcType=INTEGER},
+      IS_SAMPLING = #{record.isSampling,jdbcType=INTEGER},
+      CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.land.vo.LandSamplingSchemePoint" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Jun 21 15:31:36 CST 2017.
+    -->
+    update T_LAND_SAMPLING_SCHEME_POINT
+    <set >
+      <if test="schemeId != null" >
+        SCHEME_ID = #{schemeId,jdbcType=NVARCHAR},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="longitude != null" >
+        LONGITUDE = #{longitude,jdbcType=NVARCHAR},
+      </if>
+      <if test="latitude != null" >
+        LATITUDE = #{latitude,jdbcType=NVARCHAR},
+      </if>
+      <if test="rangeX != null" >
+        RANGE_X = #{rangeX,jdbcType=NVARCHAR},
+      </if>
+      <if test="rangeY != null" >
+        RANGE_Y = #{rangeY,jdbcType=NVARCHAR},
+      </if>
+      <if test="areaCode != null" >
+        AREA_CODE = #{areaCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="isSamplingPoint != null" >
+        IS_SAMPLING_POINT = #{isSamplingPoint,jdbcType=INTEGER},
+      </if>
+      <if test="checkStatus != null" >
+        CHECK_STATUS = #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isRelease != null" >
+        IS_RELEASE = #{isRelease,jdbcType=INTEGER},
+      </if>
+      <if test="isSampling != null" >
+        IS_SAMPLING = #{isSampling,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.land.vo.LandSamplingSchemePoint" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Jun 21 15:31:36 CST 2017.
+    -->
+    update T_LAND_SAMPLING_SCHEME_POINT
+    set SCHEME_ID = #{schemeId,jdbcType=NVARCHAR},
+      CODE = #{code,jdbcType=NVARCHAR},
+      LONGITUDE = #{longitude,jdbcType=NVARCHAR},
+      LATITUDE = #{latitude,jdbcType=NVARCHAR},
+      RANGE_X = #{rangeX,jdbcType=NVARCHAR},
+      RANGE_Y = #{rangeY,jdbcType=NVARCHAR},
+      AREA_CODE = #{areaCode,jdbcType=NVARCHAR},
+      IS_SAMPLING_POINT = #{isSamplingPoint,jdbcType=INTEGER},
+      CHECK_STATUS = #{checkStatus,jdbcType=INTEGER},
+      IS_RELEASE = #{isRelease,jdbcType=INTEGER},
+      IS_SAMPLING = #{isSampling,jdbcType=INTEGER},
+      CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Jun 21 15:31:36 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+     from T_LAND_SAMPLING_SCHEME_POINT
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeId)" >
+         and SCHEME_ID = #{schemeId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE = #{code,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(longitude)" >
+         and LONGITUDE = #{longitude,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(latitude)" >
+         and LATITUDE = #{latitude,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(rangeX)" >
+         and RANGE_X = #{rangeX,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(rangeY)" >
+         and RANGE_Y = #{rangeY,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(areaCode)" >
+         and AREA_CODE = #{areaCode,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(isSamplingPoint)" >
+         and IS_SAMPLING_POINT = #{isSamplingPoint,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(checkStatus)" >
+         and CHECK_STATUS = #{checkStatus,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(isRelease)" >
+         and IS_RELEASE = #{isRelease,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(isSampling)" >
+         and IS_SAMPLING = #{isSampling,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+         and CREATE_ID = #{createId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+         and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+         and UPDATE_ID = #{updateId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+         and UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Wed Jun 21 15:31:36 CST 2017.
+    -->
+    select count(*) from T_LAND_SAMPLING_SCHEME_POINT
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeId)" >
+         and SCHEME_ID = #{schemeId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE = #{code,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(longitude)" >
+         and LONGITUDE = #{longitude,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(latitude)" >
+         and LATITUDE = #{latitude,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(rangeX)" >
+         and RANGE_X = #{rangeX,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(rangeY)" >
+         and RANGE_Y = #{rangeY,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(areaCode)" >
+         and AREA_CODE = #{areaCode,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(isSamplingPoint)" >
+         and IS_SAMPLING_POINT = #{isSamplingPoint,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(checkStatus)" >
+         and CHECK_STATUS = #{checkStatus,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(isRelease)" >
+         and IS_RELEASE = #{isRelease,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(isSampling)" >
+         and IS_SAMPLING = #{isSampling,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+         and CREATE_ID = #{createId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+         and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+         and UPDATE_ID = #{updateId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+         and UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+  
+  <update id="releaseById" parameterType="map">
+  	UPDATE T_LAND_SAMPLING_SCHEME_POINT
+  	SET IS_RELEASE = 1 
+  	WHERE ID = '${id}' AND CHECK_STATUS = ${checkStatus}
+  </update>
+  
+  <update id="checkById" parameterType="map">
+  	UPDATE T_LAND_SAMPLING_SCHEME_POINT
+  	SET CHECK_STATUS = ${checkStatus} 
+  	WHERE ID = '${id}' AND CHECK_STATUS = 0
+  </update>
+  
+  <select id="queryMissionSelectPoints" resultMap="BaseResultMap">
+  	SELECT T.ID, T.CODE, T.AREA_CODE, T.LATITUDE, T.LONGITUDE, T.RANGE_X, T.RANGE_Y, T.SCHEME_ID
+	FROM T_LAND_SAMPLING_SCHEME_POINT T
+	WHERE T.IS_SAMPLING_POINT = 1 AND T.IS_RELEASE = 1
+	AND EXISTS(SELECT 1 FROM T_LAND_SAMPLING_SCHEME T2 WHERE T2.ID = T.SCHEME_ID AND T2.SAMPLE_CODE = '${sampleCode}')
+  </select>
+  
+  <select id="queryPointsByMissionId" resultMap="BaseResultMap">
+  	SELECT T.ID, T.CODE, T.AREA_CODE, T.LATITUDE, T.LONGITUDE
+		, T.RANGE_X, T.RANGE_Y, T.SCHEME_ID, S.BLOCK_ID, S.REGION_ID
+	FROM T_LAND_SAMPLING_SCHEME_POINT T
+	LEFT JOIN T_LAND_SAMPLING_SCHEME S ON S.ID = T.SCHEME_ID
+	WHERE EXISTS(SELECT 1 FROM T_LAND_MISSION_POINT_LINK T1 
+	WHERE T1.POINT_ID = T.ID AND T1.MISSION_ID = '${missionId}')
+  </select>
+</mapper>

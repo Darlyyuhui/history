@@ -73,9 +73,12 @@
 					${info.isOver eq '1' ? '是' : '否' }
 				</div>
             </div>
-        </div>
-        <div class="profile-user-info profile-user-info-striped" style="border-top: none;">
-        	<div class="profile-info-row">
+            <div class="profile-info-row">
+            	<div class="profile-info-name">分析单位</div>
+                <div class="profile-info-value">
+					${info.dept }
+				</div>
+				
 				<div class="profile-info-name">备注</div>
                 <div class="profile-info-value">
 					${info.remark }

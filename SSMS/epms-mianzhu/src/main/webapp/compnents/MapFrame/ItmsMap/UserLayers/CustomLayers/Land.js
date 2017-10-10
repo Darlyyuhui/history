@@ -4,7 +4,6 @@ MapFactory.Define("ItmsMap/UserLayers/CustomLayers/Land*",[
 	"MapFactory/InfoWindowManager","MapFactory/Geometry*",
 	"ItmsMap/SymbolConfig*","MapFactory/MapManager"
 ],function(api,LayerManager,GraphicManager,InfoWindowManager,GeometryUtil,SymbolConfig,_map){
-	
 	var currentClickGraphicObj;
 	var landLyrPologn;
 	var landLyrPoint;
@@ -67,9 +66,8 @@ MapFactory.Define("ItmsMap/UserLayers/CustomLayers/Land*",[
 					+ "/map/all/landblock/",
 					function(target) {
 				if(id){
-					for(let j=0;j<target.length;j++){
+					for(var j=0;j<target.length;j++){
 						if(target[j].id==id){
-							console.log(target);
 							target.splice(j,1);
 						}
 					}
@@ -81,7 +79,7 @@ MapFactory.Define("ItmsMap/UserLayers/CustomLayers/Land*",[
 					function(target) {
 				if(id){
 					if(id=="1"){return;}
-					for(let i=0;i<target.length;i++){
+					for(var i=0;i<target.length;i++){
 						if(target[i].id==id){
 							target.splice(i,1);
 						}
@@ -97,6 +95,10 @@ MapFactory.Define("ItmsMap/UserLayers/CustomLayers/Land*",[
 				drawOnlyRegions(itemData,false,type);
 			}
 		}
+		
+		function drawRegionByTimeChange(){
+			
+		}
 		/**
 		 * 
 		 * 绘制单个点
@@ -104,7 +106,7 @@ MapFactory.Define("ItmsMap/UserLayers/CustomLayers/Land*",[
 		 * @returns
 		 */
 		
-		function drawOnlyRegions(data,isLocal=true,type="apb"){
+		function drawOnlyRegions(data,isLocal,type){
 			var graphicObj,graphic;
 			var pologn = data.geoJson;
 			var polognSymbol=SymbolConfig["landSymbol"];

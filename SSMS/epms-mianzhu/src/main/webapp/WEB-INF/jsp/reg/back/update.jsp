@@ -58,7 +58,7 @@
                         <div class="profile-info-row">
                             <div class="profile-info-name">采样任务</div>
                             <div class="profile-info-value">
-                                <select id="missionId" name="missionId" onchange="regionTreeCB(this.value)" style="min-width:120px; width: 180px;" class="required">
+                                <select id="missionId" name="missionId" onchange="regionTreeCB(this.value)"  class="required left-map-input-width">
                                     <option value="">请选择</option>
                                     <c:forEach items="${missions }" var="m">
                                         <option value="${m.id }" ${info.missionId eq m.id ? 'selected' : '' }>${m.name }</option>
@@ -81,7 +81,7 @@
                         <div class="profile-info-row">
                             <div class="profile-info-name">样品类型</div>
                             <div class="profile-info-value">
-                                <select id="typeCode" name="typeCode" style="min-width:120px; width: 180px;" class="required">
+                                <select id="typeCode" name="typeCode"  class="required left-map-input-width">
                                     <tags:diccache typeCode="SAMPLING_BACK_TYPE" defaultValue="${info.typeCode }"/>
                                 </select>
                                 <span style="color: red">*</span>
@@ -90,7 +90,7 @@
                             <div class="profile-info-name">周边环境</div>
                             <div class="profile-info-value">
                                 <input type="text" id="ambient" name="ambient" maxlength="200" value="${info.ambient }"
-                                       style="min-width:120px; width: 180px;" class="input-large" />
+                                        class="input-large left-map-input-width" />
                             </div>
 
                         </div>
@@ -99,13 +99,13 @@
                             <div class="profile-info-name">经度</div>
                             <div class="profile-info-value">
                                 <input type="text" id="longitude" name="longitude" maxlength="12" value="${info.longitude }"
-                                       style="min-width:120px; width: 180px;" class="input-large number"/>
+                                        class="input-large number left-map-input-width"/>
                             </div></div>
                         <div class="profile-info-row">
                             <div class="profile-info-name">纬度</div>
                             <div class="profile-info-value">
                                 <input type="text" id="latitude" name="latitude" maxlength="12" value="${info.latitude }"
-                                       style="min-width:120px; width: 180px;" class="input-large number"/>
+                                        class="input-large number left-map-input-width"/>
                             </div>
                         </div>
 
@@ -113,12 +113,12 @@
                             <div class="profile-info-name">成墙年份</div>
                             <div class="profile-info-value">
                                 <input type="text" id="years" name="years" maxlength="10" value="${info.years }"
-                                       style="min-width:120px; width: 180px;" class="input-large number"/>
+                                        class="input-large number left-map-input-width"/>
                             </div></div>
                         <div class="profile-info-row">
                             <div class="profile-info-name">墙土来源</div>
                             <div class="profile-info-value">
-                                <select id="wallSource" name="wallSource" style="min-width:120px; width: 180px;">
+                                <select id="wallSource" name="wallSource" class="left-map-input-width">
                                     <tags:diccache typeCode="SAMPLING_BACK_SOURCE" defaultValue="${info.wallSource }"/>
                                 </select>
                             </div>
@@ -128,13 +128,13 @@
                             <div class="profile-info-name">采样人</div>
                             <div class="profile-info-value">
                                 <input type="text" id="samplingUser" name="samplingUser" maxlength="20" value="${info.samplingUser }"
-                                       style="min-width:120px; width: 180px;" class="input-large"/>
+                                        class="input-large left-map-input-width"/>
                             </div></div>
                         <div class="profile-info-row">
                             <div class="profile-info-name">采样时间</div>
                             <div class="profile-info-value">
                                 <input id="samplingTime" name="samplingTime" type="text" value="<fmt:formatDate value='${info.samplingTime }' pattern='yyyy-MM-dd HH:mm:ss'/>"
-                                       class="input-large required" readonly="readonly" style="width: 180px;"
+                                       class="input-large required left-map-input-width" readonly="readonly"
                                        onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true})" />
                                 <span style="color: red">*</span>
                             </div>

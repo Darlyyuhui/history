@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.bs.dao.AutoCodeRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.bs.vo.AutoCodeRule" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 25 11:11:58 CST 2017.
+    -->
+    <id column="TYPE_CODE" property="typeCode" jdbcType="NVARCHAR" />
+    <result column="HEAD_CODE" property="headCode" jdbcType="NVARCHAR" />
+    <result column="DATE_TYPE" property="dateType" jdbcType="NVARCHAR" />
+    <result column="CENTER_CODE" property="centerCode" jdbcType="NVARCHAR" />
+    <result column="ORDER_LENGTH" property="orderLength" jdbcType="INTEGER" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="NVARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 25 11:11:58 CST 2017.
+    -->
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 25 11:11:58 CST 2017.
+    -->
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 25 11:11:58 CST 2017.
+    -->
+    TYPE_CODE, HEAD_CODE, DATE_TYPE, CENTER_CODE, ORDER_LENGTH, CREATE_ID, CREATE_TIME, 
+    UPDATE_ID, UPDATE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.bs.vo.AutoCodeRuleSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 25 11:11:58 CST 2017.
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_AUTO_CODE_RULE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 25 11:11:58 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_AUTO_CODE_RULE
+    where TYPE_CODE = #{typeCode,jdbcType=NVARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 25 11:11:58 CST 2017.
+    -->
+    delete from T_AUTO_CODE_RULE
+    where TYPE_CODE = #{typeCode,jdbcType=NVARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.bs.vo.AutoCodeRuleSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 25 11:11:58 CST 2017.
+    -->
+    delete from T_AUTO_CODE_RULE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.bs.vo.AutoCodeRule" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 25 11:11:58 CST 2017.
+    -->
+    insert into T_AUTO_CODE_RULE (TYPE_CODE, HEAD_CODE, DATE_TYPE, 
+      CENTER_CODE, ORDER_LENGTH, CREATE_ID, 
+      CREATE_TIME, UPDATE_ID, UPDATE_TIME
+      )
+    values (#{typeCode,jdbcType=NVARCHAR}, #{headCode,jdbcType=NVARCHAR}, #{dateType,jdbcType=NVARCHAR}, 
+      #{centerCode,jdbcType=NVARCHAR}, #{orderLength,jdbcType=INTEGER}, #{createId,jdbcType=NVARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=NVARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.bs.vo.AutoCodeRule" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 25 11:11:58 CST 2017.
+    -->
+    insert into T_AUTO_CODE_RULE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(typeCode)" >
+        TYPE_CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(headCode)" >
+        HEAD_CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(dateType)" >
+        DATE_TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(centerCode)" >
+        CENTER_CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(orderLength)" >
+        ORDER_LENGTH,
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(typeCode)" >
+        #{typeCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(headCode)" >
+        #{headCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(dateType)" >
+        #{dateType,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(centerCode)" >
+        #{centerCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(orderLength)" >
+        #{orderLength,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.bs.vo.AutoCodeRuleSearch" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 25 11:11:58 CST 2017.
+    -->
+    select count(*) from T_AUTO_CODE_RULE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 25 11:11:58 CST 2017.
+    -->
+    update T_AUTO_CODE_RULE
+    <set >
+      <if test="@Ognl@isNotEmpty(record.typeCode)" >
+        TYPE_CODE = #{record.typeCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.headCode)" >
+        HEAD_CODE = #{record.headCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.dateType)" >
+        DATE_TYPE = #{record.dateType,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.centerCode)" >
+        CENTER_CODE = #{record.centerCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.orderLength)" >
+        ORDER_LENGTH = #{record.orderLength,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createId)" >
+        CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createTime)" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateId)" >
+        UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateTime)" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 25 11:11:58 CST 2017.
+    -->
+    update T_AUTO_CODE_RULE
+    set TYPE_CODE = #{record.typeCode,jdbcType=NVARCHAR},
+      HEAD_CODE = #{record.headCode,jdbcType=NVARCHAR},
+      DATE_TYPE = #{record.dateType,jdbcType=NVARCHAR},
+      CENTER_CODE = #{record.centerCode,jdbcType=NVARCHAR},
+      ORDER_LENGTH = #{record.orderLength,jdbcType=INTEGER},
+      CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.bs.vo.AutoCodeRule" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 25 11:11:58 CST 2017.
+    -->
+    update T_AUTO_CODE_RULE
+    <set >
+      <if test="headCode != null" >
+        HEAD_CODE = #{headCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="dateType != null" >
+        DATE_TYPE = #{dateType,jdbcType=NVARCHAR},
+      </if>
+      <if test="centerCode != null" >
+        CENTER_CODE = #{centerCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="orderLength != null" >
+        ORDER_LENGTH = #{orderLength,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where TYPE_CODE = #{typeCode,jdbcType=NVARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.bs.vo.AutoCodeRule" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 25 11:11:58 CST 2017.
+    -->
+    update T_AUTO_CODE_RULE
+    set HEAD_CODE = #{headCode,jdbcType=NVARCHAR},
+      DATE_TYPE = #{dateType,jdbcType=NVARCHAR},
+      CENTER_CODE = #{centerCode,jdbcType=NVARCHAR},
+      ORDER_LENGTH = #{orderLength,jdbcType=INTEGER},
+      CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where TYPE_CODE = #{typeCode,jdbcType=NVARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 25 11:11:58 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+     from T_AUTO_CODE_RULE
+    <where >
+      <if test="@Ognl@isNotEmpty(typeCode)" >
+         and TYPE_CODE = #{typeCode,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(headCode)" >
+         and HEAD_CODE = #{headCode,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(dateType)" >
+         and DATE_TYPE = #{dateType,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(centerCode)" >
+         and CENTER_CODE = #{centerCode,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(orderLength)" >
+         and ORDER_LENGTH = #{orderLength,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+         and CREATE_ID = #{createId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+         and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+         and UPDATE_ID = #{updateId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+         and UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 25 11:11:58 CST 2017.
+    -->
+    select count(*) from T_AUTO_CODE_RULE
+    <where >
+      <if test="@Ognl@isNotEmpty(typeCode)" >
+         and TYPE_CODE = #{typeCode,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(headCode)" >
+         and HEAD_CODE = #{headCode,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(dateType)" >
+         and DATE_TYPE = #{dateType,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(centerCode)" >
+         and CENTER_CODE = #{centerCode,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(orderLength)" >
+         and ORDER_LENGTH = #{orderLength,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+         and CREATE_ID = #{createId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+         and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+         and UPDATE_ID = #{updateId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+         and UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+</mapper>

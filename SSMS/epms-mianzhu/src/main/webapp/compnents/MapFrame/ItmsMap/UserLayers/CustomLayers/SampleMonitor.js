@@ -40,7 +40,9 @@ MapFactory.Define("ItmsMap/UserLayers/CustomLayers/SampleMonitor*",[
 				currentClickGraphicObj=null;
 			}
 		}
-		
+        function drawRegionByTimeChange(){
+			
+		}
 		/*
 		 * 清除所有点
 		 */
@@ -95,8 +97,8 @@ MapFactory.Define("ItmsMap/UserLayers/CustomLayers/SampleMonitor*",[
 		function showInfowindow(point, code, plateNum) {
 			var info=InfoWindowManager();
 			info.setAnchor(point);
-			info.setWidth(210);
-			info.setHeight(220);
+			info.setWidth(600);
+			info.setHeight(500);
 			info.setTitle("样地监控");
 			info.setLoadPage(path+"/map/video/info/"+code+"/",{}, function(){
 				

@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.check.dao.DataCheckInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.check.vo.DataCheckInfo" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Aug 28 15:27:32 CST 2017.
+    -->
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="SCHEME_ID" property="schemeId" jdbcType="NVARCHAR" />
+    <result column="SCHEME_NAME" property="schemeName" jdbcType="NVARCHAR" />
+    <result column="REGION_ID" property="regionId" jdbcType="NVARCHAR" />
+    <result column="SAMPLE_TYPE" property="sampleType" jdbcType="NVARCHAR" />
+    <result column="SAMPLING_DEPT" property="samplingDept" jdbcType="NVARCHAR" />
+    <result column="ANALYSIS_DEPT" property="analysisDept" jdbcType="NVARCHAR" />
+    <result column="ANALYSIS_COUNT" property="analysisCount" jdbcType="NVARCHAR" />
+    <result column="TEST_ITEMS" property="testItems" jdbcType="NVARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Aug 28 15:27:32 CST 2017.
+    -->
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Aug 28 15:27:32 CST 2017.
+    -->
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Aug 28 15:27:32 CST 2017.
+    -->
+    ID, SCHEME_ID, SCHEME_NAME, REGION_ID, SAMPLE_TYPE, SAMPLING_DEPT, ANALYSIS_DEPT, 
+    ANALYSIS_COUNT, TEST_ITEMS, STATUS, CHECK_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.check.vo.DataCheckInfoSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Aug 28 15:27:32 CST 2017.
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_DATACHECK_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Aug 28 15:27:32 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_DATACHECK_INFO
+    where ID = #{id,jdbcType=NVARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Aug 28 15:27:32 CST 2017.
+    -->
+    delete from T_DATACHECK_INFO
+    where ID = #{id,jdbcType=NVARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.check.vo.DataCheckInfoSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Aug 28 15:27:32 CST 2017.
+    -->
+    delete from T_DATACHECK_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.check.vo.DataCheckInfo" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Aug 28 15:27:32 CST 2017.
+    -->
+    insert into T_DATACHECK_INFO (SCHEME_ID, SCHEME_NAME, REGION_ID, 
+      SAMPLE_TYPE, SAMPLING_DEPT, ANALYSIS_DEPT, 
+      ANALYSIS_COUNT, TEST_ITEMS, STATUS, 
+      CHECK_TIME)
+    values (#{schemeId,jdbcType=NVARCHAR}, #{schemeName,jdbcType=NVARCHAR}, #{regionId,jdbcType=NVARCHAR}, 
+      #{sampleType,jdbcType=NVARCHAR}, #{samplingDept,jdbcType=NVARCHAR}, #{analysisDept,jdbcType=NVARCHAR}, 
+      #{analysisCount,jdbcType=NVARCHAR}, #{testItems,jdbcType=NVARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{checkTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.check.vo.DataCheckInfo" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Aug 28 15:27:32 CST 2017.
+    -->
+    insert into T_DATACHECK_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeId)" >
+        SCHEME_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeName)" >
+        SCHEME_NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(regionId)" >
+        REGION_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(sampleType)" >
+        SAMPLE_TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingDept)" >
+        SAMPLING_DEPT,
+      </if>
+      <if test="@Ognl@isNotEmpty(analysisDept)" >
+        ANALYSIS_DEPT,
+      </if>
+      <if test="@Ognl@isNotEmpty(analysisCount)" >
+        ANALYSIS_COUNT,
+      </if>
+      <if test="@Ognl@isNotEmpty(testItems)" >
+        TEST_ITEMS,
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(checkTime)" >
+        CHECK_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeId)" >
+        #{schemeId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeName)" >
+        #{schemeName,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(regionId)" >
+        #{regionId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(sampleType)" >
+        #{sampleType,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingDept)" >
+        #{samplingDept,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(analysisDept)" >
+        #{analysisDept,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(analysisCount)" >
+        #{analysisCount,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(testItems)" >
+        #{testItems,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkTime)" >
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.check.vo.DataCheckInfoSearch" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Aug 28 15:27:32 CST 2017.
+    -->
+    select count(*) from T_DATACHECK_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Aug 28 15:27:32 CST 2017.
+    -->
+    update T_DATACHECK_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.schemeId)" >
+        SCHEME_ID = #{record.schemeId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.schemeName)" >
+        SCHEME_NAME = #{record.schemeName,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.regionId)" >
+        REGION_ID = #{record.regionId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.sampleType)" >
+        SAMPLE_TYPE = #{record.sampleType,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.samplingDept)" >
+        SAMPLING_DEPT = #{record.samplingDept,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.analysisDept)" >
+        ANALYSIS_DEPT = #{record.analysisDept,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.analysisCount)" >
+        ANALYSIS_COUNT = #{record.analysisCount,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.testItems)" >
+        TEST_ITEMS = #{record.testItems,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.status)" >
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.checkTime)" >
+        CHECK_TIME = #{record.checkTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Aug 28 15:27:32 CST 2017.
+    -->
+    update T_DATACHECK_INFO
+    set ID = #{record.id,jdbcType=NVARCHAR},
+      SCHEME_ID = #{record.schemeId,jdbcType=NVARCHAR},
+      SCHEME_NAME = #{record.schemeName,jdbcType=NVARCHAR},
+      REGION_ID = #{record.regionId,jdbcType=NVARCHAR},
+      SAMPLE_TYPE = #{record.sampleType,jdbcType=NVARCHAR},
+      SAMPLING_DEPT = #{record.samplingDept,jdbcType=NVARCHAR},
+      ANALYSIS_DEPT = #{record.analysisDept,jdbcType=NVARCHAR},
+      ANALYSIS_COUNT = #{record.analysisCount,jdbcType=NVARCHAR},
+      TEST_ITEMS = #{record.testItems,jdbcType=NVARCHAR},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      CHECK_TIME = #{record.checkTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.check.vo.DataCheckInfo" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Aug 28 15:27:32 CST 2017.
+    -->
+    update T_DATACHECK_INFO
+    <set >
+      <if test="@Ognl@isNotEmpty(schemeId)" >
+        SCHEME_ID = #{schemeId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeName)" >
+        SCHEME_NAME = #{schemeName,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(regionId)" >
+        REGION_ID = #{regionId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(sampleType)" >
+        SAMPLE_TYPE = #{sampleType,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingDept)" >
+        SAMPLING_DEPT = #{samplingDept,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(analysisDept)" >
+        ANALYSIS_DEPT = #{analysisDept,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(analysisCount)" >
+        ANALYSIS_COUNT = #{analysisCount,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(testItems)" >
+        TEST_ITEMS = #{testItems,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkTime)" >
+        CHECK_TIME = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.check.vo.DataCheckInfo" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Aug 28 15:27:32 CST 2017.
+    -->
+    update T_DATACHECK_INFO
+    set SCHEME_ID = #{schemeId,jdbcType=NVARCHAR},
+      SCHEME_NAME = #{schemeName,jdbcType=NVARCHAR},
+      REGION_ID = #{regionId,jdbcType=NVARCHAR},
+      SAMPLE_TYPE = #{sampleType,jdbcType=NVARCHAR},
+      SAMPLING_DEPT = #{samplingDept,jdbcType=NVARCHAR},
+      ANALYSIS_DEPT = #{analysisDept,jdbcType=NVARCHAR},
+      ANALYSIS_COUNT = #{analysisCount,jdbcType=NVARCHAR},
+      TEST_ITEMS = #{testItems,jdbcType=NVARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      CHECK_TIME = #{checkTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    SELECT 
+    <include refid="Base_Column_List" />
+     FROM T_DATACHECK_INFO
+    <include refid="BaseWhere"/>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       ORDER BY ${sortColumn} 
+    </if>
+  </select>
+  <sql id="BaseWhere">
+  	<where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeId)" >
+         and SCHEME_ID = #{schemeId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(schemeName)" >
+         and SCHEME_NAME LIKE '%${schemeName}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(regionId)" >
+         and REGION_ID = #{regionId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(sampleType)" >
+         and SAMPLE_TYPE = #{sampleType,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingDept)" >
+         and SAMPLING_DEPT LIKE '%${samplingDept}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(analysisDept)" >
+         and ANALYSIS_DEPT LIKE '%${analysisDept}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(analysisCount)" >
+         and ANALYSIS_COUNT = #{analysisCount,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(testItems)" >
+         and TEST_ITEMS = #{testItems,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(checkTime)" >
+         and CHECK_TIME = #{checkTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </sql>
+  <select id="countList" resultType="java.lang.Integer" >
+    SELECT COUNT(ID) FROM T_DATACHECK_INFO
+    <include refid="BaseWhere"/>
+  </select>
+  
+  <select id="getMessage" resultType="map">
+  	SELECT T1.DEPT AS RESULT
+	FROM (
+		SELECT TOP 1 TT.DEPT
+		FROM (
+			SELECT T.DEPT, COUNT(T.ID) AS NUM_
+			FROM T_ANALYSIS_${tableName} T
+			GROUP BY T.DEPT
+		) TT
+		ORDER BY TT.NUM_ DESC
+	) T1 
+	UNION ALL
+	SELECT CAST(COUNT(V.ID) AS VARCHAR(50)) AS RESULT
+	FROM V_ANALYSIS_${tableName} V
+	WHERE V.SCHEME_ID = #{schemeId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getSchemeIdByPlanId" resultType="map">
+  	SELECT T.ID
+	FROM T_LAND_SAMPLING_SCHEME T 
+	WHERE T.PLAN_ID = #{planId,jdbcType=VARCHAR}
+  </select>
+</mapper>

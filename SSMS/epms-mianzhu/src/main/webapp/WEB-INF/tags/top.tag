@@ -236,6 +236,5 @@
        window.location.href = "${root}/home/admin/?moudelId=0"+"&index=0";
     }
     </c:if>
-
 </script>
 <!-- 修改密码 -->

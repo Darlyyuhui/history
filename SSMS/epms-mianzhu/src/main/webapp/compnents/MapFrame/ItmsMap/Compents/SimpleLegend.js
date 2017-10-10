@@ -27,7 +27,7 @@ MapFactory.Define("ItmsMap/Compents/SimpleLegend*",[
 
     var _conf = {
         mapDiv: "",
-        left: 8,
+        right: 8,
         bottom: 10
     };
 
@@ -44,7 +44,7 @@ MapFactory.Define("ItmsMap/Compents/SimpleLegend*",[
 			mutiDialogSeed: "mapLegend",
 			mask: false,
             bottom: _conf.bottom,
-			left: _conf.left,
+			right: _conf.right,
 			content: "<div id='"+_containerId+"'>" +
 						"<div id='"+_containerHeadId+"'></div>" +
 						"<div id='"+_containerContentId+"'></div>" +

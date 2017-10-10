@@ -24,6 +24,7 @@ import com.xiangxun.atms.framework.log.anotation.LogAspect;
 import com.xiangxun.atms.framework.util.Servlets;
 import com.xiangxun.atms.framework.util.UuidGenerateUtil;
 import com.xiangxun.atms.framework.validator.ResponseEntity;
+import com.xiangxun.atms.module.bs.constant.AutoCode;
 import com.xiangxun.atms.module.land.service.LandMissionService;
 import com.xiangxun.atms.module.reg.service.FarmRegService;
 import com.xiangxun.atms.module.reg.vo.FarmReg;
@@ -78,6 +79,7 @@ public class FarmRegCtl extends RegBaseCtl<FarmReg, FarmRegSearch> {
 	public String doAdd(@PathVariable String menuid, FarmReg info
 			, RedirectAttributes attr, MultipartHttpServletRequest fileRequest) {
 		info.setId(UuidGenerateUtil.getUUIDLong());
+		info.setCode(AutoCode.SAMPLING_FARM_REG);
 		info.setCreateId(getCurrentUserId());
 		info.setCreateTime(new Date());
 		//采样来源

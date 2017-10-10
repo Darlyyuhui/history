@@ -27,7 +27,7 @@ MapFactory.Define("ItmsMap/Util/MouseOverTip*",["MapFactory/MapManager"],functio
 		 */
 		function _initTipBox(){
 			if($("#mapMouseOverTipBox")[0] == null){
-				$("body").append("<div id='mapMouseOverTipBox'></div>");
+				$("#map").append("<div style='position:absolute;z-index:100000;fontwidget:blod;background:#A9A9A9;padding-left:3px;padding-right:3px; border-radius:5px 5px 5px 5px;' id='mapMouseOverTipBox'></div>");
 			}
 		}
 
@@ -39,10 +39,10 @@ MapFactory.Define("ItmsMap/Util/MouseOverTip*",["MapFactory/MapManager"],functio
 			var x = parseFloat(points[0]);
 			var y = parseFloat(points[1]);
 			var screenPoint = map.toScreen(x, y);
-			var right = $("#mapContainer").width() - screenPoint.x - $("#mapMouseOverTipBox").width();
+			var left = screenPoint.x - $("#mapMouseOverTipBox").width()/2;
 			$("#mapMouseOverTipBox").css({
-				right : right-15,
-				top : screenPoint.y-10
+				left : left,
+				top   : screenPoint.y+20
 			});
 		}
 
@@ -70,9 +70,11 @@ MapFactory.Define("ItmsMap/Util/MouseOverTip*",["MapFactory/MapManager"],functio
 		 * 隐藏
 		 */
 		function hide(){
-			$("#mapMouseOverTipBox").fadeOut();
+			$("#mapMouseOverTipBox").fadeOut("slow",stopAllFade);
 		}
-
+		function stopAllFade(){
+			$("#mapMouseOverTipBox").stop(true);
+		}
 		return api;
 	}
 });

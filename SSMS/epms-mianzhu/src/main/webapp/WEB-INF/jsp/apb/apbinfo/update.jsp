@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/common/header.jspf" %>
+<tags:selTree idElement="soilType" nameElement="soilTypeName" treeType="landtype" />
+<script src="${root}/js/business.validate.js" type="text/javascript"></script>
 <div class="page-header">
     <h1>
         基地产品信息
@@ -36,27 +38,24 @@
              <div class="profile-info-row">
                 <div class="profile-info-name">编号</div>
                 <div class="profile-info-value">
-                	<input type="text" id="code" name="code" maxlength="20"   value="${info.code}"
-						style="min-width:120px; width: 250px;" class="input-large required"/>
-					<span style="color: red">*</span>
-					<span id="checkCodeSpan" style="color: red"></span>
+                	${info.code}
 				</div>
             </div>
             <div class="profile-info-row">
                 <div class="profile-info-name">名称</div>
                 <div class="profile-info-value">
-                	<input type="text" id="name" name="name" maxlength="12"   value="${info.name}"
-						style="min-width:120px; width: 250px;" class="input-large required"/>
+                	<input type="text" id="name" name="name" maxlength="20" value="${info.name}"
+						 class="input-large required left-map-input-width"/>
 					<span style="color: red">*</span>
 				</div>
             </div>
             <div class="profile-info-row">
                 <div class="profile-info-name">N（北纬）</div>
                 <div class="profile-info-value">
-                  <input type="hidden" id="latitude" name="latitude" maxlength="12"    value="${info.latitude}"
-						style="min-width:120px; width: 250px;" class="input-large "/>
+                  <input type="hidden" id="latitude" name="latitude" maxlength="12"  value="${info.latitude}"
+						 class="input-large left-map-input-width"/>
 						    <input type="text" id="latitude2" name="latitude2" maxlength="20"   
-						style="min-width:120px; width: 250px;" class="input-large "/>
+						 class="input-large left-map-input-width"/>
                 
                 </div>
             </div>
@@ -64,32 +63,31 @@
                 <div class="profile-info-name">E（东经）</div>
                 <div class="profile-info-value">
                 	<input type="hidden" id="longitude" name="longitude" maxlength="12"   value="${info.longitude}"
-						style="min-width:120px; width: 250px;" class="input-large"/>
+						 class="input-large left-map-input-width"/>
 						<input type="text" id="longitude2" name="longitude2" maxlength="20"   
-						style="min-width:120px; width: 250px;" class="input-large"/>
+						 class="input-large left-map-input-width"/>
 				</div>
             </div>
              <div class="profile-info-row">
                 <div class="profile-info-name">详细地址</div>
                 <div class="profile-info-value">
-                	<input type="text" id="address" name="address" maxlength="50"   value="${info.address}"
-						style="min-width:120px; width: 250px;" class="input-large"/>
+                	<input type="text" id="address" name="address" maxlength="50" value="${info.address}"
+						 class="input-large left-map-input-width"/>
 				</div>
             </div>
              <div class="profile-info-row">
                 <div class="profile-info-name">年产量（万吨）</div>
                 <div class="profile-info-value">
-                	<input type="text" id="annualOutput" name="annualOutput" maxlength="6" min="0" max="180000"
-                	 value="${info.annualOutput}"
-						style="min-width:120px; width: 250px;" class="input-large number required"/>
+                	<input type="text" id="annualOutput" name="annualOutput" maxlength="10" min="0"
+                	 value="${info.annualOutput}" class="input-large number required left-map-input-width"/>
 					<span style="color: red">*</span>
 				</div>
             </div>
              <div class="profile-info-row">
                 <div class="profile-info-name">种植面积（亩）</div>
                 <div class="profile-info-value">
-                	<input type="text" id="area" name="area" maxlength="12"  min="0"  value="${info.area}"
-						style="min-width:120px; width: 250px;" class="input-large number required"/>
+						<input type="text" id="area" name="area" maxlength="10"  min="0"  value="${info.area}"
+                                       class="input-large number required left-map-input-width"/>
 					<input type="hidden" id="geoId" name="geoJson" />
 					<span style="color: red">*</span>
 				</div>
@@ -110,29 +108,29 @@
                 <div class="profile-info-name">基地描述</div>
                 <div class="profile-info-value">
                 	<input type="text" id="describe" name="describe" maxlength="20"  value="${info.describe}"
-						style="min-width:120px; width: 250px;" class="input-large"/>
+						 class="input-large left-map-input-width"/>
 				</div>
             </div>
              <div class="profile-info-row">
                 <div class="profile-info-name">周围环境</div>
                 <div class="profile-info-value">
                 	<input type="text" id="ambient" name="ambient" maxlength="20"   value="${info.ambient}"
-						style="min-width:120px; width: 250px;" class="input-large"/>
+						 class="input-large left-map-input-width"/>
 				</div>
             </div>
              <div class="profile-info-row">
                 <div class="profile-info-name">土壤类型</div>
                 <div class="profile-info-value">
-                 <select id="soilType" name="soilType" style="min-width:120px; width: 250px;" class="input-large" >
-                   <tags:dicothercache typeCode="${SOILE_TYPE }"   defaultValue="${ info.soilType}"/>
-                 </select>
+                	<input type="text" id="soilTypeName" readonly="readonly" value='<tags:xiangxuncache keyName="LANDTYPE_NAME" id="${info.soilType }"/>'
+						class="input-large left-map-input-width" />
+					<input type="hidden" id="soilType" name="soilType" value="${info.soilType}" />
 				</div>
             </div>
             <div class="profile-info-row">
                 <div class="profile-info-name">污染状况</div>
                 <div class="profile-info-value">
-                	<input type="text" id="polluteDesc" name="polluteDesc" maxlength="20"   value="${info.polluteDesc}"
-						style="min-width:120px; width: 250px;" class="input-large"/>
+                	<input type="text" id="polluteDesc" name="polluteDesc" maxlength="20"  value="${info.polluteDesc}"
+						 class="input-large left-map-input-width"/>
 				</div>
             </div>
         </div>
@@ -163,10 +161,23 @@
 var _LayerManager,graphic;
 var measureControls = [];
 var geoUtil,_Graphic,_SymbolConfig;
+var v;
     $(document).ready(function () {
         //聚焦第一个输入框
         //为inputForm注册validate函数
-        $("#inputForm").validate();
+        v = $("#inputForm").validate({
+        	rules: {
+        		longitude: {
+        			isCoordinate: true
+    			},
+    			latitude: {
+        			isCoordinate: true
+    			},
+    			area: {
+    				decimal4: true
+    			}
+    		}
+        });
         // 页面加载成功后，初始化页签和地图
         initMap("map");
         // 初始化地图
@@ -261,7 +272,7 @@ var geoUtil,_Graphic,_SymbolConfig;
     	     }else if(units=='km'){
     	       resultArea=out*1500;
     	     }
-    	     $("#area").val(resultArea);
+    	     $("#area").val(makeDecimal(resultArea, 4));
     	     _LayerManager("defaultLayer").clear();
     	     var geometry=geoUtil.convertFromObject(event.geometry);
               graphic=_Graphic({geo:geometry,symbol:_SymbolConfig.defaultPolygon,attributes:{}});
@@ -319,9 +330,7 @@ var geoUtil,_Graphic,_SymbolConfig;
           return true;
       };
       function checkForm() {
-      	
-      	var v = $("#inputForm").validate();
-      	if (v.checkForm() &&mainChecked()) {
+      	if (v.checkForm() && mainChecked()) {
       		$("#inputForm").submit();
       	}else{
       		v.showErrors();

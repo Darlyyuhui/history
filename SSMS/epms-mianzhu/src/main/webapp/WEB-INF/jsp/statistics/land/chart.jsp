@@ -60,22 +60,43 @@
 <div class="row" style="margin-top:1px;">
     <div class="col-xs-6" >
     	<div class="chart_title">${title1 }土壤污染面积</div>
-        <div id="pieChart" style="width:100%; height:500px; padding:10px;"></div>
+        <div id="pieChart" style="width:100%; height:450px; padding:10px;"></div>
+        
+        <div class="chart_title">${title2 }土壤污染因子分析</div>
+        <div id="lineChart" style="width:100%; height:450px; padding:10px;"></div>
     </div>
     <div class="col-xs-6" >
-    	<div class="chart_title">${title2 }土壤污染因子分析</div>
-        <div id="lineChart" style="width:100%; height:500px; padding:10px;"></div>
+    	<div class="chart_title">${title1 }土壤酸碱度分级统计</div>
+        <div id="phChart" style="width:100%; height:300px; padding:10px;"></div>
+        
+        <div class="chart_title">${title1 }土壤总镉污染指数统计</div>
+        <div id="cdChart" style="width:100%; height:300px; padding:10px;"></div>
+        
+        <div class="chart_title">${title1 }土壤有效态镉分布统计</div>
+        <div id="acdChart" style="width:100%; height:300px; padding:10px;"></div>
     </div>
 </div>
 <script type="text/javascript">
 var chart1Opt = ${pieOpt};
 var chart2Opt = ${lineOpt};
+var chart3Opt = ${phOpt};
+var chart4Opt = ${cdOpt};
+var chart5Opt = ${acdOpt};
 $(function() {
 	var chart1 = echarts.init(document.getElementById("pieChart"), "shine");
 	chart1.setOption(chart1Opt);
 	
 	var chart2 = echarts.init(document.getElementById("lineChart"), "shine");
 	chart2.setOption(chart2Opt);
+	
+	var chart3 = echarts.init(document.getElementById("phChart"), "shine");
+	chart3.setOption(chart3Opt);
+	
+	var chart4 = echarts.init(document.getElementById("cdChart"), "shine");
+	chart4.setOption(chart4Opt);
+	
+	var chart5 = echarts.init(document.getElementById("acdChart"), "shine");
+	chart5.setOption(chart5Opt);
 });
 
 function resetSearValue() {

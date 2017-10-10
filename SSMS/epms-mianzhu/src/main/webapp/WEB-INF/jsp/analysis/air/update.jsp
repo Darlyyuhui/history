@@ -68,7 +68,7 @@
             <div class="profile-info-row">
                 <div class="profile-info-name">镉含量</div>
                 <div class="profile-info-value">
-					<input type="text" id="cadmium" name="cadmium" maxlength="6" value="${info.cadmium }"
+					<input type="text" id="cadmium" name="cadmium" maxlength="4" value="${info.cadmium }"
 						style="min-width:120px; width: 350px;" class="input-large number"/>
 				</div>
 				
@@ -80,15 +80,21 @@
 				</div>
             </div>
             
-        </div>
-        <div class="profile-user-info profile-user-info-striped" style="border-top: none;">
-        	<div class="profile-info-row">
+            <div class="profile-info-row">
+            	<div class="profile-info-name">分析单位</div>
+                <div class="profile-info-value">
+					<input type="text" id="dept" name="dept" maxlength="20" value="${info.dept }"
+						style="min-width:120px; width: 350px;" class="input-large required"/>
+					<span style="color: red">*</span>
+				</div>
+				
 				<div class="profile-info-name">备注</div>
                 <div class="profile-info-value">
 					<input type="text" id="remark" name="remark" maxlength="200" value="${info.remark }"
 						style="min-width:120px; width: 350px;" class="input-large"/>
 				</div>
             </div>
+            
         </div>
         <div class="clearfix form-actions">
             <div class="col-md-offset-2 col-md-10">

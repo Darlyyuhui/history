@@ -9,6 +9,7 @@ MapFactory.Define("ItmsMap/UserLayers/CustomLayersAPI*",function(){
 		drawRegions : "绘制多个区域点",
 		drawOnlyRegions:"绘制单个区域点",
 		removeGraphic:"移除指定的信息点",
-		clearAllGraphic:"移除所有信息"
+		clearAllGraphic:"移除所有信息",
+        drawRegionByTimeChange:"采样点根据时间变化",
 	};
 });

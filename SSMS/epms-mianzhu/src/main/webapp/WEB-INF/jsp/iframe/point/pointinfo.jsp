@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <style>
 .mian_white {
 	background: white;
@@ -7,26 +8,28 @@
 	margin-left: 10px;
     
 }
-.mian_white tr{
-  height: 28px;
+.mian_white tr td{
+  padding:3px 1px;
 }
+
 .apb-TabMargin{
   height: 100%;
- padding-bottom: 8px;
+  padding-bottom: 8px;
   margin-left: 8px;
 }
 .apb-td-word-size{
   font-weight: bold;
-  width: 40px;
+  width: 30%;
 }
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
 		MapFactory.Require([ "ItmsMap/UserLayers/DataController*"], 
 				function(DataController){
+
 			var countObj=DataController().getcydPoint();
 			var innerhtml=getPointInfo(countObj);
-			var cydDiv=document.getElementById('cydpointDiv')
+			var cydDiv=document.getElementById('cydpointDiv');
 			cydDiv.innerHTML=innerhtml;
 		});
 	  
@@ -78,8 +81,8 @@
 		//	updateTime:"修改时间",
 		//	status:"状态",
 		//	createTime: "创建时间",
-	    //  longitude:"经度",
-    	//	latitude: "纬度",
+	        longitude:"经度",
+    	 	latitude: "纬度",
 			samplingTime:"采样时间",
 			samplingSource:"采样来源",
 			samplingUser:"采样人",
@@ -100,7 +103,7 @@
     		cadmium:"镉",
     		availableCadmium:"有效态镉"
   		};
-	<!--<tags:xiangxuncache keyName='AIRPOINT_ID_NAME' id='"+value+"'/>-->
+	
 	function getPointInfo(countObj){
 		var innerHtml="<table style='background:white;color: #000;' class='width-100 text-center' id='cydPointInfoDiv'>";
 		for(var key in dataModel){
@@ -108,15 +111,18 @@
 				var value = countObj[key] ? countObj[key]:"";
 				if(key=='createTime' || key=='updateTime' || key=='samplingTime' || key=='checkTime'){
 					value=getDataTimeFormat(value);
-					innerHtml = innerHtml + "<tr style='height: 28px;'><td style='font-weight: bold;'>" + dataModel[key] + "</td><td>" + value + "</td></tr>";
+					innerHtml = innerHtml + "<tr style='height: 28px;'><td class='apb-td-word-size'>" + dataModel[key] + "</td><td>" + value + "</td></tr>";
 				}else if(key=='checkStatus'){
 					value=getCheckStatus(value);
-					innerHtml = innerHtml + "<tr style='height: 28px;'><td style='font-weight: bold;'>" + dataModel[key] + "</td><td>" + value + "</td></tr>";
+					innerHtml = innerHtml + "<tr style='height: 28px;'><td class='apb-td-word-size'>" + dataModel[key] + "</td><td>" + value + "</td></tr>";
 				}else if(key=='pointId'){
-					innerHtml = innerHtml + "<tr style='height: 28px;'><td style='font-weight: bold;'>" + dataModel[key] + "</td><td><tags:xiangxuncache keyName='AIRPOINT_ID_NAME' id='"+value+"'/></td></tr>";
-				}else{
+					innerHtml = innerHtml + "<tr style='height: 28px;'><td class='apb-td-word-size'>" + dataModel[key] + "</td><td><tags:xiangxuncache keyName='AIRPOINT_ID_NAME' id='"+value+"'/></td></tr>";
+				}else if(key=='samplingSource'){
+					innerHtml = innerHtml + "<tr style='height: 28px;'><td class='apb-td-word-size'>" + dataModel[key] + "</td><td>" + cySource(value) + "</td></tr>";
+				}
+				else{
 					value=valueStringHandle(value);
-					innerHtml = innerHtml + "<tr style='height: 28px;'><td style='font-weight: bold;'>" + dataModel[key] + "</td><td>" + value + "</td></tr>";
+					innerHtml = innerHtml + "<tr style='height: 28px;'><td class='apb-td-word-size'>" + dataModel[key] + "</td><td>" + value + "</td></tr>";
 				}
 				
 			}
@@ -131,7 +137,6 @@
 				innerHtml=innerHtml+"<img  style='margin:2px;width:33px;height:56px;' src='"+path+"/"+file.filePath+"' onclick=showImgInfo('"+file.filePath+"')  onerror=loadImgError(this)></img>";
 			}
 			innerHtml=innerHtml+"</tr></td>";
-			
 		}
 		
 		//innerHtml=innerHtml+"<tr><td><img src='${root}/"+countObj.files[0].filePath+"'/></td></tr>";
@@ -141,8 +146,16 @@
 	function valueStringHandle(value){
 		return value ? value : "";
 	}
+	function cySource(source){
+    	if(source==="1"){
+    		return "原始录入";
+    	}else if(source==="2"){
+    		return "移动APP";
+    	}else{
+    		return "批量导入";
+    	}
+	}
 	function getDataTimeFormat(time){
-		//审查状态 0=未审查  1=通过 2=不通过
 		if(!time){
 			return "";
 		}

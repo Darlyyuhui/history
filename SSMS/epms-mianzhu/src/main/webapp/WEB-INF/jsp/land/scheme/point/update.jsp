@@ -181,8 +181,17 @@
                 var symbols = map.getSymbolConfig();
                 map.popUpInfowindow('{"type":"point", "points":"108,34"}', "", "", 300, 200);
                 map.hideInfowindow();
+                var addGeo ='${schemeInfo.geoJson}';
+   			    if(addGeo) {
+   			    var addJson = eval("(" + addGeo + ")");
+   				map.addGeometry(addJson, "landLayer", true);
+   				}	
                 if("${info.longitude }" && "${info.latitude }"){
                 	  map.centerAt("${info.longitude }","${info.latitude }",6);
+                }else if(addGeo){
+                	getBlockLocation("${info.blockId }");
+                }else if("${Info.regionId }"){
+                	getRegionLocation("${info.regionId }");
                 }
               
                  MapFactory.Require(["MapFactory/GeometryType*","MapFactory/GraphicManager", "MapFactory/Geometry*","ItmsMap/SymbolConfig*","ItmsMap/UserLayers/TRPointConfig*"],function(GeometryType,GraphicManager,Geometry,SymbolConfig,TRPointConfig){
@@ -238,6 +247,43 @@
     	var ckval = $("input[name='rdo_isSamplingPoint']:checked").val();
     	$("#isSamplingPoint").val(ckval);
     }
+    //根据乡镇定位
+    function getRegionLocation(regionId) {
+    	$.get(
+       		"${root}/bs/region/getLocation/"+regionId+"/",
+       		function(data) {
+       			if(data){
+       				_map.centerAt(data.longitude,data.latitude,4);	
+       			}
+       			
+       		}
+       	);
+    }
+    //根据乡镇定位
+    function getRegionLocation(regionId) {
+    	$.get(
+       		"${root}/bs/region/getLocation/"+regionId+"/",
+       		function(data) {
+       			if(data){
+       				_map.centerAt(data.longitude,data.latitude,4);	
+       			}
+       			
+       		}
+       	);
+    }
+    //根据地块定位
+    function getBlockLocation(blockId) {
+    	$.get(
+       		"${root}/land/block/getLocation/"+blockId+"/",
+       		function(data) {
+       			if(data){
+       				_map.centerAt(data.longitude,data.latitude,4);	
+       			}
+       			
+       		}
+       	);
+    }
+    
 </script>
 
 <%@ include file="/WEB-INF/jsp/common/fooltertags.jspf" %>

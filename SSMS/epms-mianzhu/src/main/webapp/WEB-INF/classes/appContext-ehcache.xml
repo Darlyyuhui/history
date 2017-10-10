@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"    default-autowire="byName" default-lazy-init="false">
+
+	<description>EhCache配置文件</description>
+
+	<bean id="ehcacheManager" class="com.xiangxun.atms.framework.cache.CacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache.xml" />
+		<property name="diskStoreLocation" value="${epms.root}/WEB-INF/cache"/>
+	</bean>
+	
+	<bean id="ehcacheImpl" class="com.xiangxun.atms.framework.cache.EhcacheImpl"></bean>
+	
+	<!-- 按钮菜单权限缓存 -->
+	<bean id="authorityButtonCache" class="com.xiangxun.atms.common.user.cache.AuthorityButtonCache"/>
+	<bean id="authorityMenuCache" class="com.xiangxun.atms.common.user.cache.AuthorityMenuCache"/>
+	<!-- 角色缓存 -->
+	<bean id="roleCache" class="com.xiangxun.atms.common.user.cache.RoleCache"/>
+	<!-- 数据字典 -->
+	<bean id="dicCache" class="com.xiangxun.atms.common.dictionary.cache.DicCache"/>
+	<!-- 部门缓存 -->
+	<bean id="departmentCache" class="com.xiangxun.atms.common.user.cache.DepartmentCache"/>
+	<!-- 用户缓存 -->
+	<bean id="userCache" class="com.xiangxun.atms.common.user.cache.UserCache"/>
+    <bean id="menuCache" class="com.xiangxun.atms.common.system.cache.MenuCache"/>
+    
+    <!-- 行政区域缓存 -->
+    <bean id="regionCache" class="com.xiangxun.atms.module.bs.cache.TRegionCache"/>
+    <!-- 土壤类型缓存 -->
+    <bean id="landTypeCache" class="com.xiangxun.atms.module.bs.cache.LandTypeCache"/>
+    <!-- 土壤地块缓存 -->
+    <bean id="landBlockCache" class="com.xiangxun.atms.module.land.cache.LandBlockCache"/>
+    <!-- 外业任务缓存 -->
+    <bean id="landMissionCache" class="com.xiangxun.atms.module.land.cache.LandMissionCache"/>
+    
+    <!-- 农产品类型缓存 -->
+    <bean id="apbProductTypeCache" class="com.xiangxun.atms.module.apb.cache.ApbProductTypeCache"/>
+    <!-- 基地缓存 -->
+    <bean id="apbInfoCache" class="com.xiangxun.atms.module.apb.cache.ApbInfoCache"/>
+    <!-- 产品基地关联缓存 -->
+    <bean id="apbInfoProductLinkCache" class="com.xiangxun.atms.module.apb.cache.ApbInfoProductLinkCache"/>
+
+    <!-- 空气点位缓存 -->
+    <bean id="airPointCache" class="com.xiangxun.atms.module.bs.cache.AirPointCache"/>
+    <!--责任人 -->
+    <bean id="owener" class="com.xiangxun.atms.module.bs.cache.OwnerCahe" />
+    <!-- 监测指标缓存 -->
+    <bean id="standardMonitorCahe" class="com.xiangxun.atms.module.bs.cache.StandardMonitorCahe" />
+    
+	<bean name="cacheFactory" class="com.xiangxun.atms.framework.cache.CacheFactory">
+		<property name="items">
+			<list>
+				<ref local="authorityButtonCache"/>
+				<ref local="authorityMenuCache"/>
+				<ref local="dicCache"/>
+				<ref local="roleCache"/>
+				<ref local="departmentCache"/>
+				<ref local="userCache"/>
+                <ref local="menuCache"/>
+                <ref local="regionCache"/>
+                <ref local="landTypeCache"/>
+                <ref local="landBlockCache"/>
+                <ref local="landMissionCache"/>
+                <ref local="apbProductTypeCache"/>
+                <ref local="apbInfoCache"/>
+                <ref local="apbInfoProductLinkCache"/>
+                <ref local="airPointCache"/>
+                <ref local="owener"/>
+                <ref local="standardMonitorCahe"/>
+			</list>
+		</property>
+	</bean>
+	
+</beans>

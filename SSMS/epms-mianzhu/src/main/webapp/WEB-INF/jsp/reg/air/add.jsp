@@ -29,14 +29,6 @@
         <div class="profile-user-info profile-user-info-striped">
         
             <div class="profile-info-row">
-                <div class="profile-info-name">样品编号</div>
-                <div class="profile-info-value">
-                	<input type="text" id="code" name="code" maxlength="20"
-						style="min-width:120px; width: 350px;" class="input-large required"/>
-					<span style="color: red">*</span>
-					<span id="checkCodeSpan" style="color: red"></span>
-				</div>
-				
 				<div class="profile-info-name">采样任务</div>
                 <div class="profile-info-value">
                 	<select id="missionId" name="missionId" style="min-width:120px; width: 350px;" class="required">
@@ -47,10 +39,8 @@
                 	</select>
 					<span style="color: red">*</span>
 				</div>
-            </div>
-            
-            <div class="profile-info-row">
-                <div class="profile-info-name">采样点位</div>
+				
+				<div class="profile-info-name">采样点位</div>
                 <div class="profile-info-value">
 					<select id="pointId" name="pointId" style="min-width:120px; width: 350px;" class="required">
 						<option value="">请选择</option>
@@ -60,7 +50,9 @@
 					</select>
 					<span style="color: red">*</span>
 				</div>
-				
+            </div>
+            
+            <div class="profile-info-row">
 				<div class="profile-info-name">采样时间</div>
                 <div class="profile-info-value">
 					<input id="samplingTime" name="samplingTime" type="text" 
@@ -68,35 +60,29 @@
 						onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true})" />
 					<span style="color: red">*</span>
 				</div>
+				
+				<div class="profile-info-name">采样人</div>
+                <div class="profile-info-value">
+					<input type="text" id="samplingUser" name="samplingUser" maxlength="20"
+						style="min-width:120px; width: 350px;" class="input-large"/>
+				</div>
             </div>
             
             <div class="profile-info-row">
                 <div class="profile-info-name">容器体积</div>
                 <div class="profile-info-value">
-					<input type="text" id="containerVolume" name="containerVolume" maxlength="10"
+					<input type="text" id="containerVolume" name="containerVolume" maxlength="6"
 						style="min-width:120px; width: 350px;" class="input-large required number"/>
 					<span style="color: red">*</span>
 				</div>
 				
 				<div class="profile-info-name">收集量</div>
                 <div class="profile-info-value">
-					<input type="text" id="collectVolume" name="collectVolume" maxlength="10"
+					<input type="text" id="collectVolume" name="collectVolume" maxlength="6"
 						style="min-width:120px; width: 350px;" class="input-large required number" />
 					<span style="color: red">*</span>
 				</div>
 				
-            </div>
-            
-            <div class="profile-info-row">
-                <div class="profile-info-name">采样人</div>
-                <div class="profile-info-value">
-					<input type="text" id="samplingUser" name="samplingUser" maxlength="20"
-						style="min-width:120px; width: 350px;" class="input-large"/>
-				</div>
-				
-				<div class="profile-info-name"></div>
-                <div class="profile-info-value">
-				</div>
             </div>
         </div>
         <div class="profile-user-info profile-user-info-striped" style="border-top-style: none;">
@@ -121,7 +107,6 @@
 </div>
 
 <script>
-	var isCheck = false;
 	var v;
     $(document).ready(function () {
         //聚焦第一个输入框
@@ -130,30 +115,10 @@
         $("#name").focus();
     });
     function checkForm() {
-    	checkCode();
-    	if (v.checkForm() && isCheck) {
+    	if (v.checkForm()) {
     		$("#inputForm").submit();
     	}else{
     		v.showErrors();
-    	}
-    }
-    function checkCode() {
-    	var codeObj = $("#code");
-    	if (codeObj.val() != "") {
-    		$.ajax({
-    			async:false,
-    			type:"post",
-    			url:"${root}/reg/air/checkCode/"+codeObj.val()+"/",
-    			data:"tName=T_SAMPLING_AIR_REG&cName=CODE",
-    			success:function(data) {
-    				if (data.result == "ok") {
-    					isCheck = true;
-    					$("#checkCodeSpan").empty();
-    				}else {
-    					$("#checkCodeSpan").empty().html(data.message);
-    				}
-    			}
-    		});
     	}
     }
 </script>

@@ -63,7 +63,7 @@
 
                     <div class="infobox-data">
                         <span class="infobox-data-number">
-                        <fmt:formatNumber pattern="#.00" value="${topMap['PERC']}" /> %</span>
+                        <fmt:formatNumber pattern="#0.00" value="${topMap['PERC']}" /> %</span>
                         <div class="infobox-content">污染率</div>
                     </div>
                 </div>

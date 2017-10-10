@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.apb.dao.ApbProductMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.apb.vo.ApbProduct" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="CODE" property="code" jdbcType="NVARCHAR" />
+    <result column="NAME" property="name" jdbcType="NVARCHAR" />
+    <result column="TYPE_CODE" property="typeCode" jdbcType="NVARCHAR" />
+    <result column="EXPLAIN" property="explain" jdbcType="NVARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="NVARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    ID, CODE, NAME, TYPE_CODE, EXPLAIN, CREATE_ID, CREATE_TIME, UPDATE_ID, UPDATE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.apb.vo.ApbProductSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_APB_PRODUCT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_APB_PRODUCT
+    where ID = #{id,jdbcType=NVARCHAR}
+  </select>
+  <select id="selectByTypeCode" resultType="com.xiangxun.atms.module.apb.vo.ApbProduct" parameterType="java.lang.String" >
+   
+    select 
+    <include refid="Base_Column_List" />
+    from T_APB_PRODUCT
+    where TYPE_CODE IN (#{contion,jdbcType=NVARCHAR})
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    delete from T_APB_PRODUCT
+    where ID = #{id,jdbcType=NVARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.apb.vo.ApbProductSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    delete from T_APB_PRODUCT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.apb.vo.ApbProduct" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    insert into T_APB_PRODUCT (CODE, NAME, TYPE_CODE, 
+      EXPLAIN, CREATE_ID, CREATE_TIME, 
+      UPDATE_ID, UPDATE_TIME)
+    values (#{code,jdbcType=NVARCHAR}, #{name,jdbcType=NVARCHAR}, #{typeCode,jdbcType=NVARCHAR}, 
+      #{explain,jdbcType=NVARCHAR}, #{createId,jdbcType=NVARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateId,jdbcType=NVARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.apb.vo.ApbProduct" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    insert into T_APB_PRODUCT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(typeCode)" >
+        TYPE_CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(explain)" >
+        EXPLAIN,
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(typeCode)" >
+        #{typeCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(explain)" >
+        #{explain,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.apb.vo.ApbProductSearch" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    select count(*) from T_APB_PRODUCT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    update T_APB_PRODUCT
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.code)" >
+        CODE = #{record.code,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.typeCode)" >
+        TYPE_CODE = #{record.typeCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.explain)" >
+        EXPLAIN = #{record.explain,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createId)" >
+        CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createTime)" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateId)" >
+        UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateTime)" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    update T_APB_PRODUCT
+    set ID = #{record.id,jdbcType=NVARCHAR},
+      CODE = #{record.code,jdbcType=NVARCHAR},
+      NAME = #{record.name,jdbcType=NVARCHAR},
+      TYPE_CODE = #{record.typeCode,jdbcType=NVARCHAR},
+      EXPLAIN = #{record.explain,jdbcType=NVARCHAR},
+      CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.apb.vo.ApbProduct" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    update T_APB_PRODUCT
+    <set >
+      <if test="code != null" >
+        CODE = #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="typeCode != null" >
+        TYPE_CODE = #{typeCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="explain != null" >
+        EXPLAIN = #{explain,jdbcType=NVARCHAR},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.apb.vo.ApbProduct" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    update T_APB_PRODUCT
+    set CODE = #{code,jdbcType=NVARCHAR},
+      NAME = #{name,jdbcType=NVARCHAR},
+      TYPE_CODE = #{typeCode,jdbcType=NVARCHAR},
+      EXPLAIN = #{explain,jdbcType=NVARCHAR},
+      CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+     from T_APB_PRODUCT
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE = #{code,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(typeCode)" >
+         and TYPE_CODE = #{typeCode,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(explain)" >
+         and EXPLAIN = #{explain,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+         and CREATE_ID = #{createId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+         and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+         and UPDATE_ID = #{updateId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+         and UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Thu Jun 22 13:49:48 CST 2017.
+    -->
+    select count(*) from T_APB_PRODUCT
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+         and CODE = #{code,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(typeCode)" >
+         and TYPE_CODE = #{typeCode,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(explain)" >
+         and EXPLAIN = #{explain,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+         and CREATE_ID = #{createId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+         and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+         and UPDATE_ID = #{updateId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+         and UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+</mapper>

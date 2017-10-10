@@ -17,6 +17,7 @@
             <input type="hidden" name="deptid" value="${deptid}"/>
         </c:if>
         <input type="hidden" id="org-name"/>
+        <input type="hidden" name="skin" value="no-skin"/>
 
         <div class="profile-user-info profile-user-info-striped">
             <div class="profile-info-row">

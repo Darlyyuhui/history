@@ -102,21 +102,6 @@
                                 <input type="text" id="riversName" name="riversName" maxlength="50" value="${info.riversName }"
                                        style="min-width:120px; width: 180px;" class="input-large" />
                             </div>
-
-                        </div>
-
-                        <div class="profile-info-row">
-                            <div class="profile-info-name">底泥经度</div>
-                            <div class="profile-info-value">
-                                <input type="text" id="mudLongitude" name="mudLongitude" maxlength="20" value="${info.mudLongitude }"
-                                       style="min-width:120px; width: 180px;" class="input-large number"/>
-                            </div></div>
-                        <div class="profile-info-row">
-                            <div class="profile-info-name">底泥纬度</div>
-                            <div class="profile-info-value">
-                                <input type="text" id="mudLatitude" name="mudLatitude" maxlength="20" value="${info.mudLatitude }"
-                                       style="min-width:120px; width: 180px;" class="input-large number"/>
-                            </div>
                         </div>
 
                         <div class="profile-info-row">

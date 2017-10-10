@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.statistics.dao.ApbMapper" >
+
+  <resultMap id="BaseMap" type="com.xiangxun.atms.module.statistics.vo.ApbInfo" >
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="TYPE_NAME" property="typeName" jdbcType="VARCHAR" />
+    <result column="APB_NAMES" property="apbNames" jdbcType="VARCHAR" />
+    <result column="EXPLAIN" property="explain" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <select id="queryList" resultMap="BaseMap" >
+  	SELECT T.CODE, T.NAME, PT.NAME AS TYPE_NAME
+	, [dbo].getApbInfoNamesByProductId(T.ID) AS APB_NAMES
+	, T.EXPLAIN
+	FROM T_APB_PRODUCT T
+	LEFT JOIN T_APB_PRODUCT_TYPE PT ON PT.CODE = T.TYPE_CODE
+	<include refid="BaseWhere"/>
+	<if test="@Ognl@isNotEmpty(sortType)">
+		ORDER BY ${sortType}
+	</if>
+  </select>
+  
+  <select id="countList" resultType="java.lang.Integer" >
+  	SELECT COUNT(T.ID)
+	FROM T_APB_PRODUCT T
+	LEFT JOIN T_APB_PRODUCT_TYPE PT ON PT.CODE = T.TYPE_CODE
+	<include refid="BaseWhere"/>
+  </select>
+  
+  <sql id="BaseWhere">
+  	<where>
+  	  <if test="@Ognl@isNotEmpty(typeName)" >
+	     AND PT.NAKE LIKE '%${typeName}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(apbName)" >
+         AND EXISTS(SELECT 1 FROM T_APB_INFO_PRODUCT_LINK L 
+		 WHERE L.PRODUCT_ID = T.ID 
+		 AND EXISTS(SELECT 1 FROM T_APB_INFO A WHERE A.ID = L.INFO_ID AND A.NAME LIKE '%${apbName}%'))
+      </if>
+  	</where>
+  </sql>
+  
+  
+</mapper>

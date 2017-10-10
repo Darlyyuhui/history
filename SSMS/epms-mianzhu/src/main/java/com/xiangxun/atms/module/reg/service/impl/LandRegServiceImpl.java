@@ -9,11 +9,13 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.xiangxun.atms.core.service.AbstractBaseService;
 import com.xiangxun.atms.framework.base.BaseMapper;
 import com.xiangxun.atms.framework.util.StringUtils;
+import com.xiangxun.atms.module.analysis.service.LandAnalysisService;
 import com.xiangxun.atms.module.files.service.FilesService;
 import com.xiangxun.atms.module.reg.dao.LandRegMapper;
 import com.xiangxun.atms.module.reg.service.LandRegService;
@@ -23,8 +25,9 @@ import com.xiangxun.atms.module.reg.vo.LandRegSearch;
 @Service
 public class LandRegServiceImpl extends AbstractBaseService<LandReg, LandRegSearch> implements LandRegService {
     @Resource
-    private LandRegMapper landRegMapper;
-
+    LandRegMapper landRegMapper;
+    @Resource
+    LandAnalysisService landAnalysisService;
     @Resource
    	FilesService filesService;
    	/**
@@ -62,6 +65,14 @@ public class LandRegServiceImpl extends AbstractBaseService<LandReg, LandRegSear
 		this.updateByIdSelective(info);
 	}
 	
+	@Transactional
+	@Override
+	public int deleteById(String id) {
+		//删除采样登记信息
+		landAnalysisService.deleteByRegId(id);
+		return super.deleteById(id);
+	}
+
 	/**
 	 * 保存土壤登记与地块的关联关系
 	 * @param regId
@@ -100,6 +111,18 @@ public class LandRegServiceImpl extends AbstractBaseService<LandReg, LandRegSear
 	@Override
 	public List<LandReg> getInfoByAnalysis() {
 		return landRegMapper.getInfoByAnalysis();
+	}
+
+	@Override
+	public Map<String, String> getRegsByNoAnalysis() {
+		Map<String, String> map = new HashMap<String, String>();
+		List<LandReg> list = landRegMapper.getRegsByNoAnalysis();
+		if (list != null) {
+			for (LandReg lr : list) {
+				map.put(lr.getCode(), lr.getId());
+			}
+		}
+		return map;
 	}
     
 }

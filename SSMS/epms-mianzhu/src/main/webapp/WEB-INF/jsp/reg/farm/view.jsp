@@ -57,7 +57,16 @@
                         <div class="profile-info-name">样品名称</div>
                         <div class="profile-info-value">
                             ${info.name }
-                        </div></div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">样品类型</div>
+                        <div class="profile-info-value">
+                            <tags:xiangxuncache keyName="SAMPLING_FARM_TYPE" id="${info.samplingType }"/>
+                        </div>
+                    </div>
+                    
                     <div class="profile-info-row">
                         <div class="profile-info-name">采样部位</div>
                         <div class="profile-info-value">

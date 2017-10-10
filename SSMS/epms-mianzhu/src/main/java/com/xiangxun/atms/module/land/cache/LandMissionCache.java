@@ -21,6 +21,10 @@ public class LandMissionCache implements BaseCache {
 	 * 根据ID获取任务编号
 	 */
 	public final static String LM_ID_CODE = "LANDMISSION_ID_CODE";
+	/**
+	 * 根据任务编号获取ID
+	 */
+	public final static String LM_CODE_ID = "LANDMISSION_CODE_ID";
     /**
      * 根据ID获取任务名称【编号】
      */

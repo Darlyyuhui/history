@@ -71,27 +71,16 @@
                         <div class="profile-info-name">类型</div>
                         <div class="profile-info-value">
                             <tags:xiangxuncache keyName="Dic" typeCode="SAMPLING_WATER_TYPE1" id="${info.typeCode }"/>
-                        </div></div>
+                        </div>
+                    </div>
+                    
                     <div class="profile-info-row">
                         <div class="profile-info-name">河流名称</div>
                         <div class="profile-info-value">
                             ${info.riversName }
                         </div>
-
                     </div>
-
-                    <div class="profile-info-row">
-                        <div class="profile-info-name">底泥经度</div>
-                        <div class="profile-info-value">
-                            ${info.mudLongitude }
-                        </div></div>
-                    <div class="profile-info-row">
-                        <div class="profile-info-name">底泥纬度</div>
-                        <div class="profile-info-value">
-                            ${info.mudLatitude }
-                        </div>
-                    </div>
-
+                    
                     <div class="profile-info-row">
                         <div class="profile-info-name">样品类型</div>
                         <div class="profile-info-value">

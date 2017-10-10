@@ -6,10 +6,12 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.xiangxun.atms.core.service.AbstractBaseService;
 import com.xiangxun.atms.framework.base.BaseMapper;
+import com.xiangxun.atms.module.analysis.service.AirAnalysisService;
 import com.xiangxun.atms.module.files.service.FilesService;
 import com.xiangxun.atms.module.reg.dao.AirRegMapper;
 import com.xiangxun.atms.module.reg.service.AirRegService;
@@ -19,8 +21,11 @@ import com.xiangxun.atms.module.reg.vo.AirRegSearch;
 @Service
 public class AirRegServiceImpl extends AbstractBaseService<AirReg, AirRegSearch> implements AirRegService {
     @Resource
-    private AirRegMapper airRegMapper;
-
+    AirRegMapper airRegMapper;
+    
+    @Resource
+    AirAnalysisService airAnalysisService;
+    
     @Resource
    	FilesService filesService;
    	/**
@@ -54,6 +59,14 @@ public class AirRegServiceImpl extends AbstractBaseService<AirReg, AirRegSearch>
 		String id = info.getId();
 		filesService.saveFile(id, filesService.getBusinessType(AirReg.class), FILE_TYPE, 20L, fileRequest);
 		this.updateByIdSelective(info);
+	}
+
+	@Transactional
+	@Override
+	public int deleteById(String id) {
+		//根据采样登记信息，删除分析信息
+		airAnalysisService.deleteByRegId(id);
+		return super.deleteById(id);
 	}
 
 	@Override

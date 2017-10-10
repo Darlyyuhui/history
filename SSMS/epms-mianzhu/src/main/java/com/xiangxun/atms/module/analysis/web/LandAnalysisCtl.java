@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,6 +47,7 @@ import com.xiangxun.atms.module.analysis.vo.LandAnalysisSearch;
 import com.xiangxun.atms.module.analysis.vo.xls.LandImport;
 import com.xiangxun.atms.module.base.web.BaseCtl;
 import com.xiangxun.atms.module.bs.cache.TRegionCache;
+import com.xiangxun.atms.module.bs.constant.AutoCode;
 import com.xiangxun.atms.module.reg.service.LandRegService;
 import com.xiangxun.atms.module.reg.vo.LandReg;
 
@@ -65,6 +65,9 @@ public class LandAnalysisCtl extends BaseCtl<LandAnalysis, LandAnalysisSearch> {
     LandRegService landRegService;
     @Resource
     Cache cache;
+    
+    //导入错误记录
+    public static Map<String, List<LandImport>> ERR_IMP_MAP = new HashMap<String, List<LandImport>>();
 
 	@Override
 	protected BaseService<LandAnalysis, LandAnalysisSearch> getBaseService() {
@@ -75,6 +78,7 @@ public class LandAnalysisCtl extends BaseCtl<LandAnalysis, LandAnalysisSearch> {
 	public String list(@PathVariable String menuid
 			, @RequestParam(value = "sortType", defaultValue = "T.CODE ASC") String sortType
 			, @RequestParam(value = "page", defaultValue = "0") int pageNumber
+			, String impMapId
 			, Model model, HttpServletRequest request) {
 		Map<String, Object> searchParams = Servlets.getParametersStartingWith(request, "search_");
 		super.updateSession(request, menuid, searchParams);
@@ -87,6 +91,7 @@ public class LandAnalysisCtl extends BaseCtl<LandAnalysis, LandAnalysisSearch> {
 		model.addAttribute("sortType", sortType);
 		model.addAttribute("pageList", page);
 		model.addAttribute("page", pageNumber);
+		model.addAttribute("impMapId", ERR_IMP_MAP.containsKey(impMapId)?impMapId:"");
 		return "analysis/land/list";
 	}
 	
@@ -134,6 +139,7 @@ public class LandAnalysisCtl extends BaseCtl<LandAnalysis, LandAnalysisSearch> {
 	public String doAdd(@PathVariable String menuid, LandAnalysis info
 			, RedirectAttributes attr, HttpServletRequest request) {
 		info.setId(UuidGenerateUtil.getUUIDLong());
+		info.setCode(AutoCode.ANALYSIS_LAND);
 		info.setCreateId(getCurrentUserId());
 		info.setCreateTime(new Date());
 		landAnalysisService.save(info);
@@ -271,13 +277,15 @@ public class LandAnalysisCtl extends BaseCtl<LandAnalysis, LandAnalysisSearch> {
 	public String doImport(@PathVariable String menuid
 			, @RequestParam("file") MultipartFile file
 			, RedirectAttributes attrs, HttpServletRequest request, HttpServletResponse response) {
-		
+    	
 		File uploadFile = null;
         List<KeyValue> errorMessages = new ArrayList<KeyValue>();
         List<String> errors = ExcelImportValidator.errorMessages;
         //清除历史记录
         landAnalysisXlsImportService.getObjectList().clear();
         errors.clear();
+        
+        String impMapId = "";
         if (file.isEmpty()) {
         	attrs.addFlashAttribute("message", "错误：未获取到上传的数据文件。");
         } else {
@@ -309,15 +317,25 @@ public class LandAnalysisCtl extends BaseCtl<LandAnalysis, LandAnalysisSearch> {
                     errorMessages.clear();
                     //获取封装的对象
                     List<Object> list = landAnalysisXlsImportService.getObjectList();
+                    //获取没有登记数据的采样
+                    Map<String, String> regMap = landRegService.getRegsByNoAnalysis();
+                    
+                    List<LandImport> errList = new ArrayList<LandImport>();
                     LandImport imp = null;
                     String message = "导入成功。";
+                    int i = 1;
                     for (Object obj : list) {
                     	imp = (LandImport)obj;
-                    	//数据有效性，编号
                     	if (StringUtils.isEmpty(imp.getRegNo())) {
                     		continue;
                     	}
-                    	this.saveInfo(imp);
+                    	imp.setRowNum(i++);
+                    	this.saveInfo(imp, regMap, errList);
+                    }
+                    if (errList.size() > 0) {
+                    	message += "【有部分数据未能导入，稍后自动下载异常数据行报告】";
+                    	impMapId = UuidGenerateUtil.getUUID();
+                    	ERR_IMP_MAP.put(impMapId, errList);
                     }
                     attrs.addFlashAttribute("message", message);
                 }
@@ -326,64 +344,97 @@ public class LandAnalysisCtl extends BaseCtl<LandAnalysis, LandAnalysisSearch> {
                 attrs.addFlashAttribute("message", "导入失败，数据处理异常。");
             }
         } 
-        return "redirect:/analysis/land/list/"+menuid+"/";
+        return "redirect:/analysis/land/list/"+menuid+"/?impMapId="+impMapId;
 	}
+    
+    @RequestMapping(value = "downloadErrTxt/{mapKey}/", method = RequestMethod.POST)
+    public void downloadErrTxt(@PathVariable String mapKey, HttpServletResponse response) {
+    	if (StringUtils.isEmpty(mapKey)) {
+    		return;
+    	}
+    	List<LandImport> errList = ERR_IMP_MAP.get(mapKey);
+    	if (errList == null) {
+    		return;
+    	}
+    	String split = "|";
+    	StringBuffer str = new StringBuffer();
+    	str.append("行号");
+    	str.append(split);
+    	str.append("采样编号");
+    	str.append(split);
+    	str.append("分析单位");
+    	str.append(split);
+    	str.append("PH值");
+    	str.append(split);
+    	str.append("镉");
+    	str.append(split);
+    	str.append("有效态镉");
+    	str.append("\n");
+    	
+    	for (LandImport lmp : errList) {
+    		str.append(lmp.getRowNum());
+        	str.append(split);
+        	str.append(lmp.getRegNo());
+        	str.append(split);
+        	str.append(lmp.getDept());
+        	str.append(split);
+        	str.append(lmp.getPh());
+        	str.append(split);
+        	str.append(lmp.getCadmium());
+        	str.append(split);
+        	str.append(lmp.getAvailableCadmium());
+        	str.append("\n");
+    	}
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		OutputStream os = null;
+		try {
+			response.reset();
+			response.setContentType("application/x-download");
+			response.addHeader("Content-Disposition","attachment;filename=" + URLEncoder.encode("土壤分析导入异常"+sdf.format(new Date())+".txt", "utf-8"));
+		
+		    os = response.getOutputStream();
+		    os.write(str.toString().getBytes("UTF-8"));
+		    
+		    ERR_IMP_MAP.remove(mapKey);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			//释放资源
+			try {
+				if (os != null) {
+					os.flush();
+					os.close();
+				}
+			} catch (IOException e) {
+				os = null;
+			}
+		}
+    }
     
     /**
      * 保存信息
      * @param imp
      */
-    private void saveInfo(LandImport imp) {
-    	//当前时间
-    	Date date = new Date();
+    private void saveInfo(LandImport imp, Map<String, String> regMap, List<LandImport> errList) {
+    	String regId = regMap.get(imp.getRegNo());
+    	if (StringUtils.isEmpty(regId)) {
+    		errList.add(imp);
+    	} else {
+    		//构造采样分析信息
+        	LandAnalysis la = new LandAnalysis();
+        	la.setId(UuidGenerateUtil.getUUIDLong());
+        	la.setCode(AutoCode.ANALYSIS_LAND);
+        	la.setRegId(regId);
+        	la.setDept(imp.getDept());
+        	la.setPh(imp.getPh());
+        	la.setCadmium(imp.getCadmium());
+        	la.setAvailableCadmium(imp.getAvailableCadmium());
+        	la.setCreateId(getCurrentUserId());
+        	la.setCreateTime(new Date());
+        	//保存采样分析
+        	landAnalysisService.save(la);
+    	}
     	
-    	//构造采样登记信息
-    	LandReg reg = new LandReg();
-    	String regId = UuidGenerateUtil.getUUIDLong();
-    	reg.setId(regId);
-    	reg.setCode(imp.getRegNo());
-    	try {
-    		if (imp.getLongitude() != null) {
-        		reg.setLongitude(new BigDecimal(imp.getLongitude()));
-        	}
-    	}catch(Exception e) {}
-    	try {
-    		if (imp.getLatitude() != null) {
-        		reg.setLatitude(new BigDecimal(imp.getLatitude()));
-        	}
-    	}catch(Exception e) {}
-    	
-    	reg.setRegionId(imp.getRegionId());
-    	reg.setCreateId(getCurrentUserId());
-    	reg.setCreateTime(date);
-    	//原始录入
-    	reg.setSamplingSource("1");
-    	reg.setSamplingTime(date);
-    	//已审查
-    	reg.setCheckStatus(1);
-    	reg.setCheckTime(date);
-    	//审查人为录入用户
-    	reg.setCheckUser(getCurrentUserId());
-    	//保存采样登记
-//    	if (baseService.checkCode("T_SAMPLING_LAND_REG", "CODE", reg.getCode())) {
-    		landRegService.save(reg);
-//    	}
-    	
-    	//构造采样分析信息
-    	LandAnalysis la = new LandAnalysis();
-    	la.setId(UuidGenerateUtil.getUUIDLong());
-    	la.setCode(imp.getRegNo()+"A");
-    	la.setRegId(regId);
-    	la.setDept(imp.getDept());
-    	la.setPh(imp.getPh());
-    	la.setCadmium(imp.getCadmium());
-    	la.setAvailableCadmium(imp.getAvailableCadmium());
-    	la.setCreateId(getCurrentUserId());
-    	la.setCreateTime(date);
-    	//保存采样分析
-//    	if (baseService.checkCode("T_ANALYSIS_LAND", "CODE", la.getCode())) {
-    		landAnalysisService.save(la);
-//    	}
     }
     
 

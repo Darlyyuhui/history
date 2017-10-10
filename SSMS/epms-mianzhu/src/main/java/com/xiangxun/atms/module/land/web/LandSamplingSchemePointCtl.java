@@ -1,6 +1,7 @@
 package com.xiangxun.atms.module.land.web;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -25,11 +26,16 @@ import com.xiangxun.atms.framework.util.StringUtils;
 import com.xiangxun.atms.framework.util.UuidGenerateUtil;
 import com.xiangxun.atms.framework.validator.ResponseEntity;
 import com.xiangxun.atms.module.base.web.BaseCtl;
+import com.xiangxun.atms.module.geoServer.domain.LayerBean;
+import com.xiangxun.atms.module.geoServer.domain.LayerEnum;
+import com.xiangxun.atms.module.geoServer.service.IMapOperation;
+import com.xiangxun.atms.module.land.service.LandBlockService;
 import com.xiangxun.atms.module.land.service.LandSamplingSchemePointService;
 import com.xiangxun.atms.module.land.service.LandSamplingSchemeService;
 import com.xiangxun.atms.module.land.vo.LandSamplingScheme;
 import com.xiangxun.atms.module.land.vo.LandSamplingSchemePoint;
 import com.xiangxun.atms.module.land.vo.LandSamplingSchemePointSearch;
+
 
 @Controller
 @RequestMapping(value = "land/sampling/scheme/point")
@@ -40,7 +46,12 @@ public class LandSamplingSchemePointCtl extends BaseCtl<LandSamplingSchemePoint,
 	LandSamplingSchemePointService landSamplingSchemePointService;
 	@Resource
 	LandSamplingSchemeService landSamplingSchemeService;
+	
+	@Resource
+	LandBlockService landBlockService;
 
+	@Resource
+	IMapOperation iMapOperation;
 	@Override
 	protected BaseService<LandSamplingSchemePoint, LandSamplingSchemePointSearch> getBaseService() {
 		return landSamplingSchemePointService;
@@ -73,6 +84,14 @@ public class LandSamplingSchemePointCtl extends BaseCtl<LandSamplingSchemePoint,
 	private void initModel(String schemeId, Model model) {
 		LandSamplingScheme lss = landSamplingSchemeService.getById(schemeId);
 		if (lss != null) {
+			if(StringUtils.isNotEmpty(lss.getBlockId())){
+				List<LayerBean>  layerList= iMapOperation.getByCode(LayerEnum.LAND, lss.getBlockId());
+				if(layerList!=null && layerList.size() > 0){
+					 for (LayerBean layerBean : layerList) {
+				        	lss.setGeoJson(layerBean.getGeometry());
+						}
+				}
+			}
 			model.addAttribute("schemeInfo", lss);
 		}
 	}

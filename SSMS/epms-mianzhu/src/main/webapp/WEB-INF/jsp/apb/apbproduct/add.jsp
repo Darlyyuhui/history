@@ -37,15 +37,6 @@
 		<input type="hidden" id="isContinue" name="isContinue" value="0"/>
         <div class="profile-user-info profile-user-info-striped">
             <div class="profile-info-row">
-                <div class="profile-info-name">编号</div>
-                <div class="profile-info-value">
-                	<input type="text" id="code" name="code" maxlength="20"
-						style="min-width:120px; width: 350px;" class="input-large required"/>
-					<span style="color: red">*</span>
-					<span id="checkCodeSpan" style="color: red"></span>
-				</div>
-            </div>
-            <div class="profile-info-row">
                 <div class="profile-info-name">名称</div>
                 <div class="profile-info-value">
                 	<input type="text" id="name" name="name" maxlength="50"
@@ -110,12 +101,11 @@
 </div>
 <script>
 	var v;
-	var isSub = false;
     $(document).ready(function () {
         //聚焦第一个输入框
         //为inputForm注册validate函数
         v = $("#inputForm").validate();
-        $("#code").focus();
+        $("#name").focus();
     });
     function continueSubmit() {
     	$("#isContinue").val("1");
@@ -127,33 +117,12 @@
 			showMessage("请至少选择一个基地信息。");
 			return false;
 		}
-    	checkCode();
     	var isOk=checkFiles();
     	var v = $("#inputForm").validate();
-    	if (v.checkForm() && isSub&&isOk) {
+    	if (v.checkForm() && isOk) {
     		$("#inputForm").submit();
     	}else{
     		v.showErrors();
-    	}
-    }
-    function checkCode() {
-    	var codeObj = $("#code");
-    	if (codeObj.val() != "") {
-    		$.ajax({
-    			async:false,
-    			type:"post",
-    			url:"${root}/apb/apbproduct/checkCode/"+codeObj.val()+"/",
-    			data:"tName=T_APB_PRODUCT&cName=CODE",
-    			success:function(data) {
-    				if (data.result == "ok") {
-    					isSub = true;
-    					$("#checkCodeSpan").empty();
-    			
-    				}else {
-    					$("#checkCodeSpan").empty().html(data.message);
-    				}
-    			}
-    		});
     	}
     }
     function  showMessage(str){

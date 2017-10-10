@@ -58,7 +58,7 @@
                         <div class="profile-info-row">
                             <div class="profile-info-name">采样任务</div>
                             <div class="profile-info-value">
-                                <select id="missionSelect" onchange="regionTreeCB(this.value)" style="min-width:120px; width: 180px;" class="required">
+                                <select id="missionSelect" onchange="regionTreeCB(this.value)" class="required left-map-input-width">
                                     <option value="">请选择</option>
                                     <c:forEach items="${missions }" var="m">
                                         <option value="${m.id },${m.regionId}" ${info.missionId eq m.id ? 'selected' : '' }>${m.name }</option>
@@ -85,7 +85,7 @@
                             <div class="profile-info-name">样品名称</div>
                             <div class="profile-info-value">
                                 <input type="text" id="name" name="name" maxlength="50" value="${info.name }"
-                                       style="min-width:120px; width: 180px;" class="input-large required"/>
+                                       style="min-width:120px; width: 180px;" class="input-large required left-map-input-width"/>
                                 <span style="color: red">*</span>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
                             <div class="profile-info-name">采样深度</div>
                             <div class="profile-info-value">
                                 <input type="text" id="depth" name="depth" maxlength="10" value="${info.depth }"
-                                       style="min-width:120px; width: 180px;" class="input-large required number"/>
+                                       style="min-width:120px; width: 180px;" class="input-large required number left-map-input-width"/>
                                 <span style="color: red">*</span>
                             </div>
 
@@ -103,23 +103,24 @@
                             <div class="profile-info-name">经度</div>
                             <div class="profile-info-value">
                                 <input type="text" id="longitude" name="longitude" maxlength="12" value="${info.longitude }"
-                                       style="min-width:120px; width: 180px;" class="input-large number"/>
+                                       style="min-width:120px; width: 180px;" class="input-large number left-map-input-width"/>
                             </div>
                         </div>
                         <div class="profile-info-row">
                             <div class="profile-info-name">纬度</div>
                             <div class="profile-info-value">
                                 <input type="text" id="latitude" name="latitude" maxlength="12" value="${info.latitude }"
-                                       style="min-width:120px; width: 180px;" class="input-large number"/>
+                                       style="min-width:120px; width: 180px;" class="input-large number left-map-input-width"/>
                             </div>
                         </div>
 
                         <div class="profile-info-row">
-                            <div class="profile-info-name">土壤类型</div>
+                            <div class="profile-info-name">样品类型</div>
                             <div class="profile-info-value">
-                                <input type="text" id="soilTypeName" maxlength="20" value='<tags:xiangxuncache keyName="LANDTYPE_NAME" id="${info.soilType }"/>'
-                                       style="min-width:120px; width: 180px;" class="input-large" />
-                                <input type="hidden" id="soilType" name="soilType" value="${info.soilType }" />
+                                <select id="samplingType" name="samplingType" class="required left-map-input-width">
+                                	<tags:diccache typeCode="SAMPLING_LAND_TYPE" defaultValue="${info.samplingType }" />
+                                </select>
+                                <span style="color: red">*</span>
                             </div>
                         </div>
                         <div class="profile-info-row">
@@ -127,7 +128,7 @@
                             <div class="profile-info-value">
 
                                 <input id="samplingTime" name="samplingTime" type="text" value="<fmt:formatDate value='${info.samplingTime }' pattern='yyyy-MM-dd HH:mm:ss'/>"
-                                       class="input-large required" readonly="readonly" style="width: 180px;"
+                                       class="input-large required left-map-input-width" readonly="readonly"
                                        onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true})" />
                                 <span style="color: red">*</span>
                             </div>
@@ -137,14 +138,14 @@
                             <div class="profile-info-name">采样人</div>
                             <div class="profile-info-value">
                                 <input type="text" id="samplingUser" name="samplingUser" maxlength="20" value="${info.samplingUser }"
-                                       style="min-width:120px; width: 180px;" class="input-large"/>
+                                       style="min-width:120px; width: 180px;" class="input-large left-map-input-width"/>
                             </div>
                         </div>
                         <div class="profile-info-row">
                             <div class="profile-info-name">收样人</div>
                             <div class="profile-info-value">
                                 <input type="text" id="receiveUser" name="receiveUser" maxlength="20" value="${info.receiveUser }"
-                                       style="min-width:120px; width: 180px;" class="input-large"/>
+                                       style="min-width:120px; width: 180px;" class="input-large left-map-input-width"/>
                             </div>
                         </div>
 
@@ -152,7 +153,7 @@
                             <div class="profile-info-name">送样人</div>
                             <div class="profile-info-value">
                                 <input type="text" id="sendUser" name="sendUser" maxlength="20" value="${info.sendUser }"
-                                       style="min-width:120px; width: 180px;" class="input-large"/>
+                                       style="min-width:120px; width: 180px;" class="input-large left-map-input-width"/>
                             </div>
                         </div>
                         <div class="profile-info-row">

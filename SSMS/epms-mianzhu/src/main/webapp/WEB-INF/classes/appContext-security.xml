@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd"
+       default-lazy-init="true">
+
+    <security:http auto-config="true" use-expressions="false">
+        <security:remember-me/>
+        <!-- 最大登陆用户数量 -->
+        <security:session-management>
+            <security:concurrency-control max-sessions="10" error-if-maximum-exceeded="false"
+                                          expired-url="/sameuser/"/>
+        </security:session-management>
+        <!-- 指定默认登陆页面 -->
+        <security:form-login always-use-default-target="true" default-target-url="/home/admin/"
+                             login-processing-url="/j_spring_security_check"
+                             username-parameter="j_username" password-parameter="j_password"
+                             login-page="/login" authentication-failure-url="/login?error=true"/>
+
+        <security:logout success-handler-ref="logoutSuccessHandler" invalidate-session="true"
+                         logout-url="/j_spring_security_logout"></security:logout>
+
+        <security:custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="filterSecurityInterceptor"/>
+        <security:csrf disabled="true"/>
+        <security:headers disabled="true"/>
+    </security:http>
+
+    <security:filter-security-metadata-source >
+        <security:intercept-url pattern="/**/testftp.jsp*" access="permitAll"/>
+        <security:intercept-url pattern="proxy.jsp" access="permitAll"/>
+        <security:intercept-url pattern="/login.jsp*" access="permitAll"/>
+        <security:intercept-url pattern="/**/*.png*" access="permitAll"/>
+        <security:intercept-url pattern="/**/*.html*" access="permitAll"/>
+        <security:intercept-url pattern="/**/*.css*" access="permitAll"/>
+        <security:intercept-url pattern="/**/*.js*" access="permitAll"/>
+        <security:intercept-url pattern="/**/*.cgi*" access="permitAll"/>
+        <security:intercept-url pattern="/home/admin/" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/index.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+    </security:filter-security-metadata-source>
+
+    <!-- 认证管理器，实现用户认证的入口，主要实现UserDetailsService接口即可 -->
+    <security:authentication-manager erase-credentials="false">
+        <security:authentication-provider user-service-ref="userDetailsService" >
+            <security:password-encoder hash="md5" ref="md5PasswordEncoder">
+                <security:salt-source user-property="username"/>
+            </security:password-encoder>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+
+    <bean id="authenticationProvider"
+            class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <property name="userDetailsService" ref="userDetailsService" />
+        <property name="hideUserNotFoundExceptions" value="false" />
+        <property name="passwordEncoder" ref="md5PasswordEncoder"></property>
+    </bean>
+
+    <bean id="userDetailsService" class="com.xiangxun.atms.core.security.UserDetailsServiceImpl"/>
+
+    <bean id="md5PasswordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>
+
+    <bean id="saltSource" class="org.springframework.security.authentication.dao.ReflectionSaltSource">
+        <property name="userPropertyToUse" value="username"></property>
+    </bean>
+
+    <bean id="filterInvocationDefinitionSource"
+          class="com.xiangxun.atms.core.security.InvocationSecurityMetadataSourceBean"/>
+
+    <bean id="accessDecisionManager" class="com.xiangxun.atms.framework.security.AccessDecisionManagerBean">
+        <!--<constructor-arg>-->
+            <!--<list>-->
+                <!--<bean class="org.springframework.security.access.vote.RoleVoter">-->
+                    <!--<property name="rolePrefix" value="ROLE_"/>-->
+                <!--</bean>-->
+            <!--</list>-->
+        <!--</constructor-arg>-->
+    </bean>
+
+    <!-- 验证用户信息 filterSecurityInterceptor 必须包含以下三个属性(授权管理、安全管理、决策管理)-->
+    <bean id="filterSecurityInterceptor" class="com.xiangxun.atms.core.security.FilterSecurityInterceptor">
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="securityMetadataSource" ref="filterInvocationDefinitionSource"/>
+        <property name="accessDecisionManager" ref="accessDecisionManager"/>
+    </bean>
+
+    <bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
+         <constructor-arg>
+             <list>
+                 <ref bean="daoAuthenticationProvider"/>
+             </list>
+         </constructor-arg>
+    </bean>
+
+    <bean id="daoAuthenticationProvider"
+          class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <property name="userDetailsService" ref="userDetailsService"/>
+        <property name="passwordEncoder" ref="md5PasswordEncoder"/>
+        <property name="saltSource" ref="saltSource"/>
+    </bean>
+
+    <bean id="logoutSuccessHandler"
+          class="org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler">
+        <property name="alwaysUseDefaultTargetUrl" value="true"/>
+        <property name="defaultTargetUrl" value="/forwardLogin/"/>
+    </bean>
+
+    <bean id="loginSuccessListener" class="com.xiangxun.atms.core.security.LoginSuccessListener"/>
+
+    <bean id="loginFailureListener" class="com.xiangxun.atms.core.security.LoginFailureListener"/>
+
+    <!-- spring对国际化相关资源的支持 -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:org/springframework/security/messages"/>
+    </bean>
+
+
+</beans>

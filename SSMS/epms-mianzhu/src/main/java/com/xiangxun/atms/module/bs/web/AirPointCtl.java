@@ -23,6 +23,7 @@ import com.xiangxun.atms.framework.util.Servlets;
 import com.xiangxun.atms.framework.util.UuidGenerateUtil;
 import com.xiangxun.atms.framework.validator.ResponseEntity;
 import com.xiangxun.atms.module.base.web.BaseCtl;
+import com.xiangxun.atms.module.bs.constant.AutoCode;
 import com.xiangxun.atms.module.bs.service.AirPointService;
 import com.xiangxun.atms.module.bs.vo.AirPoint;
 import com.xiangxun.atms.module.bs.vo.AirPointSearch;
@@ -71,6 +72,7 @@ public class AirPointCtl extends BaseCtl<AirPoint, AirPointSearch> {
 	public String doAdd(@PathVariable String menuid, AirPoint info
 			, RedirectAttributes attr, HttpServletRequest request) {
 		info.setId(UuidGenerateUtil.getUUIDLong());
+		info.setCode(AutoCode.AIR_POINT);
 		info.setCreateId(getCurrentUserId());
 		info.setCreateTime(new Date());
 		airPointService.save(info);

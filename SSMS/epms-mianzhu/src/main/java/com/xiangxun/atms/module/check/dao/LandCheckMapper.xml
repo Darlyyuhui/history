@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.check.dao.LandCheckMapper" >
+
+  <resultMap id="LandMap" type="com.xiangxun.atms.module.check.vo.LandAnalysis" >
+  	<result column="R_ID" property="rId" jdbcType="VARCHAR" />
+    <result column="R_CODE" property="rCode" jdbcType="VARCHAR" />
+    <result column="PH" property="ph" jdbcType="DOUBLE" />
+    <result column="CD" property="cd" jdbcType="DOUBLE" />
+    <result column="ACD" property="acd" jdbcType="DOUBLE" />
+    <result column="STDEV_PH" property="stdevPh" jdbcType="DOUBLE" />
+    <result column="STDEV_CD" property="stdevCd" jdbcType="DOUBLE" />
+    <result column="STDEV_ACD" property="stdevAcd" jdbcType="DOUBLE" />
+    <result column="AVG_PH" property="avgPh" jdbcType="DOUBLE" />
+    <result column="AVG_CD" property="avgCd" jdbcType="DOUBLE" />
+    <result column="AVG_ACD" property="avgAcd" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <select id="getLandStdevAndAvg" resultMap="LandMap">
+  	SELECT ROUND(STDEV(T.PH), 2) AS STDEV_PH
+  	, ROUND(STDEV(T.CADMIUM), 2) AS STDEV_CD
+  	, ROUND(STDEV(T.AVAILABLE_CADMIUM), 2) AS STDEV_ACD
+  	, ROUND(AVG(T.PH), 2) AS AVG_PH
+  	, ROUND(AVG(T.CADMIUM), 2) AS AVG_CD
+  	, ROUND(AVG(T.AVAILABLE_CADMIUM), 2) AS AVG_ACD
+	FROM V_ANALYSIS_LAND T
+  	<where>
+  	  <if test="@Ognl@isNotEmpty(schemeId)" >
+         AND T.SCHEME_ID != #{schemeId,jdbcType=VARCHAR}
+      </if>
+  	  <if test="@Ognl@isNotEmpty(regionId)" >
+	     AND T.REGION_ID = #{regionId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(beginTime)" >
+	     AND T.SAMPLING_TIME <![CDATA[>=]]> #{beginTime,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(endTime)" >
+         AND T.SAMPLING_TIME <![CDATA[<=]]> #{endTime,jdbcType=VARCHAR}
+      </if>
+      	AND T.DC_STATUS <![CDATA[<>]]> 3
+  	</where>
+  </select>
+  
+  <select id="getLandDataBySchemeId" resultMap="LandMap">
+  	SELECT T.R_ID, T.R_CODE, T.PH, T.CADMIUM AS CD, T.AVAILABLE_CADMIUM AS ACD
+	FROM V_ANALYSIS_LAND T
+	WHERE T.SCHEME_ID = #{schemeId,jdbcType=VARCHAR} AND T.DC_STATUS <![CDATA[<>]]> 3
+  </select>
+  
+</mapper>

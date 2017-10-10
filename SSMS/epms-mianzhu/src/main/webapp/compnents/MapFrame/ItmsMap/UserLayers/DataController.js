@@ -9,6 +9,8 @@ MapFactory.Define("ItmsMap/UserLayers/DataController*",["ItmsMap/UserLayers/MPoi
 	var reginId="";
 	//存储当前选中采样点信息
 	var cydPoint={};
+	
+	var timeSpace={};
 	return function(){
 		
 		var api={
@@ -23,8 +25,16 @@ MapFactory.Define("ItmsMap/UserLayers/DataController*",["ItmsMap/UserLayers/MPoi
 				setReginId:setReginId,
 				getRegionId:getRegionId,
 				setcydPoint:setcydPoint,
-				getcydPoint:getcydPoint
+				getcydPoint:getcydPoint,
+				settimeSpace:settimeSpace,
+				gettimeSpace:gettimeSpace
 				};
+		function settimeSpace(timeSpaceObj){
+			timeSpace=timeSpaceObj;
+		}
+		function gettimeSpace(){
+			return timeSpace;
+		}
 		function setcydPoint(cydPointObj){
 			cydPoint=cydPointObj;
 		}

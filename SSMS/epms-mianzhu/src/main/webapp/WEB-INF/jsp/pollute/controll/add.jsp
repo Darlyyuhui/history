@@ -17,14 +17,6 @@
           style="margin-bottom:0;padding:0;" enctype="multipart/form-data">
         <div class="profile-user-info profile-user-info-striped">
             <div class="profile-info-row">
-                <div class="profile-info-name" style="min-width:80px;width: 100px;">计划编号</div>
-                <div class="profile-info-value">
-                	<input type="text" id="code" name="code" maxlength="20"
-						style="min-width:120px; width: 350px;" class="input-large required"/>
-					<span style="color: red">*</span>
-					<span id="checkCodeSpan" style="color: red"></span>
-				</div>
-				
 				<div class="profile-info-name" style="min-width:80px;width: 100px;">计划名称</div>
                 <div class="profile-info-value">
 					<input type="text" id="name" name="name" maxlength="50"
@@ -32,7 +24,6 @@
 					<span style="color: red">*</span>
 				</div>
             </div>
-            
             <div class="profile-info-row">
                 <div class="profile-info-name">执行时间</div>
                 <div class="profile-info-value">
@@ -40,7 +31,8 @@
 							class="input-large required" readonly="readonly" style="min-width:120px; width: 350px;"
 							onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true})" />
 				</div>
-				
+			</div>	
+			<div class="profile-info-row">
 				<div class="profile-info-name">是否被执行</div>
                 <div class="profile-info-value">
 					<input type="radio" name="rdo_isExecute" value="1" />是
@@ -48,8 +40,7 @@
 					<input type="hidden" id="isExecute" name="isExecute" />
 				</div>
             </div>
-        </div>
-        <div class="profile-user-info profile-user-info-striped" style="border-top-style: none;">
+            
         	<div class="profile-info-row">
                 <div class="profile-info-name" style="min-width:80px;width: 100px;">计划内容</div>
                 <div class="profile-info-value">
@@ -63,7 +54,7 @@
         	<div class="profile-info-row">
                 <div class="profile-info-name">计划执行单位</div>
                 <div class="profile-info-value">
-					<input type="text" id="dept" name="dept" maxlength="40"
+					<input type="text" id="dept" name="dept" maxlength="30"
 						style="min-width:120px; width: 840px;" class="input-large"/>
 				</div>
             </div>
@@ -88,7 +79,6 @@
 </div>
 
 <script>
-	var isCheck = false;
 	var v;
     $(document).ready(function () {
         //聚焦第一个输入框
@@ -100,34 +90,14 @@
     			}
     		}
         });
-        $("#code").focus();
+        $("#name").focus();
     });
     function checkForm() {
-    	checkCode();
     	$("#isExecute").val($("input[name='rdo_isExecute']:checked").val());
-    	if (v.checkForm() && isCheck) {
+    	if (v.checkForm()) {
     		$("#inputForm").submit();
     	}else{
     		v.showErrors();
-    	}
-    }
-    function checkCode() {
-    	var codeObj = $("#code");
-    	if (codeObj.val() != "") {
-    		$.ajax({
-    			async:false,
-    			type:"post",
-    			url:"${root}/pollute/controll/checkCode/"+codeObj.val()+"/",
-    			data:"tName=T_POLLUTE_CONTROLL_PLAN&cName=CODE",
-    			success:function(data) {
-    				if (data.result == "ok") {
-    					isCheck = true;
-    					$("#checkCodeSpan").empty();
-    				}else {
-    					$("#checkCodeSpan").empty().html(data.message);
-    				}
-    			}
-    		});
     	}
     }
 </script>

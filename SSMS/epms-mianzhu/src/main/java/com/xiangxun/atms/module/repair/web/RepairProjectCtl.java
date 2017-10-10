@@ -29,11 +29,17 @@ import com.xiangxun.atms.framework.util.StringUtils;
 import com.xiangxun.atms.framework.util.UuidGenerateUtil;
 import com.xiangxun.atms.framework.validator.ResponseEntity;
 import com.xiangxun.atms.module.base.web.BaseCtl;
+import com.xiangxun.atms.module.bs.cache.RepairStageCache;
+import com.xiangxun.atms.module.bs.constant.AutoCode;
+import com.xiangxun.atms.module.bs.vo.RepairStage;
 import com.xiangxun.atms.module.geoServer.domain.LayerBean;
 import com.xiangxun.atms.module.geoServer.domain.LayerEnum;
 import com.xiangxun.atms.module.geoServer.service.IMapOperation;
 import com.xiangxun.atms.module.land.cache.LandBlockCache;
+import com.xiangxun.atms.module.repair.service.RepairProcessService;
 import com.xiangxun.atms.module.repair.service.RepairProjectService;
+import com.xiangxun.atms.module.repair.vo.RepairProcess;
+import com.xiangxun.atms.module.repair.vo.RepairProcessSearch;
 import com.xiangxun.atms.module.repair.vo.RepairProject;
 import com.xiangxun.atms.module.repair.vo.RepairProjectSearch;
 
@@ -47,6 +53,10 @@ public class RepairProjectCtl extends BaseCtl<RepairProject, RepairProjectSearch
     Cache cache;
 	@Resource
 	IMapOperation iMapOperation;
+	
+	@Resource
+	RepairProcessService repairProcessService;
+	
 	@Override
 	protected BaseService<RepairProject, RepairProjectSearch> getBaseService() {
 		return repairProjectService;
@@ -105,9 +115,7 @@ public class RepairProjectCtl extends BaseCtl<RepairProject, RepairProjectSearch
 	public String doAdd(@PathVariable String menuid, RepairProject info
 			, RedirectAttributes attr, MultipartHttpServletRequest fileRequest) {
 		info.setId(UuidGenerateUtil.getUUIDLong());
-		
-		
-		
+		info.setCode(AutoCode.LAND_REPAIR_PROJECT);
 		info.setCreateId(getCurrentUserId());
 		info.setCreateTime(new Date());
 		repairProjectService.saveInfo(info, fileRequest);
@@ -194,6 +202,54 @@ public class RepairProjectCtl extends BaseCtl<RepairProject, RepairProjectSearch
 		model.addAttribute("menuid", menuid);
 		model.addAttribute("page", page);
 		return "repair/project/view";
+	}
+	
+	/**
+	 * 展示项目的修复过程
+	 * @param proId	项目ID
+	 * @param model
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "showProcess/{proId}/")
+	public String showProcess(@PathVariable String proId, String backType, String menuid, Model model) {
+		List<RepairStage> topList = (List<RepairStage>)cache.get(RepairStageCache.TOP_LIST);
+		model.addAttribute("topList", topList);
+		
+		Map<String, List<RepairStage>> map = (Map<String, List<RepairStage>>)cache.get(RepairStageCache.STAGE_MAP);
+		if (topList.get(0) != null) {
+			model.addAttribute("firstTopChild", map.get(topList.get(0).getId()));
+		}
+		model.addAttribute("proId", proId);
+		model.addAttribute("backType", backType);
+		model.addAttribute("menuid", menuid);
+		return "repair/project/show_process";
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "changeChild/{topId}/")//, method = RequestMethod.POST
+	public String changeChild(@PathVariable String topId, Model model) {
+		Map<String, List<RepairStage>> map = (Map<String, List<RepairStage>>)cache.get(RepairStageCache.STAGE_MAP);
+		model.addAttribute("childState", map.get(topId));
+		return "repair/project/child_stage";
+	}
+	
+	@RequestMapping(value = "processDetail/{proId}/{stageId}/")
+	public String processDetail(@PathVariable("proId") String proId
+			, @PathVariable("stageId") String stageId, Model model) {
+		RepairProcessSearch search = new RepairProcessSearch();
+		search.createCriteria().andProIdEqualTo(proId).andStageIdEqualTo(stageId);
+		search.setOrderByClause("WORK_DATE DESC");
+		List<RepairProcess> list = repairProcessService.selectByExample(search);
+		
+		RepairProcess rp = null;
+		if (list != null && list.size() > 0) {
+			rp = list.get(0);
+		} else {
+			rp = new RepairProcess();
+		}
+		model.addAttribute("info", rp);
+		return "repair/project/process_detail";
 	}
 	
 }

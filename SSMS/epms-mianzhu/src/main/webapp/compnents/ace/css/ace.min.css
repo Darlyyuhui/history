@@ -11447,7 +11447,7 @@ td .lbl:only-child, th .lbl:only-child {
 
 .infobox {
 	display: inline-block;
-	width: 210px;
+	width: 350px;
 	height: 66px;
 	color: #555;
 	background-color: #FFF;
@@ -20534,3 +20534,5 @@ transform
 .dragbox-3 .d_title .t_close:hover{color:#f30;}
 
 #table{word-wrap:break-word;word-break:break-all;white-space:normal}
+
+.left-map-input-width{min-width:120px; width: 180px;}

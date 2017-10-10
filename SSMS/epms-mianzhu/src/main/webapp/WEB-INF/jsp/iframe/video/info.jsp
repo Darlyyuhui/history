@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath}"/>
 
-<div style="width: 190px;height: 158px;margin-left: 5px;">
-    <div style="background-color: #428bca ;margin:0 2px;word-break:break-all; height:150px;" id="msg_map_video_div"></div>
+<div style="width: 620px;height: 520px;margin-left: 5px;">
+    <div style="background-color: #428bca ;margin:0 2px;word-break:break-all; width:600px;height:500px;" id="msg_map_video_div"></div>
 </div>
 <script type="text/javascript">
     $.ajax({

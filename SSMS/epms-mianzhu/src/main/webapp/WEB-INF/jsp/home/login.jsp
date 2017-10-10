@@ -96,7 +96,7 @@
                                             <label class="block clearfix infobox-black" style="border: 1px solid #b0bcc8;">
 														<span class="block input-icon input-icon-right"> <input
                                                                 type="text" class="form-control" placeholder="用户名"
-                                                                autofocus name="j_username" id="username" 
+                                                                autofocus name="j_username" id="username" value="admin"
                                                                 class="required white" maxlength="30" autocomplete="off" style="outline:none; border:none;background:#faffbd ;color: #000;height: 45px;"/>
                                                                 </span>
                                             </label>
@@ -104,29 +104,25 @@
                                             <label class="block clearfix" style="border: 1px solid #b0bcc8;">
 														<span class="block input-icon input-icon-right"> <input
                                                                 type="password" class="form-control" placeholder="密码"
-                                                                name="j_password" id="password" 
+                                                                name="j_password" id="password" value="admin"
                                                                 class="required" maxlength="20" autocomplete="off" style="outline:none; border:none;background:#faffbd ;color: #000;height: 45px; "/>
                                                                </span>
                                             </label>
 
                                             <div class="space"></div>
-
+<%-- 
                                             <div class="clearfix">
                                                 <label class="inline">
                                                     <input type="checkbox" class="ace" name="remember-me" style="background: #000;"/>
                                                     <span class="lbl" style="color: #bdc4cc"> 记住我</span>
                                                 </label>
 
-                                                <%--<button type="submit"--%>
-                                                        <%--class="width-35 pull-right btn btn-sm btn-primary">--%>
-                                                    <%--<i class="ace-icon fa fa-key"></i>--%>
-                                                    <%--<span class="bigger-110">登录</span>--%>
-                                                <%--</button>--%>
                                                 <div type="submit"
                                                     class="width-35 pull-right text-right">
                                                     <a href="#"><span class="bigger-110 text-right" style="color: #bdc4cc">忘记密码？</span></a>
                                                 </div>
                                             </div>
+ --%>                                            
                                             <div
                                                     style="height: 25px; ${ param .error?'': 'display:none'}">
                                                 <div style="font-weight: bold; color: #EA5200;">

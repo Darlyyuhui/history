@@ -74,14 +74,14 @@
             <div class="profile-info-row">
                 <div class="profile-info-name">容器体积</div>
                 <div class="profile-info-value">
-					<input type="text" id="containerVolume" name="containerVolume" maxlength="10" value="${info.containerVolume }"
+					<input type="text" id="containerVolume" name="containerVolume" maxlength="6" value="${info.containerVolume }"
 						style="min-width:120px; width: 350px;" class="input-large required number"/>
 					<span style="color: red">*</span>
 				</div>
 				
 				<div class="profile-info-name">收集量</div>
                 <div class="profile-info-value">
-					<input type="text" id="collectVolume" name="collectVolume" maxlength="10" value="${info.collectVolume }"
+					<input type="text" id="collectVolume" name="collectVolume" maxlength="6" value="${info.collectVolume }"
 						style="min-width:120px; width: 350px;" class="input-large required number" />
 					<span style="color: red">*</span>
 				</div>

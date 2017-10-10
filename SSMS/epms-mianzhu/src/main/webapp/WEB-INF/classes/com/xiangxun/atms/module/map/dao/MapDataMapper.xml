@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.map.dao.MapDataMapper" >
+
+  <resultMap id="DataCountMap" type="com.xiangxun.atms.module.map.vo.LandCount" >
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PH" property="ph" jdbcType="DECIMAL" />
+    <result column="CD" property="cd" jdbcType="DECIMAL" />
+    <result column="ACD" property="acd" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="LandRegAnalysis" type="com.xiangxun.atms.module.reg.vo.LandReg" >
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="DEPTH" property="depth" jdbcType="VARCHAR" />
+    <result column="SOIL_TYPE" property="soilType" jdbcType="VARCHAR" />
+    <result column="LONGITUDE" property="longitude" jdbcType="DECIMAL" />
+    <result column="LATITUDE" property="latitude" jdbcType="DECIMAL" />
+    <result column="SAMPLING_TIME" property="samplingTime" jdbcType="TIMESTAMP" />
+    <result column="SAMPLING_USER" property="samplingUser" jdbcType="VARCHAR" />
+    <result column="SAMPLING_SOURCE" property="samplingSource" jdbcType="VARCHAR" />
+    <result column="PH" property="ph" jdbcType="DECIMAL" />
+    <result column="CADMIUM" property="cadmium" jdbcType="DECIMAL" />
+    <result column="AVAILABLE_CADMIUM" property="availableCadmium" jdbcType="DECIMAL" />
+    <result column="A_DEPT" property="analysisDept" jdbcType="VARCHAR" />
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="AirRegAnalysis" type="com.xiangxun.atms.module.reg.vo.AirReg" >
+  	<result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="CONTAINER_VOLUME" property="containerVolume" jdbcType="VARCHAR" />
+    <result column="COLLECT_VOLUME" property="collectVolume" jdbcType="VARCHAR" />
+    <result column="POINT_ID" property="pointId" jdbcType="VARCHAR" />
+    <result column="SAMPLING_TIME" property="samplingTime" jdbcType="TIMESTAMP" />
+    <result column="SAMPLING_USER" property="samplingUser" jdbcType="VARCHAR" />
+    <result column="SAMPLING_SOURCE" property="samplingSource" jdbcType="VARCHAR" />
+    <result column="CADMIUM" property="cadmium" jdbcType="DECIMAL" />
+    <result column="A_DEPT" property="analysisDept" jdbcType="VARCHAR" />
+    <result column="LONGITUDE" property="longitude" jdbcType="DECIMAL" />
+    <result column="LATITUDE" property="latitude" jdbcType="DECIMAL" />
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="getLandCount" statementType="CALLABLE" resultMap="DataCountMap" >
+  	{CALL getMapCountByRegionId(
+    	#{regionId,mode=IN,jdbcType=VARCHAR}
+    	, #{beginTime,mode=IN,jdbcType=VARCHAR}
+    	, #{endTime,mode=IN,jdbcType=VARCHAR}
+    )}
+  </select>
+  
+  <select id="getRegTypeCount" statementType="CALLABLE" resultType="map" >
+  	{CALL getMapTypeCountByRegionId(
+    	#{regionId,mode=IN,jdbcType=VARCHAR}
+    	, #{beginTime,mode=IN,jdbcType=VARCHAR}
+    	, #{endTime,mode=IN,jdbcType=VARCHAR}
+    )}
+  </select>
+  
+  <select id="getLandReg" resultMap="LandRegAnalysis">
+  	SELECT T.CODE, T.NAME, T.DEPTH, T.SOIL_TYPE, T.LONGITUDE, T.LATITUDE
+	, T.SAMPLING_TIME, T.SAMPLING_USER, T.SAMPLING_SOURCE
+	, A.PH, A.CADMIUM, A.AVAILABLE_CADMIUM, A.DEPT AS A_DEPT, [dbo].getRegionIdByMissionId(T.MISSION_ID) AS REGION_ID
+	FROM T_SAMPLING_LAND_REG T 
+	LEFT JOIN T_ANALYSIS_LAND A ON A.REG_ID = T.ID
+	WHERE T.CHECK_STATUS = 1
+  </select>
+  
+  <select id="getAirReg" resultMap="AirRegAnalysis">
+  	SELECT T.CODE, T.CONTAINER_VOLUME, T.COLLECT_VOLUME, T.POINT_ID, AP.LONGITUDE, AP.LATITUDE
+	, T.SAMPLING_TIME, T.SAMPLING_USER, T.SAMPLING_SOURCE
+	, A.CADMIUM, A.DEPT AS A_DEPT, [dbo].getRegionIdByMissionId(T.MISSION_ID) AS REGION_ID
+	FROM T_SAMPLING_AIR_REG T 
+	LEFT JOIN T_ANALYSIS_AIR A ON A.REG_ID = T.ID
+	LEFT JOIN T_AIR_POINT AP ON AP.ID = T.POINT_ID
+	WHERE T.CHECK_STATUS = 1
+  </select>
+</mapper>

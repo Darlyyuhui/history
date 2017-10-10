@@ -10,6 +10,7 @@
           style="margin-bottom:0;padding:0;">
         <input type="hidden" name="menuid" value="${menuid}"/> <input type="hidden" name="id" value="${user.id}"/>
         <input type="hidden" name="page" value="${page}"/>
+        <input type="hidden" name="skin" value="no-skin"/>
 
         <div class="profile-user-info profile-user-info-striped">
             <div class="profile-info-row">

@@ -33,16 +33,6 @@
                         <div class="profile-user-info profile-user-info-striped width-100">
 
                         <div class="profile-info-row">
-                            <div class="profile-info-name">点位编号</div>
-                            <div class="profile-info-value">
-                                <input type="text" id="code" name="code" maxlength="20"
-                                       style="min-width:120px; width: 200px;" class="input-large required"/>
-                                <span style="color: red">*</span>
-                                <span id="checkCodeSpan" style="color: red"></span>
-                            </div>
-                        </div>
-
-                        <div class="profile-info-row">
                             <div class="profile-info-name">点位名称</div>
                             <div class="profile-info-value">
                                 <input type="text" id="name" name="name" maxlength="50"
@@ -104,7 +94,6 @@
 </div>
 
 <script>
-	var isCheck = false;
 	var v;
 	var _map;
     $(document).ready(function () {
@@ -120,7 +109,7 @@
     			}
     		}
         });
-        $("#code").focus();
+        $("#name").focus();
         //地图模块
         $("#welcomeiframe").css("height", $(window).height() - 120 + "px");
         $(".map-content").height($(window).height() - 140);
@@ -182,30 +171,10 @@
    	 });
    };
     function checkForm() {
-    	checkCode();
-    	if (v.checkForm() && isCheck) {
+    	if (v.checkForm()) {
     		$("#inputForm").submit();
     	}else{
     		v.showErrors();
-    	}
-    }
-    function checkCode() {
-    	var codeObj = $("#code");
-    	if (codeObj.val() != "") {
-    		$.ajax({
-    			async:false,
-    			type:"post",
-    			url:"${root}/bs/airpoint/checkCode/"+codeObj.val()+"/",
-    			data:"tName=T_AIR_POINT&cName=CODE",
-    			success:function(data) {
-    				if (data.result == "ok") {
-    					isCheck = true;
-    					$("#checkCodeSpan").empty();
-    				}else {
-    					$("#checkCodeSpan").empty().html(data.message);
-    				}
-    			}
-    		});
     	}
     }
 </script>

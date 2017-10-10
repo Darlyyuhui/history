@@ -308,6 +308,17 @@
 	}
 	</script>
 </btn:authorBtn>
+
+<c:if test="${not empty impMapId }">
+	<form id="exportErrForm" action="${root}/analysis/land/downloadErrTxt/${impMapId }/" method="post">
+	</form>
+	<script type="text/javascript">
+	$(function(){
+		$("#exportErrForm").submit();
+	});
+	</script>
+</c:if>
+
 <script type="text/javascript">
     function goList() {
         window.location.href = "${root}/analysis/land/list/${menuid}/?isgetsession=1";

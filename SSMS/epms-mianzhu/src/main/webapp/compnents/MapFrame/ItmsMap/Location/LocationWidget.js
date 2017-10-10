@@ -193,7 +193,6 @@ MapFactory
 
 								}
 								  var graphicClick=function(_graphic) {
-									  debugger;
 								         var graphic=_graphic.graphic;
 								         if(!graphic){
 								           graphic=_graphic.getGraphic();
@@ -351,7 +350,6 @@ MapFactory
 								$("#_lon").val("");
 								$("#lat").val("");
 								$("#natureName").val("");
-								debugger;
 								 LayerManager("naturePolygon").clear();
 							}
 						}

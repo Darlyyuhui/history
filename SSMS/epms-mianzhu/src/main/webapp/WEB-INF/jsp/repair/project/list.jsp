@@ -57,6 +57,14 @@
                     class="icon-remove"></i>删除
             </button>
         </btn:authorBtn>
+        <btn:authorBtn menuid="${menuid}" text="修复过程">
+	        <button class="btn btn-sm btn-purple pull-left" onclick="processListById();"><i
+	                class="icon-remove"></i>修复过程
+	        </button>
+        </btn:authorBtn>
+        <button class="btn btn-info btn-sm pull-left" onclick="showProcessById();"><i
+                class="icon-remove"></i>展示修复过程
+        </button>
     </div>
 </div>
 <div class="row" style="margin-top:1px;">
@@ -235,6 +243,28 @@
                 }
             });
     	});
+    }
+    
+    function processListById() {
+    	var ids = getSelectedValue();
+        if (ids.length == 0) {
+            showMessage("请选择要管理修复过程的记录。");
+        } else if (ids.length > 1) {
+            showMessage("单次只能管理一个项目的修复过程。");
+        } else {
+			window.location.href = "${root}/repair/process/list/${menuid}/"+ids+"/";
+        }
+    }
+    
+    function showProcessById() {
+    	var ids = getSelectedValue();
+        if (ids.length == 0) {
+            showMessage("请选择要展示修复过程的记录。");
+        } else if (ids.length > 1) {
+            showMessage("单次只能展示一个项目的修复过程。");
+        } else {
+			window.location.href = "${root}/repair/project/showProcess/"+ids+"/?backType=list&menuid=${menuid}";
+        }
     }
     
     $(document).ready(function () {

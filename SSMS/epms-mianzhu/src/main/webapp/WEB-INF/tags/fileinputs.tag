@@ -50,7 +50,7 @@ function isAddFileInput() {
 }
 function cleanFile(id) {
 	var fileObj = $("#"+id);
-	if (fileObj.clone().val() != "") {
+	if (fileObj.clone().val() != "" || fileObj.val() != "") {
 		fileObj.after(fileObj.clone().val(""));
 		var pObj = fileObj.parent();
 		fileObj.remove();

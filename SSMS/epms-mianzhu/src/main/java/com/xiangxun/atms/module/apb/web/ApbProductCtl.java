@@ -45,6 +45,7 @@ import com.xiangxun.atms.module.apb.vo.ApbInfoProductLink;
 import com.xiangxun.atms.module.apb.vo.ApbProduct;
 import com.xiangxun.atms.module.apb.vo.ApbProductSearch;
 import com.xiangxun.atms.module.base.web.BaseCtl;
+import com.xiangxun.atms.module.bs.constant.AutoCode;
 /**
  * 农产品基地产品
  * @author admin
@@ -66,7 +67,7 @@ public class ApbProductCtl extends BaseCtl<ApbProduct,ApbProductSearch> {
     }
 
     @RequestMapping(value="list/{menuid}/")
-    public String list(@PathVariable String menuid, ModelMap model, @RequestParam(value = "sortType", defaultValue = "ID") String sortType, @RequestParam(value = "page", defaultValue = "0") int pageNumber, HttpServletRequest request) {
+    public String list(@PathVariable String menuid, ModelMap model, @RequestParam(value = "sortType", defaultValue = "CREATE_TIME DESC") String sortType, @RequestParam(value = "page", defaultValue = "0") int pageNumber, HttpServletRequest request) {
         logger.info("正在进行【基地产品】数据列表查询。。。。。。");
         Map<String, Object> searchParams = Servlets.getParametersStartingWith(request, "search_");
         Page page = apbProductService.getListByCondition(searchParams,pageNumber,Page.DEFAULT_PAGE_SIZE,sortType,menuid);
@@ -86,7 +87,7 @@ public class ApbProductCtl extends BaseCtl<ApbProduct,ApbProductSearch> {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-       
+        model.addAllAttributes(searchParams);
         model.addAttribute("apbProduct",apbProduct);
         model.addAttribute("CODE_NAME",ApbProductTypeCache.CODE_NAME);
         model.addAttribute("INFO_NAME",ApbInfoProductLinkCache.ID_INFONAME);
@@ -111,6 +112,7 @@ public class ApbProductCtl extends BaseCtl<ApbProduct,ApbProductSearch> {
     
     	String id=UuidGenerateUtil.getUUIDLong();
     	apbProduct.setId(id);
+    	apbProduct.setCode(AutoCode.APB_PRODUCT);
     	apbProduct.setCreateId(getCurrentUserId());
     	apbProduct.setCreateTime(new Date());
     	String[] infoids=request.getParameterValues("info_name");

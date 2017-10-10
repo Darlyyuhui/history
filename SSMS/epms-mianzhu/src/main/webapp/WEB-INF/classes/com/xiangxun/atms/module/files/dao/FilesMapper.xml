@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.files.dao.FilesMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.files.vo.Files" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="BUSINESS_ID" property="businessId" jdbcType="VARCHAR" />
+    <result column="BUSINESS_TYPE" property="businessType" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="FILE_TYPE" property="fileType" jdbcType="VARCHAR" />
+    <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+    <result column="VIEW_PATH" property="viewPath" jdbcType="VARCHAR" />
+    <result column="FILE_SIZE" property="fileSize" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, BUSINESS_ID, BUSINESS_TYPE, FILE_NAME, FILE_TYPE, FILE_PATH, VIEW_PATH, FILE_SIZE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.files.vo.FilesSearch" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_FILES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_FILES
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_FILES
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.files.vo.FilesSearch" >
+    delete from T_FILES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.files.vo.Files" useGeneratedKeys="true" keyProperty="id" >
+    insert into T_FILES (BUSINESS_ID, BUSINESS_TYPE, FILE_NAME, 
+      FILE_TYPE, FILE_PATH, VIEW_PATH, 
+      FILE_SIZE)
+    values (#{businessId,jdbcType=VARCHAR}, #{businessType,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+      #{fileType,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, #{viewPath,jdbcType=VARCHAR}, 
+      #{fileSize,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.files.vo.Files" useGeneratedKeys="true" keyProperty="id" >
+    insert into T_FILES
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(businessId)" >
+        BUSINESS_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(businessType)" >
+        BUSINESS_TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(fileName)" >
+        FILE_NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(fileType)" >
+        FILE_TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(filePath)" >
+        FILE_PATH,
+      </if>
+      <if test="@Ognl@isNotEmpty(viewPath)" >
+        VIEW_PATH,
+      </if>
+      <if test="@Ognl@isNotEmpty(fileSize)" >
+        FILE_SIZE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(businessId)" >
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(businessType)" >
+        #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(fileName)" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(fileType)" >
+        #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(filePath)" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(viewPath)" >
+        #{viewPath,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(fileSize)" >
+        #{fileSize,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.files.vo.FilesSearch" resultType="java.lang.Integer" >
+    select count(*) from T_FILES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_FILES
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.businessId)" >
+        BUSINESS_ID = #{record.businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.businessType)" >
+        BUSINESS_TYPE = #{record.businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.fileName)" >
+        FILE_NAME = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.fileType)" >
+        FILE_TYPE = #{record.fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.filePath)" >
+        FILE_PATH = #{record.filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.viewPath)" >
+        VIEW_PATH = #{record.viewPath,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.fileSize)" >
+        FILE_SIZE = #{record.fileSize,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_FILES
+    set ID = #{record.id,jdbcType=VARCHAR},
+      BUSINESS_ID = #{record.businessId,jdbcType=VARCHAR},
+      BUSINESS_TYPE = #{record.businessType,jdbcType=VARCHAR},
+      FILE_NAME = #{record.fileName,jdbcType=VARCHAR},
+      FILE_TYPE = #{record.fileType,jdbcType=VARCHAR},
+      FILE_PATH = #{record.filePath,jdbcType=VARCHAR},
+      VIEW_PATH = #{record.viewPath,jdbcType=VARCHAR},
+      FILE_SIZE = #{record.fileSize,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.files.vo.Files" >
+    update T_FILES
+    <set >
+      <if test="@Ognl@isNotEmpty(businessId)" >
+        BUSINESS_ID = #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(businessType)" >
+        BUSINESS_TYPE = #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(fileName)" >
+        FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(fileType)" >
+        FILE_TYPE = #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(filePath)" >
+        FILE_PATH = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(viewPath)" >
+        VIEW_PATH = #{viewPath,jdbcType=VARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(fileSize)" >
+        FILE_SIZE = #{fileSize,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.files.vo.Files" >
+    update T_FILES
+    set BUSINESS_ID = #{businessId,jdbcType=VARCHAR},
+      BUSINESS_TYPE = #{businessType,jdbcType=VARCHAR},
+      FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      FILE_TYPE = #{fileType,jdbcType=VARCHAR},
+      FILE_PATH = #{filePath,jdbcType=VARCHAR},
+      VIEW_PATH = #{viewPath,jdbcType=VARCHAR},
+      FILE_SIZE = #{fileSize,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+     from T_FILES
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(businessId)" >
+         and BUSINESS_ID = #{businessId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(businessType)" >
+         and BUSINESS_TYPE = #{businessType,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(fileName)" >
+         and FILE_NAME = #{fileName,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(fileType)" >
+         and FILE_TYPE = #{fileType,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(filePath)" >
+         and FILE_PATH = #{filePath,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(viewPath)" >
+         and VIEW_PATH = #{viewPath,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(fileSize)" >
+         and FILE_SIZE = #{fileSize,jdbcType=DECIMAL}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    select count(*) from T_FILES
+    <where >
+      <if test="@Ognl@isNotEmpty(orgs)" >
+         and ${orgs}
+      </if>
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(businessId)" >
+         and BUSINESS_ID = #{businessId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(businessType)" >
+         and BUSINESS_TYPE = #{businessType,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(fileName)" >
+         and FILE_NAME = #{fileName,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(fileType)" >
+         and FILE_TYPE = #{fileType,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(filePath)" >
+         and FILE_PATH = #{filePath,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(viewPath)" >
+         and VIEW_PATH = #{viewPath,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(fileSize)" >
+         and FILE_SIZE = #{fileSize,jdbcType=DECIMAL}
+      </if>
+    </where>
+  </select>
+</mapper>

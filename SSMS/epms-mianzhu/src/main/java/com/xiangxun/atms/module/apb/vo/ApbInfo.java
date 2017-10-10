@@ -1,10 +1,11 @@
 package com.xiangxun.atms.module.apb.vo;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class ApbInfo implements Serializable {
+import com.xiangxun.atms.module.base.vo.BaseVo;
+
+public class ApbInfo extends BaseVo {
     /**
 	 * 
 	 */
@@ -153,7 +154,7 @@ public class ApbInfo implements Serializable {
      * @return the value of AREA
      */
     public BigDecimal getArea() {
-        return area;
+        return super.makeNum(area);
     }
 
     /**

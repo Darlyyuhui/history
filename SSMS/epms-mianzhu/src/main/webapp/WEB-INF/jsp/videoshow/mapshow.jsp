@@ -95,7 +95,7 @@ function getTreeDataAjax(type, id, controlUnitId, regionId, cameraNode,winId){
 		"type": "post"
 	}
 	$.ajax({
-		url:"${root}/map/video/getData/",
+		url:"${root}/video/show/getData/",
 		data:dataObj,
 		async:false,
 		type:"post",

@@ -90,7 +90,7 @@ public class OwnerCtl extends BaseCtl<Owner, OwnerSearch> {
 	@RequestMapping(value = "doUpdate/{menuid}/", method = RequestMethod.POST)
 	@LogAspect(desc = "修改【村民责任人】")
 	public String doUpdate(@PathVariable String menuid, @ModelAttribute("info") Owner info, String page, RedirectAttributes attr) {
-		ownerService.updateById(info);
+		ownerService.updateByIdSelective(info);
 		attr.addFlashAttribute("message", "修改成功");
 		return "redirect:/bs/owner/list/" + menuid + "/?isgetsession=1&page="+page;
 	}

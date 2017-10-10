@@ -3,7 +3,9 @@ package com.xiangxun.atms.module.bs.vo;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class StandardMonitor implements java.io.Serializable{
+import com.xiangxun.atms.module.base.vo.BaseVo;
+
+public class StandardMonitor extends BaseVo{
 	
     /**
 	 * 
@@ -106,7 +108,7 @@ public class StandardMonitor implements java.io.Serializable{
      * @return the value of MIN_VAL
      */
     public BigDecimal getMinVal() {
-        return minVal;
+        return super.makeNum(minVal);
     }
 
     /**
@@ -122,7 +124,7 @@ public class StandardMonitor implements java.io.Serializable{
      * @return the value of MAX_VAL
      */
     public BigDecimal getMaxVal() {
-        return maxVal;
+        return super.makeNum(maxVal);
     }
 
     /**
@@ -138,7 +140,7 @@ public class StandardMonitor implements java.io.Serializable{
      * @return the value of ALARM_VAL
      */
     public BigDecimal getAlarmVal() {
-        return alarmVal;
+        return super.makeNum(alarmVal);
     }
 
     /**
@@ -288,4 +290,5 @@ public class StandardMonitor implements java.io.Serializable{
         sb.append("]");
         return sb.toString();
     }
+    
 }

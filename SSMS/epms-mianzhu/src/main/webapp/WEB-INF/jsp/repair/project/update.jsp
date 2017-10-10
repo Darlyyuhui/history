@@ -277,8 +277,8 @@
        	MapFactory.XHR.Post(path
    				+ "/map/all/landblock/",
    		function(target) {
-       	    for(let j=0;j<target.length;j++){
-       	    	for(let k=0;k<selectedLand.length;k++){
+       	    for(var j=0;j<target.length;j++){
+       	    	for(var k=0;k<selectedLand.length;k++){
        	    		  if(target[j].id===selectedLand[k]){
        	    			  (function(target,j){
        	    				  areasSum=areasSum+target[j].area;
@@ -300,7 +300,7 @@
     
     function allResultLand(selectedLand){
     	selectedLand=selectedLand.split(",");
-    	for(let i=0;i<selectedLand.length;i++){
+    	for(var i=0;i<selectedLand.length;i++){
     		landIds.push(selectedLand[i]);
     	}
     	MapFactory.XHR.Post(path
@@ -308,8 +308,8 @@
 		function(target) {
     		//异步请求不能放在for循环里面
     		MapFactory.Require(["MapFactory/GraphicManager"],function(GraphicManager){
-    	    for(let j=0;j<target.length;j++){
-    	    	for(let k=0;k<landIds.length;k++){
+    	    for(var j=0;j<target.length;j++){
+    	    	for(var k=0;k<landIds.length;k++){
     	    		if(target[j].id===landIds[k]){
     	    			var addGeo =target[j].geoJson;
     	    			 var geometry = eval("(" + addGeo+ ")");
@@ -332,7 +332,7 @@
     	$.get(
        		"${root}/bs/region/getLocation/"+$("#regionId").val()+"/",
        		function(data) {
-       			_map.centerAt(data.longitude,data.latitude,6);
+       			_map.centerAt(data.longitude,data.latitude,4);
        		}
        	);
     }

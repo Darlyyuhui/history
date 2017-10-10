@@ -1,6 +1,8 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ attribute name="businessId" type="java.lang.String" required="true" %>
 <%@ attribute name="isDel" type="java.lang.String" required="false" %>
+<%@ attribute name="width" type="java.lang.Integer" required="false" %>
+<%@ attribute name="height" type="java.lang.Integer" required="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	//=========================================================================
@@ -10,7 +12,15 @@
     if (isDel == null || isDel.length() == 0) {
     	isDel = "0";
     }
+	if (width == null || width == 0) {
+		width = 250;
+	}
+	if (height == null || height == 0) {
+		height = 200;
+    }
     request.setAttribute("isDel", isDel);
+    request.setAttribute("width", width);
+    request.setAttribute("height", height);
     request.setAttribute("businessId", businessId);
     request.setAttribute("root", request.getContextPath());
 %>
@@ -28,7 +38,7 @@ function getFiles() {
 	$.ajax({
 		type : "get",
 		url : url,
-		data : "isDel=${isDel}&n="+Math.random(),
+		data : "isDel=${isDel}&width=${width}&height=${height}&n="+Math.random(),
 		success : function(data) {
 			$("#fileDvi").html(data);
 		}

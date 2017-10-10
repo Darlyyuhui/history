@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.reg.dao.AirRegMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.reg.vo.AirReg" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Jul 11 08:22:20 CST 2017.
+    -->
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="CODE" property="code" jdbcType="NVARCHAR" />
+    <result column="CONTAINER_VOLUME" property="containerVolume" jdbcType="NVARCHAR" />
+    <result column="COLLECT_VOLUME" property="collectVolume" jdbcType="NVARCHAR" />
+    <result column="POINT_ID" property="pointId" jdbcType="NVARCHAR" />
+    <result column="SAMPLING_TIME" property="samplingTime" jdbcType="TIMESTAMP" />
+    <result column="SAMPLING_USER" property="samplingUser" jdbcType="NVARCHAR" />
+    <result column="SAMPLING_SOURCE" property="samplingSource" jdbcType="NVARCHAR" />
+    <result column="CHECK_STATUS" property="checkStatus" jdbcType="INTEGER" />
+    <result column="CHECK_USER" property="checkUser" jdbcType="NVARCHAR" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="NVARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="MISSION_ID" property="missionId" jdbcType="NVARCHAR" />
+    
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Jul 11 08:22:20 CST 2017.
+    -->
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Jul 11 08:22:20 CST 2017.
+    -->
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Jul 11 08:22:20 CST 2017.
+    -->
+    ID, CODE, CONTAINER_VOLUME, COLLECT_VOLUME, POINT_ID, SAMPLING_TIME, SAMPLING_USER, 
+    SAMPLING_SOURCE, CHECK_STATUS, CHECK_USER, CHECK_TIME, CREATE_ID, CREATE_TIME, UPDATE_ID, 
+    UPDATE_TIME, STATUS, MISSION_ID, [dbo].getRegionIdByMissionId(MISSION_ID) AS REGION_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.reg.vo.AirRegSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Jul 11 08:22:20 CST 2017.
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_SAMPLING_AIR_REG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Jul 11 08:22:20 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_SAMPLING_AIR_REG
+    where ID = #{id,jdbcType=NVARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Jul 11 08:22:20 CST 2017.
+    -->
+    delete from T_SAMPLING_AIR_REG
+    where ID = #{id,jdbcType=NVARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.reg.vo.AirRegSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Jul 11 08:22:20 CST 2017.
+    -->
+    delete from T_SAMPLING_AIR_REG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.reg.vo.AirReg" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Jul 11 08:22:20 CST 2017.
+    -->
+    insert into T_SAMPLING_AIR_REG (CODE, CONTAINER_VOLUME, COLLECT_VOLUME, 
+      POINT_ID, SAMPLING_TIME, SAMPLING_USER, 
+      SAMPLING_SOURCE, CHECK_STATUS, CHECK_USER, 
+      CHECK_TIME, CREATE_ID, CREATE_TIME, 
+      UPDATE_ID, UPDATE_TIME, STATUS, 
+      MISSION_ID)
+    values (#{code,jdbcType=NVARCHAR}, #{containerVolume,jdbcType=NVARCHAR}, #{collectVolume,jdbcType=NVARCHAR}, 
+      #{pointId,jdbcType=NVARCHAR}, #{samplingTime,jdbcType=TIMESTAMP}, #{samplingUser,jdbcType=NVARCHAR}, 
+      #{samplingSource,jdbcType=NVARCHAR}, #{checkStatus,jdbcType=INTEGER}, #{checkUser,jdbcType=NVARCHAR}, 
+      #{checkTime,jdbcType=TIMESTAMP}, #{createId,jdbcType=NVARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateId,jdbcType=NVARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{missionId,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.reg.vo.AirReg" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Jul 11 08:22:20 CST 2017.
+    -->
+    insert into T_SAMPLING_AIR_REG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(containerVolume)" >
+        CONTAINER_VOLUME,
+      </if>
+      <if test="@Ognl@isNotEmpty(collectVolume)" >
+        COLLECT_VOLUME,
+      </if>
+      <if test="@Ognl@isNotEmpty(pointId)" >
+        POINT_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingTime)" >
+        SAMPLING_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingUser)" >
+        SAMPLING_USER,
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingSource)" >
+        SAMPLING_SOURCE,
+      </if>
+      <if test="@Ognl@isNotEmpty(checkStatus)" >
+        CHECK_STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(checkUser)" >
+        CHECK_USER,
+      </if>
+      <if test="@Ognl@isNotEmpty(checkTime)" >
+        CHECK_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS,
+      </if>
+      <if test="@Ognl@isNotEmpty(missionId)" >
+        MISSION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(code)" >
+        #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(containerVolume)" >
+        #{containerVolume,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(collectVolume)" >
+        #{collectVolume,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(pointId)" >
+        #{pointId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingTime)" >
+        #{samplingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingUser)" >
+        #{samplingUser,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingSource)" >
+        #{samplingSource,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkStatus)" >
+        #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkUser)" >
+        #{checkUser,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkTime)" >
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(missionId)" >
+        #{missionId,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.reg.vo.AirRegSearch" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Jul 11 08:22:20 CST 2017.
+    -->
+    select count(*) from T_SAMPLING_AIR_REG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Jul 11 08:22:20 CST 2017.
+    -->
+    update T_SAMPLING_AIR_REG
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.code)" >
+        CODE = #{record.code,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.containerVolume)" >
+        CONTAINER_VOLUME = #{record.containerVolume,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.collectVolume)" >
+        COLLECT_VOLUME = #{record.collectVolume,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.pointId)" >
+        POINT_ID = #{record.pointId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.samplingTime)" >
+        SAMPLING_TIME = #{record.samplingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.samplingUser)" >
+        SAMPLING_USER = #{record.samplingUser,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.samplingSource)" >
+        SAMPLING_SOURCE = #{record.samplingSource,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.checkStatus)" >
+        CHECK_STATUS = #{record.checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.checkUser)" >
+        CHECK_USER = #{record.checkUser,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.checkTime)" >
+        CHECK_TIME = #{record.checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createId)" >
+        CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createTime)" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateId)" >
+        UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateTime)" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.status)" >
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.missionId)" >
+        MISSION_ID = #{record.missionId,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Jul 11 08:22:20 CST 2017.
+    -->
+    update T_SAMPLING_AIR_REG
+    set ID = #{record.id,jdbcType=NVARCHAR},
+      CODE = #{record.code,jdbcType=NVARCHAR},
+      CONTAINER_VOLUME = #{record.containerVolume,jdbcType=NVARCHAR},
+      COLLECT_VOLUME = #{record.collectVolume,jdbcType=NVARCHAR},
+      POINT_ID = #{record.pointId,jdbcType=NVARCHAR},
+      SAMPLING_TIME = #{record.samplingTime,jdbcType=TIMESTAMP},
+      SAMPLING_USER = #{record.samplingUser,jdbcType=NVARCHAR},
+      SAMPLING_SOURCE = #{record.samplingSource,jdbcType=NVARCHAR},
+      CHECK_STATUS = #{record.checkStatus,jdbcType=INTEGER},
+      CHECK_USER = #{record.checkUser,jdbcType=NVARCHAR},
+      CHECK_TIME = #{record.checkTime,jdbcType=TIMESTAMP},
+      CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      MISSION_ID = #{record.missionId,jdbcType=NVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.reg.vo.AirReg" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Jul 11 08:22:20 CST 2017.
+    -->
+    update T_SAMPLING_AIR_REG
+    <set >
+      <if test="code != null" >
+        CODE = #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="containerVolume != null" >
+        CONTAINER_VOLUME = #{containerVolume,jdbcType=NVARCHAR},
+      </if>
+      <if test="collectVolume != null" >
+        COLLECT_VOLUME = #{collectVolume,jdbcType=NVARCHAR},
+      </if>
+      <if test="pointId != null" >
+        POINT_ID = #{pointId,jdbcType=NVARCHAR},
+      </if>
+      <if test="samplingTime != null" >
+        SAMPLING_TIME = #{samplingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="samplingUser != null" >
+        SAMPLING_USER = #{samplingUser,jdbcType=NVARCHAR},
+      </if>
+      <if test="samplingSource != null" >
+        SAMPLING_SOURCE = #{samplingSource,jdbcType=NVARCHAR},
+      </if>
+      <if test="checkStatus != null" >
+        CHECK_STATUS = #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="checkUser != null" >
+        CHECK_USER = #{checkUser,jdbcType=NVARCHAR},
+      </if>
+      <if test="checkTime != null" >
+        CHECK_TIME = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="missionId != null" >
+        MISSION_ID = #{missionId,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.reg.vo.AirReg" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Tue Jul 11 08:22:20 CST 2017.
+    -->
+    update T_SAMPLING_AIR_REG
+    set CODE = #{code,jdbcType=NVARCHAR},
+      CONTAINER_VOLUME = #{containerVolume,jdbcType=NVARCHAR},
+      COLLECT_VOLUME = #{collectVolume,jdbcType=NVARCHAR},
+      POINT_ID = #{pointId,jdbcType=NVARCHAR},
+      SAMPLING_TIME = #{samplingTime,jdbcType=TIMESTAMP},
+      SAMPLING_USER = #{samplingUser,jdbcType=NVARCHAR},
+      SAMPLING_SOURCE = #{samplingSource,jdbcType=NVARCHAR},
+      CHECK_STATUS = #{checkStatus,jdbcType=INTEGER},
+      CHECK_USER = #{checkUser,jdbcType=NVARCHAR},
+      CHECK_TIME = #{checkTime,jdbcType=TIMESTAMP},
+      CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=INTEGER},
+      MISSION_ID = #{missionId,jdbcType=NVARCHAR}
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    SELECT 
+    T.ID, T.CODE, T.CONTAINER_VOLUME, T.COLLECT_VOLUME, T.POINT_ID, T.SAMPLING_TIME, T.SAMPLING_USER
+    , T.SAMPLING_SOURCE, T.CHECK_STATUS, T.CHECK_USER, T.CHECK_TIME
+    , T.STATUS, T.MISSION_ID, [dbo].getRegionIdByMissionId(T.MISSION_ID) AS REGION_ID
+     FROM T_SAMPLING_AIR_REG T
+     LEFT JOIN V_SCHEME_MISSION V ON V.MISSION_ID = T.MISSION_ID
+    <include refid="Base_Where"/>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       ORDER BY ${sortColumn} 
+    </if>
+  </select>
+  <sql id="Base_Where">
+  	<where >
+      <if test="@Ognl@isNotEmpty(code)" >
+         AND T.CODE LIKE '%${code}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(containerVolume)" >
+         AND T.CONTAINER_VOLUME = #{containerVolume,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(collectVolume)" >
+         AND T.COLLECT_VOLUME = #{collectVolume,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(pointId)" >
+         AND T.POINT_ID = #{pointId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(beginTime)" >
+         AND T.SAMPLING_TIME <![CDATA[>=]]> #{beginTime,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(endTime)" >
+         AND T.SAMPLING_TIME <![CDATA[<=]]> #{endTime,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(samplingSource)" >
+         AND T.SAMPLING_SOURCE = #{samplingSource,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(checkStatus)" >
+         AND T.CHECK_STATUS = #{checkStatus,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         AND T.STATUS = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(missionName)" >
+         AND V.MISSION_NAME LIKE '%${missionName}%'
+      </if>
+    </where>
+  </sql>
+  <select id="countList" resultType="java.lang.Integer" >
+    SELECT COUNT(T.ID) FROM T_SAMPLING_AIR_REG T 
+    LEFT JOIN V_SCHEME_MISSION V ON V.MISSION_ID = T.MISSION_ID
+    <include refid="Base_Where"/>
+  </select>
+  
+  <select id="getInfoByAnalysis" resultMap="BaseResultMap">
+  	SELECT T.ID, T.CODE, T.CONTAINER_VOLUME, T.COLLECT_VOLUME, T.POINT_ID
+		, T.SAMPLING_TIME, T.SAMPLING_USER, T.SAMPLING_SOURCE
+	FROM T_SAMPLING_AIR_REG T
+	WHERE T.CHECK_STATUS = '1'
+	AND NOT EXISTS(
+		SELECT 1 FROM T_ANALYSIS_AIR A WHERE A.REG_ID = T.ID
+	)
+  </select>
+</mapper>

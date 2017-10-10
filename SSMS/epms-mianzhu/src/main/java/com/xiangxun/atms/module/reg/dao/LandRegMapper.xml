@@ -10,7 +10,7 @@
     <result column="CODE" property="code" jdbcType="NVARCHAR" />
     <result column="NAME" property="name" jdbcType="NVARCHAR" />
     <result column="DEPTH" property="depth" jdbcType="NVARCHAR" />
-    <result column="SOIL_TYPE" property="soilType" jdbcType="NVARCHAR" />
+    <result column="SAMPLING_TYPE" property="samplingType" jdbcType="NVARCHAR" />
     <result column="LONGITUDE" property="longitude" jdbcType="DECIMAL" />
     <result column="LATITUDE" property="latitude" jdbcType="DECIMAL" />
     <result column="SAMPLING_TIME" property="samplingTime" jdbcType="TIMESTAMP" />
@@ -102,7 +102,7 @@
       WARNING - @mbggenerated
       This element was generated on Thu Jul 20 17:16:02 CST 2017.
     -->
-    ID, CODE, NAME, DEPTH, SOIL_TYPE, LONGITUDE, LATITUDE, SAMPLING_TIME, SAMPLING_USER, 
+    ID, CODE, NAME, DEPTH, SAMPLING_TYPE, LONGITUDE, LATITUDE, SAMPLING_TIME, SAMPLING_USER, 
     RECEIVE_USER, SEND_USER, SAMPLING_SOURCE, CHECK_STATUS, CHECK_USER, CHECK_TIME, CREATE_ID, 
     CREATE_TIME, UPDATE_ID, UPDATE_TIME, STATUS, MISSION_ID, [dbo].getRegionIdByMissionId(MISSION_ID) AS REGION_ID
   </sql>
@@ -158,14 +158,14 @@
       This element was generated on Thu Jul 20 17:16:02 CST 2017.
     -->
     insert into T_SAMPLING_LAND_REG (CODE, NAME, DEPTH, 
-      SOIL_TYPE, LONGITUDE, LATITUDE, 
+      SAMPLING_TYPE, LONGITUDE, LATITUDE, 
       SAMPLING_TIME, SAMPLING_USER, RECEIVE_USER, 
       SEND_USER, SAMPLING_SOURCE, CHECK_STATUS, 
       CHECK_USER, CHECK_TIME, CREATE_ID, 
       CREATE_TIME, UPDATE_ID, UPDATE_TIME, 
       STATUS, MISSION_ID)
     values (#{code,jdbcType=NVARCHAR}, #{name,jdbcType=NVARCHAR}, #{depth,jdbcType=NVARCHAR}, 
-      #{soilType,jdbcType=NVARCHAR}, #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL}, 
+      #{samplingType,jdbcType=NVARCHAR}, #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL}, 
       #{samplingTime,jdbcType=TIMESTAMP}, #{samplingUser,jdbcType=NVARCHAR}, #{receiveUser,jdbcType=NVARCHAR}, 
       #{sendUser,jdbcType=NVARCHAR}, #{samplingSource,jdbcType=NVARCHAR}, #{checkStatus,jdbcType=INTEGER}, 
       #{checkUser,jdbcType=NVARCHAR}, #{checkTime,jdbcType=TIMESTAMP}, #{createId,jdbcType=NVARCHAR}, 
@@ -191,8 +191,8 @@
       <if test="@Ognl@isNotEmpty(depth)" >
         DEPTH,
       </if>
-      <if test="@Ognl@isNotEmpty(soilType)" >
-        SOIL_TYPE,
+      <if test="@Ognl@isNotEmpty(samplingType)" >
+        SAMPLING_TYPE,
       </if>
       <if test="@Ognl@isNotEmpty(longitude)" >
         LONGITUDE,
@@ -248,7 +248,7 @@
         #{id,jdbcType=NVARCHAR},
       </if>
       <if test="@Ognl@isNotEmpty(code)" >
-        #{code,jdbcType=NVARCHAR},
+        [dbo].getAutoCode('${code}'),
       </if>
       <if test="@Ognl@isNotEmpty(name)" >
         #{name,jdbcType=NVARCHAR},
@@ -256,8 +256,8 @@
       <if test="@Ognl@isNotEmpty(depth)" >
         #{depth,jdbcType=NVARCHAR},
       </if>
-      <if test="@Ognl@isNotEmpty(soilType)" >
-        #{soilType,jdbcType=NVARCHAR},
+      <if test="@Ognl@isNotEmpty(samplingType)" >
+        #{samplingType,jdbcType=NVARCHAR},
       </if>
       <if test="@Ognl@isNotEmpty(longitude)" >
         #{longitude,jdbcType=DECIMAL},
@@ -338,8 +338,8 @@
       <if test="@Ognl@isNotEmpty(record.depth)" >
         DEPTH = #{record.depth,jdbcType=NVARCHAR},
       </if>
-      <if test="@Ognl@isNotEmpty(record.soilType)" >
-        SOIL_TYPE = #{record.soilType,jdbcType=NVARCHAR},
+      <if test="@Ognl@isNotEmpty(record.samplingType)" >
+        SAMPLING_TYPE = #{record.samplingType,jdbcType=NVARCHAR},
       </if>
       <if test="@Ognl@isNotEmpty(record.longitude)" >
         LONGITUDE = #{record.longitude,jdbcType=DECIMAL},
@@ -404,7 +404,7 @@
       CODE = #{record.code,jdbcType=NVARCHAR},
       NAME = #{record.name,jdbcType=NVARCHAR},
       DEPTH = #{record.depth,jdbcType=NVARCHAR},
-      SOIL_TYPE = #{record.soilType,jdbcType=NVARCHAR},
+      SAMPLING_TYPE = #{record.samplingType,jdbcType=NVARCHAR},
       LONGITUDE = #{record.longitude,jdbcType=DECIMAL},
       LATITUDE = #{record.latitude,jdbcType=DECIMAL},
       SAMPLING_TIME = #{record.samplingTime,jdbcType=TIMESTAMP},
@@ -441,8 +441,8 @@
       <if test="depth != null" >
         DEPTH = #{depth,jdbcType=NVARCHAR},
       </if>
-      <if test="soilType != null" >
-        SOIL_TYPE = #{soilType,jdbcType=NVARCHAR},
+      <if test="samplingType != null" >
+        SAMPLING_TYPE = #{samplingType,jdbcType=NVARCHAR},
       </if>
       <if test="longitude != null" >
         LONGITUDE = #{longitude,jdbcType=DECIMAL},
@@ -504,7 +504,7 @@
     set CODE = #{code,jdbcType=NVARCHAR},
       NAME = #{name,jdbcType=NVARCHAR},
       DEPTH = #{depth,jdbcType=NVARCHAR},
-      SOIL_TYPE = #{soilType,jdbcType=NVARCHAR},
+      SAMPLING_TYPE = #{samplingType,jdbcType=NVARCHAR},
       LONGITUDE = #{longitude,jdbcType=DECIMAL},
       LATITUDE = #{latitude,jdbcType=DECIMAL},
       SAMPLING_TIME = #{samplingTime,jdbcType=TIMESTAMP},
@@ -524,7 +524,7 @@
     where ID = #{id,jdbcType=NVARCHAR}
   </update>
   <select id="getListByCondition" resultMap="BaseResultMap" >
-    SELECT T.ID, T.CODE, T.NAME, T.DEPTH, T.SOIL_TYPE, T.LONGITUDE, T.LATITUDE, T.SAMPLING_TIME, T.SAMPLING_USER
+    SELECT T.ID, T.CODE, T.NAME, T.DEPTH, T.SAMPLING_TYPE, T.LONGITUDE, T.LATITUDE, T.SAMPLING_TIME, T.SAMPLING_USER
     , T.RECEIVE_USER, T.SEND_USER, T.SAMPLING_SOURCE, T.CHECK_STATUS, T.CHECK_USER, T.CHECK_TIME, T.STATUS
     , V.REGION_ID, V.TEST_ITEMS, T.MISSION_ID
      FROM T_SAMPLING_LAND_REG T
@@ -545,8 +545,8 @@
       <if test="@Ognl@isNotEmpty(depth)" >
          and T.DEPTH = #{depth,jdbcType=NVARCHAR}
       </if>
-      <if test="@Ognl@isNotEmpty(soilType)" >
-         and T.SOIL_TYPE = #{soilType,jdbcType=NVARCHAR}
+      <if test="@Ognl@isNotEmpty(samplingType)" >
+         and T.SAMPLING_TYPE = #{samplingType,jdbcType=NVARCHAR}
       </if>
       <if test="@Ognl@isNotEmpty(beginTime)" >
          and T.SAMPLING_TIME <![CDATA[>=]]> #{beginTime,jdbcType=VARCHAR}
@@ -590,12 +590,18 @@
   </insert>
   
   <select id="getInfoByAnalysis" resultMap="BaseResultMap">
-  	SELECT T.ID, T.CODE, T.NAME, T.DEPTH, T.SOIL_TYPE, T.LONGITUDE, T.LATITUDE, V.REGION_ID, T.SAMPLING_TIME, 
+  	SELECT T.ID, T.CODE, T.NAME, T.DEPTH, T.SAMPLING_TYPE, T.LONGITUDE, T.LATITUDE, V.REGION_ID, T.SAMPLING_TIME, 
     	V.TEST_ITEMS, T.SAMPLING_USER, T.RECEIVE_USER, T.SEND_USER, T.SAMPLING_SOURCE
 	FROM T_SAMPLING_LAND_REG T
 	INNER JOIN V_SCHEME_MISSION V ON V.MISSION_ID = T.MISSION_ID
 	WHERE T.CHECK_STATUS = '1' AND NOT EXISTS(
 		SELECT 1 FROM T_ANALYSIS_LAND L WHERE L.REG_ID = T.ID
 	)
+  </select>
+  
+  <select id="getRegsByNoAnalysis" resultMap="BaseResultMap">
+  	SELECT T.ID, T.CODE
+	FROM T_SAMPLING_LAND_REG T
+	WHERE NOT EXISTS(SELECT 1 FROM T_ANALYSIS_LAND A WHERE A.REG_ID = T.ID)
   </select>
 </mapper>

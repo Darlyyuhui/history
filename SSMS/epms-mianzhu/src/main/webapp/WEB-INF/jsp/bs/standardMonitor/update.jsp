@@ -19,7 +19,7 @@
         监测指标
         <small>
             <i class="ace-icon fa fa-angle-double-right"></i>
-            新增监测指标
+            修改监测指标
         </small>
     </h1>
 </div>
@@ -79,7 +79,7 @@
 				
 				<div class="profile-info-name">描述</div>
 				<div class="profile-info-value">
-                	<input type="text" id="describe" name="describe" maxlength="200" value="${info.describe }"
+                	<input type="text" id="describe" name="describe" maxlength="100" value="${info.describe }"
 						style="min-width:120px; width: 350px;" class="input-large"/>
 				</div>
 			</div>

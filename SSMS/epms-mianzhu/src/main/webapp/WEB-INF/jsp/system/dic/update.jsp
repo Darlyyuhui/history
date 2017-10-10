@@ -40,7 +40,7 @@
                 </div>
                 <div class="profile-info-value">
                     <input type="text" id="dic-code" placeholder="录入编码" name="code"
-                        maxlength="6" class="input-large required"
+                        maxlength="20" class="input-large required"
                         ${fn:length(param.type) gt 0?'':'readonly=\"readonly\"'} value="${dic.code}">
                     <span style="color: red;">*</span>
                 </div>

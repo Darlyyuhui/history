@@ -3,7 +3,9 @@ package com.xiangxun.atms.module.land.vo;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class LandBlock implements java.io.Serializable {
+import com.xiangxun.atms.module.base.vo.BaseVo;
+
+public class LandBlock extends BaseVo {
 	private static final long serialVersionUID = -1928925991632726013L;
 
 	private String id;
@@ -150,7 +152,7 @@ public class LandBlock implements java.io.Serializable {
 	}
 
 	public BigDecimal getArea() {
-		return area;
+		return super.makeNum(area);
 	}
 
 	public void setArea(BigDecimal area) {

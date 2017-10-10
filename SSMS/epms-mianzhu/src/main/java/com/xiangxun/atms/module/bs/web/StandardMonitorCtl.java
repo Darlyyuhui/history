@@ -110,7 +110,7 @@ public class StandardMonitorCtl extends BaseCtl<StandardMonitor, StandardMonitor
 			, HttpServletRequest request, RedirectAttributes attr) {
 		info.setUpdateId(getCurrentUserId());
 		info.setUpdateTime(new Date());
-		standardMonitorService.updateById(info);
+		standardMonitorService.updateByIdSelective(info);
 		attr.addFlashAttribute("message", "修改成功");
 		return "redirect:/bs/standardMonitor/list/" + menuid + "/?isgetsession=1&page="+page;
 

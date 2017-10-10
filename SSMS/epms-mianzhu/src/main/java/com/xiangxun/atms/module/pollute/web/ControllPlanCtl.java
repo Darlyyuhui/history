@@ -24,6 +24,7 @@ import com.xiangxun.atms.framework.util.Servlets;
 import com.xiangxun.atms.framework.util.UuidGenerateUtil;
 import com.xiangxun.atms.framework.validator.ResponseEntity;
 import com.xiangxun.atms.module.base.web.BaseCtl;
+import com.xiangxun.atms.module.bs.constant.AutoCode;
 import com.xiangxun.atms.module.pollute.service.ControllPlanService;
 import com.xiangxun.atms.module.pollute.vo.ControllPlan;
 import com.xiangxun.atms.module.pollute.vo.ControllPlanSearch;
@@ -72,6 +73,7 @@ public class ControllPlanCtl extends BaseCtl<ControllPlan, ControllPlanSearch> {
 	public String doAdd(@PathVariable String menuid, ControllPlan info
 			, RedirectAttributes attr, MultipartHttpServletRequest fileRequest) {
 		info.setId(UuidGenerateUtil.getUUIDLong());
+		info.setCode(AutoCode.POLLUTE_CONTROLL_PLAN);
 		info.setCreateId(getCurrentUserId());
 		info.setCreateTime(new Date());
 		controllPlanService.saveInfo(info, fileRequest);

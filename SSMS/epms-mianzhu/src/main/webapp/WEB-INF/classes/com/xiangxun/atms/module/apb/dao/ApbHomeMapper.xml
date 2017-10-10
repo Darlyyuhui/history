@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.apb.dao.ApbHomeMapper" >
+  
+  <select id="getProductTypeCount" resultType="map">
+  	SELECT PT.NAME AS NAME_, COUNT(T.ID) NUM_
+	FROM T_APB_PRODUCT T
+	LEFT JOIN T_APB_PRODUCT_TYPE PT ON PT.CODE = T.TYPE_CODE
+	GROUP BY PT.NAME
+  </select>
+  
+  <select id="getTopCount" resultType="map">
+  	SELECT '农产品基地' AS NAME_, COUNT(T.ID) AS NUM_
+	FROM T_APB_INFO T
+	UNION ALL
+	SELECT '基地产品种类' AS NAME_, COUNT(T.ID) AS NUM_
+	FROM T_APB_PRODUCT T
+	WHERE EXISTS(SELECT 1 FROM T_APB_INFO_PRODUCT_LINK L WHERE L.PRODUCT_ID = T.ID)
+	UNION ALL
+	SELECT '基地总面积' AS NAME_, SUM(T.AREA) AS NUM_
+	FROM T_APB_INFO T
+  </select>
+  
+  <select id="getApbInfoAreaCount" resultType="map">
+  	SELECT T.NAME
+	, CASE WHEN T.AREA IS NULL THEN 0 ELSE T.AREA END AS AREA
+	, CASE WHEN T.ANNUAL_OUTPUT IS NULL THEN 0 ELSE T.ANNUAL_OUTPUT END AS ANNUAL_OUTPUT 
+	FROM T_APB_INFO T
+  </select>
+  
+  <select id="getApbProductList" resultType="map">
+  	SELECT TOP ${pageSize} T.ID, T.NAME, P.NAME AS TYPE_NAME, [dbo].getApbInfoNamesByProductId(T.ID) AS INFO_NAMES
+	FROM T_APB_PRODUCT T
+	LEFT JOIN T_APB_PRODUCT_TYPE P ON P.CODE = T.TYPE_CODE
+	ORDER BY T.CREATE_TIME DESC
+  </select>
+    
+</mapper>

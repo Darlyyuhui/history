@@ -486,7 +486,7 @@
     margin-left:130px;
    }
 	
-	#legendContainer .legendControllerButton{
+ .legendControllerButton{
 	width:15px;
     height:12px;
 	float:right;
@@ -498,13 +498,49 @@
 	cursor:pointer;
 }
 	
-	#legendContainer .legendToControllerButton{
+ .legendToControllerButton{
 	
 	background:url("../../images/renderIcon/toccollapse.png") no-repeat;
 }
 	
-	#legendContainer .legendFromControllerButton{
+ .legendFromControllerButton{
 	
 	background:url("../../images/renderIcon/fromccollapse.png") no-repeat;
 }
- 
+
+   .compentTitleContainer{
+     background-color: rgba(0,0,0,0.2);
+   }
+  .compentTitleContainer .compentTitleLabel{
+      margin-left:5px;
+      font-size: 14px;
+  }
+ .compentTitleHead{
+     position:absolute;
+     top:2px;
+     left:150px;
+     font-size: 14px;
+     color:#FFFFFF;
+     font-weight: bold;
+ }
+ .staticTable{
+     width:100%;
+     height:100%;
+    
+ }
+ .staticTable .staticTableTd{
+   font-weight: bold;
+   font-size: 14px;
+   background-color: #CCCCFF;
+   color: #336699;
+   width: 50%;
+   border-color: #FFFFFF;
+   border-style: solid;
+ }
+  .staticTableSpan1{
+    margin-right: 10px;
+ }
+ .staticTableSpan2{
+    font-weight: bold;
+   font-size: 18px;
+ }

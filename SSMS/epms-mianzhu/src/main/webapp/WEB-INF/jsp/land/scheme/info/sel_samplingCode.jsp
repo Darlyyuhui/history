@@ -8,6 +8,6 @@
 </c:if>
 <c:if test="${fn:length(samplingTypes) gt 0 }">
 	<c:forEach items="${samplingTypes }" var="item">
-		<input type="radio" name="sampleCode" value="${item.code }" ${code eq item.code ? 'checked' : '' } />${item.name }&nbsp;&nbsp;
+		<input type="radio" name="sampleCode" onclick="ckbSample(this.value)" value="${item.code }" ${code eq item.code ? 'checked' : '' } />${item.name }&nbsp;&nbsp;
 	</c:forEach>
 </c:if>

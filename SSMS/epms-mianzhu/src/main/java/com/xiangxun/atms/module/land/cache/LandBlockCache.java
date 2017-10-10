@@ -29,6 +29,10 @@ public class LandBlockCache implements BaseCache {
      * 所有数据
      */
     public final static String LB_ALL = "LANDBLOCK_ALL";
+    /**
+     * 根据ID获取坐标值：经度,纬度
+     */
+    public final static String ID_LOCATION = "LANDBLOCK_LOCATION";
 	
     @Resource
     LandBlockService landBlockService;

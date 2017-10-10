@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.check.dao.DataCheckRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.check.vo.DataCheckRule" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:42:12 CST 2017.
+    -->
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="NAME" property="name" jdbcType="NVARCHAR" />
+    <result column="CHECK_TYPE" property="checkType" jdbcType="NVARCHAR" />
+    <result column="CHECK_OBJ" property="checkObj" jdbcType="NVARCHAR" />
+    <result column="CHECK_DIMENSION" property="checkDimension" jdbcType="NVARCHAR" />
+    <result column="OUTLIER_PARAMETER" property="outlierParameter" jdbcType="INTEGER" />
+    <result column="OUTLIER_REMARK" property="outlierRemark" jdbcType="NVARCHAR" />
+    <result column="INVALID_PARAMETER" property="invalidParameter" jdbcType="INTEGER" />
+    <result column="INVALID_REMARK" property="invalidRemark" jdbcType="NVARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="NVARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:42:12 CST 2017.
+    -->
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:42:12 CST 2017.
+    -->
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:42:12 CST 2017.
+    -->
+    ID, NAME, CHECK_TYPE, CHECK_OBJ, CHECK_DIMENSION, OUTLIER_PARAMETER, OUTLIER_REMARK, 
+    INVALID_PARAMETER, INVALID_REMARK, CREATE_ID, CREATE_TIME, UPDATE_ID, UPDATE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.check.vo.DataCheckRuleSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:42:12 CST 2017.
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_DATACHECK_RULE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:42:12 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_DATACHECK_RULE
+    where ID = #{id,jdbcType=NVARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:42:12 CST 2017.
+    -->
+    delete from T_DATACHECK_RULE
+    where ID = #{id,jdbcType=NVARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.check.vo.DataCheckRuleSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:42:12 CST 2017.
+    -->
+    delete from T_DATACHECK_RULE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.check.vo.DataCheckRule" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:42:12 CST 2017.
+    -->
+    insert into T_DATACHECK_RULE (NAME, CHECK_TYPE, CHECK_OBJ, 
+      CHECK_DIMENSION, OUTLIER_PARAMETER, OUTLIER_REMARK, 
+      INVALID_PARAMETER, INVALID_REMARK, CREATE_ID, 
+      CREATE_TIME, UPDATE_ID, UPDATE_TIME
+      )
+    values (#{name,jdbcType=NVARCHAR}, #{checkType,jdbcType=NVARCHAR}, #{checkObj,jdbcType=NVARCHAR}, 
+      #{checkDimension,jdbcType=NVARCHAR}, #{outlierParameter,jdbcType=INTEGER}, #{outlierRemark,jdbcType=NVARCHAR}, 
+      #{invalidParameter,jdbcType=INTEGER}, #{invalidRemark,jdbcType=NVARCHAR}, #{createId,jdbcType=NVARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=NVARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.check.vo.DataCheckRule" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:42:12 CST 2017.
+    -->
+    insert into T_DATACHECK_RULE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(checkType)" >
+        CHECK_TYPE,
+      </if>
+      <if test="@Ognl@isNotEmpty(checkObj)" >
+        CHECK_OBJ,
+      </if>
+      <if test="@Ognl@isNotEmpty(checkDimension)" >
+        CHECK_DIMENSION,
+      </if>
+      <if test="@Ognl@isNotEmpty(outlierParameter)" >
+        OUTLIER_PARAMETER,
+      </if>
+      <if test="@Ognl@isNotEmpty(outlierRemark)" >
+        OUTLIER_REMARK,
+      </if>
+      <if test="@Ognl@isNotEmpty(invalidParameter)" >
+        INVALID_PARAMETER,
+      </if>
+      <if test="@Ognl@isNotEmpty(invalidRemark)" >
+        INVALID_REMARK,
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkType)" >
+        #{checkType,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkObj)" >
+        #{checkObj,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(checkDimension)" >
+        #{checkDimension,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(outlierParameter)" >
+        #{outlierParameter,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(outlierRemark)" >
+        #{outlierRemark,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(invalidParameter)" >
+        #{invalidParameter,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(invalidRemark)" >
+        #{invalidRemark,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.check.vo.DataCheckRuleSearch" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:42:12 CST 2017.
+    -->
+    select count(*) from T_DATACHECK_RULE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:42:12 CST 2017.
+    -->
+    update T_DATACHECK_RULE
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.checkType)" >
+        CHECK_TYPE = #{record.checkType,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.checkObj)" >
+        CHECK_OBJ = #{record.checkObj,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.checkDimension)" >
+        CHECK_DIMENSION = #{record.checkDimension,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.outlierParameter)" >
+        OUTLIER_PARAMETER = #{record.outlierParameter,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.outlierRemark)" >
+        OUTLIER_REMARK = #{record.outlierRemark,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.invalidParameter)" >
+        INVALID_PARAMETER = #{record.invalidParameter,jdbcType=INTEGER},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.invalidRemark)" >
+        INVALID_REMARK = #{record.invalidRemark,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createId)" >
+        CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createTime)" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateId)" >
+        UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateTime)" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:42:12 CST 2017.
+    -->
+    update T_DATACHECK_RULE
+    set ID = #{record.id,jdbcType=NVARCHAR},
+      NAME = #{record.name,jdbcType=NVARCHAR},
+      CHECK_TYPE = #{record.checkType,jdbcType=NVARCHAR},
+      CHECK_OBJ = #{record.checkObj,jdbcType=NVARCHAR},
+      CHECK_DIMENSION = #{record.checkDimension,jdbcType=NVARCHAR},
+      OUTLIER_PARAMETER = #{record.outlierParameter,jdbcType=INTEGER},
+      OUTLIER_REMARK = #{record.outlierRemark,jdbcType=NVARCHAR},
+      INVALID_PARAMETER = #{record.invalidParameter,jdbcType=INTEGER},
+      INVALID_REMARK = #{record.invalidRemark,jdbcType=NVARCHAR},
+      CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.check.vo.DataCheckRule" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:42:12 CST 2017.
+    -->
+    update T_DATACHECK_RULE
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="checkType != null" >
+        CHECK_TYPE = #{checkType,jdbcType=NVARCHAR},
+      </if>
+      <if test="checkObj != null" >
+        CHECK_OBJ = #{checkObj,jdbcType=NVARCHAR},
+      </if>
+      <if test="checkDimension != null" >
+        CHECK_DIMENSION = #{checkDimension,jdbcType=NVARCHAR},
+      </if>
+      <if test="outlierParameter != null" >
+        OUTLIER_PARAMETER = #{outlierParameter,jdbcType=INTEGER},
+      </if>
+      <if test="outlierRemark != null" >
+        OUTLIER_REMARK = #{outlierRemark,jdbcType=NVARCHAR},
+      </if>
+      <if test="invalidParameter != null" >
+        INVALID_PARAMETER = #{invalidParameter,jdbcType=INTEGER},
+      </if>
+      <if test="invalidRemark != null" >
+        INVALID_REMARK = #{invalidRemark,jdbcType=NVARCHAR},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.check.vo.DataCheckRule" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:42:12 CST 2017.
+    -->
+    update T_DATACHECK_RULE
+    set NAME = #{name,jdbcType=NVARCHAR},
+      CHECK_TYPE = #{checkType,jdbcType=NVARCHAR},
+      CHECK_OBJ = #{checkObj,jdbcType=NVARCHAR},
+      CHECK_DIMENSION = #{checkDimension,jdbcType=NVARCHAR},
+      OUTLIER_PARAMETER = #{outlierParameter,jdbcType=INTEGER},
+      OUTLIER_REMARK = #{outlierRemark,jdbcType=NVARCHAR},
+      INVALID_PARAMETER = #{invalidParameter,jdbcType=INTEGER},
+      INVALID_REMARK = #{invalidRemark,jdbcType=NVARCHAR},
+      CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    SELECT 
+    <include refid="Base_Column_List" />
+     FROM T_DATACHECK_RULE
+    <include refid="Base_Where"/>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       ORDER BY ${sortColumn} 
+    </if>
+  </select>
+  <sql id="Base_Where">
+  	<where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME LIKE '%${name}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(checkType)" >
+         and CHECK_TYPE = #{checkType,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(checkObj)" >
+         and CHECK_OBJ = #{checkObj,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(checkDimension)" >
+         and CHECK_DIMENSION = #{checkDimension,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(outlierParameter)" >
+         and OUTLIER_PARAMETER = #{outlierParameter,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(outlierRemark)" >
+         and OUTLIER_REMARK = #{outlierRemark,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(invalidParameter)" >
+         and INVALID_PARAMETER = #{invalidParameter,jdbcType=INTEGER}
+      </if>
+      <if test="@Ognl@isNotEmpty(invalidRemark)" >
+         and INVALID_REMARK = #{invalidRemark,jdbcType=NVARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="countList" resultType="java.lang.Integer" >
+    SELECT COUNT(ID) FROM T_DATACHECK_RULE
+    <include refid="Base_Where"/>
+  </select>
+  
+  <select id="checkOnly" resultType="java.lang.Integer">
+  	SELECT COUNT(T.ID) FROM T_DATACHECK_RULE T
+  	WHERE T.CHECK_TYPE = #{type,jdbcType=VARCHAR}
+  	 AND T.CHECK_OBJ = #{objCode,jdbcType=VARCHAR}
+  	  AND T.CHECK_DIMENSION = #{dimension,jdbcType=VARCHAR}
+  </select>
+</mapper>

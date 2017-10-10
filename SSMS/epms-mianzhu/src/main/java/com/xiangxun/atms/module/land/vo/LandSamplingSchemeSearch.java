@@ -1099,6 +1099,146 @@ public class LandSamplingSchemeSearch {
             addCriterion("STATUS not between", value1, value2, "status");
             return (Criteria) this;
         }
+
+        public Criteria andTestItemsIsNull() {
+            addCriterion("TEST_ITEMS is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestItemsIsNotNull() {
+            addCriterion("TEST_ITEMS is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestItemsEqualTo(String value) {
+            addCriterion("TEST_ITEMS =", value, "testItems");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestItemsNotEqualTo(String value) {
+            addCriterion("TEST_ITEMS <>", value, "testItems");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestItemsGreaterThan(String value) {
+            addCriterion("TEST_ITEMS >", value, "testItems");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestItemsGreaterThanOrEqualTo(String value) {
+            addCriterion("TEST_ITEMS >=", value, "testItems");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestItemsLessThan(String value) {
+            addCriterion("TEST_ITEMS <", value, "testItems");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestItemsLessThanOrEqualTo(String value) {
+            addCriterion("TEST_ITEMS <=", value, "testItems");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestItemsLike(String value) {
+            addCriterion("TEST_ITEMS like", value, "testItems");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestItemsNotLike(String value) {
+            addCriterion("TEST_ITEMS not like", value, "testItems");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestItemsIn(List<String> values) {
+            addCriterion("TEST_ITEMS in", values, "testItems");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestItemsNotIn(List<String> values) {
+            addCriterion("TEST_ITEMS not in", values, "testItems");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestItemsBetween(String value1, String value2) {
+            addCriterion("TEST_ITEMS between", value1, value2, "testItems");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestItemsNotBetween(String value1, String value2) {
+            addCriterion("TEST_ITEMS not between", value1, value2, "testItems");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepairScheduleIsNull() {
+            addCriterion("REPAIR_SCHEDULE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepairScheduleIsNotNull() {
+            addCriterion("REPAIR_SCHEDULE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepairScheduleEqualTo(String value) {
+            addCriterion("REPAIR_SCHEDULE =", value, "repairSchedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepairScheduleNotEqualTo(String value) {
+            addCriterion("REPAIR_SCHEDULE <>", value, "repairSchedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepairScheduleGreaterThan(String value) {
+            addCriterion("REPAIR_SCHEDULE >", value, "repairSchedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepairScheduleGreaterThanOrEqualTo(String value) {
+            addCriterion("REPAIR_SCHEDULE >=", value, "repairSchedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepairScheduleLessThan(String value) {
+            addCriterion("REPAIR_SCHEDULE <", value, "repairSchedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepairScheduleLessThanOrEqualTo(String value) {
+            addCriterion("REPAIR_SCHEDULE <=", value, "repairSchedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepairScheduleLike(String value) {
+            addCriterion("REPAIR_SCHEDULE like", value, "repairSchedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepairScheduleNotLike(String value) {
+            addCriterion("REPAIR_SCHEDULE not like", value, "repairSchedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepairScheduleIn(List<String> values) {
+            addCriterion("REPAIR_SCHEDULE in", values, "repairSchedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepairScheduleNotIn(List<String> values) {
+            addCriterion("REPAIR_SCHEDULE not in", values, "repairSchedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepairScheduleBetween(String value1, String value2) {
+            addCriterion("REPAIR_SCHEDULE between", value1, value2, "repairSchedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepairScheduleNotBetween(String value1, String value2) {
+            addCriterion("REPAIR_SCHEDULE not between", value1, value2, "repairSchedule");
+            return (Criteria) this;
+        }
     }
 
     /**

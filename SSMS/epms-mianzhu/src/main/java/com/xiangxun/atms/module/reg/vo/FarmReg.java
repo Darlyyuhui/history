@@ -48,9 +48,12 @@ public class FarmReg extends BaseReg {
     private Integer status;
 
     private String missionId;
+    
+    private String samplingType;
 
     
     private String testItems;
+    private String regionId;
     
     /**
      * @return the value of ID
@@ -365,7 +368,23 @@ public class FarmReg extends BaseReg {
         this.missionId = missionId == null ? null : missionId.trim();
     }
 
-    /**
+    public String getSamplingType() {
+		return samplingType;
+	}
+
+	public void setSamplingType(String samplingType) {
+		this.samplingType = samplingType;
+	}
+
+	public String getRegionId() {
+		return regionId;
+	}
+
+	public void setRegionId(String regionId) {
+		this.regionId = regionId;
+	}
+
+	/**
     
      */
     @Override
@@ -394,6 +413,7 @@ public class FarmReg extends BaseReg {
         sb.append(", updateTime=").append(updateTime);
         sb.append(", status=").append(status);
         sb.append(", missionId=").append(missionId);
+        sb.append(", samplingType=").append(samplingType);
         sb.append("]");
         return sb.toString();
     }

@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.bs.dao.MobileAppMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.bs.vo.MobileApp" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="VERSION" property="version" jdbcType="NVARCHAR" />
+    <result column="NAME" property="name" jdbcType="NVARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="NVARCHAR" />
+    <result column="SAVE_URL" property="saveUrl" jdbcType="NVARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    ID, VERSION, NAME, REMARK, SAVE_URL, CREATE_ID, CREATE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.bs.vo.MobileAppSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_MOBILE_APP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_MOBILE_APP
+    where ID = #{id,jdbcType=NVARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    delete from T_MOBILE_APP
+    where ID = #{id,jdbcType=NVARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.bs.vo.MobileAppSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    delete from T_MOBILE_APP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.bs.vo.MobileApp" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    insert into T_MOBILE_APP (VERSION, NAME, REMARK, 
+      SAVE_URL, CREATE_ID, CREATE_TIME
+      )
+    values (#{version,jdbcType=NVARCHAR}, #{name,jdbcType=NVARCHAR}, #{remark,jdbcType=NVARCHAR}, 
+      #{saveUrl,jdbcType=NVARCHAR}, #{createId,jdbcType=NVARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.bs.vo.MobileApp" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    insert into T_MOBILE_APP
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(version)" >
+        VERSION,
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME,
+      </if>
+      <if test="@Ognl@isNotEmpty(remark)" >
+        REMARK,
+      </if>
+      <if test="@Ognl@isNotEmpty(saveUrl)" >
+        SAVE_URL,
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(version)" >
+        #{version,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(remark)" >
+        #{remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(saveUrl)" >
+        #{saveUrl,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.bs.vo.MobileAppSearch" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    select count(*) from T_MOBILE_APP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    update T_MOBILE_APP
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.version)" >
+        VERSION = #{record.version,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.name)" >
+        NAME = #{record.name,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.remark)" >
+        REMARK = #{record.remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.saveUrl)" >
+        SAVE_URL = #{record.saveUrl,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createId)" >
+        CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createTime)" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    update T_MOBILE_APP
+    set ID = #{record.id,jdbcType=NVARCHAR},
+      VERSION = #{record.version,jdbcType=NVARCHAR},
+      NAME = #{record.name,jdbcType=NVARCHAR},
+      REMARK = #{record.remark,jdbcType=NVARCHAR},
+      SAVE_URL = #{record.saveUrl,jdbcType=NVARCHAR},
+      CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.bs.vo.MobileApp" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    update T_MOBILE_APP
+    <set >
+      <if test="@Ognl@isNotEmpty(version)" >
+        VERSION = #{version,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+        NAME = #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(remark)" >
+        REMARK = #{remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(saveUrl)" >
+        SAVE_URL = #{saveUrl,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.bs.vo.MobileApp" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    update T_MOBILE_APP
+    set VERSION = #{version,jdbcType=NVARCHAR},
+      NAME = #{name,jdbcType=NVARCHAR},
+      REMARK = #{remark,jdbcType=NVARCHAR},
+      SAVE_URL = #{saveUrl,jdbcType=NVARCHAR},
+      CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+     from T_MOBILE_APP
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(version)" >
+         and VERSION = #{version,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(remark)" >
+         and REMARK = #{remark,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(saveUrl)" >
+         and SAVE_URL = #{saveUrl,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+         and CREATE_ID = #{createId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+         and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    select count(*) from T_MOBILE_APP
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(version)" >
+         and VERSION = #{version,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(name)" >
+         and NAME = #{name,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(remark)" >
+         and REMARK = #{remark,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(saveUrl)" >
+         and SAVE_URL = #{saveUrl,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+         and CREATE_ID = #{createId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+         and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+</mapper>

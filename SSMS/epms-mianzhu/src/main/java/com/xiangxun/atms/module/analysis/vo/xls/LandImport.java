@@ -13,32 +13,8 @@ public class LandImport implements java.io.Serializable {
 
 	private static final long serialVersionUID = 4578466114782476825L;
 
-	/**
-	 * 采样样品名称
-	 */
-	@XlsMapping(cellNo = 1)
-	private String sampleName;
-	
-	/**
-	 * 经度
-	 */
-	@XlsMapping(cellNo = 2)
-	private String longitude;
-
-	/**
-	 * 纬度
-	 */
-	@XlsMapping(cellNo = 3)
-    private String latitude;
-    
     /**
-     * 所属乡镇
-     */
-    @XlsMapping(cellNo = 4, istransfer = true)
-    private String regionId;
-    
-    /**
-     * 采样登记编号
+     * 采样编号
      */
     @XlsMapping(cellNo = 0)
     private String regNo;
@@ -46,58 +22,28 @@ public class LandImport implements java.io.Serializable {
     /**
      * 分析单位
      */
-    @XlsMapping(cellNo = 5)
+    @XlsMapping(cellNo = 1)
     private String dept;
     
     /**
      * ph值
      */
-    @XlsMapping(cellNo = 6)
+    @XlsMapping(cellNo = 2)
     private BigDecimal ph;
 
     /**
      * 镉
      */
-    @XlsMapping(cellNo = 7)
+    @XlsMapping(cellNo = 3)
     private BigDecimal cadmium;
 
     /**
      * 有效态镉
      */
-    @XlsMapping(cellNo = 8)
+    @XlsMapping(cellNo = 4)
     private BigDecimal availableCadmium;
-
-	public String getSampleName() {
-		return sampleName;
-	}
-
-	public void setSampleName(String sampleName) {
-		this.sampleName = sampleName;
-	}
-
-	public String getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
-	}
-
-	public String getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
-	}
-
-	public String getRegionId() {
-		return regionId;
-	}
-
-	public void setRegionId(String regionId) {
-		this.regionId = regionId;
-	}
+    
+    private int rowNum;
 
 	public String getRegNo() {
 		return regNo;
@@ -138,5 +84,13 @@ public class LandImport implements java.io.Serializable {
 	public void setAvailableCadmium(BigDecimal availableCadmium) {
 		this.availableCadmium = availableCadmium;
 	}
-	
+
+	public int getRowNum() {
+		return rowNum;
+	}
+
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
+	}
+
 }

@@ -17,7 +17,7 @@ public class LandReg extends BaseReg {
 
     private String depth;
 
-    private String soilType;
+    private String samplingType;
 
     private BigDecimal longitude;
 
@@ -122,17 +122,17 @@ public class LandReg extends BaseReg {
     /**
      * @return the value of SOIL_TYPE
      */
-    public String getSoilType() {
-        return soilType;
+    public String getSamplingType() {
+        return samplingType;
     }
 
     /**
     
      *
-     * @param soilType the value for SOIL_TYPE
+     * @param samplingType the value for SOIL_TYPE
      */
-    public void setSoilType(String soilType) {
-        this.soilType = soilType == null ? null : soilType.trim();
+    public void setSamplingType(String samplingType) {
+        this.samplingType = samplingType == null ? null : samplingType.trim();
     }
 
 
@@ -421,7 +421,7 @@ public class LandReg extends BaseReg {
         sb.append(", code=").append(code);
         sb.append(", name=").append(name);
         sb.append(", depth=").append(depth);
-        sb.append(", soilType=").append(soilType);
+        sb.append(", samplingType=").append(samplingType);
         sb.append(", longitude=").append(longitude);
         sb.append(", latitude=").append(latitude);
         sb.append(", samplingTime=").append(samplingTime);

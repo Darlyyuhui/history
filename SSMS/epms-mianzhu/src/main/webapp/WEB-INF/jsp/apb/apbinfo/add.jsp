@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/common/header.jspf" %>
+<tags:selTree idElement="soilType" nameElement="soilTypeName" treeType="landtype" />
 <script src="${root}/js/business.validate.js" type="text/javascript"></script>
 <c:if test="${not empty message}">
     <div id="message" class="alert alert-success">
@@ -41,19 +42,10 @@
                     <div style="border:none;position: absolute;top:0">
                         <div class="profile-user-info profile-user-info-striped width-100">
                         <div class="profile-info-row">
-                            <div class="profile-info-name">编号</div>
-                            <div class="profile-info-value">
-                                <input type="text" id="code" name="code" maxlength="20"
-                                       style="min-width:120px; width: 280px;" class="input-large required"/>
-                                <span style="color: red">*</span>
-                                <span id="checkCodeSpan" style="color: red"></span>
-                            </div>
-                        </div>
-                        <div class="profile-info-row">
                             <div class="profile-info-name">名称</div>
                             <div class="profile-info-value">
                                 <input type="text" id="name" name="name" maxlength="20"
-                                       style="min-width:120px; width: 280px;" class="input-large required"/>
+                                       class="input-large required left-map-input-width"/>
                                 <span style="color: red">*</span>
                             </div>
                         </div>
@@ -61,9 +53,9 @@
                             <div class="profile-info-name">N（北纬）</div>
                             <div class="profile-info-value">
                                 <input type="text" id="latitude" name="latitude" maxlength="12"
-                                       style="min-width:120px; width: 280px;display:none;" class="input-large "/>
+                                       style="display:none;" class="input-large "/>
                                 <input type="text" id="latitude2" name="latitude2" maxlength="20"
-                                       style="min-width:120px; width: 280px;"class="input-large "/>
+                                       class="input-large left-map-input-width"/>
 
                             </div>
                         </div>
@@ -71,31 +63,31 @@
                             <div class="profile-info-name">E（东经）</div>
                             <div class="profile-info-value">
                                 <input type="text" id="longitude" name="longitude" maxlength="12"
-                                       style="min-width:120px; width: 280px;display:none;" class="input-large"/>
+                                       style="display:none;" class="input-large"/>
                                 <input type="text" id="longitude2" name="longitude2" maxlength="20"
-                                       style="min-width:120px; width: 280px;" class="input-large"/>
+                                       class="input-large left-map-input-width"/>
                             </div>
                         </div>
                         <div class="profile-info-row">
                             <div class="profile-info-name">详细地址</div>
                             <div class="profile-info-value">
                                 <input type="text" id="address" name="address" maxlength="50"
-                                       style="min-width:120px; width: 280px;" class="input-large"/>
+                                       class="input-large left-map-input-width"/>
                             </div>
                         </div>
                         <div class="profile-info-row">
                             <div class="profile-info-name">年产量（万吨）</div>
                             <div class="profile-info-value">
-                                <input type="text" id="annualOutput" name="annualOutput" maxlength="6" min="0" max="180000"
-                                       style="min-width:120px; width: 280px;" class="input-large number required"/>
+                                <input type="text" id="annualOutput" name="annualOutput" maxlength="10" min="0"
+                                       class="input-large number required left-map-input-width"/>
                                 <span style="color: red">*</span>
                             </div>
                         </div>
                         <div class="profile-info-row">
                             <div class="profile-info-name">种植面积（亩）</div>
                             <div class="profile-info-value">
-                                <input type="text" id="area" name="area" maxlength="12"  min="0"  
-                                       style="min-width:120px; width: 280px;" class="input-large number required"/>
+                                <input type="text" id="area" name="area" maxlength="10"  min="0"  
+                                       class="input-large number required left-map-input-width"/>
                                 <input type="hidden" id="geoId" name="geoJson" />
                                 <span style="color: red">*</span>
                             </div>
@@ -113,30 +105,29 @@
                             <div class="profile-info-name">基地描述</div>
                             <div class="profile-info-value">
                                 <input type="text" id="describe" name="describe" maxlength="20"
-                                       style="min-width:120px; width: 280px;" class="input-large"/>
+                                       class="input-large left-map-input-width"/>
                             </div>
                         </div>
                         <div class="profile-info-row">
                             <div class="profile-info-name">周围环境</div>
                             <div class="profile-info-value">
                                 <input type="text" id="ambient" name="ambient" maxlength="20"
-                                       style="min-width:120px; width: 280px;" class="input-large"/>
+                                       class="input-large left-map-input-width"/>
                             </div>
                         </div>
                         <div class="profile-info-row">
                             <div class="profile-info-name">土壤类型</div>
                             <div class="profile-info-value">
-                                <select id="soilType" name="soilType" style="min-width:120px; width: 280px;" class="input-large" >
-                                   <tags:dicothercache typeCode="${SOILE_TYPE }"/>
-                                </select>
-
+								<input type="text" id="soilTypeName" readonly="readonly"
+									class="input-large left-map-input-width" />
+								<input type="hidden" id="soilType" name="soilType" />
                             </div>
                         </div>
                         <div class="profile-info-row">
                             <div class="profile-info-name">污染状况</div>
                             <div class="profile-info-value">
                                 <input type="text" id="polluteDesc" name="polluteDesc" maxlength="20"
-                                       style="min-width:120px; width: 280px;" class="input-large"/>
+                                       class="input-large left-map-input-width"/>
                             </div>
                         </div>
 
@@ -147,7 +138,7 @@
                             <button id="btdraw" class="btn btn-primary" type="button" onclick="draw()">
                                 <i class="ace-icon fa fa-submit bigger-110"></i>绘制
                             </button>
-                            <button class="btn" type="reset" onclick="clearDraw()">
+                            <button class="btn" type="button" onclick="clearDraw()">
                                 <i class="ace-icon fa fa-undo bigger-110"></i> 清除
                             </button>
                             <button class="btn btn-primary" type="button" onclick="checkForm()">
@@ -170,21 +161,23 @@
     </form>
 </div>
 <script>
-	var isSub = false;
-	
 	var graphic=null;
 	var LayerManager,graphic;
 	var measureControls = [];
+	var v;
     $(document).ready(function () {
         //聚焦第一个输入框
         //为inputForm注册validate函数
-        $("#inputForm").validate({
+        v = $("#inputForm").validate({
         	rules: {
         		longitude: {
         			isCoordinate: true
     			},
     			latitude: {
         			isCoordinate: true
+    			},
+    			area: {
+    				decimal4: true
     			}
     		}
         });
@@ -257,7 +250,7 @@
    	        }else if(units=='km'){
    	        	resultArea=out*1500;
    	        }
-   	        $("#area").val(resultArea);
+   	        $("#area").val(makeDecimal(resultArea, 4));
     		LayerManager("defaultLayer").clear();
     		var geometry=geoUtil.convertFromObject(event.geometry);
               graphic=Graphic({geo:geometry,symbol:SymbolConfig.defaultPolygon,attributes:{}});
@@ -276,6 +269,12 @@
    };
    function clearDraw(){
 	   $("#btdraw").attr('disabled',false);
+	   $("#longitude2").val("");
+       $("#latitude2").val("");
+       $("#longitude").val("");
+       $("#latitude").val("");
+       $("#area").val("");
+       $("#geoId").val("");
 	   measureControls["polygon"].deactivate();
    	    MapFactory.Require(["MapFactory/LayerManager"],function(LayerManager){
    		 LayerManager("defaultLayer").clear();
@@ -311,32 +310,10 @@
     	checkForm();
     }
     function checkForm() {
-    	checkCode();
-    	var v = $("#inputForm").validate();
-    	if (v.checkForm() && isSub&&mainChecked()) {
+    	if (v.checkForm() &&mainChecked()) {
     		$("#inputForm").submit();
     	}else{
     		v.showErrors();
-    	}
-    }
-    function checkCode() {
-    	var codeObj = $("#code");
-    	if (codeObj.val() != "") {
-    		$.ajax({
-    			async:false,
-    			type:"post",
-    			url:"${root}/apb/apbinfo/checkCode/"+codeObj.val()+"/",
-    			data:"tName=T_APB_INFO&cName=CODE",
-    			success:function(data) {
-    				if (data.result == "ok") {
-    					isSub = true;
-    					$("#checkCodeSpan").empty();
-    			
-    				}else {
-    					$("#checkCodeSpan").empty().html(data.message);
-    				}
-    			}
-    		});
     	}
     }
     function formatDegree(value) {  

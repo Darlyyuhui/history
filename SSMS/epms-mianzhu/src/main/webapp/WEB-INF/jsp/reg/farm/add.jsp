@@ -48,18 +48,9 @@
                         <div class="profile-user-info profile-user-info-striped width-100">
 
                         <div class="profile-info-row">
-                            <div class="profile-info-name">样品编号</div>
-                            <div class="profile-info-value">
-                                <input type="text" id="code" name="code" maxlength="20"
-                                       style="min-width:120px; width: 180px;" class="input-large required"/>
-                                <span style="color: red">*</span>
-                                <span id="checkCodeSpan" style="color: red"></span>
-                            </div>
-                        </div>
-                        <div class="profile-info-row">
                             <div class="profile-info-name">采样任务</div>
                             <div class="profile-info-value">
-                                <select id="missionId" name="missionId" onchange="regionTreeCB(this.value)" style="min-width:120px; width: 180px;" class="required">
+                                <select id="missionId" name="missionId" onchange="regionTreeCB(this.value)"  class="required left-map-input-width">
                                     <option value="">请选择</option>
                                     <c:forEach items="${missions }" var="m">
                                         <option value="${m.id }">${m.name }</option>
@@ -84,15 +75,26 @@
                             <div class="profile-info-name">样品名称</div>
                             <div class="profile-info-value">
                                 <input type="text" id="name" name="name" maxlength="20"
-                                       style="min-width:120px; width: 180px;" class="input-large required"/>
+                                        class="input-large required left-map-input-width"/>
                                 <span style="color: red">*</span>
                             </div>
                         </div>
+                        
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">样品类型</div>
+                            <div class="profile-info-value">
+                                <select id="samplingType" name="samplingType"  class="required left-map-input-width">
+                                	<tags:diccache typeCode="SAMPLING_FARM_TYPE" />
+                                </select>
+                                <span style="color: red">*</span>
+                            </div>
+                        </div>
+                        
                         <div class="profile-info-row">
                             <div class="profile-info-name">采样部位</div>
                             <div class="profile-info-value">
                                 <input type="text" id="position" name="position" maxlength="50"
-                                       style="min-width:120px; width: 180px;" class="input-large required"/>
+                                        class="input-large required left-map-input-width"/>
                                 <span style="color: red">*</span>
                             </div>
                         </div>
@@ -101,14 +103,14 @@
                             <div class="profile-info-name">经度</div>
                             <div class="profile-info-value">
                                 <input type="text" id="longitude" name="longitude" maxlength="12"
-                                       style="min-width:120px; width: 180px;" class="input-large number"/>
+                                        class="input-large number left-map-input-width"/>
                             </div>
                         </div>
                         <div class="profile-info-row">
                             <div class="profile-info-name">纬度</div>
                             <div class="profile-info-value">
                                 <input type="text" id="latitude" name="latitude" maxlength="12"
-                                       style="min-width:120px; width: 180px;" class="input-large number"/>
+                                        class="input-large number left-map-input-width"/>
                             </div>
                         </div>
 
@@ -116,14 +118,14 @@
                             <div class="profile-info-name">采样人</div>
                             <div class="profile-info-value">
                                 <input type="text" id="samplingUser" name="samplingUser" maxlength="20"
-                                       style="min-width:120px; width: 180px;" class="input-large"/>
+                                        class="input-large left-map-input-width"/>
                             </div>
                         </div>
                         <div class="profile-info-row">
                             <div class="profile-info-name">采样时间</div>
                             <div class="profile-info-value">
                                 <input id="samplingTime" name="samplingTime" type="text"
-                                       class="input-large required" readonly="readonly" style="width: 180px;"
+                                       class="input-large required left-map-input-width" readonly="readonly"
                                        onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true})" />
                                 <span style="color: red">*</span>
                             </div>
@@ -133,14 +135,14 @@
                             <div class="profile-info-name">收样人</div>
                             <div class="profile-info-value">
                                 <input type="text" id="receiveUser" name="receiveUser" maxlength="20"
-                                       style="min-width:120px; width: 180px;" class="input-large"/>
+                                        class="input-large left-map-input-width"/>
                             </div>
                         </div>
                         <div class="profile-info-row">
                             <div class="profile-info-name">送样人</div>
                             <div class="profile-info-value">
                                 <input type="text" id="sendUser" name="sendUser" maxlength="20"
-                                       style="min-width:120px; width: 180px;" class="input-large"/>
+                                        class="input-large left-map-input-width"/>
                             </div>
                         </div>
 
@@ -159,7 +161,7 @@
                             <button class="btn btn-primary" type="button" onclick="draw()">
                                 <i class="ace-icon fa fa-submit bigger-110"></i>选点
                             </button>
-                            <button class="btn" type="reset" onclick="clearDraw()">
+                            <button class="btn" type="button" onclick="clearDraw()">
                                 <i class="ace-icon fa fa-undo bigger-110"></i> 清除
                             </button>
                             <button class="btn btn-primary" type="button" onclick="checkForm()">
@@ -179,7 +181,6 @@
 </div>
 
 <script>
-	var isCheck = false;
 	var v;
 	var _map;
     $(document).ready(function () {
@@ -235,14 +236,15 @@
       	 });
       };
       function clearDraw(){
+    	  $("#longitude").val("");
+  		$("#latitude").val("");
       	 MapFactory.Require(["MapFactory/LayerManager"],function(LayerManager){
       		 LayerManager("defaultLayer").clear();
       	      graphic=null;
       	 });
       };
     function checkForm() {
-    	checkCode();
-    	if (v.checkForm() && isCheck) {
+    	if (v.checkForm()) {
     		$("#inputForm").submit();
     	}else{
     		v.showErrors();
@@ -268,31 +270,12 @@
     		"${root}/bs/region/getLocation/"+regionId+"/",
     		function(data) {
     			if(data){
-    				_map.centerAt(data.longitude,data.latitude,6);	
+    				_map.centerAt(data.longitude,data.latitude,4);	
     			}
     		
     		}
     	);
     } 
-    function checkCode() {
-    	var codeObj = $("#code");
-    	if (codeObj.val() != "") {
-    		$.ajax({
-    			async:false,
-    			type:"post",
-    			url:"${root}/reg/farm/checkCode/"+codeObj.val()+"/",
-    			data:"tName=T_SAMPLING_FARM_REG&cName=CODE",
-    			success:function(data) {
-    				if (data.result == "ok") {
-    					isCheck = true;
-    					$("#checkCodeSpan").empty();
-    				}else {
-    					$("#checkCodeSpan").empty().html(data.message);
-    				}
-    			}
-    		});
-    	}
-    }
 </script>
 
 <%@ include file="/WEB-INF/jsp/common/fooltertags.jspf" %>

@@ -91,7 +91,7 @@
             <c:forEach items="${pageList.result}" var="item">
                 <tr>
                 	<td>
-                	<c:if test="${item.status eq '0' }">
+                	<c:if test="${item.status eq '0' && item.checkStatus eq '0' }">
                 	<input type="checkbox" value="${item.id}" name="select-chk"/>
                 	</c:if>
                     </td>
@@ -104,6 +104,7 @@
 	                <td>
 	                	<c:if test="${item.samplingSource eq '1'}">原始录入</c:if>
 	                	<c:if test="${item.samplingSource eq '2'}">移动APP</c:if>
+	                	<c:if test="${item.samplingSource eq '3'}">批量导入</c:if>
 	                </td>
 	                <td><tags:xiangxuncache keyName="LANDMISSION_ID_NAME" id="${item.missionId }"/></td>
 	                <td>
@@ -117,7 +118,7 @@
                                     <i class="ace-icon fa fa-eye bigger-120"></i>
                                 </button>
                             </btn:authorBtn>
-                            <c:if test="${item.status eq '0' }">
+                            <c:if test="${item.status eq '0' && item.checkStatus eq '0' }">
                             <btn:authorBtn menuid="${menuid}" text="修改">
                                 <button class="btn btn-xs btn-info" onclick="updateById('${item.id}')">
                                     <i class="ace-icon fa fa-pencil bigger-120"></i>

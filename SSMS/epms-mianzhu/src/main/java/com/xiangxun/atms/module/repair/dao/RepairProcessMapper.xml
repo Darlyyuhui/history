@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.repair.dao.RepairProcessMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.repair.vo.RepairProcess" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Sep 29 14:46:22 CST 2017.
+    -->
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="PRO_ID" property="proId" jdbcType="NVARCHAR" />
+    <result column="STAGE_ID" property="stageId" jdbcType="NVARCHAR" />
+    <result column="WORK_DATE" property="workDate" jdbcType="NVARCHAR" />
+    <result column="WORK_DEPT" property="workDept" jdbcType="NVARCHAR" />
+    <result column="WORK_CONTENT" property="workContent" jdbcType="NVARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="NVARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Sep 29 14:46:22 CST 2017.
+    -->
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Sep 29 14:46:22 CST 2017.
+    -->
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Sep 29 14:46:22 CST 2017.
+    -->
+    ID, PRO_ID, STAGE_ID, WORK_DATE, WORK_DEPT, WORK_CONTENT, CREATE_ID, CREATE_TIME, 
+    UPDATE_ID, UPDATE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.repair.vo.RepairProcessSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Sep 29 14:46:22 CST 2017.
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_LAND_REPAIR_PROCESS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Sep 29 14:46:22 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_LAND_REPAIR_PROCESS
+    where ID = #{id,jdbcType=NVARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Sep 29 14:46:22 CST 2017.
+    -->
+    delete from T_LAND_REPAIR_PROCESS
+    where ID = #{id,jdbcType=NVARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.repair.vo.RepairProcessSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Sep 29 14:46:22 CST 2017.
+    -->
+    delete from T_LAND_REPAIR_PROCESS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.repair.vo.RepairProcess" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Sep 29 14:46:22 CST 2017.
+    -->
+    insert into T_LAND_REPAIR_PROCESS (PRO_ID, STAGE_ID, WORK_DATE, 
+      WORK_DEPT, WORK_CONTENT, CREATE_ID, 
+      CREATE_TIME, UPDATE_ID, UPDATE_TIME
+      )
+    values (#{proId,jdbcType=NVARCHAR}, #{stageId,jdbcType=NVARCHAR}, #{workDate,jdbcType=NVARCHAR}, 
+      #{workDept,jdbcType=NVARCHAR}, #{workContent,jdbcType=NVARCHAR}, #{createId,jdbcType=NVARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=NVARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.repair.vo.RepairProcess" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Sep 29 14:46:22 CST 2017.
+    -->
+    insert into T_LAND_REPAIR_PROCESS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(proId)" >
+        PRO_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(stageId)" >
+        STAGE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(workDate)" >
+        WORK_DATE,
+      </if>
+      <if test="@Ognl@isNotEmpty(workDept)" >
+        WORK_DEPT,
+      </if>
+      <if test="@Ognl@isNotEmpty(workContent)" >
+        WORK_CONTENT,
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(proId)" >
+        #{proId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(stageId)" >
+        #{stageId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(workDate)" >
+        #{workDate,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(workDept)" >
+        #{workDept,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(workContent)" >
+        #{workContent,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.repair.vo.RepairProcessSearch" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Sep 29 14:46:22 CST 2017.
+    -->
+    select count(*) from T_LAND_REPAIR_PROCESS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Sep 29 14:46:22 CST 2017.
+    -->
+    update T_LAND_REPAIR_PROCESS
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.proId)" >
+        PRO_ID = #{record.proId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.stageId)" >
+        STAGE_ID = #{record.stageId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.workDate)" >
+        WORK_DATE = #{record.workDate,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.workDept)" >
+        WORK_DEPT = #{record.workDept,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.workContent)" >
+        WORK_CONTENT = #{record.workContent,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createId)" >
+        CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createTime)" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateId)" >
+        UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateTime)" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Sep 29 14:46:22 CST 2017.
+    -->
+    update T_LAND_REPAIR_PROCESS
+    set ID = #{record.id,jdbcType=NVARCHAR},
+      PRO_ID = #{record.proId,jdbcType=NVARCHAR},
+      STAGE_ID = #{record.stageId,jdbcType=NVARCHAR},
+      WORK_DATE = #{record.workDate,jdbcType=NVARCHAR},
+      WORK_DEPT = #{record.workDept,jdbcType=NVARCHAR},
+      WORK_CONTENT = #{record.workContent,jdbcType=NVARCHAR},
+      CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.repair.vo.RepairProcess" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Sep 29 14:46:22 CST 2017.
+    -->
+    update T_LAND_REPAIR_PROCESS
+    <set >
+      <if test="proId != null" >
+        PRO_ID = #{proId,jdbcType=NVARCHAR},
+      </if>
+      <if test="stageId != null" >
+        STAGE_ID = #{stageId,jdbcType=NVARCHAR},
+      </if>
+      <if test="workDate != null" >
+        WORK_DATE = #{workDate,jdbcType=NVARCHAR},
+      </if>
+      <if test="workDept != null" >
+        WORK_DEPT = #{workDept,jdbcType=NVARCHAR},
+      </if>
+      <if test="workContent != null" >
+        WORK_CONTENT = #{workContent,jdbcType=NVARCHAR},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.repair.vo.RepairProcess" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Fri Sep 29 14:46:22 CST 2017.
+    -->
+    update T_LAND_REPAIR_PROCESS
+    set PRO_ID = #{proId,jdbcType=NVARCHAR},
+      STAGE_ID = #{stageId,jdbcType=NVARCHAR},
+      WORK_DATE = #{workDate,jdbcType=NVARCHAR},
+      WORK_DEPT = #{workDept,jdbcType=NVARCHAR},
+      WORK_CONTENT = #{workContent,jdbcType=NVARCHAR},
+      CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    SELECT 
+    <include refid="Base_Column_List" />
+     FROM T_LAND_REPAIR_PROCESS
+    <include refid="Base_Where"/>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       ORDER BY ${sortColumn} 
+    </if>
+  </select>
+  <sql id="Base_Where">
+  	<where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(proId)" >
+         and PRO_ID = #{proId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(stageId)" >
+         and STAGE_ID = #{stageId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(workDate)" >
+         and WORK_DATE = #{workDate,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(workDept)" >
+         and WORK_DEPT LIKE '%${workDept}%'
+      </if>
+      <if test="@Ognl@isNotEmpty(workContent)" >
+         and WORK_CONTENT = #{workContent,jdbcType=NVARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="countList" resultType="java.lang.Integer" >
+    SELECT COUNT(ID) FROM T_LAND_REPAIR_PROCESS
+    <include refid="Base_Where"/>
+  </select>
+</mapper>

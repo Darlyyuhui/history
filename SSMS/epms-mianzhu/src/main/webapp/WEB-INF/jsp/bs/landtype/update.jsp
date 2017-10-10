@@ -16,7 +16,7 @@
 		<input type="hidden" name="id" value="${id }" />
         <div class="profile-user-info profile-user-info-striped">
             <div class="profile-info-row">
-                <div class="profile-info-name" style="width: 180px;">上级类型名称</div>
+                <div class="profile-info-name">上级类型名称</div>
                 <div class="profile-info-value">
                 ${pname }
                 <input type="hidden" name="parentId" value="${info.pid }" />
@@ -47,7 +47,7 @@
                 <div class="profile-info-name">备注</div>
                 <div class="profile-info-value">
                 	<input type="text" id="remark" name="remark" maxlength="200" value="${info.remark }"
-						style="min-width:120px; width: 350px;" class="input-large"/>
+						style="min-width:120px; width: 500px;" class="input-large"/>
 				</div>
             </div>
         </div>

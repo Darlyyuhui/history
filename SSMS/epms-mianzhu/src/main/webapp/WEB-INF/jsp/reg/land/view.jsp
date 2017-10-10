@@ -93,9 +93,9 @@
                         </div>
 
                         <div class="profile-info-row">
-                            <div class="profile-info-name">土壤类型</div>
+                            <div class="profile-info-name">样品类型</div>
                             <div class="profile-info-value">
-                                <tags:xiangxuncache keyName="LANDTYPE_NAME" id="${info.soilType }"/>
+                                <tags:xiangxuncache keyName="SAMPLING_LAND_TYPE" id="${info.samplingType }"/>
                             </div>
                         </div>
                         <div class="profile-info-row">

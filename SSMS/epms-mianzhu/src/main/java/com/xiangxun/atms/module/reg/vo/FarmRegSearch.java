@@ -1499,6 +1499,76 @@ public class FarmRegSearch {
             addCriterion("MISSION_ID not between", value1, value2, "missionId");
             return (Criteria) this;
         }
+        
+        public Criteria andSamplingTypeIsNull() {
+            addCriterion("SAMPLING_TYPE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSamplingTypeIsNotNull() {
+            addCriterion("SAMPLING_TYPE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSamplingTypeEqualTo(String value) {
+            addCriterion("SAMPLING_TYPE =", value, "samplingType");
+            return (Criteria) this;
+        }
+
+        public Criteria andSamplingTypeNotEqualTo(String value) {
+            addCriterion("SAMPLING_TYPE <>", value, "samplingType");
+            return (Criteria) this;
+        }
+
+        public Criteria andSamplingTypeGreaterThan(String value) {
+            addCriterion("SAMPLING_TYPE >", value, "samplingType");
+            return (Criteria) this;
+        }
+
+        public Criteria andSamplingTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("SAMPLING_TYPE >=", value, "samplingType");
+            return (Criteria) this;
+        }
+
+        public Criteria andSamplingTypeLessThan(String value) {
+            addCriterion("SAMPLING_TYPE <", value, "samplingType");
+            return (Criteria) this;
+        }
+
+        public Criteria andSamplingTypeLessThanOrEqualTo(String value) {
+            addCriterion("SAMPLING_TYPE <=", value, "samplingType");
+            return (Criteria) this;
+        }
+
+        public Criteria andSamplingTypeLike(String value) {
+            addCriterion("SAMPLING_TYPE like", value, "samplingType");
+            return (Criteria) this;
+        }
+
+        public Criteria andSamplingTypeNotLike(String value) {
+            addCriterion("SAMPLING_TYPE not like", value, "samplingType");
+            return (Criteria) this;
+        }
+
+        public Criteria andSamplingTypeIn(List<String> values) {
+            addCriterion("SAMPLING_TYPE in", values, "samplingType");
+            return (Criteria) this;
+        }
+
+        public Criteria andSamplingTypeNotIn(List<String> values) {
+            addCriterion("SAMPLING_TYPE not in", values, "samplingType");
+            return (Criteria) this;
+        }
+
+        public Criteria andSamplingTypeBetween(String value1, String value2) {
+            addCriterion("SAMPLING_TYPE between", value1, value2, "samplingType");
+            return (Criteria) this;
+        }
+
+        public Criteria andSamplingTypeNotBetween(String value1, String value2) {
+            addCriterion("SAMPLING_TYPE not between", value1, value2, "samplingType");
+            return (Criteria) this;
+        }
     }
 
     /**

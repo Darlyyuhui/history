@@ -27,6 +27,7 @@ import com.xiangxun.atms.framework.util.Servlets;
 import com.xiangxun.atms.framework.util.UuidGenerateUtil;
 import com.xiangxun.atms.framework.validator.ResponseEntity;
 import com.xiangxun.atms.module.base.web.BaseCtl;
+import com.xiangxun.atms.module.bs.constant.AutoCode;
 import com.xiangxun.atms.module.land.service.LandMissionService;
 import com.xiangxun.atms.module.land.service.LandSamplingSchemeService;
 import com.xiangxun.atms.module.land.vo.LandMission;
@@ -114,6 +115,7 @@ public class LandMissionCtl extends BaseCtl<LandMission, LandMissionSearch> {
 			, String page, RedirectAttributes redirectAttributes
 			, HttpServletRequest request) {
 		info.setId(UuidGenerateUtil.getUUIDLong());
+		info.setCode(AutoCode.LAND_MISSION);
 		info.setCreateId(getCurrentUserId());
 		info.setCreateTime(new Date());
 		landMissionService.save(info);

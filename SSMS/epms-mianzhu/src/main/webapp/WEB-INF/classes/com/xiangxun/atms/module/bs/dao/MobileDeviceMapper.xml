@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.bs.dao.MobileDeviceMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.bs.vo.MobileDevice" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="MOBEL_NO" property="mobelNo" jdbcType="NVARCHAR" />
+    <result column="IMEI_NO" property="imeiNo" jdbcType="NVARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="NVARCHAR" />
+    <result column="USER_PHONE" property="userPhone" jdbcType="NVARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="NVARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="NVARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    ID, MOBEL_NO, IMEI_NO, USER_ID, USER_PHONE, CREATE_ID, CREATE_TIME, UPDATE_ID, UPDATE_TIME, 
+    STATUS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.bs.vo.MobileDeviceSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_MOBILE_DEVICE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_MOBILE_DEVICE
+    where ID = #{id,jdbcType=NVARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    delete from T_MOBILE_DEVICE
+    where ID = #{id,jdbcType=NVARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.bs.vo.MobileDeviceSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    delete from T_MOBILE_DEVICE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.bs.vo.MobileDevice" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    insert into T_MOBILE_DEVICE (MOBEL_NO, IMEI_NO, USER_ID, 
+      USER_PHONE, CREATE_ID, CREATE_TIME, 
+      UPDATE_ID, UPDATE_TIME, STATUS
+      )
+    values (#{mobelNo,jdbcType=NVARCHAR}, #{imeiNo,jdbcType=NVARCHAR}, #{userId,jdbcType=NVARCHAR}, 
+      #{userPhone,jdbcType=NVARCHAR}, #{createId,jdbcType=NVARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateId,jdbcType=NVARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.bs.vo.MobileDevice" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    insert into T_MOBILE_DEVICE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(mobelNo)" >
+        MOBEL_NO,
+      </if>
+      <if test="@Ognl@isNotEmpty(imeiNo)" >
+        IMEI_NO,
+      </if>
+      <if test="@Ognl@isNotEmpty(userId)" >
+        USER_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(userPhone)" >
+        USER_PHONE,
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME,
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(mobelNo)" >
+        #{mobelNo,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(imeiNo)" >
+        #{imeiNo,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(userId)" >
+        #{userId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(userPhone)" >
+        #{userPhone,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.bs.vo.MobileDeviceSearch" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    select count(*) from T_MOBILE_DEVICE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    update T_MOBILE_DEVICE
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.mobelNo)" >
+        MOBEL_NO = #{record.mobelNo,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.imeiNo)" >
+        IMEI_NO = #{record.imeiNo,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.userId)" >
+        USER_ID = #{record.userId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.userPhone)" >
+        USER_PHONE = #{record.userPhone,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createId)" >
+        CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.createTime)" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateId)" >
+        UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.updateTime)" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.status)" >
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    update T_MOBILE_DEVICE
+    set ID = #{record.id,jdbcType=NVARCHAR},
+      MOBEL_NO = #{record.mobelNo,jdbcType=NVARCHAR},
+      IMEI_NO = #{record.imeiNo,jdbcType=NVARCHAR},
+      USER_ID = #{record.userId,jdbcType=NVARCHAR},
+      USER_PHONE = #{record.userPhone,jdbcType=NVARCHAR},
+      CREATE_ID = #{record.createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{record.updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      STATUS = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.bs.vo.MobileDevice" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    update T_MOBILE_DEVICE
+    <set >
+      <if test="@Ognl@isNotEmpty(mobelNo)" >
+        MOBEL_NO = #{mobelNo,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(imeiNo)" >
+        IMEI_NO = #{imeiNo,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(userId)" >
+        USER_ID = #{userId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(userPhone)" >
+        USER_PHONE = #{userPhone,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+        CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+        UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.bs.vo.MobileDevice" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    update T_MOBILE_DEVICE
+    set MOBEL_NO = #{mobelNo,jdbcType=NVARCHAR},
+      IMEI_NO = #{imeiNo,jdbcType=NVARCHAR},
+      USER_ID = #{userId,jdbcType=NVARCHAR},
+      USER_PHONE = #{userPhone,jdbcType=NVARCHAR},
+      CREATE_ID = #{createId,jdbcType=NVARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_ID = #{updateId,jdbcType=NVARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+     from T_MOBILE_DEVICE
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(mobelNo)" >
+         and MOBEL_NO = #{mobelNo,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(imeiNo)" >
+         and IMEI_NO = #{imeiNo,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(userId)" >
+         and USER_ID = #{userId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(userPhone)" >
+         and USER_PHONE = #{userPhone,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+         and CREATE_ID = #{createId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+         and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+         and UPDATE_ID = #{updateId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+         and UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=INTEGER}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Jul 24 09:24:48 CST 2017.
+    -->
+    select count(*) from T_MOBILE_DEVICE
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(mobelNo)" >
+         and MOBEL_NO = #{mobelNo,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(imeiNo)" >
+         and IMEI_NO = #{imeiNo,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(userId)" >
+         and USER_ID = #{userId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(userPhone)" >
+         and USER_PHONE = #{userPhone,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createId)" >
+         and CREATE_ID = #{createId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(createTime)" >
+         and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateId)" >
+         and UPDATE_ID = #{updateId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(updateTime)" >
+         and UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="@Ognl@isNotEmpty(status)" >
+         and STATUS = #{status,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+</mapper>

@@ -8,8 +8,8 @@
         orient: "vertical",
         left: "left",
         data:[
-    	<#list datas as d>
-    		"${d.cLv}"<#if d_has_next>,</#if>
+    	<#list names as n>
+    		"${n}"<#if n_has_next>,</#if>
     	</#list>
         ]
     },

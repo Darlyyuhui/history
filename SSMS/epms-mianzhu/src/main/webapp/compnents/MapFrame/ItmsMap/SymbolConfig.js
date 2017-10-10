@@ -1,6 +1,24 @@
 MapFactory.Define("ItmsMap/SymbolConfig*", function() {
 	var symbols = {
-
+			
+			//自己添加的符号
+		wrySymbol : {
+			url : path + "/images/renderIcon/wry.png",
+			width : 34,
+			height : 38,
+			xOffset : 0,
+			yOffset : 0,
+			name : "污染源"
+		},
+			//自己添加的符号
+	    phEqureFace : {
+			outLineWidth : 0,
+			outlineOpacity:0,
+			outLineColor : "#000000",
+			outlineStyle:"solid",
+			backgroundColor : "#669966",
+			backgroundOpacity : 1
+		},
 		//自己添加的符号
 		regionPolluteLevel1 : {
 			outLineWidth : 1,

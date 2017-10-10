@@ -223,7 +223,7 @@
         #{id,jdbcType=NVARCHAR},
       </if>
       <if test="@Ognl@isNotEmpty(code)" >
-        #{code,jdbcType=NVARCHAR},
+        [dbo].getAutoCode('${code}'),
       </if>
       <if test="@Ognl@isNotEmpty(name)" >
         #{name,jdbcType=NVARCHAR},
@@ -476,17 +476,8 @@
       <if test="@Ognl@isNotEmpty(ownerId)" >
          and OWNER_ID = #{ownerId,jdbcType=NVARCHAR}
       </if>
-      <if test="@Ognl@isNotEmpty(createId)" >
-         and CREATE_ID = #{createId,jdbcType=NVARCHAR}
-      </if>
-      <if test="@Ognl@isNotEmpty(createTime)" >
-         and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
-      </if>
-      <if test="@Ognl@isNotEmpty(updateId)" >
-         and UPDATE_ID = #{updateId,jdbcType=NVARCHAR}
-      </if>
-      <if test="@Ognl@isNotEmpty(updateTime)" >
-         and UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      <if test="@Ognl@isNotEmpty(isError)" >
+         and [dbo].getLBErrorCountById(ID) = ${isError}
       </if>
     </where>
   </sql>

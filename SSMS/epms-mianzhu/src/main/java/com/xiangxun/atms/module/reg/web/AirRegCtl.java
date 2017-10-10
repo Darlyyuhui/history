@@ -27,6 +27,7 @@ import com.xiangxun.atms.framework.util.Servlets;
 import com.xiangxun.atms.framework.util.UuidGenerateUtil;
 import com.xiangxun.atms.framework.validator.ResponseEntity;
 import com.xiangxun.atms.module.bs.cache.AirPointCache;
+import com.xiangxun.atms.module.bs.constant.AutoCode;
 import com.xiangxun.atms.module.bs.vo.AirPoint;
 import com.xiangxun.atms.module.land.service.LandMissionService;
 import com.xiangxun.atms.module.reg.service.AirRegService;
@@ -89,6 +90,7 @@ public class AirRegCtl extends RegBaseCtl<AirReg, AirRegSearch> {
 	public String doAdd(@PathVariable String menuid, AirReg info
 			, RedirectAttributes attr, MultipartHttpServletRequest fileRequest) {
 		info.setId(UuidGenerateUtil.getUUIDLong());
+		info.setCode(AutoCode.SAMPLING_AIR_REG);
 		info.setCreateId(getCurrentUserId());
 		info.setCreateTime(new Date());
 		//采样来源

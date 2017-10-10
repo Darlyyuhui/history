@@ -24,6 +24,7 @@ import com.xiangxun.atms.framework.log.anotation.LogAspect;
 import com.xiangxun.atms.framework.util.Servlets;
 import com.xiangxun.atms.framework.util.UuidGenerateUtil;
 import com.xiangxun.atms.framework.validator.ResponseEntity;
+import com.xiangxun.atms.module.bs.constant.AutoCode;
 import com.xiangxun.atms.module.land.service.LandMissionService;
 import com.xiangxun.atms.module.reg.service.WaterRegService;
 import com.xiangxun.atms.module.reg.vo.WaterReg;
@@ -78,6 +79,7 @@ public class WaterRegCtl extends RegBaseCtl<WaterReg, WaterRegSearch> {
 	public String doAdd(@PathVariable String menuid, WaterReg info
 			, RedirectAttributes attr, MultipartHttpServletRequest fileRequest) {
 		info.setId(UuidGenerateUtil.getUUIDLong());
+		info.setCode(AutoCode.SAMPLING_WATER_REG);
 		info.setCreateId(getCurrentUserId());
 		info.setCreateTime(new Date());
 		//采样来源

@@ -18,16 +18,6 @@
     <form id="inputForm" class="form-horizontal" action="${root}/land/sampling/plan/doAdd/${menuid }/" method="post"
           style="margin-bottom:0;padding:0;">
         <div class="profile-user-info profile-user-info-striped">
-        
-            <div class="profile-info-row">
-                <div class="profile-info-name">计划编号</div>
-                <div class="profile-info-value">
-                	<input type="text" id="code" name="code" maxlength="20"
-						style="min-width:120px; width: 350px;" class="input-large required"/>
-					<span style="color: red">*</span>
-					<span id="checkCodeSpan" style="color: red"></span>
-				</div>
-            </div>
             
             <div class="profile-info-row">
                 <div class="profile-info-name">计划名称</div>
@@ -95,7 +85,6 @@
 
 <script>
 	var v;
-	var isCheck = false;
     $(document).ready(function () {
         //聚焦第一个输入框
         //为inputForm注册validate函数
@@ -106,10 +95,9 @@
     			}
     		}
         });
-        $("#code").focus();
+        $("#name").focus();
     });
     function checkForm() {
-    	checkCode();
     	var codes = [];
     	$("input[name='ckb_sampleCodes']:checked").each(function(){
     		codes.push($(this).val());
@@ -123,25 +111,6 @@
     		$("#inputForm").submit();
     	}else{
     		v.showErrors();
-    	}
-    }
-    function checkCode() {
-    	var codeObj = $("#code");
-    	if (codeObj.val() != "") {
-    		$.ajax({
-    			async:false,
-    			type:"post",
-    			url:"${root}/land/sampling/plan/checkCode/"+codeObj.val()+"/",
-    			data:"tName=T_LAND_SAMPLING_PLAN&cName=CODE",
-    			success:function(data) {
-    				if (data.result == "ok") {
-    					isCheck = true;
-    					$("#checkCodeSpan").empty();
-    				}else {
-    					$("#checkCodeSpan").empty().html(data.message);
-    				}
-    			}
-    		});
     	}
     }
 </script>

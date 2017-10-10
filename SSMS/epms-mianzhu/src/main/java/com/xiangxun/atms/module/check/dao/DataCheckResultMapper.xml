@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.check.dao.DataCheckResultMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangxun.atms.module.check.vo.DataCheckResult" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:07:31 CST 2017.
+    -->
+    <id column="ID" property="id" jdbcType="NVARCHAR" />
+    <result column="INFO_ID" property="infoId" jdbcType="NVARCHAR" />
+    <result column="REG_ID" property="regId" jdbcType="NVARCHAR" />
+    <result column="REG_CODE" property="regCode" jdbcType="NVARCHAR" />
+    <result column="ERR_ITEMS" property="errItems" jdbcType="NVARCHAR" />
+    <result column="ERR_TYPES" property="errTypes" jdbcType="NVARCHAR" />
+    <result column="IS_INVALID" property="isInvalid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:07:31 CST 2017.
+    -->
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:07:31 CST 2017.
+    -->
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:07:31 CST 2017.
+    -->
+    ID, INFO_ID, REG_ID, REG_CODE, ERR_ITEMS, ERR_TYPES, IS_INVALID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiangxun.atms.module.check.vo.DataCheckResultSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:07:31 CST 2017.
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_DATACHECK_RESULT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:07:31 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_DATACHECK_RESULT
+    where ID = #{id,jdbcType=NVARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:07:31 CST 2017.
+    -->
+    delete from T_DATACHECK_RESULT
+    where ID = #{id,jdbcType=NVARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiangxun.atms.module.check.vo.DataCheckResultSearch" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:07:31 CST 2017.
+    -->
+    delete from T_DATACHECK_RESULT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiangxun.atms.module.check.vo.DataCheckResult" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:07:31 CST 2017.
+    -->
+    insert into T_DATACHECK_RESULT (INFO_ID, REG_ID, REG_CODE, 
+      ERR_ITEMS, ERR_TYPES, IS_INVALID
+      )
+    values (#{infoId,jdbcType=NVARCHAR}, #{regId,jdbcType=NVARCHAR}, #{regCode,jdbcType=NVARCHAR}, 
+      #{errItems,jdbcType=NVARCHAR}, #{errTypes,jdbcType=NVARCHAR}, #{isInvalid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangxun.atms.module.check.vo.DataCheckResult" useGeneratedKeys="true" keyProperty="id" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:07:31 CST 2017.
+    -->
+    insert into T_DATACHECK_RESULT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(infoId)" >
+        INFO_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(regId)" >
+        REG_ID,
+      </if>
+      <if test="@Ognl@isNotEmpty(regCode)" >
+        REG_CODE,
+      </if>
+      <if test="@Ognl@isNotEmpty(errItems)" >
+        ERR_ITEMS,
+      </if>
+      <if test="@Ognl@isNotEmpty(errTypes)" >
+        ERR_TYPES,
+      </if>
+      <if test="@Ognl@isNotEmpty(isInvalid)" >
+        IS_INVALID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="@Ognl@isNotEmpty(id)" >
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(infoId)" >
+        #{infoId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(regId)" >
+        #{regId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(regCode)" >
+        #{regCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(errItems)" >
+        #{errItems,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(errTypes)" >
+        #{errTypes,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(isInvalid)" >
+        #{isInvalid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiangxun.atms.module.check.vo.DataCheckResultSearch" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:07:31 CST 2017.
+    -->
+    select count(*) from T_DATACHECK_RESULT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:07:31 CST 2017.
+    -->
+    update T_DATACHECK_RESULT
+    <set >
+      <if test="@Ognl@isNotEmpty(record.id)" >
+        ID = #{record.id,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.infoId)" >
+        INFO_ID = #{record.infoId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.regId)" >
+        REG_ID = #{record.regId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.regCode)" >
+        REG_CODE = #{record.regCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.errItems)" >
+        ERR_ITEMS = #{record.errItems,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.errTypes)" >
+        ERR_TYPES = #{record.errTypes,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(record.isInvalid)" >
+        IS_INVALID = #{record.isInvalid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:07:31 CST 2017.
+    -->
+    update T_DATACHECK_RESULT
+    set ID = #{record.id,jdbcType=NVARCHAR},
+      INFO_ID = #{record.infoId,jdbcType=NVARCHAR},
+      REG_ID = #{record.regId,jdbcType=NVARCHAR},
+      REG_CODE = #{record.regCode,jdbcType=NVARCHAR},
+      ERR_ITEMS = #{record.errItems,jdbcType=NVARCHAR},
+      ERR_TYPES = #{record.errTypes,jdbcType=NVARCHAR},
+      IS_INVALID = #{record.isInvalid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangxun.atms.module.check.vo.DataCheckResult" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:07:31 CST 2017.
+    -->
+    update T_DATACHECK_RESULT
+    <set >
+      <if test="@Ognl@isNotEmpty(infoId)" >
+        INFO_ID = #{infoId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(regId)" >
+        REG_ID = #{regId,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(regCode)" >
+        REG_CODE = #{regCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(errItems)" >
+        ERR_ITEMS = #{errItems,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(errTypes)" >
+        ERR_TYPES = #{errTypes,jdbcType=NVARCHAR},
+      </if>
+      <if test="@Ognl@isNotEmpty(isInvalid)" >
+        IS_INVALID = #{isInvalid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangxun.atms.module.check.vo.DataCheckResult" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:07:31 CST 2017.
+    -->
+    update T_DATACHECK_RESULT
+    set INFO_ID = #{infoId,jdbcType=NVARCHAR},
+      REG_ID = #{regId,jdbcType=NVARCHAR},
+      REG_CODE = #{regCode,jdbcType=NVARCHAR},
+      ERR_ITEMS = #{errItems,jdbcType=NVARCHAR},
+      ERR_TYPES = #{errTypes,jdbcType=NVARCHAR},
+      IS_INVALID = #{isInvalid,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=NVARCHAR}
+  </update>
+  <select id="getListByCondition" resultMap="BaseResultMap" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:07:31 CST 2017.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+     from T_DATACHECK_RESULT
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(infoId)" >
+         and INFO_ID = #{infoId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(regId)" >
+         and REG_ID = #{regId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(regCode)" >
+         and REG_CODE = #{regCode,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(errItems)" >
+         and ERR_ITEMS = #{errItems,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(errTypes)" >
+         and ERR_TYPES = #{errTypes,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(isInvalid)" >
+         and IS_INVALID = #{isInvalid,jdbcType=INTEGER}
+      </if>
+    </where>
+    <if test="@Ognl@isNotEmpty(sortColumn)" >
+       order by ${sortColumn} 
+    </if>
+  </select>
+  <select id="countList" resultType="java.lang.Integer" >
+    <!--
+      WARNING - @mbggenerated
+      This element was generated on Mon Sep 11 10:07:31 CST 2017.
+    -->
+    select count(*) from T_DATACHECK_RESULT
+    <where >
+      <if test="@Ognl@isNotEmpty(id)" >
+         and ID = #{id,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(infoId)" >
+         and INFO_ID = #{infoId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(regId)" >
+         and REG_ID = #{regId,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(regCode)" >
+         and REG_CODE = #{regCode,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(errItems)" >
+         and ERR_ITEMS = #{errItems,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(errTypes)" >
+         and ERR_TYPES = #{errTypes,jdbcType=NVARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(isInvalid)" >
+         and IS_INVALID = #{isInvalid,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+</mapper>

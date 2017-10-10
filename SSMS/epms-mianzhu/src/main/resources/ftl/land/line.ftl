@@ -60,7 +60,10 @@
             max: 2,
             axisLabel: {
                 formatter: "{value} mg/Kg"
-            }
+            },
+            splitLine: {
+				show: false
+			}
         }
     ],
     dataZoom: [{

@@ -67,17 +67,20 @@ public class LandBlockServiceImpl extends AbstractBaseService<LandBlock, LandBlo
 		Table<String, String, String> table2 = HashBasedTable.create();
 		Table<String, String, String> table3 = HashBasedTable.create();
 		Table<String, String, String> table4 = HashBasedTable.create();
+		Table<String, String, String> table5 = HashBasedTable.create();
         for (LandBlock lb : list) {
             table.put(lb.getId(), LandBlockCache.LB_ID_OBJ, lb);
             table2.put(lb.getId(), LandBlockCache.LB_ID_CODENAME, lb.getName()+"【"+lb.getCode()+"】");
             table3.put(lb.getId(), LandBlockCache.LB_ID_NAME, lb.getName());
             table4.put(lb.getId(), LandBlockCache.LB_ID_CODE, lb.getCode());
+            table5.put(lb.getId(), LandBlockCache.ID_LOCATION, lb.getLongitude()+","+lb.getLatitude());
         }
         cache.put(LandBlockCache.LB_ALL, list);
         cache.put(LandBlockCache.LB_ID_OBJ, table);
         cache.put(LandBlockCache.LB_ID_CODENAME, table2);
         cache.put(LandBlockCache.LB_ID_NAME, table3);
         cache.put(LandBlockCache.LB_ID_CODE, table4);
+        cache.put(LandBlockCache.ID_LOCATION, table5);
 	}
 	
 }

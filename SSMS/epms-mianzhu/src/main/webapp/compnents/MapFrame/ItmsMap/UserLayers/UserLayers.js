@@ -5,17 +5,17 @@ MapFactory
 			"ItmsMap/Util/Legend*",
 			"ItmsMap/UserLayers/CustomLayersConfig*",
 			"ItmsMap/MapConfig", "MapFactory/Util/Dialog*",
-			"MapFactory/MapManager", "MapFactory/LayerManager" ,"ItmsMap/UserLayers/DataController*"],
+			"MapFactory/MapManager", "MapFactory/LayerManager" ,"ItmsMap/UserLayers/DataController*"
+			,"ItmsMap/UserLayers/CustomLayers/SamplingPoint*","ItmsMap/SymbolConfig*","MapFactory/GraphicManager"],
 			function(ModuleConfig, ModuleManager, Legend,
 					CustomLayersConfig, MapConfig, Dialog, MapManager,
-					LayerManager,DataController) {
-			
+					LayerManager,DataController,SamplingPoint,SymbolConfig,GraphicManager) {
 			return function(conf) {
-
 				var api = {
 						init : init,
 						showMoudle : showMoudle,
-						show : show
+						show : show,
+						loadDataByTimeChange:loadDataByTimeChange
 				};
 
 				var index = 0;
@@ -64,13 +64,11 @@ MapFactory
 						+ "' style='width:200px;max-height:400px;_height:expression(this.scrollHeight>400?\"400px\":\"auto\");overflow-y:auto;overflow-x:hidden;'></div>";
 					_panel.setDialogContent(contentStr).show();
 					
-					LayerManager("hightLightLyr");
-					LayerManager("landLyrPologn");
-					LayerManager("tempLandLyrPoint");
-					
+					initUserLayers();
+					var spaceTime = DataController().gettimeSpace();
 					//请求统计信息
 					MapFactory.XHR.Post(
-							path+ "/map/pollute/region/",
+							path+ "/map/pollute/region/",spaceTime,
 							function(list) {
 								dataController.setCountData(list);
 								//请求菜单信息
@@ -85,6 +83,7 @@ MapFactory
 									
 									dataList = target;
 									generateItem();
+									
 								});
 
 							});
@@ -98,10 +97,35 @@ MapFactory
 					// mapManager.setLayerRemoveEvent(function(layerid){
 					// resetCheckBox(layerid,false);
 					// });
+				}
+				//重新绘制所有区域点位
+				function loadDataByTimeChange(){
+					//各个县区按照统计值进行渲染  其次各个区县分许值展示
+			        var spaceTime = DataController().gettimeSpace();
+				    MapFactory.XHR.Post(path + "/map/pollute/region/",
+									spaceTime, function(list) {
+				    	//只有普查分析用到该数据  位置信息可能也用到
+						dataController.setCountData(list);
+						
+						SamplingPoint().drawRegionByTimeChange();
+					});
 					
-					Legend();
 				}
 				
+				
+				function initUserLayers(){
+					LayerManager("ysfxLyr");
+					LayerManager("xzqyLyrPologn");
+					LayerManager("hightLightLyr");
+					LayerManager("landLyrPologn");
+					LayerManager("tempLandLyrPoint");
+					LayerManager("landLyrPoint");
+					LayerManager("xzqyLyrPoint");
+					LayerManager("pccydLayerPoint");
+					LayerManager("lcpjdLyrPoint");
+					LayerManager("ydjkLayerPoint");
+					LayerManager("wrcpLyr");
+				}
 
 				/**
 				 * 菜单生成
@@ -121,12 +145,18 @@ MapFactory
 				}
 				//将点图层提在最顶层
 				function reorderUserLayer(){
-					for ( var elem in layers) {
-						var layerid=layers[elem].id;
-						if(mapManager.isLayerExist(layerid) && layerid.endsWith("Point")){
-							mapManager.reorderLayer(layerid,mapManager.getAllLayersID().length-1);
-						}
-					}
+//					if(mapManager.getLevel()==6){
+//						return;
+//					}
+//					for ( var elem in layers) {
+//						var layerid=layers[elem].id;
+//						var layeridLength = layerid.length;
+//						var str = "Point";
+//						var layeridLast = layerid.lastIndexOf(str);
+//						if(mapManager.isLayerExist(layerid) && layeridLength-str.length === layeridLast){
+//							mapManager.reorderLayer(layerid,mapManager.getAllLayersID().length-1);
+//						}
+//					}
 				}
 
 				function show() {
@@ -185,13 +215,16 @@ MapFactory
 					}
 					var moduleObj = CustomLayersConfig[id];
 					var menuItem = getMenuItemById(id);
+					//根据菜单生成的菜单
 					if (menuItem) {
 						moduleObj.itemListData = menuItem.children;
 						moduleObj.moduleid = moduleId;
 						moduleObj.label = menuItem.name;
-						addGroup(moduleObj);
+					}else{
+						moduleObj.itemListData = moduleObj.layers;
+						moduleObj.moduleid = moduleId;
 					}
-
+					addGroup(moduleObj);
 				}
 
 				function getMenuItemById(id) {
@@ -218,7 +251,15 @@ MapFactory
 					var layerTitleB = _dom.createElem("b");
 					var clearDiv = _dom.createElem("div");
 					var className = data["class"];
-
+					
+					if(!data.isShowCol){
+						$(layerTitleCollapse).css({visibility:"hidden"});
+					}
+					if(!data.isShowAC){
+						$(layerTitlecheckBoxC).css({display:"none"});
+						$(layerTitlecheckBoxC).css({visibility:"hidden"});
+					}
+					
 					_dom.addClass(clearDiv, "clear");
 					_dom.addClass(layerGroupBox, "userLayerGroupBox");
 					_dom.addClass(layerGroupTitle,
@@ -332,7 +373,7 @@ MapFactory
 									function(target) {
 									// LayerManager(_layerName).clear();
 									itemLyrWidget = target();
-									itemLyrWidget.clearAllGraphic();
+									itemLyrWidget.clearAllGraphic(itemListData);
 									if (_isChecked) {
 										reorderUserLayer();
 										if(_className=="SamplingPoint"){
@@ -384,7 +425,9 @@ MapFactory
 					layersData[data["class"]] = {};
 
 					var customLayers = data.layers;
-
+					if(!data.isChildren){
+						return;
+					}
 					for ( var elem in customLayers) {
 						if (layers[elem]) {
 							customLayers[elem]["name"] = layers[elem]["name"];
@@ -393,15 +436,20 @@ MapFactory
 							customLayers[elem]["label"] = data["label"];
 						}
 						var itemListData = data.itemListData;
-
-						if (!(itemListData == null || itemListData.length == 0)) {
+						//根据数据生成菜单
+						if (MapFactory.VariableTypes.isArray(itemListData)) {
 							for (var m = 0; m < itemListData.length; m++) {
 								var itemData = itemListData[m];
 								addItem(customLayers[elem],
 										layerGroupContainer, className,
 										itemData);
 							}
+						}else{
+							//根据服务生成菜单
+							addItem(customLayers[elem],layerGroupContainer, className,customLayers[elem]);
+							
 						}
+						
 						if (customLayers[elem]["isOpen"]) {
 							flag = true;
 						}
@@ -430,7 +478,7 @@ MapFactory
 					+ "*" ], function(target) {
 						// 绘制区域多边形
 						itemLyrWidget = target();
-						itemLyrWidget.clearAllGraphic();
+						itemLyrWidget.clearAllGraphic(data.itemListData);
 						if(data["class"]=="SamplingPoint"){
 							itemLyrWidget.drawRegions(pointArr,regionArr)
 						}else{
@@ -498,11 +546,6 @@ MapFactory
 
 						var _subLayers = layersData[_className];
 						var flag = false;
-//						for ( var _name in _subLayers) {
-//						if (_subLayers[_name]["isOpen"] != this.checked) {
-//						flag = false;
-//						}
-//						}
 						
 						var selectedMenuItem=[];
 
@@ -511,12 +554,16 @@ MapFactory
 							var childernMenu=allChildrenMenu[m];
 							if(childernMenu && childernMenu.checked){
 								flag=true;
-								
 								var childrenObj= _dom.attr(childernMenu, "itemData");
 								selectedMenuItem.push(MapFactory.JSON.Parse(childrenObj));
 							}
-							
+							if(className=="ZTAnalysis"){
+								childernMenu.checked=!_isChecked ? _isChecked : (this==childernMenu);
+							}
 						}
+						var _parentLayer = $(this).parent().parent().parent().siblings("div").find("input");
+						if (_parentLayer && _parentLayer.length)
+							_parentLayer[0].checked = flag;
 						
 						if(className=="SamplingPoint"){
 							pointArr=selectedMenuItem;
@@ -524,12 +571,6 @@ MapFactory
 						if(className=="Regions"){
 							regionArr=selectedMenuItem;
 						}
-
-						var _parentLayer = $(this).parent().parent().parent().siblings("div").find("input");
-						if (_parentLayer && _parentLayer.length)
-							_parentLayer[0].checked = flag;
-
-//itemLyrWidget.drawRegions(itemListData,[]);
 						MapFactory
 						.Require(
 								[ baseLayerPath + className

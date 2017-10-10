@@ -75,7 +75,6 @@
                                 <input type="text" id="code" name="code" maxlength="20"
                                        style="min-width:120px; width: 200px;" class="input-large required"/>
                                 <span style="color: red">*</span>
-                                <span id="checkCodeSpan" style="color: red"></span>
                             </div>
                         </div>
                         <div class="profile-info-row">
@@ -160,8 +159,8 @@
         var h = $(".td_h").height();
         return h;
     });
-	var isCheck = false;
 	var v;
+	var _map;
     $(document).ready(function () {
         //聚焦第一个输入框
         //为inputForm注册validate函数
@@ -183,9 +182,18 @@
         function initMap(mapDiv) {
             if (typeof window["mapTag"] == "undefined")return;
             mapTag().init(mapDiv, function (map) {
+            	_map=map;
                 var symbols = map.getSymbolConfig();
                 map.popUpInfowindow('{"type":"point", "points":"108,34"}', "", "", 300, 200);
                 map.hideInfowindow();
+                var addGeo ='${schemeInfo.geoJson}';
+   			    if(addGeo) {
+   			    var addJson = eval("(" + addGeo + ")");
+   				map.addGeometry(addJson, "landLayer", true);
+   				getBlockLocation("${schemeInfo.blockId }");
+   				}else if("${schemeInfo.regionId }"){
+   					getRegionLocation("${schemeInfo.regionId }");
+   				}
             });
         }
     });
@@ -220,37 +228,42 @@
    
    
     function checkForm() {
-    	checkCode();
-    	if (v.checkForm() && isCheck) {
+    	if (v.checkForm()) {
     		radioCheckedVal();
     		$("#inputForm").submit();
     	}else{
     		v.showErrors();
     	}
     }
-    function checkCode() {
-    	var codeObj = $("#code");
-    	if (codeObj.val() != "") {
-    		$.ajax({
-    			async:false,
-    			type:"post",
-    			url:"${root}/land/block/checkCode/"+codeObj.val()+"/",
-    			data:"tName=T_LAND_SAMPLING_SCHEME_POINT&cName=CODE",
-    			success:function(data) {
-    				if (data.result == "ok") {
-    					isCheck = true;
-    					$("#checkCodeSpan").empty();
-    				}else {
-    					$("#checkCodeSpan").empty().html(data.message);
-    				}
-    			}
-    		});
-    	}
-    }
     function radioCheckedVal() {
     	var ckval = $("input[name='rdo_isSamplingPoint']:checked").val();
     	$("#isSamplingPoint").val(ckval);
     }
+    //根据乡镇定位
+    function getRegionLocation(regionId) {
+    	$.get(
+       		"${root}/bs/region/getLocation/"+regionId+"/",
+       		function(data) {
+       			if(data){
+       				_map.centerAt(data.longitude,data.latitude,4);	
+       			}
+       			
+       		}
+       	);
+    }
+    //根据地块定位
+    function getBlockLocation(blockId) {
+    	$.get(
+       		"${root}/land/block/getLocation/"+blockId+"/",
+       		function(data) {
+       			if(data){
+       				_map.centerAt(data.longitude,data.latitude,4);	
+       			}
+       			
+       		}
+       	);
+    }
+    
 </script>
 
 <%@ include file="/WEB-INF/jsp/common/fooltertags.jspf" %>

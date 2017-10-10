@@ -12,17 +12,17 @@ MapFactory.Define("ItmsMap/MapConfig",[
 			"/ThirdParty/SuperMapLib/theme/default/google.css"
 		];
 	var layers = {
-		baseMap : {name:"底图",url:serviceUrl+"map-MianZhuShi/rest/maps/绵竹市",id:"baseMap",allowOperation:false},
-        imageMap : {name:"影像图",url:serviceUrl+"map-MianZhuShi2/rest/maps/绵竹市",id:"imageMap",allowOperation:false},
-		route : {name:"路径分析地址",url: serviceUrl+"transportationAnalyst-dmms/rest/networkanalyst/BuildNetwork@road",id:"route"},
-		land: {name:"", url:path+"/openmap/query/q/land/",id:"land"},
+		baseMap : {name:"底图",url:serviceUrl+"map-MianZhuShi/rest/maps/绵竹市",id:"baseMap",allowOperation:false,isBaseMap:true,isInit:true},
+        imageMap : {name:"影像图",url:serviceUrl+"map-MianZhuShi2/rest/maps/绵竹市",id:"imageMap",allowOperation:false,isBaseMap:true,isInit:true},
+		route : {name:"路径分析地址",url: serviceUrl+"transportationAnalyst-dmms/rest/networkanalyst/BuildNetwork@road",id:"route",isBaseMap:false,isInit:false},
+		land: {name:"", url:path+"/openmap/query/q/land/",id:"land",isBaseMap:false,isInit:false},
 		geometryService : {url:"",name:"几何服务",id:"geometryService"},
 		serviceAreaRest : {url:"",name:"服务区服务",id:"serviceAreaRest"},
 		positionLayer : {name:"定位图层",id:"positionLayer",isTop:true},
 		positionHighLightLayer : {name:"定位高亮图层",id:"positionHighLightLayer",isTop:true},
 		route : {name:"路径分析地址",url: "",id:"route"},
-		closedpoint : {name:"投影点查询",url:serviceUrl+"transportationAnalyst-dmms/rest/networkanalyst/BuildNetwork@road",id:"closedpoint"},
-		buffer : {name:"缓冲区分析地址",url:serviceUrl+"spatialAnalysis-dmms/restjsr/spatialanalyst",id:"buffer"},
+		closedpoint : {name:"投影点查询",url:serviceUrl+"transportationAnalyst-dmms/rest/networkanalyst/BuildNetwork@road",id:"closedpoint",isBaseMap:false,isInit:false},
+		buffer : {name:"缓冲区分析地址",url:serviceUrl+"spatialAnalysis-dmms/restjsr/spatialanalyst",id:"buffer",isBaseMap:false,isInit:false},
 		union : {name:"几何体合并服务",url:"",id:"union"},
 		queryResult : {name:"查询结果",id:"queryResult"},
 		position : {name:"位置图层",id:"position"},
@@ -33,8 +33,8 @@ MapFactory.Define("ItmsMap/MapConfig",[
 		done : {name:"已完工图层",id:"occupyDone"},
 		matured: {name:"已超期图层",id:"occup" +
 				"yMatured"},
-		baseRoad : {name:"道路图层",url:serviceUrl+"map-dmms-roadline/rest/maps/roadline@dmms-roadline/roadline@dmms-roadline",id:"baseRoad"},
-		baseRoadEdit : {name:"道路编辑",url:serviceUrl+"data-dmms-roadline/rest/data/datasources/dmms-roadline/datasets/roadline",id:"baseRoadEdit"},
+		baseRoad : {name:"道路图层",url:serviceUrl+"map-dmms-roadline/rest/maps/roadline@dmms-roadline/roadline@dmms-roadline",id:"baseRoad",isBaseMap:false,isInit:false},
+		baseRoadEdit : {name:"道路编辑",url:serviceUrl+"data-dmms-roadline/rest/data/datasources/dmms-roadline/datasets/roadline",id:"baseRoadEdit",isBaseMap:false,isInit:false},
 		cross : {name:"卡口图层",url:"",id:"cross"},
 		crossAnalyLayer : {name:"卡口分析",id:"crossAnalyLayer"},
 		crossAnalyBarriersLayer : {name:"卡口障碍物",id:"crossAnalyBarriersLayer"},
@@ -81,7 +81,7 @@ MapFactory.Define("ItmsMap/MapConfig",[
 		passLayer: {name: "通行证图层", id: "passportresult"},
 		threeDimension: {name: "三维标注图层", id: "Label3D"},
 		roadMaintenance : {name:"道路维护",id:"roadMaintenance"},
-		naturePolygon : {name:"乡镇面",url:serviceUrl+"map-MianZhuShi/rest/maps/乡镇@绵竹市/乡镇@绵竹市",id:"naturePolygon"},
+		naturePolygon : {name:"乡镇面",url:serviceUrl+"map-MianZhuShi/rest/maps/乡镇@绵竹市/乡镇@绵竹市",id:"naturePolygon",isBaseMap:false,isInit:false},
 		//小心地址中不能存在空格
 		xzqyLyrPologn: {name: "行政区域块", id: "xzqyLyrPologn"},
 		
@@ -96,7 +96,10 @@ MapFactory.Define("ItmsMap/MapConfig",[
 		landLyrPoint: {name: "地块图层详细信息", id: "landLyrPoint"},
 		tempLandLyrPologn: {name: "临时地块绘制", id: "tempLandLyrPologn"},
 		
-		hightLightLyr: {name: "高亮图层", id: "hightLightLyr"}
+		wrcpLyr: {name: "污染源企业", id: "wrcpLyr"},
+		wrcpLyr: {name: "要素分析", id: "ysfxLyr"},
+		hightLightLyr: {name: "高亮图层", id: "hightLightLyr"},
+		riverLyr:{name:"水系示意图",url:serviceUrl+"map-MianZhuShi/rest/maps/水系@绵竹市",id:"riverLyr",isBaseMap:false,isInit:true,visibility:false}
 	};
 
 	MapFactory.CreateScriptNode(MapFactory.FramePath + "/ThirdParty/SuperMapLib/Lang/zh-CN.js",{},function(){});

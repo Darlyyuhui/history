@@ -31,6 +31,7 @@ import com.xiangxun.atms.framework.util.Servlets;
 import com.xiangxun.atms.framework.util.UuidGenerateUtil;
 import com.xiangxun.atms.framework.validator.ResponseEntity;
 import com.xiangxun.atms.module.base.web.BaseCtl;
+import com.xiangxun.atms.module.bs.constant.AutoCode;
 import com.xiangxun.atms.module.land.service.LandBlockService;
 import com.xiangxun.atms.module.land.service.LandSamplingPlanService;
 import com.xiangxun.atms.module.land.service.LandSamplingSchemeService;
@@ -125,6 +126,7 @@ public class LandSamplingSchemeCtl extends BaseCtl<LandSamplingScheme, LandSampl
 			, String page, RedirectAttributes redirectAttributes
 			, MultipartHttpServletRequest fileRequest) {
 		info.setId(UuidGenerateUtil.getUUIDLong());
+		info.setCode(AutoCode.LAND_SAMPLING_SCHEME);
 		info.setCreateId(getCurrentUserId());
 		info.setCreateTime(new Date());
 		landSamplingSchemeService.saveInfo(info, fileRequest);
@@ -178,8 +180,10 @@ public class LandSamplingSchemeCtl extends BaseCtl<LandSamplingScheme, LandSampl
 
 	@RequestMapping(value = "showView/{menuid}/{id}/", method = RequestMethod.GET)
 	public String showView(@PathVariable("id") String id, @PathVariable("menuid") String menuid, String page, Model model) {
-		
 		LandSamplingScheme info = landSamplingSchemeService.getById(id);
+		if (info != null) {
+			model.addAttribute("planInfo", landSamplingPlanService.getById(info.getPlanId()));
+		}
 		
 		model.addAttribute("menuid", menuid);
 		model.addAttribute("page", page);

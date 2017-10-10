@@ -42,7 +42,7 @@ public class StandardIndustryServiceImpl extends AbstractBaseService<StandardInd
 	public void updateInfo(StandardIndustry info, MultipartHttpServletRequest fileRequest) {
 		String id = info.getId();
 		filesService.saveFile(id, filesService.getBusinessType(StandardIndustry.class), FILE_TYPE, 60L, fileRequest);
-		this.updateById(info);
+		this.updateByIdSelective(info);
 	}
 
 }

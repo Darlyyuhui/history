@@ -37,6 +37,6 @@ public class LandBlockErrorServiceImpl extends AbstractBaseService<LandBlockErro
 	public void updateInfo(LandBlockError info, MultipartHttpServletRequest fileRequest) {
 		String id = info.getId();
 		filesService.saveFile(id, filesService.getBusinessType(LandBlockError.class), FILE_TYPE, 10L, fileRequest);
-		this.updateById(info);
+		this.updateByIdSelective(info);
 	}
 }

@@ -25,7 +25,7 @@
 		<input type="hidden" id="isContinue" name="isContinue" value="0"/>
         <div class="profile-user-info profile-user-info-striped">
             <div class="profile-info-row">
-                <div class="profile-info-name" style="width: 180px;">上级类型名称</div>
+                <div class="profile-info-name">上级类型名称</div>
                 <div class="profile-info-value">
                 ${pname }
                 <input type="hidden" name="pid" value="${pid }" />
@@ -35,7 +35,7 @@
                 <div class="profile-info-name">类型编号</div>
                 <div class="profile-info-value">
                 	<input type="text" id="code" name="code" maxlength="20"
-						style="min-width:120px; width: 350px;" class="input-large required"/>
+						style="min-width:120px; width: 500px;" class="input-large required"/>
 					<span style="color: red">*</span>
 					<span id="checkCodeSpan" style="color: red"></span>
 				</div>
@@ -44,7 +44,7 @@
                 <div class="profile-info-name">类型名称</div>
                 <div class="profile-info-value">
                 	<input type="text" id="name" name="name" maxlength="50"
-						style="min-width:120px; width: 350px;" class="input-large required"/>
+						style="min-width:120px; width: 500px;" class="input-large required"/>
 					<span style="color: red">*</span>
 				</div>
             </div>
@@ -52,14 +52,14 @@
                 <div class="profile-info-name">排序</div>
                 <div class="profile-info-value">
                 <input type="text" id="sort" name="sort" maxlength="5"
-                     style="min-width:120px; width: 350px;" class="input-large digits">
+                     style="min-width:120px; width: 500px;" class="input-large digits">
                 </div>
             </div>
             <div class="profile-info-row">
                 <div class="profile-info-name">备注</div>
                 <div class="profile-info-value">
                 	<input type="text" id="remark" name="remark" maxlength="200"
-						style="min-width:120px; width: 350px;" class="input-large"/>
+						style="min-width:120px; width: 500px;" class="input-large"/>
 				</div>
             </div>
         </div>

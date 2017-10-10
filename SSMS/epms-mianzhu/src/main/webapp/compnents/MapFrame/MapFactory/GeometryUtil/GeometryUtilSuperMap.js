@@ -4,7 +4,7 @@ MapFactory.Define("MapFactory/GeometryUtil",[
 	"MapFactory/GeometryType*"
 ],function(api,geoClass,geoType){
 	return function(){
-
+ 
 		function convertFromObject(geometry){
 			if(!geometry){
 				return null;

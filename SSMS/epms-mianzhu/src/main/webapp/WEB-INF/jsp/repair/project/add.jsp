@@ -51,14 +51,6 @@
 
                         <input type="hidden" id="blockIds" name="blockIds" />
                         <div class="profile-info-row">
-                            <div class="profile-info-name">项目编号</div>
-                            <div class="profile-info-value">
-                                <input type="text" id="code" name="code" maxlength="20"
-                                       style="min-width:120px; width: 200px;" class="input-large required"/>
-                                <span style="color: red">*</span>
-                                <span id="checkCodeSpan" style="color: red"></span>
-                            </div> </div>
-                        <div class="profile-info-row">
                             <div class="profile-info-name">项目名称</div>
                             <div class="profile-info-value">
                                 <input type="text" id="name" name="name" maxlength="40"
@@ -186,7 +178,6 @@
 </div>
 
 <script>
-	var isCheck = false;
 	var v;
 	var isSelect=false;
 	  var landIds=[];
@@ -205,7 +196,7 @@
     			}
     		}
         });
-        $("#code").focus();
+        $("#name").focus();
         initMap("map");
         // 初始化地图
         function initMap(mapDiv) {
@@ -256,8 +247,8 @@
         	MapFactory.XHR.Post(path
     				+ "/map/all/landblock/",
     		function(target) {
-        	    for(let j=0;j<target.length;j++){
-        	    	for(let k=0;k<selectedLand.length;k++){
+        	    for(var j=0;j<target.length;j++){
+        	    	for(var k=0;k<selectedLand.length;k++){
         	    		  if(target[j].id===selectedLand[k]){
         	    			  (function(target,j){
         	    				  areasSum=areasSum+target[j].area;
@@ -284,30 +275,10 @@
     	
     
     function checkForm() {
-    	checkCode();
-    	if (v.checkForm() && isCheck) {
+    	if (v.checkForm()) {
     		$("#inputForm").submit();
     	}else{
     		v.showErrors();
-    	}
-    }
-    function checkCode() {
-    	var codeObj = $("#code");
-    	if (codeObj.val() != "") {
-    		$.ajax({
-    			async:false,
-    			type:"post",
-    			url:"${root}/repair/project/checkCode/"+codeObj.val()+"/",
-    			data:"tName=T_LAND_REPAIR_PROJECT&cName=CODE",
-    			success:function(data) {
-    				if (data.result == "ok") {
-    					isCheck = true;
-    					$("#checkCodeSpan").empty();
-    				}else {
-    					$("#checkCodeSpan").empty().html(data.message);
-    				}
-    			}
-    		});
     	}
     }
     
@@ -316,7 +287,7 @@
        		"${root}/bs/region/getLocation/"+$("#regionId").val()+"/",
        		function(data) {
        			if(data){
-       				_map.centerAt(data.longitude,data.latitude,6);	
+       				_map.centerAt(data.longitude,data.latitude,4);	
        			}
        			
        		}

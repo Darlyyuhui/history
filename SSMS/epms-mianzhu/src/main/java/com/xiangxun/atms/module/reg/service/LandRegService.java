@@ -1,6 +1,7 @@
 package com.xiangxun.atms.module.reg.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -28,4 +29,10 @@ public interface LandRegService extends BaseService<LandReg, LandRegSearch> {
 	 * @return
 	 */
 	List<LandReg> getInfoByAnalysis();
+	
+	/**
+	 * 获取所有没有采样分析的登记数据
+	 * @return key=code  value=id
+	 */
+	Map<String, String> getRegsByNoAnalysis();
 }

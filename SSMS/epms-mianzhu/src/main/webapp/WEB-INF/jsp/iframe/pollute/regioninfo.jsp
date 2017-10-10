@@ -1,5 +1,4 @@
 <%@ page language="java" pageEncoding="utf-8"%>
-<%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
     .mian_white{background: white;color:#000;}
@@ -249,7 +248,7 @@ var option = {
                             <th class="text-center">最大值</th>
                             <th class="text-center">标准差</th>
                             <th class="text-center">变异系数</th>
-                            <th class="text-center">超表率</th>
+                            <th class="text-center">超标率</th>
                         </tr>
                         </thead>
                         <tbody>

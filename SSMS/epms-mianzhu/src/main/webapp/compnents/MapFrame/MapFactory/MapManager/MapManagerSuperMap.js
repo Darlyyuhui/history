@@ -30,6 +30,8 @@ MapFactory.Define("MapFactory/MapManager",[
 		var _mapHandler = null,
 			_baseLayer = null,
             _imageLayer = null,
+            _appLayer=null,
+            _appLayerArr=null,
 			_baseLayerLabels = null,
 			_mapConfig = _conf.mapConfig,
 			initExtent = _mapConfig.initExtent,
@@ -62,7 +64,36 @@ MapFactory.Define("MapFactory/MapManager",[
 			if(_conf.src){document.getElementById(_conf.src).oncontextmenu = function(){return false;};}
 		}
 		
-		
+		//获取需要初始化的图层
+		function loadNeedInitLayerConfig(){
+			_appLayerArr=[];
+			for(var elem in _mapConfig.layers){
+				var lyr=_mapConfig.layers[elem];
+				var isBaseMap=lyr.hasOwnProperty("isBaseMap") ? lyr.isBaseMap : false;
+				var isInit=lyr.hasOwnProperty("isInit") ? lyr.isInit : false;
+				if(lyr.hasOwnProperty("url") && !isBaseMap && isInit){
+					_appLayerArr.push(lyr);
+				}
+			}
+			loadAppServiceLayer();
+		}
+		//添加服务应用图层
+		function loadAppServiceLayer(){
+			if(!_appLayerArr || _appLayerArr.length==0){
+				return;
+			}
+			var layer=_appLayerArr.shift();
+			var visibility=layer.hasOwnProperty("visibility") ? layer.visibility : false;
+			_appLayer = new SuperMap.Layer.TiledDynamicRESTLayer(layer.id,layer.url, {transparent: true},{visibility: visibility});
+			_appLayer.id = layer.id;
+			_appLayer.events.on({"layerInitialized": initAddServiceLayer});
+		}
+		//初始化完成加入地图
+		function initAddServiceLayer(){
+			_mapHandler.addLayer(_appLayer);
+			loadAppServiceLayer();
+		}
+       
 		//暂时没用
 		function setCurrentMap(mapDiv) {
 			if(mapDiv ==_conf.src) {
@@ -110,6 +141,8 @@ MapFactory.Define("MapFactory/MapManager",[
 					if(document.getElementById(_conf.src)){document.getElementById(_conf.src).oncontextmenu = function(){return false;};}
 					_conf.loaded();
 			}
+			
+			loadNeedInitLayerConfig();
 		}
 
         function setBaseMapLayer(layer) {

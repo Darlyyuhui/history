@@ -62,7 +62,7 @@
         	<div class="profile-info-row">
                 <div class="profile-info-name">计划执行单位</div>
                 <div class="profile-info-value">
-					<input type="text" id="dept" name="dept" maxlength="50" value="${info.dept }"
+					<input type="text" id="dept" name="dept" maxlength="30" value="${info.dept }"
 						style="min-width:120px; width: 840px;" class="input-large"/>
 				</div>
             </div>

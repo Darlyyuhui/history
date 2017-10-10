@@ -8,10 +8,10 @@
 <%-- 
 idElement : 树选择后ID存放的html对象ID值
 nameElement : 树选择后NAME存放的html对象ID值
-treeType : 树类型：region=行政区域树，landtype=土壤类型树
+treeType : 树类型：region=行政区域树，landtype=土壤类型树，repairstage=土壤修复阶段
 width : 模态框宽度（非必须，默认350）
 height : 模态框高度（非必须，默认500）
-isCallback : 是否有回调函数，此回调函数方法名固定regionTreeCB和landtypeTreeCB，当isCallback=1时，调用该标签的页面必须有对应的回调函数
+isCallback : 是否有回调函数，此回调函数方法名固定regionTreeCB、landtypeTreeCB、repairstageTreeCB，当isCallback=1时，调用该标签的页面必须有对应的回调函数
  --%>
 
 <%
@@ -26,10 +26,16 @@ isCallback : 是否有回调函数，此回调函数方法名固定regionTreeCB�
 	if ("region".equals(treeType)) {
 		title = "行政区域选择";
 		url = "bs/region/showRegion/";
-	} else if ("landtype".equals(treeType)) {
+	} 
+	else if ("landtype".equals(treeType)) {
 		title = "土壤类型选择";
 		url = "bs/landtype/showType/";
-	} else {
+	} 
+	else if ("repairstage".equals(treeType)) {
+		title = "土壤修复阶段选择";
+		url = "bs/repairstage/showType/";
+	}
+	else {
 		title = "行政区域选择";
 		url = "bs/region/showRegion/";
 		treeType = "region";

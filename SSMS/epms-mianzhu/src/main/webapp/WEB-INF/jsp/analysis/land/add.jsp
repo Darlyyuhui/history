@@ -31,14 +31,6 @@
         <div class="profile-user-info profile-user-info-striped">
         
             <div class="profile-info-row">
-                <div class="profile-info-name">分析编号</div>
-                <div class="profile-info-value">
-                	<input type="text" id="code" name="code" maxlength="20"
-						style="min-width:120px; width: 350px;" class="input-large required"/>
-					<span style="color: red">*</span>
-					<span id="checkCodeSpan" style="color: red"></span>
-				</div>
-				
 				<div class="profile-info-name">采样编号</div>
                 <div class="profile-info-value">
                 	<select id="regId" name="regId" style="min-width:120px; width: 350px;" class="required" onchange="getRegDetail(this.value)">
@@ -47,6 +39,13 @@
                 			<option value="${item.id }">${item.code }</option>
                 		</c:forEach>
                 	</select>
+					<span style="color: red">*</span>
+				</div>
+				
+				<div class="profile-info-name">分析单位</div>
+                <div class="profile-info-value">
+					<input type="text" id="dept" name="dept" maxlength="20" 
+						style="min-width:120px; width: 350px;" class="input-large required"/>
 					<span style="color: red">*</span>
 				</div>
             </div>
@@ -73,13 +72,13 @@
             <div class="profile-info-row">
                 <div class="profile-info-name">PH值</div>
                 <div class="profile-info-value">
-					<input type="text" id="ph" name="ph" maxlength="6" min="0" max="14"
+					<input type="text" id="ph" name="ph" maxlength="4" min="0" max="14"
 						style="min-width:120px; width: 350px;" class="input-large number"/>
 				</div>
 				
 				<div class="profile-info-name">镉</div>
                 <div class="profile-info-value">
-					<input type="text" id="cadmium" name="cadmium" maxlength="6"
+					<input type="text" id="cadmium" name="cadmium" maxlength="4"
 						style="min-width:120px; width: 350px;" class="input-large number required"/>
 					<span style="color: red">*</span>
 				</div>
@@ -88,13 +87,13 @@
             <div class="profile-info-row">
             	<div class="profile-info-name">有效态镉</div>
                 <div class="profile-info-value">
-					<input type="text" id="availableCadmium" name="availableCadmium" maxlength="6"
+					<input type="text" id="availableCadmium" name="availableCadmium" maxlength="4"
 						style="min-width:120px; width: 350px;" class="input-large number"/>
 				</div>
             
                 <div class="profile-info-name">样品状态</div>
                 <div class="profile-info-value">
-					<input type="text" id="sampleStatus" name="sampleStatus" maxlength="300"
+					<input type="text" id="sampleStatus" name="sampleStatus" maxlength="150"
 						style="min-width:120px; width: 350px;" class="input-large"/>
 				</div>
 				
@@ -112,19 +111,6 @@
                 <div class="profile-info-value">
 					<input type="text" id="overItem" name="overItem" maxlength="20" readonly="readonly"
 						style="min-width:120px; width: 350px;" class="input-large"/>
-				</div>
-            </div>
-            
-            <div class="profile-info-row">
-                <div class="profile-info-name">分析单位</div>
-                <div class="profile-info-value">
-					<input type="text" id="dept" name="dept" maxlength="20" 
-						style="min-width:120px; width: 350px;" class="input-large required"/>
-					<span style="color: red">*</span>
-				</div>
-				
-				<div class="profile-info-name"></div>
-                <div class="profile-info-value">
 				</div>
             </div>
         </div>

@@ -21,4 +21,10 @@ public interface LandRegMapper extends BaseMapper<LandReg, LandRegSearch> {
 	 */
 	List<LandReg> getInfoByAnalysis();
 	
+	/**
+	 * 获取没有分析数据的采样登记
+	 * @return
+	 */
+	List<LandReg> getRegsByNoAnalysis();
+	
 }

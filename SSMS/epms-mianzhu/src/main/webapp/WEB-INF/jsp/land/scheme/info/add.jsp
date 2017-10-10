@@ -20,7 +20,7 @@
         <div class="profile-user-info profile-user-info-striped">
             <div class="profile-info-row">
                 <div class="profile-info-name">采样计划</div>
-                <div class="profile-info-value">
+                <div class="profile-info-value" style="width: 500px;">
                 	<select id="planId" name="planId" class="required" style="min-width:120px; width: 350px;" onchange="getSamplingTypes(this.value)">
                 		<option value="">请选择</option>
                 		<c:forEach items="${plans }" var="item">
@@ -30,29 +30,26 @@
                 	<span style="color: red">*</span>
 				</div>
 				
-				<div class="profile-info-name">采样地块</div>
+				<div class="profile-info-name">采样选址</div>
                 <div class="profile-info-value">
-                	<select id="blockId" name="blockId" style="min-width:120px; width: 350px;">
-                		<option value="">请选择</option>
-                		<c:forEach items="${blocks }" var="item">
-                			<option value="${item.id }">${item.name }【${item.code }】</option>
-                		</c:forEach>
-                	</select>
-                </div>
+					<input type="text" id="regionName" readonly="readonly"
+						style="min-width:120px; width: 350px;" class="input-large required" />
+					<input type="hidden" id="regionId" name="regionId" />
+					<span style="color: red">*</span>
+				</div>
             </div>
             
             <div class="profile-info-row">
-                <div class="profile-info-name">方案编号</div>
-                <div class="profile-info-value">
-                	<input type="text" id="code" name="code" maxlength="20"
-						style="min-width:120px; width: 350px;" class="input-large required"/>
-					<span style="color: red">*</span>
-					<span id="checkCodeSpan" style="color: red"></span>
-				</div>
-                
                 <div class="profile-info-name">方案名称</div>
                 <div class="profile-info-value">
                 	<input type="text" id="name" name="name" maxlength="50"
+						style="min-width:120px; width: 350px;" class="input-large required"/>
+					<span style="color: red">*</span>
+				</div>
+				
+				<div class="profile-info-name">检测项目</div>
+                <div class="profile-info-value">
+					<input type="text" id="testItems" name="testItems" maxlength="100"
 						style="min-width:120px; width: 350px;" class="input-large required"/>
 					<span style="color: red">*</span>
 				</div>
@@ -67,30 +64,33 @@
                 	<div style="color: red; float: left;">*</div>
                 </div>
             	
-                <div class="profile-info-name">采样选址</div>
-                <div class="profile-info-value">
-					<input type="text" id="regionName" readonly="readonly"
-						style="min-width:120px; width: 350px;" class="input-large required" />
-					<input type="hidden" id="regionId" name="regionId" />
-					<span style="color: red">*</span>
-				</div>
-            </div>
-            
-            <div class="profile-info-row">
-            	<div class="profile-info-name">检测项目</div>
-                <div class="profile-info-value">
-					<input type="text" id="testItems" name="testItems" maxlength="100"
-						style="min-width:120px; width: 350px;" class="input-large required"/>
-					<span style="color: red">*</span>
-				</div>
-            
-            	<div class="profile-info-name">制定单位</div>
+                <div class="profile-info-name">制定单位</div>
                 <div class="profile-info-value">
 					<input type="text" id="dept" name="dept" maxlength="50"
 						style="min-width:120px; width: 350px;" class="input-large"/>
 				</div>
             </div>
             
+        </div>
+        <div id="blockDiv" class="profile-user-info profile-user-info-striped" style="border-top-style: none; display: none;">
+        	<div class="profile-info-row">
+				<div class="profile-info-name">采样地块</div>
+                <div class="profile-info-value" style="width: 500px;">
+                	<select id="blockId" name="blockId" style="min-width:120px; width: 350px;">
+                		<option value="">请选择</option>
+                		<c:forEach items="${blocks }" var="item">
+                			<option value="${item.id }">${item.name }【${item.code }】</option>
+                		</c:forEach>
+                	</select>
+                </div>
+                
+                <div class="profile-info-name">修复进度</div>
+                <div class="profile-info-value">
+                    <select id="repairSchedule" name="repairSchedule" style="min-width:120px; width: 350px;">
+                        <tags:diccache typeCode="LAND_REPAIR_SCHEDULE" />
+                    </select>
+                </div>
+            </div>
         </div>
         <div class="profile-user-info profile-user-info-striped" style="border-top-style: none;">
         	<div class="profile-info-row" >
@@ -115,16 +115,14 @@
 
 <script>
 	var v;
-	var isCheck = false;
     $(document).ready(function () {
         //聚焦第一个输入框
         //为inputForm注册validate函数
         v = $("#inputForm").validate();
-        $("#code").focus();
+        $("#name").focus();
     });
     function checkForm() {
-    	checkCode();
-    	if (v.checkForm() && isCheck) {
+    	if (v.checkForm()) {
     		if (checkedRadio()) {
     			var radVal = $("input[name='sampleCode']:checked").val();
     			if(radVal == "NTTR" && $("#blockId option:selected").val() == "") {
@@ -151,27 +149,6 @@
     	return isCked;
     }
     
-    
-    function checkCode() {
-    	var codeObj = $("#code");
-    	if (codeObj.val() != "") {
-    		$.ajax({
-    			async:false,
-    			type:"post",
-    			url:"${root}/land/sampling/scheme/checkCode/"+codeObj.val()+"/",
-    			data:"tName=T_LAND_SAMPLING_SCHEME&cName=CODE",
-    			success:function(data) {
-    				if (data.result == "ok") {
-    					isCheck = true;
-    					$("#checkCodeSpan").empty();
-    				}else {
-    					$("#checkCodeSpan").empty().html(data.message);
-    				}
-    			}
-    		});
-    	}
-    }
-    
     function getSamplingTypes(planId) {
     	if (planId == "") {
     		$("#samplingTypeDiv").html("<span style=\"color: blue\">请选择采样计划</span>");
@@ -182,6 +159,16 @@
     				$("#samplingTypeDiv").html(data);
     			}
     		);
+    	}
+    }
+    
+    function ckbSample(val) {
+    	if (val == "NTTR") {
+    		$("#blockDiv").css("display", "block");
+    	} else {
+    		$("#blockDiv").css("display", "none");
+    		$("#blockId").val("");
+    		$("#repairSchedule").val("");
     	}
     }
 </script>

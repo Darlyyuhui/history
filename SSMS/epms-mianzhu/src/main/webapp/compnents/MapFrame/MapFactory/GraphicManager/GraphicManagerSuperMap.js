@@ -223,7 +223,6 @@ MapFactory.Define("MapFactory/GraphicManager",[
 			MapFactory._MapGraphicResource[_gid] = highlightGraphic;
 			MapFactory._MapLayerGraphicResource[highlightLayerId].push(_gid);
 			_mapEngine.getLayer(highlightLayerId).addFeatures([highlightGraphic]);
-			console.log(_mapEngine.getLayer(highlightLayerId));
 		}
 
 		function clearAllHighlight(){

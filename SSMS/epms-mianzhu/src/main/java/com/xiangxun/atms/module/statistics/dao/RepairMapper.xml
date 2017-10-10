@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.statistics.dao.RepairMapper" >
+
+  <resultMap id="BaseMap" type="com.xiangxun.atms.module.statistics.vo.RepairInfo" >
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+    <result column="END_" property="end" jdbcType="DOUBLE" />
+    <result column="STAGE1" property="stage1" jdbcType="DOUBLE" />
+	<result column="STAGE2" property="stage2" jdbcType="DOUBLE" />
+	<result column="STAGE3" property="stage3" jdbcType="DOUBLE" />
+	<result column="STAGE4" property="stage4" jdbcType="DOUBLE" />
+	<result column="STAGE5" property="stage5" jdbcType="DOUBLE" />
+	<result column="STAGE6" property="stage6" jdbcType="DOUBLE" />
+	<result column="STAGE7" property="stage7" jdbcType="DOUBLE" />
+	<result column="STAGE8" property="stage8" jdbcType="DOUBLE" />
+	<result column="STAGE9" property="stage9" jdbcType="DOUBLE" />
+	<result column="STAGE10" property="stage10" jdbcType="DOUBLE" />
+	<result column="STAGE11" property="stage11" jdbcType="DOUBLE" />
+	<result column="STAGE12" property="stage12" jdbcType="DOUBLE" />
+	<result column="STAGE13" property="stage13" jdbcType="DOUBLE" />
+	<result column="STAGE14" property="stage14" jdbcType="DOUBLE" />
+	<result column="STAGE15" property="stage15" jdbcType="DOUBLE" />
+	<result column="STAGE16" property="stage16" jdbcType="DOUBLE" />
+	<result column="STAGE17" property="stage17" jdbcType="DOUBLE" />
+	<result column="STAGE18" property="stage18" jdbcType="DOUBLE" />
+	<result column="STAGE19" property="stage19" jdbcType="DOUBLE" />
+	<result column="STAGE20" property="stage20" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  
+  <select id="getList" resultMap="BaseMap" >
+  	SELECT T.REGION_ID
+	, SUM(CASE WHEN T.SCHEDULE = '099' THEN T.AREA ELSE 0 END) AS END_
+	<foreach collection="dicCodes" item="code" index="k">
+		, SUM(CASE WHEN T.SCHEDULE = '${code}' THEN T.AREA ELSE 0 END) AS STAGE${k+1}
+	</foreach>
+	FROM T_LAND_REPAIR_PROJECT T
+	<where>
+  	  <if test="@Ognl@isNotEmpty(regionId)" >
+	     AND T.REGION_ID = #{regionId,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(beginTime)" >
+	     AND T.BEGIN_TIME <![CDATA[>=]]> #{beginTime,jdbcType=VARCHAR}
+      </if>
+      <if test="@Ognl@isNotEmpty(endTime)" >
+         AND T.BEGIN_TIME <![CDATA[<=]]> #{endTime,jdbcType=VARCHAR}
+      </if>
+  	</where>
+	GROUP BY T.REGION_ID
+  </select>
+  
+</mapper>

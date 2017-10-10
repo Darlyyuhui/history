@@ -1,5 +1,5 @@
 <#-- 基地面积 -->
-<#setting number_format="#">
+<#setting number_format="#0.000">
 {
     tooltip: {
         trigger: "axis",

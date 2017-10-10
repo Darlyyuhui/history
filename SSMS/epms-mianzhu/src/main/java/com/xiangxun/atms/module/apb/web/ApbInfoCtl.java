@@ -46,6 +46,7 @@ import com.xiangxun.atms.module.apb.vo.ApbInfoSearch;
 import com.xiangxun.atms.module.apb.vo.ApbProductType;
 import com.xiangxun.atms.module.base.web.BaseCtl;
 import com.xiangxun.atms.module.bs.cache.LandTypeCache;
+import com.xiangxun.atms.module.bs.constant.AutoCode;
 import com.xiangxun.atms.module.bs.service.LandTypeService;
 import com.xiangxun.atms.module.bs.vo.LandType;
 import com.xiangxun.atms.module.geoServer.domain.LayerBean;
@@ -76,9 +77,10 @@ public class ApbInfoCtl extends BaseCtl<ApbInfo,ApbInfoSearch> {
     }
 
     @RequestMapping(value="list/{menuid}/")
-    public String list(@PathVariable("menuid") String menuid, ModelMap model, @RequestParam(value = "sortType", defaultValue = "ID") String sortType, @RequestParam(value = "page", defaultValue = "0") int pageNumber, HttpServletRequest request) {
+    public String list(@PathVariable("menuid") String menuid, ModelMap model, @RequestParam(value = "sortType", defaultValue = "CREATE_TIME DESC") String sortType, @RequestParam(value = "page", defaultValue = "0") int pageNumber, HttpServletRequest request) {
         logger.info("正在进行【农产品基地】数据列表查询。。。。。。");
         Map<String, Object> searchParams = Servlets.getParametersStartingWith(request, "search_");
+        super.updateSession(request, menuid, searchParams);
         Page page = apbInfoService.getListByCondition(searchParams,pageNumber,Page.DEFAULT_PAGE_SIZE,sortType,menuid);
         model.addAttribute("menuid", menuid);
         model.addAttribute("sortType", sortType);
@@ -95,9 +97,12 @@ public class ApbInfoCtl extends BaseCtl<ApbInfo,ApbInfoSearch> {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
+        model.addAllAttributes(searchParams);
         model.addAttribute("apbInfo",apbInfo);
         model.addAttribute("page",pageNumber);
         model.addAttribute("ID_APBPRODUCTTYPENAME",ApbInfoCache.ID_MAINPRODUCT);
+        model.addAttribute("APBPRODUCTTYPE",ApbProductTypeCache.CODE_NAME);
+        
         model.addAttribute("SOILE_TYPE",LandTypeCache.CODE_NAME);
         return "apb/apbinfo/list";
     }
@@ -126,6 +131,7 @@ public class ApbInfoCtl extends BaseCtl<ApbInfo,ApbInfoSearch> {
 		layerBean.setName(apbInfo.getName());
 		iMapOperation.add(LayerEnum.APBLAND, layerBean);
     	apbInfo.setId(id);
+    	apbInfo.setCode(AutoCode.APB_INFO);
     	apbInfo.setCreateId(getCurrentUserId());
     	apbInfo.setCreateTime(new Date());
     	apbInfoService.save(apbInfo);

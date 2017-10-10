@@ -3,14 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
-<script src="${root}/compnents/ace/js/jquery-3.2.1.min.js"></script>
+<script src="${root}/compnents/ace/js/jquery-1.7.2.min.js"></script>
 <link rel="stylesheet" href="${root}/compnents/jquery-adGallery/jquery.ad-gallery.css" />
 <script src="${root}/compnents/jquery-adGallery/jquery.ad-gallery.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function() {
 	var galleries = $('.ad-gallery').adGallery({
-        width:250,
-        height:200
+        width:${width},
+        height:${height}
     });
 	$('#switch-effect').change(function() {
 		galleries[0].settings.effect = $(this).val();

@@ -83,8 +83,9 @@ MapFactory.Define("ItmsMap/UserLayers/CustomLayers/SamplingPoint*",[
 
 
 		function querycyd(){
+			var spaceTime = datacontroller.gettimeSpace();
 			MapFactory.XHR.Post(path
-					+ "/map/getall/points/",
+					+ "/map/getall/points/",spaceTime,
 					function(target) {
 				datacontroller.setPointList(target);
 				drawcydPoint();
@@ -125,6 +126,10 @@ MapFactory.Define("ItmsMap/UserLayers/CustomLayers/SamplingPoint*",[
 			xzqyLyrPoint.clear();
 			InfoWindowManager().hide();
 			lastExtent=null;
+		}
+		function drawRegionByTimeChange(){
+			datacontroller.setPointList([]);
+			drawRegions(_menus,_regionmenu);
 		}
 		/**
 		 * 

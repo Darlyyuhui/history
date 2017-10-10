@@ -73,13 +73,13 @@
             <div class="profile-info-row">
                 <div class="profile-info-name">PH值</div>
                 <div class="profile-info-value">
-					<input type="text" id="ph" name="ph" maxlength="6" min="0" max="14" value="${info.ph }"
+					<input type="text" id="ph" name="ph" maxlength="4" min="0" max="14" value="${info.ph }"
 						style="min-width:120px; width: 350px;" class="input-large number"/>
 				</div>
 				
 				<div class="profile-info-name">镉</div>
                 <div class="profile-info-value">
-					<input type="text" id="cadmium" name="cadmium" maxlength="6" value="${info.cadmium }"
+					<input type="text" id="cadmium" name="cadmium" maxlength="4" value="${info.cadmium }"
 						style="min-width:120px; width: 350px;" class="input-large number required"/>
 					<span style="color: red">*</span>
 				</div>
@@ -88,13 +88,13 @@
             <div class="profile-info-row">
             	<div class="profile-info-name">有效态镉</div>
                 <div class="profile-info-value">
-					<input type="text" id="availableCadmium" name="availableCadmium" maxlength="6" value="${info.availableCadmium }"
+					<input type="text" id="availableCadmium" name="availableCadmium" maxlength="4" value="${info.availableCadmium }"
 						style="min-width:120px; width: 350px;" class="input-large number"/>
 				</div>
             
                 <div class="profile-info-name">样品状态</div>
                 <div class="profile-info-value">
-					<input type="text" id="sampleStatus" name="sampleStatus" maxlength="300" value="${info.sampleStatus }"
+					<input type="text" id="sampleStatus" name="sampleStatus" maxlength="150" value="${info.sampleStatus }"
 						style="min-width:120px; width: 350px;" class="input-large"/>
 				</div>
 				

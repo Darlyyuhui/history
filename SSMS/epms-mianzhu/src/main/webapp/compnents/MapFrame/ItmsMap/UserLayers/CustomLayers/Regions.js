@@ -197,14 +197,17 @@ MapFactory.Define("ItmsMap/UserLayers/CustomLayers/Regions*",[
 			info.setHeight(220);
 			info.setTitle(title);
 			//path+"/forward/iframe/regions/"
-			info.setLoadPage(path+"/map/pollute/region/info/"+code+"/",{}, function(){
+			var spaceTime = DataController().gettimeSpace();
+			info.setLoadPage(path+"/map/pollute/region/info/"+code+"/",spaceTime, function(){
 
 			});
 
 //			positionManager.addHighLightPosition(point);
 			info.show();
 		}
-
+		function drawRegionByTimeChange(){
+		
+		}
 		return eval(MapFactory.GenerateAPI(api));
 	}
 });

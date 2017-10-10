@@ -33,12 +33,23 @@ public class LandSamplingScheme {
     
     private String testItems;
     
+    private String repairSchedule;
+    
     private String planCode;
     private String planName;
     private String blockCode;
     private String blockName;
+    private String geoJson;
 
-    public String getPlanCode() {
+    public String getGeoJson() {
+		return geoJson;
+	}
+
+	public void setGeoJson(String geoJson) {
+		this.geoJson = geoJson;
+	}
+
+	public String getPlanCode() {
 		return planCode;
 	}
 
@@ -302,7 +313,15 @@ public class LandSamplingScheme {
 		this.testItems = testItems;
 	}
 
-	/**
+    public String getRepairSchedule() {
+        return repairSchedule;
+    }
+
+    public void setRepairSchedule(String repairSchedule) {
+        this.repairSchedule = repairSchedule == null ? null : repairSchedule.trim();
+    }
+
+    /**
     
      */
     @Override
@@ -325,6 +344,8 @@ public class LandSamplingScheme {
         sb.append(", updateId=").append(updateId);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", status=").append(status);
+        sb.append(", testItems=").append(testItems);
+        sb.append(", repairSchedule=").append(repairSchedule);
         sb.append("]");
         return sb.toString();
     }

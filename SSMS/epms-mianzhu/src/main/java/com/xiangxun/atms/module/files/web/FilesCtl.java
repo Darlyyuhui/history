@@ -75,10 +75,14 @@ public class FilesCtl extends BaseCtl {
 	@RequestMapping(value = "viewFiles/{businessId}/", method = RequestMethod.GET)
 	public String viewFiles(@PathVariable String businessId
 			, @RequestParam(value = "isDel", required = true, defaultValue = "0") String isDel
+			, @RequestParam(value = "width", required = false, defaultValue = "250") int width
+			, @RequestParam(value = "height", required = false, defaultValue = "200") int height
 			, Model model, HttpServletRequest request) {
 		List<Files> list = filesService.queryByBusinessId(businessId, request);
 		model.addAttribute("fileList", list);
 		model.addAttribute("isDel", isDel);
+		model.addAttribute("width", width);
+		model.addAttribute("height", height);
 		return "files/files_view";
 	}
 	

@@ -63,7 +63,7 @@
 				
 				<div class="profile-info-name">拨付金额（万元）</div>
                 <div class="profile-info-value">
-					<input type="text" id="total" name="total" maxlength="10" value="${info.total }"
+					<input type="text" id="total" name="total" maxlength="8" value="${info.total }"
 						style="min-width:120px; width: 350px;" class="input-large number required"/>
 					<span style="color: red">*</span>
 				</div>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangxun.atms.module.statistics.dao.AnalysisMapper" >
+
+  <resultMap id="LandMap" type="com.xiangxun.atms.module.statistics.vo.AnalysisInfo" >
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+    
+    <result column="MIN_PH" property="minPh" jdbcType="DOUBLE" />
+    <result column="MAX_PH" property="maxPh" jdbcType="DOUBLE" />
+    <result column="AVG_PH" property="avgPh" jdbcType="DOUBLE" />
+    <result column="STDEV_PH" property="stdevPh" jdbcType="DOUBLE" />
+    <result column="BY_PH" property="byPh" jdbcType="DOUBLE" />
+    
+    <result column="MIN_CD" property="minCd" jdbcType="DOUBLE" />
+    <result column="MAX_CD" property="maxCd" jdbcType="DOUBLE" />
+    <result column="AVG_CD" property="avgCd" jdbcType="DOUBLE" />
+    <result column="STDEV_CD" property="stdevCd" jdbcType="DOUBLE" />
+    <result column="BY_CD" property="byCd" jdbcType="DOUBLE" />
+    <result column="CB_CD" property="cbCd" jdbcType="DOUBLE" />
+    
+    <result column="MIN_ACD" property="minACd" jdbcType="DOUBLE" />
+    <result column="MAX_ACD" property="maxACd" jdbcType="DOUBLE" />
+    <result column="AVG_ACD" property="avgACd" jdbcType="DOUBLE" />
+    <result column="STDEV_ACD" property="stdevACd" jdbcType="DOUBLE" />
+    <result column="BY_ACD" property="byACd" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  
+  <select id="getLandList" resultMap="LandMap" >
+  SELECT TT.REGION_ID
+  	, ROUND(TT.MIN_PH, 2) AS MIN_PH, ROUND(TT.MAX_PH, 2) AS MAX_PH, ROUND(TT.AVG_PH, 2) AS AVG_PH
+  	, ROUND(TT.STDEV_PH, 2) AS STDEV_PH, ROUND(TT.BY_PH, 2) AS BY_PH
+  	
+  	, ROUND(TT.MIN_CD, 2) AS MIN_CD, ROUND(TT.MAX_CD, 2) AS MAX_CD, ROUND(TT.AVG_CD, 2) AS AVG_CD
+  	, ROUND(TT.STDEV_CD, 2) AS STDEV_CD, ROUND(TT.BY_CD, 2) AS BY_CD, ROUND(TT.CB_CD, 2) AS CB_CD
+  	
+  	, ROUND(TT.MIN_ACD, 2) AS MIN_ACD, ROUND(TT.MAX_ACD, 2) AS MAX_ACD, ROUND(TT.AVG_ACD, 2) AS AVG_ACD
+  	, ROUND(TT.STDEV_ACD, 2) AS STDEV_ACD, ROUND(TT.MIN_PH, 2) AS BY_ACD
+  FROM (
+	  	SELECT T.REGION_ID
+			, MIN(T.PH) AS MIN_PH, MAX(T.PH) AS MAX_PH, AVG(T.PH) AS AVG_PH, STDEV(T.PH) AS STDEV_PH, STDEV(T.PH)/AVG(T.PH) * 100 AS BY_PH
+			
+			, MIN(T.CADMIUM) AS MIN_CD, MAX(T.CADMIUM) AS MAX_CD, AVG(T.CADMIUM) AS AVG_CD
+			, STDEV(T.CADMIUM) AS STDEV_CD, STDEV(T.CADMIUM)/AVG(T.CADMIUM) * 100 AS BY_CD
+			, SUM(CASE WHEN T.CADMIUM > 0.3 THEN 1 ELSE 0 END) / CAST(ROUND(COUNT(T.CADMIUM),2) AS NUMERIC(10,2)) * 100 AS CB_CD
+			
+			, MIN(T.AVAILABLE_CADMIUM) AS MIN_ACD, MAX(T.AVAILABLE_CADMIUM) AS MAX_ACD
+			, AVG(T.AVAILABLE_CADMIUM) AS AVG_ACD, STDEV(T.AVAILABLE_CADMIUM) AS STDEV_ACD
+			, STDEV(T.AVAILABLE_CADMIUM)/AVG(T.AVAILABLE_CADMIUM) * 100 AS BY_ACD
+		FROM V_ANALYSIS_LAND T
+		<where>
+	  	  <if test="@Ognl@isNotEmpty(regionId)" >
+		     AND T.REGION_ID = #{regionId,jdbcType=VARCHAR}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(beginTime)" >
+		     AND T.SAMPLING_TIME <![CDATA[>=]]> #{beginTime,jdbcType=VARCHAR}
+	      </if>
+	      <if test="@Ognl@isNotEmpty(endTime)" >
+	         AND T.SAMPLING_TIME <![CDATA[<=]]> #{endTime,jdbcType=VARCHAR}
+	      </if>
+	      AND T.DC_STATUS <![CDATA[<>]]> 3
+	  	</where>
+		GROUP BY T.REGION_ID
+	) TT
+  </select>
+  
+</mapper>

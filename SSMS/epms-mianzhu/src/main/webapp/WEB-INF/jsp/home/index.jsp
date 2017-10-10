@@ -55,7 +55,6 @@
     <script src="${root}/compnents/ace/js/jquery-1.7.2.min.js"></script>
     <script src="${root}/compnents/ace/js/ace-extra.min.js"></script>
     -->
-    <script src="${root}/compnents/fusioncharts/js/fusioncharts.js" type="text/javascript"></script>
     <script src="${root}/compnents/ECharts/echarts.min.js" type="text/javascript"></script>
 	<script src="${root}/compnents/ECharts/theme/shine.js" type="text/javascript"></script>
     <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
@@ -81,7 +80,6 @@
     <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
         <i class="ace-icon fa fa-cog bigger-150"></i>
     </div>
-
     <div class="ace-settings-box clearfix" id="ace-settings-box" style="min-height: 70px;">
         <div class="pull-left width-50">
             <div class="ace-settings-item">
@@ -105,7 +103,7 @@
             </div>
         </div>
         <!-- /.pull-left -->
-    </div>
+     </div>
     <!-- /.ace-settings-box -->
 </div>
 <!-- /.ace-settings-container -->
@@ -114,11 +112,11 @@
 <!-- 地图页签内容 -->
     <div class="row">
         <div id="map" class="col-xs-12" style="position:relative;height:807px;border:0;background-image:url(${root}/images/back.png)"  >
-            <div id="mapNavigationBox"></div>
-            <div id="mapViewSwitcher"></div>
-            <div id="mapZoomSlider"></div>
-            <!--
-            <div id="maplenged">
+            <div id="mapNavigationBox" style="visibility: hidden;"></div>
+            <div id="mapViewSwitcher" style="visibility: hidden;"></div>
+            <div id="mapZoomSlider" style="visibility: hidden;"></div>
+            
+            <!-- <div id="maplenged">
                 <p id="maplengedtitle"><span>地图图例</span></p>
                 <div id="maplengedcontent"></div>
             </div>
@@ -272,6 +270,7 @@ $(document).ready(function () {
         dragDrop($(".dragbox-2"));
         dragDrop($(".dragbox-3"));
     });
+    //获取资源行里边的参数
     function getUrlPra(parme){
         if(!parme)return;
 
@@ -290,9 +289,13 @@ $(document).ready(function () {
         return null;
     };
    var url_moudelId = getUrlPra("moudelId");
-
-
-   url_moudelId == "170620141051155588af2771661c5827" || "1706061722565164bb9a629d464a0b8b"?$("iframe").css("min-height","1000px"):$("iframe").css("min-height","600px");
+    if(url_moudelId == "1706061722565164bb9a629d464a0b8b" 
+    		|| url_moudelId == "170620141051155588af2771661c5827" 
+    		|| url_moudelId == "17071111280096009523d9377a39a008"){
+        $("iframe").css("min-height","1000px")
+    }else{
+        $("iframe").css("min-height","600px")
+    };
 </script>
 </body>
 </html>

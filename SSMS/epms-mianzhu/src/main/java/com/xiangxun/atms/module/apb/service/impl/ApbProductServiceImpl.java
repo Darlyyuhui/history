@@ -57,7 +57,7 @@ public class ApbProductServiceImpl extends AbstractBaseService<ApbProduct, ApbPr
 		public void updateInfo(ApbProduct info, MultipartHttpServletRequest fileRequest) {
 			String id = info.getId();
 			filesService.saveFile(id, filesService.getBusinessType(ApbProduct.class), FILE_TYPE, 60L, fileRequest);
-			this.updateById(info);
+			this.updateByIdSelective(info);
 		}
 		@Override
 		public List<ApbProduct> selectByTypeCode(String contion) {
