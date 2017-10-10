@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xiangxun.sampling">
+
+
+    <!-- 读取机器各种ID的权限 -->
+    <uses-permission android:name="android.permission.PERMISSION_GRANTED" />
+    <!-- 在SDCard中创建与删除文件权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- 往SDCard写入数据权限 -->
+    <!-- 关闭该包下的所有应用程序 -->
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <!-- 访问internet权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!--高德定位权限-->
+    <!-- Normal Permissions 不需要运行时注册 -->
+    <!--获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <!-- 请求网络 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 不是SDK需要的权限，是示例中的后台唤醒定位需要的权限 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 需要运行时注册的权限 -->
+    <!--用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--用于提高GPS定位速度-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!--写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--读取缓存数据-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 更改设置 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 3.2.0版本增加 -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!-- 3.2.0版本增加-->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true" />
+
+
+    <application
+        android:name=".base.XiangXunApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/NoTitle">
+
+        <activity
+            android:name=".ui.LoginActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <activity
+            android:name=".ui.MainFragmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".base.PermissionsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.SamplingPlanningActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.SamplingSenceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.SamplingTargetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.SamplingHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.SamplingHisPointActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.HisSenceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.SamplingHisExceptionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.SamplingHisExceptionPageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.SamplingExPageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.SamplingPointActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.AddNewPointPlanningActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.ChaoTuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.GroundChooseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.SamplingDbActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.SenceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.SenceOptionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.ShowImageViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.CameraActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".ui.setting.SetGuide"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".ui.setting.SystemSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.setting.ChangePasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.setting.ResolutionFontSetActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name=".ui.setting.SettingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name=".ui.setting.UserInformationActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <!--高德定位-->
+        <!-- 设置key -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="1717c506496508f8b9ac87edf0fd9579" />
+        <!-- 定位需要的服务 -->
+        <service android:name="com.amap.api.location.APSService" />
+        <service android:name=".service.MainService" />
+        <!--Sugar satyan 数据库框架使用-->
+        <meta-data
+            android:name="DATABASE"
+            android:value="sampling.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="false" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="com.xiangxun.sampling.db" />
+    </application>
+</manifest>

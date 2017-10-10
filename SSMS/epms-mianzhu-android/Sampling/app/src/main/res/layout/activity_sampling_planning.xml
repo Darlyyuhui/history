@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.xiangxun.sampling.widget.header.TitleView
+        android:id="@+id/id_planning_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/id_planning_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_padding20">
+
+
+        <TextView
+            android:id="@+id/id_planning_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:padding="@dimen/margin_padding2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize20" />
+
+        <TextView
+            android:id="@+id/id_planning_dept"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:padding="@dimen/margin_padding2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize20" />
+
+        <TextView
+            android:id="@+id/id_planning_place"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:padding="@dimen/margin_padding2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize20" />
+
+        <TextView
+            android:id="@+id/id_planning_tvs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/margin_padding2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize20" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/id_planning_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="没有新任务"
+            android:textColor="@color/color999999"
+            android:textSize="@dimen/textSize20"
+            android:visibility="gone" />
+
+        <com.xiangxun.sampling.widget.xlistView.XListView
+            android:id="@+id/id_planning_wlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/index_line"
+            android:dividerHeight="0.5dp"
+            android:listSelector="@null"
+            android:scrollbars="none" />
+    </FrameLayout>
+</LinearLayout>
